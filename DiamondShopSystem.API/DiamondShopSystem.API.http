@@ -1,6 +1,6 @@
-@DiamondShopSystem.API_HostAddress = http://localhost:5276
+@hostAddress = http://localhost:1234
 
-GET {{DiamondShopSystem.API_HostAddress}}/weatherforecast/
+GET {{hostAddress}}/login
 Accept: application/json
 
 ###
