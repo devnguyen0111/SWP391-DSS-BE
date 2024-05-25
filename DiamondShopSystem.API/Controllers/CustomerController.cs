@@ -6,33 +6,54 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace DiamondShopSystem.API.Controllers
 {
-    [Route("login")]
+    [Route("dss")]
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        public CustomerController() { }
 
-        
+        private readonly CustomerDAO _customerDAO;
+
+        public CustomerController()
+        {
+            _customerDAO = new CustomerDAO(); // Hoặc sử dụng Dependency Injection nếu cần
+        }
 
 
         // GET: api/<CustomerController>
-        [HttpGet]
+        [HttpGet("api/customers")]
         public IEnumerable<Customer> Get()
         {
-            var customerDAO = new CustomerDAO();
-            //print all students
-            return customerDAO.getAllCustomers().ToArray();
+            //print all customer
+            return _customerDAO.getAllCustomers();
 
         }
 
         // GET api/<CustomerController>/5
-        [HttpGet("{name}")]
-        public string Get(Customer name)
+        [HttpGet("getCustomer")]
+        public IActionResult GetCustomer([FromQuery] int id)
         {
-            var customerDAO = new CustomerDAO();
-            //print all students
-            return customerDAO.getCustomerByName(name.Name).ToString();
+            if (id == 0)
+            {
+                return BadRequest("Id is required.");
+            }
+
+            try
+            {
+                var customer = _customerDAO.GetCustomerByID(id);
+                if (customer == null)
+                {
+                    return NotFound("Customer not found");
+                }
+                return Ok(customer);
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
+    }
+
+        /*
 
         // POST api/<CustomerController>
         [HttpPost]
@@ -52,5 +73,6 @@ namespace DiamondShopSystem.API.Controllers
         public void Delete(int id)
         {
         }
+        */
     }
-}
+
