@@ -2,7 +2,6 @@
 EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all";
 
 -- Delete data from leaf tables first
-DELETE FROM ProductImage;
 DELETE FROM CoverSize;
 DELETE FROM CoverMetalType;
 DELETE FROM CartProduct;
