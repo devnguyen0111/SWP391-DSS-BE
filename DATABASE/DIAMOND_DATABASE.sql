@@ -153,6 +153,21 @@ CREATE TABLE CartProduct (
     FOREIGN KEY (cartId) REFERENCES Cart(cartId),
     FOREIGN KEY (productId) REFERENCES Product(productId)
 );
+CREATE TABLE favorite (
+    favoriteId INT IDENTITY PRIMARY KEY,
+    quantity INT NOT NULL,
+    cusId INT,
+    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
+);
+
+CREATE TABLE favoriteProduct (
+    favoriteId INT,
+    productId INT,
+    quantity INT NOT NULL,
+    PRIMARY KEY (favoriteId, productId),
+    FOREIGN KEY (favoriteId) REFERENCES favorite(favoriteId),
+    FOREIGN KEY (productId) REFERENCES Product(productId)
+);
 
 -- Table: Address
 CREATE TABLE Address (
@@ -238,3 +253,25 @@ CREATE TABLE CustomerVoucher (
     FOREIGN KEY (cusId) REFERENCES Customer(cusId),
     FOREIGN KEY (voucherId) REFERENCES Voucher(voucherId)
 );	
+-- Add ColorId column to Product table
+ALTER TABLE Product
+ADD metalTypeId INT;
+
+-- Add foreign key constraint for ColorId column
+ALTER TABLE Product
+ADD CONSTRAINT metalTypeId
+FOREIGN KEY (metalTypeId) REFERENCES MetalType(metalTypeId);
+
+-- Add SizeId column to Product table
+ALTER TABLE Product
+ADD SizeId INT;
+
+-- Add foreign key constraint for SizeId column
+ALTER TABLE Product
+ADD CONSTRAINT sizeId
+FOREIGN KEY (SizeId) REFERENCES Size(SizeId);
+
+ALTER TABLE Product
+ADD PP VARCHAR(50);
+
+select * from product 
