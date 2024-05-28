@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
@@ -16,7 +17,7 @@ namespace DiamondShopSystem.API.Controllers
             _authenticateService = authenticateService;
         }
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginRequest request)
+        public IActionResult Login([FromBody] DTO.LoginRequest request)
         {
             var token = _authenticateService.Authenticate(request.Email, request.Password);
             if (token == null)
