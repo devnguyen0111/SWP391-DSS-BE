@@ -15,7 +15,8 @@ namespace Services
             this._context = context;
         }
 
-        public async Task<decimal> CalculateCostPrice(int productId)
+
+        private async Task<decimal> CalculateCostPrice(int productId)
         {
             var product = await _context.Products
                 .Include(p => p.Diamond)
@@ -29,17 +30,38 @@ namespace Services
 
             decimal diamondCost = product.Diamond.Price;
             decimal coverCost = product.Cover.UnitPrice;
-            decimal laborCost = 0; // tính labar cost sau
+            decimal laborCost = 100; // tính labar cost sau || đang tạm để cững 100$
 
             return diamondCost + coverCost + laborCost;
         }
 
-        public async Task<decimal> CalculateSellingPrice(int productId, decimal priceMarkupRate)
+        private decimal GetCoverPrice(int coverId)
         {
-            decimal costPrice = await CalculateCostPrice(productId);
-            return costPrice * priceMarkupRate;
+            var cover = _context.Covers.FirstOrDefault(c => c.CoverId == coverId);
+            return cover != null ? cover.UnitPrice : 0;
         }
 
+        private decimal GetDiamondPrice(int diamondId)
+        {
+            var diamond = _context.Diamonds.FirstOrDefault(d => d.DiamondId == diamondId);
+            return diamond != null ? diamond.Price : 0;
+        }
+
+        private decimal CalculateSellingPrice(decimal costPrice, string voucherName)
+        {
+            var voucher = _context.Vouchers.FirstOrDefault(v => v.Name == voucherName);
+            var discountRate = voucher != null ? decimal.Parse(voucher.Description) : 1m;
+            return costPrice * discountRate;
+        }
+
+        public async Task<decimal> CalculateProductPrice(int diamondId, int coverId, decimal laborCost, string voucherName)
+        {
+            decimal diamondPrice = GetDiamondPrice(diamondId);
+            decimal coverPrice = GetCoverPrice(coverId);
+            var productId = _context.Products.FirstOrDefault(p => p.DiamondId == diamondId && p.CoverId == coverId).ProductId;
+            decimal costPrice = await CalculateCostPrice(productId);
+            return CalculateSellingPrice(costPrice, voucherName);
+        }
 
     }
 }

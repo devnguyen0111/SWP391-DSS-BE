@@ -14,7 +14,16 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer("Data Source=localhost;Initial Catalog=DIAMOND_DB;Persist Security Info=True;User ID=sa;Password=12345;Encrypt=True;Trust Server Certificate=True"));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+<<<<<<< Updated upstream
 builder.Services.AddScoped<CalculatorService, CalculatorService>();
+=======
+builder.Services.AddScoped<IDiamondService, DiamondService>();
+builder.Services.AddScoped<IVoucherService, VoucherService>();
+
+
+/*builder.Services.AddScoped<CalculatorService, CalculatorService>();*/
+
+>>>>>>> Stashed changes
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -37,7 +46,7 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Diamond Shop System API", Version = "v1" });
 
     // Add security definition for Bearer tokens
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme

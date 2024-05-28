@@ -15,19 +15,20 @@ namespace DiamondShopSystem.API.Controllers
             _calculatorService = calculatorService;
         }
 
-        [HttpGet("{id}/price")]
-        public async Task<IActionResult> GetProductPrice(int id, [FromQuery] decimal markupRate)
+        /*[HttpGet("{id}/price")]
+        public async Task<IActionResult> GetProductPrice(int id, [FromQuery] string voucher)
         {
             try
             {
-                decimal sellingPrice = await _calculatorService.CalculateSellingPrice(id, markupRate);
-                return Ok(new { ProductId = id, SellingPrice = sellingPrice });
+                *//*decimal sellingPrice = await _calculatorService.CalculateSellingPrice(id, markupRate);
+                return Ok(new { ProductId = id, SellingPrice = sellingPrice });*//*
+
             }
             catch (Exception ex)
             {
                 return BadRequest(new { Message = ex.Message });
             }
-        }
+        }*/
     }
 }
 
