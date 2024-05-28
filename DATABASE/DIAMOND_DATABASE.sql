@@ -2,6 +2,8 @@ CREATE DATABASE DIAMOND_DB
 
 USE DIAMOND_DB
 
+DROP DATABASE DIAMOND_DB
+
 -- Table: Size
 CREATE TABLE Size (
     sizeId INT IDENTITY PRIMARY KEY,
@@ -274,4 +276,5 @@ FOREIGN KEY (SizeId) REFERENCES Size(SizeId);
 ALTER TABLE Product
 ADD PP VARCHAR(50);
 
-select * from product 
+select * from diamond
+
