@@ -11,11 +11,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer("Data Source=Pinky;Initial Catalog=DIAMOND_DB;Persist Security Info=True;User ID=sa;Password=12345;Encrypt=True;Trust Server Certificate=True"));
+builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
+builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
+
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
+builder.Services.AddScoped<IVoucherService, VoucherService>();
+
+
+builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
