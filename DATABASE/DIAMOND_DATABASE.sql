@@ -1,22 +1,29 @@
 CREATE DATABASE DIAMOND_DB
-
+GO
 USE DIAMOND_DB
-
-DROP DATABASE DIAMOND_DB
-
+--DROP DATABASE DIAMOND_DB
+GO
 -- Table: Size
 CREATE TABLE Size (
     sizeId INT IDENTITY PRIMARY KEY,
     sizeName VARCHAR(255) NOT NULL,
-    sizeValue VARCHAR(255) NOT NULL
+    sizeValue VARCHAR(255) NOT NULL,
+	sizePrice Money
 );
-
+GO
+-- Table: MetalType
+CREATE TABLE Metaltype (
+    metaltypeId INT IDENTITY PRIMARY KEY,
+    metaltypeName VARCHAR(255) NOT NULL,
+    metaltypePrice Money
+);
+GO
 -- Table: Category
 CREATE TABLE Category (
     categoryId INT IDENTITY PRIMARY KEY,
     categoryName VARCHAR(255) NOT NULL
 );
-
+GO
 -- Table: SubCategory
 CREATE TABLE SubCategory (
     subCategoryId INT IDENTITY PRIMARY KEY,
@@ -24,26 +31,19 @@ CREATE TABLE SubCategory (
     categoryId INT,
     FOREIGN KEY (categoryId) REFERENCES Category(categoryId)
 );
-
+GO
 -- Table: Cover
 CREATE TABLE Cover (
     coverId INT IDENTITY PRIMARY KEY,
     coverName VARCHAR(255) NOT NULL,
     status VARCHAR(50),
-    unitPrice DECIMAL(10, 2) NOT NULL,
-    subCategoryId INT,
-    categoryId INT,
+    unitPrice Money,
+    subCategoryId INT NOT NULL,
+    categoryId INT NOT NULL,
     FOREIGN KEY (subCategoryId) REFERENCES SubCategory(subCategoryId),
     FOREIGN KEY (categoryId) REFERENCES Category(categoryId)
 );
-
--- Table: MetalType
-CREATE TABLE MetalType (
-    metalTypeId INT IDENTITY PRIMARY KEY,
-    metalTypeName VARCHAR(255) NOT NULL,
-    metalTypeValue VARCHAR(255) NOT NULL
-);
-
+GO
 -- Table: CoverSize
 CREATE TABLE CoverSize (
     sizeId INT,
@@ -53,99 +53,101 @@ CREATE TABLE CoverSize (
     FOREIGN KEY (sizeId) REFERENCES Size(sizeId),
     FOREIGN KEY (coverId) REFERENCES Cover(coverId)
 );
-
+GO
 -- Table: CoverMetalType
-CREATE TABLE CoverMetalType (
-    metalTypeId INT,
+CREATE TABLE CoverMetaltype (
+    metaltypeId INT,
     coverId INT,
     status VARCHAR(50),
-    PRIMARY KEY (metalTypeId, coverId),
-    FOREIGN KEY (metalTypeId) REFERENCES MetalType(metalTypeId),
+    PRIMARY KEY (metaltypeId, coverId),
+    FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId),
     FOREIGN KEY (coverId) REFERENCES Cover(coverId)
 );
-
+GO
 -- Table: Diamond
 CREATE TABLE Diamond (
     diamondId INT IDENTITY PRIMARY KEY,
     diamondName VARCHAR(255) NOT NULL,
     caratWeight DECIMAL(5, 2) NOT NULL,
-    color VARCHAR(50),
-    clarity VARCHAR(50),
-    cut VARCHAR(50),
-    shape VARCHAR(50),
-    price DECIMAL(10, 2) NOT NULL
+    color VARCHAR(50) NOT NULL,
+    clarity VARCHAR(50) NOT NULL,
+    cut VARCHAR(50) NOT NULL,
+    shape VARCHAR(50) NOT NULL,
+    price Money NOT NULL
 );
-
+GO
 -- Table: Product
 CREATE TABLE Product (
     productId INT IDENTITY PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    unitPrice DECIMAL(10, 2) NOT NULL,
+    productName NVARCHAR(255) NOT NULL,
+    unitPrice Money,
     diamondId INT,
     coverId INT,
+	metaltypeId INT,
+	sizeId INT,
+	PP VARCHAR(50),
     FOREIGN KEY (diamondId) REFERENCES Diamond(diamondId),
-    FOREIGN KEY (coverId) REFERENCES Cover(coverId)
+    FOREIGN KEY (coverId) REFERENCES Cover(coverId),
+	FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId),
+    FOREIGN KEY (sizeId) REFERENCES Size(sizeId)
 );
-
+GO
 -- Table: User
 CREATE TABLE [User] (
     userId INT IDENTITY PRIMARY KEY,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    status VARCHAR(50),
-    role VARCHAR(50)
+    status VARCHAR(50) NOT NULL,
+    role VARCHAR(50) NOT NULL
 );
-
+GO
 -- Table: Customer
+
 CREATE TABLE Customer (
     cusId INT IDENTITY PRIMARY KEY,
     cusFirstName VARCHAR(255) NOT NULL,
     cusLastName VARCHAR(255) NOT NULL,
     cusPhoneNum VARCHAR(20) NOT NULL,
-    userId INT,
-    FOREIGN KEY (userId) REFERENCES [User](userId)
+    FOREIGN KEY (cusId) REFERENCES [User](userId)
 );
-
+GO
 -- Table: Manager
 CREATE TABLE Manager (
-    managerId INT IDENTITY PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    phone VARCHAR(20),
-    userId INT,
-    FOREIGN KEY (userId) REFERENCES [User](userId)
+    manId INT IDENTITY PRIMARY KEY,
+    manName VARCHAR(255) NOT NULL,
+    manPhone VARCHAR(20),
+    FOREIGN KEY (manId) REFERENCES [User](userId)
 );
-
+GO
 -- Table: SaleStaff
 CREATE TABLE SaleStaff (
-    saleStaffId INT IDENTITY PRIMARY KEY,
+    sStaffId INT IDENTITY PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(255),
-    userId INT,
     managerId INT,
-    FOREIGN KEY (userId) REFERENCES [User](userId),
-    FOREIGN KEY (managerId) REFERENCES Manager(managerId)
+    FOREIGN KEY (sStaffId) REFERENCES [User](userId),
+    FOREIGN KEY (managerId) REFERENCES Manager(manId)
 );
-
+GO
 -- Table: DeliveryStaff
 CREATE TABLE DeliveryStaff (
-    deliveryStaffId INT IDENTITY PRIMARY KEY,
+    dStaffId INT IDENTITY PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    phone VARCHAR(20),
+    phone VARCHAR(20) NOT NULL,
     managerId INT,
-    userId INT,
-    FOREIGN KEY (userId) REFERENCES [User](userId),
-    FOREIGN KEY (managerId) REFERENCES Manager(managerId)
+    FOREIGN KEY (dStaffId) REFERENCES [User](userId),
+    FOREIGN KEY (managerId) REFERENCES Manager(manId)
 );
-
+GO
 -- Table: Cart
 CREATE TABLE Cart (
     cartId INT IDENTITY PRIMARY KEY,
-    quantity INT NOT NULL,
+    cartQuantity INT NOT NULL,
     cusId INT,
     FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
-
+GO
 -- Table: CartProduct
 CREATE TABLE CartProduct (
     cartId INT,
@@ -155,6 +157,7 @@ CREATE TABLE CartProduct (
     FOREIGN KEY (cartId) REFERENCES Cart(cartId),
     FOREIGN KEY (productId) REFERENCES Product(productId)
 );
+GO
 CREATE TABLE favorite (
     favoriteId INT IDENTITY PRIMARY KEY,
     quantity INT NOT NULL,
@@ -170,11 +173,11 @@ CREATE TABLE favoriteProduct (
     FOREIGN KEY (favoriteId) REFERENCES favorite(favoriteId),
     FOREIGN KEY (productId) REFERENCES Product(productId)
 );
-
+GO
 -- Table: Address
 CREATE TABLE Address (
     addressId INT IDENTITY PRIMARY KEY,
-    street VARCHAR(255) NOT NULL,
+    street VARCHAR(255),
     state VARCHAR(50),
     city VARCHAR(50),
     zipCode VARCHAR(20),
@@ -182,7 +185,7 @@ CREATE TABLE Address (
     cusId INT,
     FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
-
+GO
 -- Table: ShippingMethod
 CREATE TABLE ShippingMethod (
     shippingMethodId INT IDENTITY PRIMARY KEY,
@@ -191,7 +194,7 @@ CREATE TABLE ShippingMethod (
     description VARCHAR(255),
     date DATE
 );
-
+GO
 -- Table: Order
 CREATE TABLE [Order] (
     orderId INT IDENTITY PRIMARY KEY,
@@ -203,7 +206,7 @@ CREATE TABLE [Order] (
     FOREIGN KEY (cusId) REFERENCES Customer(cusId),
     FOREIGN KEY (shippingMethodId) REFERENCES ShippingMethod(shippingMethodId)
 );
-
+GO
 -- Table: ProductOrder
 CREATE TABLE ProductOrder (
     productId INT,
@@ -213,7 +216,7 @@ CREATE TABLE ProductOrder (
     FOREIGN KEY (productId) REFERENCES Product(productId),
     FOREIGN KEY (orderId) REFERENCES [Order](orderId)
 );
-
+GO
 -- Table: Shipping
 CREATE TABLE Shipping (
     shippingId INT IDENTITY PRIMARY KEY,
@@ -222,11 +225,10 @@ CREATE TABLE Shipping (
     saleStaffId INT,
     deliveryStaffId INT,
     FOREIGN KEY (orderId) REFERENCES [Order](orderId),
-    FOREIGN KEY (saleStaffId) REFERENCES SaleStaff(saleStaffId),
-    FOREIGN KEY (deliveryStaffId) REFERENCES DeliveryStaff(deliveryStaffId)
+    FOREIGN KEY (saleStaffId) REFERENCES SaleStaff(sStaffId),
+    FOREIGN KEY (deliveryStaffId) REFERENCES DeliveryStaff(dStaffId)
 );
-
-
+GO
 -- Table: Review
 CREATE TABLE Review (
     reviewId INT IDENTITY PRIMARY KEY,
@@ -236,17 +238,18 @@ CREATE TABLE Review (
     cusId INT,
     FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
-
+GO
 -- Table: Voucher
 CREATE TABLE Voucher (
     voucherId INT IDENTITY PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT,
-    expDate DATE,
+    expDate DATE NOT NULL,
+	quantity INT,
     cusId INT,
     FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
-
+GO
 -- Table: CustomerVoucher
 CREATE TABLE CustomerVoucher (
     cusId INT,
@@ -255,26 +258,29 @@ CREATE TABLE CustomerVoucher (
     FOREIGN KEY (cusId) REFERENCES Customer(cusId),
     FOREIGN KEY (voucherId) REFERENCES Voucher(voucherId)
 );	
+
 -- Add ColorId column to Product table
-ALTER TABLE Product
-ADD metalTypeId INT;
+--ALTER TABLE Product
+--ADD metalTypeId INT;
 
 -- Add foreign key constraint for ColorId column
-ALTER TABLE Product
-ADD CONSTRAINT metalTypeId
-FOREIGN KEY (metalTypeId) REFERENCES MetalType(metalTypeId);
+--ALTER TABLE Product
+--ADD CONSTRAINT metalTypeId
+--FOREIGN KEY (metalTypeId) REFERENCES MetalType(metalTypeId);
 
 -- Add SizeId column to Product table
-ALTER TABLE Product
-ADD SizeId INT;
+--ALTER TABLE Product
+--ADD SizeId INT;
 
 -- Add foreign key constraint for SizeId column
-ALTER TABLE Product
-ADD CONSTRAINT sizeId
-FOREIGN KEY (SizeId) REFERENCES Size(SizeId);
+--ALTER TABLE Product
+--ADD CONSTRAINT sizeId
+--FOREIGN KEY (SizeId) REFERENCES Size(SizeId);
 
-ALTER TABLE Product
-ADD PP VARCHAR(50);
-
+--ALTER TABLE Product
+--ADD PP VARCHAR(50);
+GO
 select * from diamond
-
+select * from Customer
+select * from cover
+select * from Address
