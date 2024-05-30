@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace Model.Models;
 
-public partial class MetalType
+public partial class Metaltype
 {
-    public int MetalTypeId { get; set; }
+    public int MetaltypeId { get; set; }
 
-    public string MetalTypeName { get; set; }
+    public string MetaltypeName { get; set; }
 
-    public string MetalTypeValue { get; set; }
+    public decimal? MetaltypePrice { get; set; }
 
-    public virtual ICollection<CoverMetalType> CoverMetalTypes { get; set; } = new List<CoverMetalType>();
+    public virtual ICollection<CoverMetaltype> CoverMetaltypes { get; set; } = new List<CoverMetaltype>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }

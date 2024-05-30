@@ -13,15 +13,15 @@ public partial class Cover
 
     public string Status { get; set; }
 
-    public decimal UnitPrice { get; set; }
+    public decimal? UnitPrice { get; set; }
 
-    public int? SubCategoryId { get; set; }
+    public int SubCategoryId { get; set; }
 
-    public int? CategoryId { get; set; }
+    public int CategoryId { get; set; }
 
     public virtual Category Category { get; set; }
 
-    public virtual ICollection<CoverMetalType> CoverMetalTypes { get; set; } = new List<CoverMetalType>();
+    public virtual ICollection<CoverMetaltype> CoverMetaltypes { get; set; } = new List<CoverMetaltype>();
 
     public virtual ICollection<CoverSize> CoverSizes { get; set; } = new List<CoverSize>();
 

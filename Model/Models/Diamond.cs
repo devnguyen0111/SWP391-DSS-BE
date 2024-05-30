@@ -24,15 +24,4 @@ public partial class Diamond
     public decimal Price { get; set; }
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
-
-    public Diamond(string diamondName, decimal caratWeight, string color, string clarity, string cut, string shape, decimal price)
-    {
-        DiamondName = diamondName;
-        CaratWeight = caratWeight;
-        Color = color;
-        Clarity = clarity;
-        Cut = cut;
-        Shape = shape;
-        Price = price;
-    }
 }

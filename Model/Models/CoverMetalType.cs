@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace Model.Models;
 
-public partial class CoverMetalType
+public partial class CoverMetaltype
 {
-    public int MetalTypeId { get; set; }
+    public int MetaltypeId { get; set; }
 
     public int CoverId { get; set; }
 
@@ -15,5 +15,5 @@ public partial class CoverMetalType
 
     public virtual Cover Cover { get; set; }
 
-    public virtual MetalType MetalType { get; set; }
+    public virtual Metaltype Metaltype { get; set; }
 }

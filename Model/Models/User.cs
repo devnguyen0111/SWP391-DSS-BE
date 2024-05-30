@@ -17,11 +17,11 @@ public partial class User
 
     public string Role { get; set; }
 
-    public virtual ICollection<Customer> Customers { get; set; } = new List<Customer>();
+    public virtual Customer Customer { get; set; }
 
-    public virtual ICollection<DeliveryStaff> DeliveryStaffs { get; set; } = new List<DeliveryStaff>();
+    public virtual DeliveryStaff DeliveryStaff { get; set; }
 
-    public virtual ICollection<Manager> Managers { get; set; } = new List<Manager>();
+    public virtual Manager Manager { get; set; }
 
-    public virtual ICollection<SaleStaff> SaleStaffs { get; set; } = new List<SaleStaff>();
+    public virtual SaleStaff SaleStaff { get; set; }
 }

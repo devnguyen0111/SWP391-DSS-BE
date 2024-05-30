@@ -11,9 +11,7 @@ public partial class Favorite
 
     public int Quantity { get; set; }
 
-    public int? CusId { get; set; }
-
-    public virtual Customer Cus { get; set; }
+    public virtual Customer FavoriteNavigation { get; set; }
 
     public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; } = new List<FavoriteProduct>();
 }

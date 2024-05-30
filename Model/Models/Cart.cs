@@ -9,11 +9,9 @@ public partial class Cart
 {
     public int CartId { get; set; }
 
-    public int Quantity { get; set; }
+    public int CartQuantity { get; set; }
 
-    public int? CusId { get; set; }
+    public virtual Customer CartNavigation { get; set; }
 
     public virtual ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
-
-    public virtual Customer Cus { get; set; }
 }
