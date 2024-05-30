@@ -37,7 +37,7 @@ builder.Services.AddAuthentication(options =>
         (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = false,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true
     };
 });
@@ -76,7 +76,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:5173/login") // Specify the frontend URL
+            .WithOrigins("http://localhost:5173") // Specify the frontend URL
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()); // Allow credentials if necessary
