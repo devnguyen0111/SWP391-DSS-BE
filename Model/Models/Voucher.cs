@@ -17,7 +17,7 @@ public partial class Voucher
 
     public int? Quantity { get; set; }
 
-    public decimal? Rate { get; set; }
+    public int? Rate { get; set; }
 
     public int? CusId { get; set; }
 
