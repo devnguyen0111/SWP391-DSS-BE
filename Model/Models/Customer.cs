@@ -15,7 +15,7 @@ public partial class Customer
 
     public string CusPhoneNum { get; set; }
 
-    public virtual Address Address { get; set; }
+    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
     public virtual Cart Cart { get; set; }
 
