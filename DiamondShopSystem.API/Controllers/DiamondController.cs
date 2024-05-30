@@ -36,15 +36,7 @@ namespace DiamondShopSystem.API.Controllers
             return diamond;
         }
 
-        [HttpPost]
-        public ActionResult<Cover> PostDiamomnd([FromBody]DTO.DiamondRequest diamond)
-        {
-            var newDiamond = new Diamond(diamond.DiamondName,diamond.CaratWeight,diamond.Color,diamond.Clarity,diamond.Cut,diamond.Shape,diamond.Price);
-
-            _diamondService.AddDiamond(newDiamond);
-            return Ok(newDiamond);
-
-        }
+        
 
         [HttpPut("{id}")]
         public IActionResult PutDiamond(int id, Diamond diamond)

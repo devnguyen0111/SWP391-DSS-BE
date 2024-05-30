@@ -15,19 +15,17 @@ public partial class Customer
 
     public string CusPhoneNum { get; set; }
 
-    public int? UserId { get; set; }
+    public virtual Address Address { get; set; }
 
-    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+    public virtual Cart Cart { get; set; }
 
-    public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
+    public virtual User Cus { get; set; }
 
-    public virtual ICollection<Favorite> Favorites { get; set; } = new List<Favorite>();
+    public virtual Favorite Favorite { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-
-    public virtual User User { get; set; }
 
     public virtual ICollection<Voucher> VouchersNavigation { get; set; } = new List<Voucher>();
 

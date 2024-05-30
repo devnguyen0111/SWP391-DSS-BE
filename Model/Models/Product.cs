@@ -9,19 +9,19 @@ public partial class Product
 {
     public int ProductId { get; set; }
 
-    public string Name { get; set; }
+    public string ProductName { get; set; }
 
-    public decimal UnitPrice { get; set; }
+    public decimal? UnitPrice { get; set; }
 
     public int? DiamondId { get; set; }
 
     public int? CoverId { get; set; }
 
-    public string Pp { get; set; }
-
-    public int? MetalTypeId { get; set; }
+    public int? MetaltypeId { get; set; }
 
     public int? SizeId { get; set; }
+
+    public string Pp { get; set; }
 
     public virtual ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
 
@@ -31,7 +31,7 @@ public partial class Product
 
     public virtual ICollection<FavoriteProduct> FavoriteProducts { get; set; } = new List<FavoriteProduct>();
 
-    public virtual MetalType MetalType { get; set; }
+    public virtual Metaltype Metaltype { get; set; }
 
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 

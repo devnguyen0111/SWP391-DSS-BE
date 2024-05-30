@@ -7,17 +7,15 @@ namespace Model.Models;
 
 public partial class Manager
 {
-    public int ManagerId { get; set; }
+    public int ManId { get; set; }
 
-    public string Name { get; set; }
+    public string ManName { get; set; }
 
-    public string Phone { get; set; }
-
-    public int? UserId { get; set; }
+    public string ManPhone { get; set; }
 
     public virtual ICollection<DeliveryStaff> DeliveryStaffs { get; set; } = new List<DeliveryStaff>();
 
-    public virtual ICollection<SaleStaff> SaleStaffs { get; set; } = new List<SaleStaff>();
+    public virtual User Man { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual ICollection<SaleStaff> SaleStaffs { get; set; } = new List<SaleStaff>();
 }

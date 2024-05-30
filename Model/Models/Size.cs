@@ -13,6 +13,8 @@ public partial class Size
 
     public string SizeValue { get; set; }
 
+    public decimal? SizePrice { get; set; }
+
     public virtual ICollection<CoverSize> CoverSizes { get; set; } = new List<CoverSize>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();

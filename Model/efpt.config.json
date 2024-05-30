@@ -35,7 +35,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[CoverMetalType]",
+         "Name": "[dbo].[CoverMetaltype]",
          "ObjectType": 0
       },
       {
@@ -71,7 +71,7 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[MetalType]",
+         "Name": "[dbo].[Metaltype]",
          "ObjectType": 0
       },
       {

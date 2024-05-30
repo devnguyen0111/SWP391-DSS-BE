@@ -7,7 +7,7 @@ namespace Model.Models;
 
 public partial class DeliveryStaff
 {
-    public int DeliveryStaffId { get; set; }
+    public int DStaffId { get; set; }
 
     public string Name { get; set; }
 
@@ -15,11 +15,9 @@ public partial class DeliveryStaff
 
     public int? ManagerId { get; set; }
 
-    public int? UserId { get; set; }
+    public virtual User DStaff { get; set; }
 
     public virtual Manager Manager { get; set; }
 
     public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();
-
-    public virtual User User { get; set; }
 }

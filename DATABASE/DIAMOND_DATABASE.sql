@@ -104,7 +104,7 @@ GO
 -- Table: Customer
 
 CREATE TABLE Customer (
-    cusId INT IDENTITY PRIMARY KEY,
+    cusId INT PRIMARY KEY,
     cusFirstName VARCHAR(255) NOT NULL,
     cusLastName VARCHAR(255) NOT NULL,
     cusPhoneNum VARCHAR(20) NOT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE Customer (
 GO
 -- Table: Manager
 CREATE TABLE Manager (
-    manId INT IDENTITY PRIMARY KEY,
+    manId INT  PRIMARY KEY,
     manName VARCHAR(255) NOT NULL,
     manPhone VARCHAR(20),
     FOREIGN KEY (manId) REFERENCES [User](userId)
@@ -121,7 +121,7 @@ CREATE TABLE Manager (
 GO
 -- Table: SaleStaff
 CREATE TABLE SaleStaff (
-    sStaffId INT IDENTITY PRIMARY KEY,
+    sStaffId INT  PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(20),
     email VARCHAR(255),
@@ -132,7 +132,7 @@ CREATE TABLE SaleStaff (
 GO
 -- Table: DeliveryStaff
 CREATE TABLE DeliveryStaff (
-    dStaffId INT IDENTITY PRIMARY KEY,
+    dStaffId INT  PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     managerId INT,
@@ -142,10 +142,9 @@ CREATE TABLE DeliveryStaff (
 GO
 -- Table: Cart
 CREATE TABLE Cart (
-    cartId INT IDENTITY PRIMARY KEY,
+    cartId INT PRIMARY KEY,
     cartQuantity INT NOT NULL,
-    cusId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
+    FOREIGN KEY (cartId) REFERENCES Customer(cusId)
 );
 GO
 -- Table: CartProduct
@@ -159,10 +158,9 @@ CREATE TABLE CartProduct (
 );
 GO
 CREATE TABLE favorite (
-    favoriteId INT IDENTITY PRIMARY KEY,
+    favoriteId INT PRIMARY KEY,
     quantity INT NOT NULL,
-    cusId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
+    FOREIGN KEY (favoriteId) REFERENCES Customer(cusId)
 );
 
 CREATE TABLE favoriteProduct (
@@ -182,8 +180,7 @@ CREATE TABLE Address (
     city VARCHAR(50),
     zipCode VARCHAR(20),
     country VARCHAR(50),
-    cusId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
+    FOREIGN KEY (addressId) REFERENCES Customer(cusId)
 );
 GO
 -- Table: ShippingMethod
@@ -246,6 +243,7 @@ CREATE TABLE Voucher (
     description TEXT,
     expDate DATE NOT NULL,
 	quantity INT,
+	rate decimal,
     cusId INT,
     FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
