@@ -37,7 +37,7 @@ builder.Services.AddAuthentication(options =>
         (Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = false,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true
     };
 });
@@ -71,6 +71,16 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+//cors test
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .WithOrigins("http://localhost:5173") // Specify the frontend URL
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials()); // Allow credentials if necessary
+});
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -79,6 +89,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 // Configure the HTTP request pipeline.
+app.UseCors("AllowSpecificOrigin");
 
 app.UseHttpsRedirection();
 

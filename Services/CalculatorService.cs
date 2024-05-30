@@ -148,7 +148,7 @@ namespace Services
                         throw new Exception("Voucher expired");
                     }
 
-                    decimal voucherRate = await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.rate).FirstOrDefaultAsync();
+                        decimal voucherRate = (decimal)await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Rate).FirstOrDefaultAsync();
                     Console.WriteLine("Voucher rate: " + voucherRate);
                     //convert 10 to 10%
                     voucherRate = voucherRate / 100;

@@ -7,7 +7,7 @@ namespace Model.Models;
 
 public partial class SaleStaff
 {
-    public int SaleStaffId { get; set; }
+    public int SStaffId { get; set; }
 
     public string Name { get; set; }
 
@@ -15,13 +15,11 @@ public partial class SaleStaff
 
     public string Email { get; set; }
 
-    public int? UserId { get; set; }
-
     public int? ManagerId { get; set; }
 
     public virtual Manager Manager { get; set; }
 
-    public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();
+    public virtual User SStaff { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();
 }
