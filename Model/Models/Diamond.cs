@@ -7,6 +7,17 @@ namespace Model.Models;
 
 public partial class Diamond
 {
+    public Diamond(string diamondName, decimal caratWeight, string color, string clarity, string cut, string shape, decimal price)
+    {
+        DiamondName = diamondName;
+        CaratWeight = caratWeight;
+        Color = color;
+        Clarity = clarity;
+        Cut = cut;
+        Shape = shape;
+        Price = price;
+    }
+
     public int DiamondId { get; set; }
 
     public string DiamondName { get; set; }
