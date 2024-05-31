@@ -1,4 +1,5 @@
-﻿using DiamondShopSystem.API.DTO;
+﻿using DAO;
+using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
@@ -13,9 +14,11 @@ namespace DiamondShopSystem.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticateService _authenticateService;
-        public AuthenticationController(IAuthenticateService authenticateService)
+        private readonly ICustomerService _customerService;
+        public AuthenticationController(IAuthenticateService authenticateService, ICustomerService customerService)
         {
             _authenticateService = authenticateService;
+            _customerService = customerService;
         }
         [HttpPost("login")]
         public IActionResult Login([FromBody] DTO.LoginRequest request)
@@ -33,11 +36,12 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(new int[] {1,2,3,4,5});
         }
-        [HttpGet("test1")]
-        public IActionResult test1()
+        //tạm
+        [Authorize]
+        [HttpGet("customers/{id}")]
+        public IActionResult customer(int id)
         {
-            var multipledata = new {name = "string", num = 123 };
-            return Ok(multipledata);
+            return Ok(_customerService.GetCustomer(id));
         }
     }
 }
