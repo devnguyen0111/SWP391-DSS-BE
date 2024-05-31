@@ -20,6 +20,7 @@ builder.Services.AddScoped<IMetaltypeRepository, MetaltypeRepository>();
 builder.Services.AddScoped<ICoverSizeRepository, CoverSizeRepository>();
 builder.Services.AddScoped<ICoverMetaltypeRepository, CoverMetaltypeRepository>();
 builder.Services.AddScoped<ICoverRepository, CoverRepository>();
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
@@ -29,6 +30,7 @@ builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IMetaltypeService, MetaltypeService>();
 builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
 builder.Services.AddScoped<ICoverService, CoverService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
