@@ -27,7 +27,7 @@ namespace Repository
         public async Task UpdateOrderStatusAsync(int orderId, string status)
         {
             var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
-            order.Status = status;
+/*            order.Status = status;*/
             _context.SaveChanges();
         }
     }
