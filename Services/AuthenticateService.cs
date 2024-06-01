@@ -48,7 +48,8 @@ namespace Services
             {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("Role", user.Role)  // Add the role claim
+            new Claim("Role", user.Role),  // Add the role claim
+            new Claim("UserID",user.UserId.ToString())
         };
 
             var token = new JwtSecurityToken(

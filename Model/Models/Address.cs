@@ -19,7 +19,5 @@ public partial class Address
 
     public string Country { get; set; }
 
-    public int? CusId { get; set; }
-
-    public virtual Customer Cus { get; set; }
+    public virtual Customer AddressNavigation { get; set; }
 }

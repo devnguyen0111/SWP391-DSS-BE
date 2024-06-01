@@ -17,7 +17,6 @@ public partial class Diamond
         Shape = shape;
         Price = price;
     }
-
     public int DiamondId { get; set; }
 
     public string DiamondName { get; set; }

@@ -22,7 +22,6 @@ builder.Services.AddScoped<ICoverMetaltypeRepository, CoverMetaltypeRepository>(
 builder.Services.AddScoped<ICoverRepository, CoverRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
@@ -32,6 +31,9 @@ builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
 builder.Services.AddScoped<ICoverService, CoverService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddAuthentication(options =>
@@ -93,10 +95,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:5173") // Specify the frontend URL
+            .AllowAnyOrigin() // Specify the frontend URL
             .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials()); // Allow credentials if necessary
+            .AllowAnyMethod());
+            //.AllowCredentials()); // Allow credentials if necessary
 });
 
 var app = builder.Build();
