@@ -15,6 +15,8 @@ builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
+
+
 builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IMetaltypeRepository, MetaltypeRepository>();
 builder.Services.AddScoped<ICoverSizeRepository, CoverSizeRepository>();
@@ -25,6 +27,8 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
+
+
 builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IMetaltypeService, MetaltypeService>();
 builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
@@ -36,6 +40,12 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
+builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
+builder.Services.AddScoped<IStripeRepository, StripeRepository>();
+builder.Services.AddScoped<Ivnpay, VnPay>();
+builder.Services.AddScoped<IStripeService, StripeService>();
+
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -63,7 +73,7 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Diamond Shop System API", Version = "v1" });
 
     // Add security definition for Bearer tokens
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -93,13 +103,16 @@ builder.Services.AddSwaggerGen(c =>
 //cors test
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
+    options.AddPolicy("AllowAnyOrigin",
         builder => builder
             .AllowAnyOrigin() // Specify the frontend URL
             .AllowAnyHeader()
             .AllowAnyMethod());
+    //.AllowCredentials()); // Allow credentials if necessary
             //.AllowCredentials()); // Allow credentials if necessary
+
 });
+
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -108,7 +121,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 // Configure the HTTP request pipeline.
-app.UseCors("AllowSpecificOrigin");
+/*app.UseCors("AllowSpecificOrigin");*/
+app.UseCors("AllowAnyOrigin");
 
 app.UseHttpsRedirection();
 

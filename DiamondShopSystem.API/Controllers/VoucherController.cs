@@ -18,7 +18,7 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         // GET: api/Voucher | get all vouchers
-        [HttpGet]
+        [HttpGet("/get")]
         public ActionResult<IEnumerable<Voucher>> GetVouchers()
         {
             return _voucherService.GetAllVouchers();
@@ -40,41 +40,21 @@ namespace DiamondShopSystem.API.Controllers
 
         // POST: api/Voucher | add new voucher
         [HttpPost]
-        public ActionResult<Voucher> PostVoucher([FromBody] Voucher voucher)
+        public ActionResult<Voucher> PostVoucher([FromBody] DTO.VoucherRequest request)
         {
-            if(voucher == null)
-            {
-                return BadRequest();
-            }
-            _voucherService.createVoucher(voucher);
-            return Ok(voucher);
+            int customerId = request.CusId == 0 ? 0 : request.CusId;
+
+            _voucherService.createVoucher(request.VoucherName, request.Description, request.ExpDate, request.Quantity, request.Rate, customerId);
+            return CreatedAtAction("GetVouchers", _voucherService.GetAllVouchers());
         }
 
         // PUT: api/Voucher?id=5 | update voucher by id
-        [HttpPut("{id}")]
-        public IActionResult PutVoucher(int id, Voucher voucher)
+/*        [HttpPut("{id}")]
+        public IActionResult PutVoucher(int id, [FromBody] DTO.VoucherRequest request)
         {
-            if (id != voucher.VoucherId)
-            {
-                return BadRequest();
-            }
-            try
-            {
-                _voucherService.updateVoucher(voucher);
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (_voucherService.getVoucherById(id) == null)
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-            return NoContent();
-        }
+            var voucherId = _voucherService.getVoucherById(id);
+            
+        }*/
 
         // DELETE: api/Voucher?id=5 | delete voucher by id
         [HttpDelete("{id}")]
