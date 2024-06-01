@@ -7,11 +7,18 @@ namespace Model.Models;
 
 public partial class ProductOrder
 {
+
     public int ProductId { get; set; }
 
     public int OrderId { get; set; }
 
     public int Quantity { get; set; }
+    public ProductOrder(int productId, int orderId, int quantity)
+    {
+        ProductId = productId;
+        OrderId = orderId;
+        Quantity = quantity;
+    }
 
     public virtual Order Order { get; set; }
 
