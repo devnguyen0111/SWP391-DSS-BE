@@ -30,7 +30,7 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(new { Token = token });
         }
         [Authorize]
-        [HttpGet("test")]
+        [HttpPost("test")]
         public IActionResult test()
         {
 
@@ -38,7 +38,7 @@ namespace DiamondShopSystem.API.Controllers
         }
         //tạm
         [Authorize]
-        [HttpGet("customers/{id}")]
+        [HttpPost("customers/{id}")]
         public IActionResult customer(int id)
         {
             return Ok(_customerService.GetCustomer(id));
