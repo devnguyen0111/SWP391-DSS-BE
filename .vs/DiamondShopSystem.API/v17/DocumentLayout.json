@@ -3,7 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\diamondshopsystem.api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -31,11 +31,11 @@
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\covermetaltypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\diamondshopsystem.api\\controllers\\covermetaltypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\covermetaltypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\diamondshopsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -150,8 +150,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\VoucherController.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAAABcAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:24.874Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T08:05:24.874Z"
             },
             {
               "$type": "Document",
@@ -163,8 +162,7 @@
               "RelativeToolTip": "Services\\VoucherService.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAQwCAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:05.927Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T08:05:05.927Z"
             },
             {
               "$type": "Document",
@@ -176,8 +174,7 @@
               "RelativeToolTip": "Repository\\VoucherRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:15.119Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T08:05:15.119Z"
             },
             {
               "$type": "Document",
@@ -189,8 +186,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\CalculatorController.cs",
               "ViewState": "AQIAABYAAAAAAAAAAAAQwDIAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T07:23:53.266Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T07:23:53.266Z"
             },
             {
               "$type": "Document",
@@ -215,8 +211,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAiwCAAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T11:20:45.063Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-31T11:20:45.063Z"
             },
             {
               "$type": "Document",
@@ -228,8 +223,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\ProductController.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAAAAABcAAAA7AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T12:32:08.203Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-31T12:32:08.203Z"
             },
             {
               "$type": "Document",
@@ -241,8 +235,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\CoverMetaltypeController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T02:06:14.324Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-01T02:06:14.324Z"
             },
             {
               "$type": "Document",
@@ -254,8 +247,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Program.cs",
               "ViewState": "AQIAAFQAAAAAAAAAAAAAAGEAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T02:35:52.362Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-29T02:35:52.362Z"
             },
             {
               "$type": "Document",
@@ -267,8 +259,7 @@
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\DiamondController.cs",
               "ViewState": "AQIAAEsAAAAAAAAAAAAowCcAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T10:04:15.285Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-05-30T10:04:15.285Z"
             },
             {
               "$type": "Document",
