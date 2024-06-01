@@ -3,7 +3,7 @@ namespace Services
 {
     public interface IVoucherService
     {
-        Voucher createVoucher(Voucher voucher);
+        void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate, int cusId);
         void deleteVoucher(int Id);
         List<Voucher> GetAllVouchers();
         Voucher getVoucherById(int Id);

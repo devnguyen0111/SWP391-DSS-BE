@@ -14,11 +14,21 @@ namespace Repository
         }
 
         // Method to create a new voucher
-        public Voucher createVoucher(Voucher voucher)
+        public void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate, int cusId)
         {
+            // add new voucher to the database with the provided information (name, description, expDate, quantity, rate, cusId)
+            Voucher voucher = new Voucher
+            {
+                Name = name,
+                Description = description,
+                ExpDate = expdate,
+                Quantity = quantity,
+                Rate = rate,
+                CusId = cusId
+            };
             _context.Vouchers.Add(voucher);
             _context.SaveChanges();
-            return voucher;
+
         }
 
         // Method to retrieve all vouchers

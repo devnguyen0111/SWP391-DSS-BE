@@ -65,6 +65,33 @@ namespace Services
             }
         }
 
+        //get cusId and check if voucher is valid
+        public async Task<int> GetCusIdByVoucherAsync(string Voucher)
+        {
+            if (Voucher == null)
+            {
+                return 0;
+            }
+            var voucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.Name == Voucher);
+            if (voucher == null)
+            {
+                return 0;
+                throw new Exception("Voucher not found");
+            }
+            else if (
+                voucher.ExpDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
+            {
+                return 0;
+                throw new Exception("Voucher expired");
+            }
+            else if (voucher.CusId == null)
+            {
+                return 0;
+                throw new Exception("Voucher not belong to any customer");
+            }
+            return (int)voucher.CusId;
+        }
+
         /*public bool CheckVoucherEXP(string Voucher)
         {
             if (Voucher == null)
@@ -110,7 +137,7 @@ namespace Services
                 Console.WriteLine("Voucher expired");
                 return Result=2;
             }
-            else if (voucher.CusId == null)
+            else if (GetCusIdByVoucherAsync(Voucher).Result == 0)
             {
                 Console.WriteLine("Voucher not belong to any customer");
                 return Result=3;

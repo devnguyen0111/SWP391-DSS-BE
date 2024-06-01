@@ -12,9 +12,9 @@ namespace Services
             _voucherRepository = voucherRepository;
         }
 
-        public Voucher createVoucher(Voucher voucher)
+        public void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate, int cusId)
         {
-            return _voucherRepository.createVoucher(voucher);
+            _voucherRepository.createVoucher( name, description, expdate, quantity, rate, cusId);
         }
 
         public void deleteVoucher(int Id)
