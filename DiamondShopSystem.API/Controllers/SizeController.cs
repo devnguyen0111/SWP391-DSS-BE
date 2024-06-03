@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.Models;
-using Repository;
+using Repository.Products;
 using System.Collections.Generic;
 
 [Route("api/[controller]")]
