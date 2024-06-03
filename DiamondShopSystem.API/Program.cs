@@ -16,14 +16,13 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
 
-
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IMetaltypeRepository, MetaltypeRepository>();
 builder.Services.AddScoped<ICoverSizeRepository, CoverSizeRepository>();
 builder.Services.AddScoped<ICoverMetaltypeRepository, CoverMetaltypeRepository>();
 builder.Services.AddScoped<ICoverRepository, CoverRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
@@ -38,7 +37,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAddressRepository, AddressRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
