@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
-using Services;
-//using Repository;
+using Services.Utility;
 
 namespace DiamondShopSystem.API.Controllers
 {
