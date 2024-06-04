@@ -9,7 +9,7 @@ namespace Repository.Products
 {
     public interface ISizeRepository
     {
-        IEnumerable<Size> GetAll();
+        List<Size> GetAllSizes();
         Size GetSizeById(int id);
         /*void Add(Size size);
         void Update(Size size);

@@ -9,7 +9,7 @@ namespace Repository.Products
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> GetAllProducts();
+        List<Product> GetAllProducts();
         Product GetProductById(int productId);
     }
 }

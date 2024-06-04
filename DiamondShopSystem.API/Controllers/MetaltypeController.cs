@@ -15,9 +15,9 @@ public class MetaltypeController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Metaltype>> GetAllMetaltypes()
+    public ActionResult<List<MetaltypeRequest>> GetAllMetaltypes()
     {
-        return Ok(_repository.GetAll());
+        return Ok(_repository.GetAllMetaltypes());
     }
 
     [HttpGet("{id}")]

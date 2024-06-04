@@ -1,7 +1,6 @@
 ﻿using MailKit.Security;
 using MimeKit.Text;
 using MimeKit;
-using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

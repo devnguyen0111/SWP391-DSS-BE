@@ -18,7 +18,7 @@ namespace Repository.Products
             _context = context;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
             return _context.Products
                 .Include(p => p.Diamond)

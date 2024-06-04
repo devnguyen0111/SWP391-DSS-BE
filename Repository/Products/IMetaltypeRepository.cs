@@ -9,7 +9,7 @@ namespace Repository.Products
 {
     public interface IMetaltypeRepository
     {
-        IEnumerable<Metaltype> GetAll();
+        List<Metaltype> GetAllMetaltypes();
         Metaltype GetMetaltypeById(int id);
         /*void Add(Metaltype metaltype);
         void Update(Metaltype metaltype);
