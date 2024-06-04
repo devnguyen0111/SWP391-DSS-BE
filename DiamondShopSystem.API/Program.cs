@@ -45,6 +45,7 @@ builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
 builder.Services.AddScoped<ICoverService, CoverService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IStripeService, StripeService>();
@@ -113,8 +114,6 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin() // Specify the frontend URL
             .AllowAnyHeader()
             .AllowAnyMethod());
-    //.AllowCredentials()); // Allow credentials if necessary
-            //.AllowCredentials()); // Allow credentials if necessary
 
 });
 
