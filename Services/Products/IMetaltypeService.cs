@@ -12,7 +12,7 @@ namespace Services.Products
         /*Size addSize (Size size);
         void DeleteDiamond(int id);
         List<Diamond> GetAllDiamonds();*/
-        Metaltype GetSizeById(int id);
+        Metaltype GetMetaltypeById(int id);
         //Diamond UpdateDiamond(Diamond diamond);
     }
 }

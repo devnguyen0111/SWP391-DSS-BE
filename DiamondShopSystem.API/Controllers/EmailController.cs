@@ -5,7 +5,7 @@ using Microsoft.Identity.Client;
 using MimeKit;
 using MimeKit.Text;
 using Model.Models;
-using Services;
+using Services.EmailServices;
 using System.Net.Mail;
 using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 

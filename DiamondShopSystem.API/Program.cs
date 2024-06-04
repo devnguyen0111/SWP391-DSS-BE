@@ -15,6 +15,7 @@ using Repository.Users;
 using Repository.Diamonds;
 using Repository.Charge;
 using Repository.Utility;
+using Services.EmailServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Repository.Products;
+using Services.Products;
 using System.Collections.Generic;
 
 [Route("api/[controller]")]
@@ -28,7 +30,14 @@ public class SizesController : ControllerBase
         {
             return NotFound();
         }
-        return Ok(size);
+        var sizeService = new SizeRequest
+        {
+            SizeId = size.SizeId,
+            SizeName = size.SizeName,
+            SizePrice = size.SizePrice,
+            SizeValue = size.SizeValue,
+        };
+        return Ok(sizeService);
     }
 
     /*[HttpPost]

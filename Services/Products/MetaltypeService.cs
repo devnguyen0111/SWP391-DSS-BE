@@ -32,7 +32,7 @@ namespace Services.Products
             return _diamondRepository.getAllDiamonds();
         }*/
 
-        public Metaltype GetSizeById(int Id)
+        public Metaltype GetMetaltypeById(int Id)
         {
             return _metaltypeRepository.GetMetaltypeById(Id);
         }
