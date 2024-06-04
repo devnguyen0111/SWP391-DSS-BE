@@ -20,7 +20,6 @@ namespace Repository.Diamonds
             return diamond;
         }
 
-
         public void deleteDiamond(int Id)
         {
             Diamond diamond = getDiamondById(Id);
