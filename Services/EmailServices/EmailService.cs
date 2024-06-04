@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 
-namespace Services
+namespace Services.EmailServices
 {
     public class EmailService : IEmailService
     {
