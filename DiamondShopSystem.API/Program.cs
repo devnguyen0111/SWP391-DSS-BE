@@ -4,8 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
-using Services;
+using Services.Diamonds;
+using Services.Charge;
+using Services.Products;
+using Services.Users;
+using Services.Utility;
 using System.Text;
+using Repository.Products;
+using Repository.Users;
+using Repository.Diamonds;
+using Repository.Charge;
+using Repository.Utility;
+using Services.EmailServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -15,35 +25,32 @@ builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
-
-
 builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IMetaltypeRepository, MetaltypeRepository>();
 builder.Services.AddScoped<ICoverSizeRepository, CoverSizeRepository>();
 builder.Services.AddScoped<ICoverMetaltypeRepository, CoverMetaltypeRepository>();
 builder.Services.AddScoped<ICoverRepository, CoverRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IAddressRepository, AddressRepository>();
+builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
+builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
+builder.Services.AddScoped<IStripeRepository, StripeRepository>();
+builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
-
-
 builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IMetaltypeService, MetaltypeService>();
 builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
 builder.Services.AddScoped<ICoverService, CoverService>();
 builder.Services.AddScoped<IProductService, ProductService>();
-
-builder.Services.AddScoped<IAddressRepository, AddressRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
-
+builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
-builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
-builder.Services.AddScoped<IStripeRepository, StripeRepository>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IStripeService, StripeService>();
+builder.Services.AddScoped<IPaypalService, PaypalService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>
@@ -108,8 +115,6 @@ builder.Services.AddCors(options =>
             .AllowAnyOrigin() // Specify the frontend URL
             .AllowAnyHeader()
             .AllowAnyMethod());
-    //.AllowCredentials()); // Allow credentials if necessary
-            //.AllowCredentials()); // Allow credentials if necessary
 
 });
 

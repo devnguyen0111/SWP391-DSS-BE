@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.Models;
-using Repository;
-using System.Collections.Generic;
+using Repository.Products;
 
 [Route("api/[controller]")]
 [ApiController]
@@ -15,20 +14,26 @@ public class MetaltypeController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Metaltype>> GetAllMetaltypes()
+    public ActionResult<List<MetaltypeRequest>> GetAllMetaltypes()
     {
-        return Ok(_repository.GetAll());
+        return Ok(_repository.GetAllMetaltypes());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Size> GetMetaltypeById(int id)
+    public ActionResult<MetaltypeRequest> GetMetaltypeById(int id)
     {
-        var size = _repository.GetMetaltypeById(id);
-        if (size == null)
+        var metaltype = _repository.GetMetaltypeById(id);
+        if (metaltype == null)
         {
             return NotFound();
         }
-        return Ok(size);
+        var metaltypeRequest = new MetaltypeRequest
+        {
+            MetaltypeId = metaltype.MetaltypeId,
+            MetaltypeName = metaltype.MetaltypeName,
+            MetaltypePrice = metaltype.MetaltypePrice
+        };
+        return Ok(metaltypeRequest);
     }
 
     /*[HttpPost]

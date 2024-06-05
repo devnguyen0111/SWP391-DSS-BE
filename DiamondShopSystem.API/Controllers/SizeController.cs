@@ -1,34 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Model.Models;
-using Repository;
-using System.Collections.Generic;
+using Repository.Products;
 
 [Route("api/[controller]")]
 [ApiController]
 public class SizesController : ControllerBase
 {
-    private readonly ISizeRepository _repository;
+    private readonly ISizeService _service;
 
-    public SizesController(ISizeRepository repository)
+    public SizesController(ISizeService service)
     {
-        _repository = repository;
+        _service = service;
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<Size>> GetAllSizes()
+    public ActionResult<List<SizeRequest>> GetAllSizes()
     {
-        return Ok(_repository.GetAll());
+        return Ok(_service.GetAllSizes());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Size> GetSizeById(int id)
+    public ActionResult<SizeRequest> GetSizeById(int id)
     {
-        var size = _repository.GetSizeById(id);
+        var size = _service.GetSizeById(id);
         if (size == null)
         {
             return NotFound();
         }
-        return Ok(size);
+        var sizeService = new SizeRequest
+        {
+            SizeId = size.SizeId,
+            SizeName = size.SizeName,
+            SizePrice = size.SizePrice,
+            SizeValue = size.SizeValue,
+        };
+        return Ok(sizeService);
     }
 
     /*[HttpPost]

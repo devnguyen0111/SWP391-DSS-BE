@@ -1,11 +1,6 @@
-﻿using DAO;
-using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Model.Models;
-using Services;
-using System.Net.NetworkInformation;
+using Services.Users;
 
 namespace DiamondShopSystem.API.Controllers
 {
