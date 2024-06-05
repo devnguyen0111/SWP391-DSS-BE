@@ -1,13 +1,6 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Identity.Client;
-using MimeKit;
-using MimeKit.Text;
+﻿using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.EmailServices;
-using System.Net.Mail;
-using SmtpClient = MailKit.Net.Smtp.SmtpClient;
 
 namespace DiamondShopSystem.API.Controllers
 {
