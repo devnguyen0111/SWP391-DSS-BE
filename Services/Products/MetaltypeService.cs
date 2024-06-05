@@ -20,12 +20,12 @@ namespace Services.Products
         public void DeleteDiamond(int Id)
         {
             _diamondRepository.deleteDiamond(Id);
-        }
-
-        public List<Diamond> GetAllDiamonds()
-        {
-            return _diamondRepository.getAllDiamonds();
         }*/
+
+        public List<Metaltype> GetAllMetaltypes()
+        {
+            return _metaltypeRepository.GetAllMetaltypes();
+        }
 
         public Metaltype GetMetaltypeById(int Id)
         {

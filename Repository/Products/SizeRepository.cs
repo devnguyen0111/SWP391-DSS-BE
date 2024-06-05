@@ -12,7 +12,7 @@ namespace Repository.Products
             _context = context;
         }
 
-        public IEnumerable<Size> GetAll()
+        public List<Size> GetAllSizes()
         {
             return _context.Sizes.ToList();
         }

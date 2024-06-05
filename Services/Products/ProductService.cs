@@ -12,7 +12,7 @@ namespace Services.Products
             _productRepository = productRepository;
         }
 
-        public IEnumerable<Product> GetAllProducts()
+        public List<Product> GetAllProducts()
         {
             return _productRepository.GetAllProducts();
         }

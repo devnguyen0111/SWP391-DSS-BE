@@ -12,7 +12,7 @@ namespace Repository.Products
             _context = context;
         }
 
-        public IEnumerable<Metaltype> GetAll()
+        public List<Metaltype> GetAllMetaltypes()
         {
             return _context.Metaltypes.ToList();
         }
