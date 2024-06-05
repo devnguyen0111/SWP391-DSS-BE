@@ -1,11 +1,7 @@
 ﻿using MailKit.Security;
 using MimeKit.Text;
 using MimeKit;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Model.Models;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 

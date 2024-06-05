@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using DAO;
 using Model.Models;
 using Services.Charge;
 using Repository.Charge;
@@ -49,10 +46,11 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 // Save the order to the database
-/*                _vnPayRepository.SaveOrder(order);*/
+                /*                _vnPayRepository.SaveOrder(order);*/
 
                 // Create VNPay payment URL
-                string returnUrl = Url.Action("PaymentReturn", "Checkout", null, Request.Scheme);
+                /*string returnUrl = Url.Action("PaymentReturn", "Checkout", null, Request.Scheme);*/
+                var returnUrl = "https://google.com.vn";
                 string paymentUrl = _vnPayService.CreatePaymentUrl(order, returnUrl);
 
                 return Ok(new { url = paymentUrl });
@@ -67,18 +65,22 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult PaymentReturn()
         {
             string queryString = Request.QueryString.Value;
+            var vnp_HashSecret = "MEIJ0KIOZC8Z8ZU2A5W28CT7RAC6K9I0";
 
-            if (_vnPayService.ValidateSignature(queryString, "MEIJ0KIOZC8Z8ZU2A5W28CT7RAC6K9I0"))
+            // Validate the signature of the payment URL
+            if (!string.IsNullOrEmpty(queryString) && _vnPayService.ValidateSignature(queryString, vnp_HashSecret))
             {
                 // Retrieve the order ID from the query string
-                int orderId = int.Parse(Request.Query["vnp_TxnRef"]);
-                Order order = _vnPayRepository.GetOrderById(orderId);
-
-                if (order != null)
+                if (int.TryParse(Request.Query["vnp_TxnRef"], out int orderId))
                 {
-                    order.Status = "Paid";
-                    _vnPayRepository.SaveOrder(order);
-                    return Ok("Payment successful.");
+                    Order order = _vnPayRepository.GetOrderById(orderId);
+
+                    if (order != null)
+                    {
+                        order.Status = "Paid";
+                        _vnPayRepository.SaveOrder(order);
+                        return Ok("Payment successful.");
+                    }
                 }
             }
 

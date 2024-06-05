@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Net;
+using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 namespace Services.Charge
@@ -24,40 +22,74 @@ namespace Services.Charge
             StringBuilder data = new StringBuilder();
             foreach (KeyValuePair<string, string> kv in requestData)
             {
-                if (data.Length > 0)
+                if (!String.IsNullOrEmpty(kv.Value))
                 {
-                    data.Append('&');
+                    data.Append(WebUtility.UrlEncode(kv.Key) + "=" + WebUtility.UrlEncode(kv.Value) + "&");
                 }
-                data.Append(HttpUtility.UrlEncode(kv.Key)).Append('=').Append(HttpUtility.UrlEncode(kv.Value));
             }
             string queryString = data.ToString();
-            string signData = queryString;
-            string vnp_SecureHash = VnPayHelper.Sha256(signData + vnp_HashSecret);
-            return baseUrl + "?" + queryString + "&vnp_SecureHash=" + vnp_SecureHash;
+
+            baseUrl += "?" + queryString;
+            String signData = queryString;
+            if (signData.Length > 0)
+            {
+
+                signData = signData.Remove(data.Length - 1, 1);
+            }
+            string vnp_SecureHash = Utils.HmacSHA512(vnp_HashSecret, signData);
+            baseUrl += "vnp_SecureHash=" + vnp_SecureHash;
+
+            return baseUrl;
         }
 
         public bool ValidateSignature(string queryString, string vnp_HashSecret)
         {
             var queryData = HttpUtility.ParseQueryString(queryString);
             SortedList<string, string> data = new SortedList<string, string>(new VnPayCompare());
-            foreach (string key in queryData.AllKeys)
+            if (queryData.AllKeys != null)
             {
-                if (!key.Equals("vnp_SecureHash"))
+                foreach (string key in queryData.AllKeys)
                 {
-                    data.Add(key, queryData[key]);
+                    if (!key.Equals("vnp_SecureHash"))
+                    {
+                        if (key != null && queryData[key] != null)
+                        {
+                            data.Add(key, queryData[key]);
+                        }
+                    }
                 }
             }
             string rawData = string.Join("&", data.Select(d => $"{d.Key}={d.Value}"));
             string checkSum = VnPayHelper.Sha256(rawData + vnp_HashSecret);
             return checkSum.Equals(queryData["vnp_SecureHash"]);
         }
-    }
+        }
 
     public class VnPayCompare : IComparer<string>
     {
-        public int Compare(string x, string y)
+        public int Compare(string? x, string? y)
         {
             return string.CompareOrdinal(x, y);
+        }
+    }
+
+    public class Utils
+    {
+        public static String HmacSHA512(string key, String inputData)
+        {
+            var hash = new StringBuilder();
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(inputData);
+            using (var hmac = new HMACSHA512(keyBytes))
+            {
+                byte[] hashValue = hmac.ComputeHash(inputBytes);
+                foreach (var theByte in hashValue)
+                {
+                    hash.Append(theByte.ToString("x2"));
+                }
+            }
+
+            return hash.ToString();
         }
     }
 

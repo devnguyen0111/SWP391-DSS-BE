@@ -1,8 +1,5 @@
 ﻿
-using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Model.Models;
 using Services.Products;
 
 namespace DiamondShopSystem.API.Controllers
