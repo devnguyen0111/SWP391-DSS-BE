@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Services;
 using DAO;
 using Model.Models;
-using Repository;
+using Services.Charge;
+using Repository.Charge;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -21,17 +21,23 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IStripeRepository _stripeRepository;
         private readonly IConfiguration _configuration;
 
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IStripeService stripeService, IStripeRepository stripeRepository, IConfiguration configuration)
+        // payment service Paypal
+        private readonly IPaypalService _paypalService;
+        private readonly IPaypalRepository _paypalRepository;
+
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IStripeService stripeService, IStripeRepository stripeRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
             _stripeService = stripeService;
             _stripeRepository = stripeRepository;
             _configuration = configuration;
+            _paypalService = paypalService;
+            _paypalRepository = paypalRepository;
 
         }
 
-        [HttpPost("CreatePayment")]
+        [HttpPost("CreatePayment-VNPAY")]
         public IActionResult CreatePayment(int orderId)
         {
             Order order = _vnPayRepository.GetOrderById(orderId);
@@ -57,7 +63,7 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        [HttpGet("PaymentReturn")]
+        [HttpGet("PaymentReturn-VNPAY")]
         public IActionResult PaymentReturn()
         {
             string queryString = Request.QueryString.Value;
@@ -79,7 +85,7 @@ namespace DiamondShopSystem.API.Controllers
             return BadRequest("Invalid payment.");
         }
 
-        [HttpPost("create-payment-intent")]
+        [HttpPost("create-payment-intent-STRIPE")]
         public async Task<IActionResult> CreatePaymentIntent(int orderId)
         {
             var order = await _stripeRepository.GetOrderByIdAsync(orderId);
@@ -94,7 +100,7 @@ namespace DiamondShopSystem.API.Controllers
             return Json(returnData);
         }
 
-        [HttpPost("webhook")]
+        [HttpPost("webhook-STRIPE")]
         public async Task<IActionResult> Webhook()
         {
             var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
@@ -110,5 +116,53 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
+        [HttpGet("create-payment-PAYPAL")]
+        public async Task<IActionResult> CreatePaymentPAYPAL(int orderId)
+        {
+            var order = await _paypalRepository.GetOrderByIdAsync(orderId);
+            Console.WriteLine("OrderId Controller : " + order.OrderId);
+            if (order == null)
+            {
+                return NotFound("Order not found");
+            }
+
+            string returnUrl = Url.Action("ExecutePayment", "Payment", new { orderId = orderId }, Request.Scheme) ?? string.Empty;
+            string cancelUrl = Url.Action("CancelPayment", "Payment", new { orderId = orderId }, Request.Scheme) ?? string.Empty;
+
+            if (string.IsNullOrEmpty(returnUrl) || string.IsNullOrEmpty(cancelUrl))
+            {
+                return BadRequest("Invalid return or cancel URL.");
+            }
+
+            var paymentUrl = await _paypalService.CreatePaymentAsync(order, returnUrl, cancelUrl);
+            if (string.IsNullOrEmpty(paymentUrl))
+            {
+                return BadRequest("Failed to create payment URL.");
+            }
+
+            return Ok(new { Url = paymentUrl });
+        }
+
+        [HttpGet("execute-payment-PAYPAL")]
+        public async Task<IActionResult> ExecutePayment(string paymentId, string payerId, int orderId)
+        {
+            if (await _paypalService.ExecutePaymentAsync(paymentId, payerId))
+            {
+                await _paypalRepository.UpdateOrderStatusAsync(orderId, "Paid");
+                return Redirect("https://google.com");
+            }
+            else
+            {
+                await _paypalRepository.UpdateOrderStatusAsync(orderId, "Failed");
+                return Redirect("https://youtube.com");
+            }
+        }
+
+        [HttpGet("cancel-payment-PAYPAL")]
+        public async Task<IActionResult> CancelPayment(int orderId)
+        {
+            await _paypalRepository.UpdateOrderStatusAsync(orderId, "Cancelled");
+            return Redirect("https://facebook.com");
+        }
     }
 }
