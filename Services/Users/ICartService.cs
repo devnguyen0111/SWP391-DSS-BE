@@ -1,6 +1,6 @@
 ﻿using Model.Models;
 
-namespace Services
+namespace Services.Users
 {
     public interface ICartService
     {

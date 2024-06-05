@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Model.Models;
 using Microsoft.EntityFrameworkCore;
+using Repository.Users;
 namespace Repository
 {
     public class CartRepository : ICartRepository

@@ -1,8 +1,6 @@
 ﻿using DAO;
 using DiamondShopSystem.API.DTO;
-using MailKit.Search;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Model.Models;
 
 namespace DiamondShopSystem.API.Controllers

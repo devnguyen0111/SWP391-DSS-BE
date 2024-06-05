@@ -1,12 +1,6 @@
 ﻿using DAO;
-using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Repository.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Products
 {

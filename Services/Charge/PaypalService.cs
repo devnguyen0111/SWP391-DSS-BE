@@ -1,5 +1,4 @@
-﻿using Model.Models;
-using PayPal.Api;
+﻿using PayPal.Api;
 using Microsoft.Extensions.Configuration;
 using DAO;
 using System.Globalization;
@@ -17,20 +16,17 @@ namespace Services.Charge
 
         public PaypalService(IConfiguration configuration, DIAMOND_DBContext context)
         {
-                _configuration = configuration;
+            _configuration = configuration;
             _context = context;
             clientId = _configuration["Paypal:ClientId"];
             clientSecret = _configuration["Paypal:ClientSecret"];
         }
 
-        /*private readonly string clientId = "Aarp-swRNP2yyBodVR28VTUtI1ksPHSsgSoA3vG4JYEbdfSR8OUVxPYOGtsGy7JrJxp-lZal4LoK2KGx";
-        private readonly string clientSecret = "EDPjQTL7cNjHkrzKJfms84xoqEGgN8NJhKStBCih2vM3f_LGv9sbKZEs06O8ZYksdzottFJXh47X14uS";*/
 
 
         public async Task<string> CreatePaymentAsync(Model.Models.Order order, string returnUrl, string cancelUrl)
         {
-/*            var clientId = _configuration["Paypal:ClientId"];
-            var clientSecret = _configuration["Paypal:ClientSecret"];*/
+
             try {
                 var apiContext = new APIContext(new OAuthTokenCredential(clientId, clientSecret).GetAccessToken());
                 var amount = order.TotalAmount;

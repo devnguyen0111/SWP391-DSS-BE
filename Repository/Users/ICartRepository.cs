@@ -1,6 +1,6 @@
 ﻿using Model.Models;
 
-namespace Repository
+namespace Repository.Users
 {
     public interface ICartRepository
     {
