@@ -31,12 +31,6 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(new int[] {1,2,3,4,5});
         }
-        //tạm
-        [Authorize]
-        [HttpPost("customers/{id}")]
-        public IActionResult customer(int id)
-        {
-            return Ok(_customerService.GetCustomer(id));
-        }
+
     }
 }

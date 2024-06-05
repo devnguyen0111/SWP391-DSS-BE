@@ -30,5 +30,25 @@ namespace Repository.Products
             _dbcontext.SaveChanges(true);
             return customer;
         }
+
+        public Address getCustomerAddress(int id)
+        {
+            return _dbcontext.Addresses.FirstOrDefault(c => c.AddressId == id);
+        }
+        public void updateAddress(int id,string street,string city,string state,string zipcode)
+        {
+            Address address = getCustomerAddress(id);
+            address.Street = street;
+            address.City = city;
+            address.State = state;
+            address.ZipCode = zipcode;
+            _dbcontext.Addresses.Update(address);
+            _dbcontext.SaveChanges();
+        }
+
+        public string getEmail(int id)
+        {
+            return _dbcontext.Users.FirstOrDefault(c => c.UserId == id).Email;
+        }
     }
 }

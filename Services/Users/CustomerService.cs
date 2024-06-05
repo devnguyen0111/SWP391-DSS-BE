@@ -14,5 +14,19 @@ namespace Services.Users
         {
             return _repository.GetCustomer(id);
         }
+
+        public Address getCustomerAddress(int id)
+        {
+
+            return _repository.getCustomerAddress(id);
+        }
+        public void updateAddress(int id, string street, string city, string state, string zipcode)
+        {
+            _repository.updateAddress(id, street, city, state, zipcode);
+        }
+        public string getmail(int id)
+        {
+            return _repository.getEmail(id);
+        }
     }
 }
