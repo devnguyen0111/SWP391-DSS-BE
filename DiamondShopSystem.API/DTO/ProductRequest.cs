@@ -2,14 +2,15 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
-
-namespace Model.Models;
-
-public partial class ProductRequest
+namespace DiamondShopSystem.API.DTO
 {
-    public int ProductId { get; set; }
+    public class ProductRequest
+    {
+        public int ProductId { get; set; }
 
-    public string ProductName { get; set; }
+        public string ProductName { get; set; }
 
-    public decimal? UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
+    }
 }
+
