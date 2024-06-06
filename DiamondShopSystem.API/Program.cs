@@ -17,6 +17,7 @@ using Repository.Charge;
 using Repository.Utility;
 using Services.EmailServices;
 using Services;
+using Services.OtherServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -50,6 +51,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPINCode, PINCode>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IStripeService, StripeService>();
