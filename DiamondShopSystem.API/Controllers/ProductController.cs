@@ -1,4 +1,5 @@
 ﻿
+using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Products;
@@ -20,7 +21,7 @@ namespace DiamondShopSystem.API.Controllers
         public ActionResult<List<ProductRequest>> GetAllProducts()
         {
             var products = _productService.GetAllProducts();
-            var productRequest = products.Select(c => 
+            var productRequest = products.Select(c =>
             {
                 return new ProductRequest
                 {
