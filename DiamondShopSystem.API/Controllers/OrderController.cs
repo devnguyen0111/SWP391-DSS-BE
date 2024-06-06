@@ -2,6 +2,12 @@
 using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
+using Services.EmailServices;
+using Services.Products;
+using Services.Users;
+using Services.Utility;
+using Stripe.Climate;
+using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -9,33 +15,39 @@ namespace DiamondShopSystem.API.Controllers
     [ApiController]
     public class OrderController : Controller
     {
-        private readonly DIAMOND_DBContext _context;
-        public OrderController(DIAMOND_DBContext dbcontext)
+        private readonly IOrderService _orderService;
+        private readonly IVoucherService _voucherService;
+        private readonly IEmailService _emailService;
+        private readonly IProductService _productService;
+        public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService)
         {
-            _context = dbcontext;
+            _orderService = orderService;
+            _emailService = emailService;
+            _voucherService = voucherService;
+            _productService = productService;
         }
         [HttpPost]
-        [Route("createOrder")]
-        public async Task<ActionResult<Order>> CreateOrder([FromBody] OrderRequest request)
+        [Route("createOrderDirecly")]
+        public IActionResult CreateOrder([FromBody] OrderRequest request)
         {
-            // Calculate the total amount
-            decimal totalAmount = 1000;
-
-            var order = new Order
-            {
-                OrderDate = DateTime.Now,
-                TotalAmount = totalAmount,
-                Status = "Pending",
-                CusId = request.CusId,
-                ShippingMethodId = request.ShippingMethodId,
-            };
-
-            _context.Orders.Add(order);
-            _context.SaveChanges();
-            var order1 = _context.Orders.FirstOrDefault(o => o.CusId == request.CusId);
-            _context.Add(new ProductOrder(request.pid, order1.OrderId,1));
-            _context.SaveChanges();
-            return Ok();
+            Order o = _orderService.createOrderDirectly((int)request.CusId, request.pid, (int)request.ShippingMethodId);
+            return Ok(o);
         }
+        [HttpPost]
+        [Route("createOrderFromCart")]
+        public IActionResult CreateOrderFromCart([FromBody] OrderRequest request)
+        {
+            Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId);
+            return Ok(o);
+        }
+        [HttpGet]
+        [Route("GetOrderByStatus")]
+        public IActionResult getOrders(int uid,string status)
+        {
+            List<Order> orders = _orderService.getOrderByStatus(uid, status);
+            var orderReal = orders.Select(OrderMapper.MapToOrderResponse).ToList();
+            return Ok(orderReal);
+        }
+        
     }
 }

@@ -173,7 +173,7 @@ CREATE TABLE favoriteProduct (
 );
 GO
 -- Table: Address
-CREATE TABLE Address (
+CREATE TABLE [Address] (
     addressId INT PRIMARY KEY,
     street VARCHAR(255),
     state VARCHAR(50),
