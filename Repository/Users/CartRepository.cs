@@ -97,7 +97,7 @@ namespace Repository
                     Quantity = quantity
                 };
                 cart.CartProducts.Add(cartProduct);
-                cart.CartQuantity += quantity;
+                cart.CartQuantity += 1;
             }
             else
             {

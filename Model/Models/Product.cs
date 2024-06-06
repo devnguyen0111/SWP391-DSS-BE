@@ -36,4 +36,5 @@ public partial class Product
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
     public virtual Size Size { get; set; }
+
 }

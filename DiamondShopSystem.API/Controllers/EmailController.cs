@@ -19,23 +19,19 @@ namespace DiamondShopSystem.API.Controllers
 
         [HttpPost]
         [Route("send/email")]
-
         public IActionResult SendEmail(Email request)
         {
             _emailService.SendEmail(request);
 
             return Ok();
         }
-
         [HttpPost]
         [Route("send/PIN")]
-
         public IActionResult SendPinCode(string email)
         {
             string pin = _pinCode.GeneratedPinCode();
             System.Diagnostics.Debug.WriteLine(pin);
             _emailService.SendPinCode(email, pin);
-
             return Ok(pin);
         }
 

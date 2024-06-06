@@ -68,5 +68,16 @@ namespace DiamondShopSystem.API.Controllers
                 d.ZipCode,
             });
         }
+        [Authorize]
+        [HttpPost("profile/update")]
+        public IActionResult updateCustomerProfile([FromBody] profileRequest pq)
+        {
+            Customer c = _customerService.GetCustomer(pq.id);
+            c.CusPhoneNum = pq.phonenumber;
+            c.CusLastName = pq.lastName;
+            c.CusFirstName = pq.firstName;
+            _customerService.updateCustomer(c);
+            return Ok(_customerService.GetCustomer(pq.id));
+        }
     }
 }

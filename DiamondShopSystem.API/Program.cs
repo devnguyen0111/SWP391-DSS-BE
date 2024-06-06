@@ -39,6 +39,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
 builder.Services.AddScoped<IStripeRepository, StripeRepository>();
 builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
@@ -56,6 +57,7 @@ builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IStripeService, StripeService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>

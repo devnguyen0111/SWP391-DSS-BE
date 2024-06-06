@@ -1,4 +1,5 @@
 ﻿using DAO;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Repository.Users;
 
@@ -49,6 +50,14 @@ namespace Repository.Products
         public string getEmail(int id)
         {
             return _dbcontext.Users.FirstOrDefault(c => c.UserId == id).Email;
+        }
+
+        public Customer updateCustomer(Customer customer)
+        {
+            var tracker = _dbcontext.Attach<Customer>(customer);
+            tracker.State = EntityState.Modified;
+            _dbcontext.SaveChanges();
+            return customer;
         }
     }
 }

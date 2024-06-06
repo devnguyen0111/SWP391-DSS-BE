@@ -28,5 +28,15 @@ namespace Services.Users
         {
             return _repository.getEmail(id);
         }
+
+        public Customer addCustomer(Customer customer)
+        {
+            return _repository.addCustomer(customer);
+        }
+
+        public Customer updateCustomer(Customer customer)
+        {
+            return _repository.updateCustomer(customer);
+        }
     }
 }
