@@ -14,9 +14,6 @@ namespace DiamondShopSystem.API.Controllers
         private readonly Ivnpay _vnPayService;
         private readonly IVnPayRepository _vnPayRepository;
 
-        // payment service Stripe
-        private readonly IStripeService _stripeService;
-        private readonly IStripeRepository _stripeRepository;
         private readonly IConfiguration _configuration;
 
         // payment service Paypal
@@ -25,12 +22,10 @@ namespace DiamondShopSystem.API.Controllers
 
         // logs to webhook discord Server DSS
         private readonly IDiscordWebhookService _discordWH;
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IStripeService stripeService, IStripeRepository stripeRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService)
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
-            _stripeService = stripeService;
-            _stripeRepository = stripeRepository;
             _configuration = configuration;
             _paypalService = paypalService;
             _paypalRepository = paypalRepository;
@@ -92,37 +87,6 @@ namespace DiamondShopSystem.API.Controllers
             }
             
             return BadRequest("Invalid payment.");
-        }
-
-        [HttpPost("create-payment-intent-STRIPE")]
-        public async Task<IActionResult> CreatePaymentIntent(int orderId)
-        {
-            var order = await _stripeRepository.GetOrderByIdAsync(orderId);
-            if (order == null)
-            {
-                return NotFound("Order not found");
-            }
-
-            var clientSecret = await _stripeService.CreatePaymentIntent(order.TotalAmount, "usd");
-            var publishableKey = _configuration["Stripe:PublishableKey"];
-            var returnData = new { clientSecret, publishableKey };
-            return Json(returnData);
-        }
-
-        [HttpPost("webhook-STRIPE")]
-        public async Task<IActionResult> Webhook()
-        {
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            var isHandled = await _stripeService.HandlePaymentWebhook(json);
-
-            if (isHandled)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
         }
 
         [HttpGet("create-payment-PAYPAL")]
