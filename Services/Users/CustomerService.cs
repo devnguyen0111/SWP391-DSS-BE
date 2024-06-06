@@ -1,10 +1,5 @@
 ﻿using Model.Models;
 using Repository.Users;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Users
 {
@@ -18,6 +13,20 @@ namespace Services.Users
         public Customer GetCustomer(int id)
         {
             return _repository.GetCustomer(id);
+        }
+
+        public Address getCustomerAddress(int id)
+        {
+
+            return _repository.getCustomerAddress(id);
+        }
+        public void updateAddress(int id, string street, string city, string state, string zipcode)
+        {
+            _repository.updateAddress(id, street, city, state, zipcode);
+        }
+        public string getmail(int id)
+        {
+            return _repository.getEmail(id);
         }
     }
 }

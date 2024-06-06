@@ -1,5 +1,4 @@
-﻿using Model.Models;
-using PayPal.Api;
+﻿using PayPal.Api;
 using Microsoft.Extensions.Configuration;
 using DAO;
 using System.Globalization;
@@ -8,26 +7,26 @@ namespace Services.Charge
 {
     public class PaypalService : IPaypalService
     {
+
         private readonly IConfiguration _configuration;
         private readonly DIAMOND_DBContext _context;
+        private  readonly string clientId;
+        private  readonly string clientSecret;
 
-        
 
         public PaypalService(IConfiguration configuration, DIAMOND_DBContext context)
         {
-                _configuration = configuration;
+            _configuration = configuration;
             _context = context;
+            clientId = _configuration["Paypal:ClientId"];
+            clientSecret = _configuration["Paypal:ClientSecret"];
         }
 
-        /*private readonly string clientId = "Aarp-swRNP2yyBodVR28VTUtI1ksPHSsgSoA3vG4JYEbdfSR8OUVxPYOGtsGy7JrJxp-lZal4LoK2KGx";
-        private readonly string clientSecret = "EDPjQTL7cNjHkrzKJfms84xoqEGgN8NJhKStBCih2vM3f_LGv9sbKZEs06O8ZYksdzottFJXh47X14uS";*/
-        private readonly string clientId = _configuration["Paypal:ClientId"];
-        private readonly string clientSecret = _configuration["Paypal:ClientSecret"];
+
 
         public async Task<string> CreatePaymentAsync(Model.Models.Order order, string returnUrl, string cancelUrl)
         {
-/*            var clientId = _configuration["Paypal:ClientId"];
-            var clientSecret = _configuration["Paypal:ClientSecret"];*/
+
             try {
                 var apiContext = new APIContext(new OAuthTokenCredential(clientId, clientSecret).GetAccessToken());
                 var amount = order.TotalAmount;

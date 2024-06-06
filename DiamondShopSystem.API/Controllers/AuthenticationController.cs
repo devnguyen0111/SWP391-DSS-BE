@@ -1,11 +1,6 @@
-﻿using DAO;
-using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity.Data;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Model.Models;
 using Services.Users;
-using System.Net.NetworkInformation;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -36,12 +31,6 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(new int[] {1,2,3,4,5});
         }
-        //tạm
-        [Authorize]
-        [HttpPost("customers/{id}")]
-        public IActionResult customer(int id)
-        {
-            return Ok(_customerService.GetCustomer(id));
-        }
+
     }
 }

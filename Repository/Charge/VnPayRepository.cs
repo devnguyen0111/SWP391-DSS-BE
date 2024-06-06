@@ -1,8 +1,4 @@
-﻿//using Dapper;
-using Microsoft.Extensions.Configuration;
-using System.Data.SqlClient;
-using Model.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Model.Models;
 using DAO;
 
 namespace Repository.Charge
