@@ -1,8 +1,11 @@
-﻿namespace Services.Users
+﻿using Model.Models;
+
+namespace Services.Users
 {
     public interface IAuthenticateService
     {
         string Authenticate(string email, string password);
         void Logout(string token);
+        User GetUserByMail(string email);
     }
 }

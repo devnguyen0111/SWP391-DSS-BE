@@ -1,257 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\",
+  "WorkspaceRootPath": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\emailcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\ordermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\ordermapper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\otherservices\\pincode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\otherservices\\pincode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\emailservices\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\emailservices\\emailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\emailservices\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\emailservices\\iemailservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\otherservices\\ipincode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\otherservices\\ipincode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\metaltypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\metaltypecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\vouchercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\vouchercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\services\\users\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\customerservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\sizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\sizecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\orderrespone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\orderrespone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\productcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\repository\\users\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\users\\iuserrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\repository\\users\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\users\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\repository\\users\\cartrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\users\\cartrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\emailservices\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\emailservices\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\cartrespone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\cartrespone.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\products\\coverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\products\\coverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\services\\users\\authenticateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\authenticateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\products\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\products\\iproductservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\services\\users\\iauthenticateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\iauthenticateservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\products\\isizeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\products\\isizeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\products\\icoverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\products\\icoverservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\customercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\authenticationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\charge\\paypalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\charge\\paypalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\covermetaltype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\covermetaltype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\product.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\favoriteproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\favoriteproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\cart.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\address.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\cartproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\cartproduct.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\cover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\cover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\services\\products\\covermetaltypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\products\\covermetaltypeservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\productdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\productdetail.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\orderrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\orderrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\productorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\productorder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\email.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\loginrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\dao\\diamond_dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|solutionrelative:dao\\diamond_dbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\repository\\products\\metaltyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\products\\metaltyperepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\repository\\products\\isizerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\products\\isizerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\calculatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\calculatorcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\diamondshopsystem.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\diamondshopsystem.api.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\dao\\customerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|solutionrelative:dao\\customerdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\dao\\voucherdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|solutionrelative:dao\\voucherdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\dao\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}|DAO\\DAO.csproj|solutionrelative:dao\\userdao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\covercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\covercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\1cc6d2a634203e0de348b5980fee97b87977d5074b436e24ff974f8438968be4\\ActionMethodExecutor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\customer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\deliverystaff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\deliverystaff.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\diamond.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\model\\models\\coversize.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}|Model\\Model.csproj|solutionrelative:model\\models\\coversize.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|a:\\fifth-semester\\swp391\\swp391-dss-be\\diamondshopsystem.api\\dto\\diamondrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\dto\\diamondrequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\DiamondService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\DiamondService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IVoucherService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\IVoucherService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\CalculatorService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\CalculatorService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\AuthenticateService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\AuthenticateService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IDiamondService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\IDiamondService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\VoucherService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Services\\VoucherService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\AddressRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repository\\AddressRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\UserRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repository\\UserRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IUserRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repository\\IUserRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IVoucherRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repository\\IVoucherRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\VoucherRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Repository\\VoucherRepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\services\\users\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\cartservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -261,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -273,790 +66,150 @@
             },
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "IPINCode.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\OtherServices\\IPINCode.cs",
-              "RelativeDocumentMoniker": "Services\\OtherServices\\IPINCode.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\OtherServices\\IPINCode.cs",
-              "RelativeToolTip": "Services\\OtherServices\\IPINCode.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T10:03:15.5Z",
-              "EditorCaption": ""
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "EmailController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\EmailController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\EmailController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\EmailController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\EmailController.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAABIAAAAAAAAA",
+              "Title": "OrderMapper.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\OrderMapper.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\OrderMapper.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\OrderMapper.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\OrderMapper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T11:33:37.914Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "VoucherController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\VoucherController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\VoucherController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\VoucherController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\VoucherController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAMAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:24.874Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "OrderController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\OrderController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\OrderController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:19:11.372Z",
+              "WhenOpened": "2024-06-06T14:03:51.16Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IEmailService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\IEmailService.cs",
-              "RelativeDocumentMoniker": "Services\\EmailServices\\IEmailService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\IEmailService.cs",
-              "RelativeToolTip": "Services\\EmailServices\\IEmailService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAcAAAA1AAAA",
+              "Title": "orderRespone.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\orderRespone.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\orderRespone.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\orderRespone.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\orderRespone.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAxwA4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T13:17:51.708Z",
+              "WhenOpened": "2024-06-06T14:02:38.158Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "EmailService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\EmailService.cs",
-              "RelativeDocumentMoniker": "Services\\EmailServices\\EmailService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\EmailService.cs",
-              "RelativeToolTip": "Services\\EmailServices\\EmailService.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAADwvy4AAAAuAAAA",
+              "DocumentIndex": 4,
+              "Title": "IUserRepository.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\IUserRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Users\\IUserRepository.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\IUserRepository.cs",
+              "RelativeToolTip": "Repository\\Users\\IUserRepository.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T13:17:23.395Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\appsettings.json",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\appsettings.json",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\appsettings.json",
-              "RelativeToolTip": "DiamondShopSystem.API\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAOAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-05-29T04:18:13.847Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PINCode.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\OtherServices\\PINCode.cs",
-              "RelativeDocumentMoniker": "Services\\OtherServices\\PINCode.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\OtherServices\\PINCode.cs",
-              "RelativeToolTip": "Services\\OtherServices\\PINCode.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T08:51:26.045Z",
+              "WhenOpened": "2024-06-06T13:57:50.998Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Program.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Program.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Program.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Program.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Program.cs",
-              "ViewState": "AQIAACUAAAAAAAAAAAAAADQAAAA2AAAA",
+              "Title": "OrderRepository.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\OrderRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Users\\OrderRepository.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\OrderRepository.cs",
+              "RelativeToolTip": "Repository\\Users\\OrderRepository.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACEAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T02:35:52.362Z",
+              "WhenOpened": "2024-06-06T13:52:48.531Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PaymentController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\PaymentController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\PaymentController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\PaymentController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\PaymentController.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAQwH0AAAAeAAAA",
+              "DocumentIndex": 6,
+              "Title": "CartRepository.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\CartRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Users\\CartRepository.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\CartRepository.cs",
+              "RelativeToolTip": "Repository\\Users\\CartRepository.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:19:12.285Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "DiamondController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\DiamondController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\DiamondController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\DiamondController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\DiamondController.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAgwBMAAAAdAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T10:04:15.285Z",
+              "WhenOpened": "2024-06-06T13:52:28.893Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "MetaltypeController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\MetaltypeController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\MetaltypeController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\MetaltypeController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\MetaltypeController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAqwA8AAAANAAAA",
+              "Title": "CartRespone.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\CartRespone.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\CartRespone.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\CartRespone.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\CartRespone.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAYwA4AAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T10:14:34.394Z",
+              "WhenOpened": "2024-06-06T13:45:07.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OrderController.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\OrderController.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\OrderController.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
+              "ViewState": "AQIAACQAAAAAAAAAAAAYwDAAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T13:44:43.202Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "CustomerService.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\CustomerService.cs",
+              "RelativeDocumentMoniker": "Services\\Users\\CustomerService.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\CustomerService.cs",
+              "RelativeToolTip": "Services\\Users\\CustomerService.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAYwAUAAAAjAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T13:44:36.273Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "IAuthenticateService.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\IAuthenticateService.cs",
+              "RelativeDocumentMoniker": "Services\\Users\\IAuthenticateService.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\IAuthenticateService.cs",
+              "RelativeToolTip": "Services\\Users\\IAuthenticateService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T13:33:15Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthenticateService.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\AuthenticateService.cs",
+              "RelativeDocumentMoniker": "Services\\Users\\AuthenticateService.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\AuthenticateService.cs",
+              "RelativeToolTip": "Services\\Users\\AuthenticateService.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAAwwBUAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-06T13:29:21.964Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "SizeController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\SizeController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\SizeController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\SizeController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\SizeController.cs",
+              "Title": "CartService.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\CartService.cs",
+              "RelativeDocumentMoniker": "Services\\Users\\CartService.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\CartService.cs",
+              "RelativeToolTip": "Services\\Users\\CartService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T09:27:04.935Z",
+              "WhenOpened": "2024-06-06T13:29:21.423Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Email.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\Email.cs",
-              "RelativeDocumentMoniker": "Services\\EmailServices\\Email.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\EmailServices\\Email.cs",
-              "RelativeToolTip": "Services\\EmailServices\\Email.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:15:48.27Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "ProductController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\ProductController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\ProductController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\ProductController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\ProductController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAEAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T10:17:22.989Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "CoverService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\CoverService.cs",
-              "RelativeDocumentMoniker": "Services\\Products\\CoverService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\CoverService.cs",
-              "RelativeToolTip": "Services\\Products\\CoverService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T06:29:56.722Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "Product.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Product.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Product.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Product.cs",
-              "RelativeToolTip": "Model\\Models\\Product.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAQwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:40:32.588Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 31,
-              "Title": "ProductDetail.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\ProductDetail.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\ProductDetail.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\ProductDetail.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\ProductDetail.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAA5wAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:13:56.91Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "CustomerController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CustomerController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\CustomerController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CustomerController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\CustomerController.cs",
-              "ViewState": "AQIAADIAAAAAAAAAAAAIwC4AAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:04:48.835Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "IProductService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\IProductService.cs",
-              "RelativeDocumentMoniker": "Services\\Products\\IProductService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\IProductService.cs",
-              "RelativeToolTip": "Services\\Products\\IProductService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:07:40.776Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ICoverService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\ICoverService.cs",
-              "RelativeDocumentMoniker": "Services\\Products\\ICoverService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\ICoverService.cs",
-              "RelativeToolTip": "Services\\Products\\ICoverService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:19:00.584Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "ISizeService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\ISizeService.cs",
-              "RelativeDocumentMoniker": "Services\\Products\\ISizeService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\ISizeService.cs",
-              "RelativeToolTip": "Services\\Products\\ISizeService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T14:19:03.364Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
-              "Title": "AuthenticationController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\AuthenticationController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\AuthenticationController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\AuthenticationController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\AuthenticationController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAABPAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:18.647Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
-              "Title": "Address.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Address.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Address.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Address.cs",
-              "RelativeToolTip": "Model\\Models\\Address.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:10:39.875Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "PaypalService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Charge\\PaypalService.cs",
-              "RelativeDocumentMoniker": "Services\\Charge\\PaypalService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Charge\\PaypalService.cs",
-              "RelativeToolTip": "Services\\Charge\\PaypalService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABcAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:40:55.175Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
-              "Title": "Cover.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Cover.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Cover.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Cover.cs",
-              "RelativeToolTip": "Model\\Models\\Cover.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:46:08.504Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 28,
-              "Title": "Category.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Category.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Category.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Category.cs",
-              "RelativeToolTip": "Model\\Models\\Category.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:46:09.076Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 27,
-              "Title": "CartProduct.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CartProduct.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\CartProduct.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CartProduct.cs",
-              "RelativeToolTip": "Model\\Models\\CartProduct.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:46:09.58Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 22,
-              "Title": "CoverMetalType.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CoverMetalType.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\CoverMetalType.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CoverMetalType.cs",
-              "RelativeToolTip": "Model\\Models\\CoverMetalType.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:09:14.562Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
-              "Title": "FavoriteProduct.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\FavoriteProduct.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\FavoriteProduct.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\FavoriteProduct.cs",
-              "RelativeToolTip": "Model\\Models\\FavoriteProduct.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:46:12.145Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "Cart.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Cart.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Cart.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Cart.cs",
-              "RelativeToolTip": "Model\\Models\\Cart.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:10:38.942Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 33,
-              "Title": "ProductOrder.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\ProductOrder.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\ProductOrder.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\ProductOrder.cs",
-              "RelativeToolTip": "Model\\Models\\ProductOrder.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:40:31.77Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 30,
-              "Title": "CoverMetaltypeService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\CoverMetaltypeService.cs",
-              "RelativeDocumentMoniker": "Services\\Products\\CoverMetaltypeService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\Products\\CoverMetaltypeService.cs",
-              "RelativeToolTip": "Services\\Products\\CoverMetaltypeService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T06:25:33.883Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 35,
-              "Title": "LoginRequest.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\LoginRequest.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\LoginRequest.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\LoginRequest.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\LoginRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:35.268Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 34,
-              "Title": "Email.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\Email.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\Email.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\Email.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\Email.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:10:48.613Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 32,
-              "Title": "OrderRequest.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\OrderRequest.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\OrderRequest.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\OrderRequest.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\OrderRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:34.672Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 38,
-              "Title": "ISizeRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\Products\\ISizeRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\Products\\ISizeRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\Products\\ISizeRepository.cs",
-              "RelativeToolTip": "Repository\\Products\\ISizeRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T10:14:41.303Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 37,
-              "Title": "MetaltypeRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\Products\\MetaltypeRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\Products\\MetaltypeRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\Products\\MetaltypeRepository.cs",
-              "RelativeToolTip": "Repository\\Products\\MetaltypeRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T10:14:42.714Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 36,
-              "Title": "DIAMOND_DBContext.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\DIAMOND_DBContext.cs",
-              "RelativeDocumentMoniker": "DAO\\DIAMOND_DBContext.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\DIAMOND_DBContext.cs",
-              "RelativeToolTip": "DAO\\DIAMOND_DBContext.cs",
-              "ViewState": "AQIAALcCAAAAAAAAAAAAAA4AAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T09:45:17.026Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 39,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Properties\\launchSettings.json",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Properties\\launchSettings.json",
-              "RelativeToolTip": "DiamondShopSystem.API\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-03T08:19:35.477Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 40,
-              "Title": "CalculatorController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CalculatorController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\CalculatorController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CalculatorController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\CalculatorController.cs",
-              "ViewState": "AQIAAEcAAAAAAAAAAAAqwFcAAAAxAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T07:23:53.266Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 41,
-              "Title": "DiamondShopSystem.API.csproj",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DiamondShopSystem.API.csproj",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DiamondShopSystem.API.csproj",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DiamondShopSystem.API.csproj",
-              "RelativeToolTip": "DiamondShopSystem.API\\DiamondShopSystem.API.csproj",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-06-03T10:59:22.815Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 44,
-              "Title": "UserDAO.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\UserDAO.cs",
-              "RelativeDocumentMoniker": "DAO\\UserDAO.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\UserDAO.cs",
-              "RelativeToolTip": "DAO\\UserDAO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:06.702Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 42,
-              "Title": "CustomerDAO.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\CustomerDAO.cs",
-              "RelativeDocumentMoniker": "DAO\\CustomerDAO.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\CustomerDAO.cs",
-              "RelativeToolTip": "DAO\\CustomerDAO.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:09.576Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 58,
-              "Title": "AddressRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\AddressRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\AddressRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\AddressRepository.cs",
-              "RelativeToolTip": "Repository\\AddressRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:27:36.273Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 45,
-              "Title": "CoverController.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CoverController.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\CoverController.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\CoverController.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\CoverController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-03T08:19:26.978Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 52,
-              "Title": "DiamondService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\DiamondService.cs",
-              "RelativeDocumentMoniker": "Services\\DiamondService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\DiamondService.cs",
-              "RelativeToolTip": "Services\\DiamondService.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAAABMAAAAyAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:12:59.065Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 43,
-              "Title": "VoucherDAO.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\VoucherDAO.cs",
-              "RelativeDocumentMoniker": "DAO\\VoucherDAO.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DAO\\VoucherDAO.cs",
-              "RelativeToolTip": "DAO\\VoucherDAO.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAIwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:08:52.647Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 46,
-              "Title": "ActionMethodExecutor.cs",
-              "DocumentMoniker": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\1cc6d2a634203e0de348b5980fee97b87977d5074b436e24ff974f8438968be4\\ActionMethodExecutor.cs",
-              "ToolTip": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\.vsdbgsrc\\1cc6d2a634203e0de348b5980fee97b87977d5074b436e24ff974f8438968be4\\ActionMethodExecutor.cs [Read Only]",
-              "ViewState": "AQIAADIAAAAAAAAAAAAkwEQAAAADAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T13:39:43.253Z",
-              "EditorCaption": " [Read Only]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 48,
-              "Title": "DeliveryStaff.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\DeliveryStaff.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\DeliveryStaff.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\DeliveryStaff.cs",
-              "RelativeToolTip": "Model\\Models\\DeliveryStaff.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:09:17.142Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 47,
-              "Title": "Customer.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Customer.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Customer.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Customer.cs",
-              "RelativeToolTip": "Model\\Models\\Customer.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:09:18.445Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 49,
-              "Title": "Diamond.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Diamond.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\Diamond.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\Diamond.cs",
-              "RelativeToolTip": "Model\\Models\\Diamond.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-01T11:09:15.707Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 53,
-              "Title": "IVoucherService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IVoucherService.cs",
-              "RelativeDocumentMoniker": "Services\\IVoucherService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IVoucherService.cs",
-              "RelativeToolTip": "Services\\IVoucherService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:00.859Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 54,
-              "Title": "CalculatorService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\CalculatorService.cs",
-              "RelativeDocumentMoniker": "Services\\CalculatorService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\CalculatorService.cs",
-              "RelativeToolTip": "Services\\CalculatorService.cs",
-              "ViewState": "AQIAAJIAAAAAAAAAAAAwwJYAAAANAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T05:40:23.842Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 55,
-              "Title": "AuthenticateService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\AuthenticateService.cs",
-              "RelativeDocumentMoniker": "Services\\AuthenticateService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\AuthenticateService.cs",
-              "RelativeToolTip": "Services\\AuthenticateService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T08:45:14.974Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 50,
-              "Title": "CoverSize.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CoverSize.cs",
-              "RelativeDocumentMoniker": "Model\\Models\\CoverSize.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Model\\Models\\CoverSize.cs",
-              "RelativeToolTip": "Model\\Models\\CoverSize.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T09:22:24.904Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 56,
-              "Title": "IDiamondService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IDiamondService.cs",
-              "RelativeDocumentMoniker": "Services\\IDiamondService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\IDiamondService.cs",
-              "RelativeToolTip": "Services\\IDiamondService.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAA1wAwAAAAjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T12:47:22.813Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 57,
-              "Title": "VoucherService.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\VoucherService.cs",
-              "RelativeDocumentMoniker": "Services\\VoucherService.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Services\\VoucherService.cs",
-              "RelativeToolTip": "Services\\VoucherService.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAgwCAAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:05.927Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 59,
-              "Title": "UserRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\UserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\UserRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\UserRepository.cs",
-              "RelativeToolTip": "Repository\\UserRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAQAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T08:49:47.114Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 60,
-              "Title": "IUserRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IUserRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\IUserRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IUserRepository.cs",
-              "RelativeToolTip": "Repository\\IUserRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-31T09:12:00.748Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 61,
-              "Title": "IVoucherRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IVoucherRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\IVoucherRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\IVoucherRepository.cs",
-              "RelativeToolTip": "Repository\\IVoucherRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:20.292Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 62,
-              "Title": "VoucherRepository.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\VoucherRepository.cs",
-              "RelativeDocumentMoniker": "Repository\\VoucherRepository.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\Repository\\VoucherRepository.cs",
-              "RelativeToolTip": "Repository\\VoucherRepository.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-29T08:05:15.119Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 51,
-              "Title": "DiamondRequest.cs",
-              "DocumentMoniker": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\DiamondRequest.cs",
-              "RelativeDocumentMoniker": "DiamondShopSystem.API\\DTO\\DiamondRequest.cs",
-              "ToolTip": "A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\DTO\\DiamondRequest.cs",
-              "RelativeToolTip": "DiamondShopSystem.API\\DTO\\DiamondRequest.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-05-30T14:44:25.566Z"
             }
           ]
         }

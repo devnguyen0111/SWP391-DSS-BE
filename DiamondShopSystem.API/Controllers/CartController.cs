@@ -14,13 +14,9 @@ namespace DiamondShopSystem.API.Controllers
     public class CartController : Controller
     {
         private readonly ICartService _cartService;
-        private readonly IProductService _productService;
-        private readonly DIAMOND_DBContext _DBContext;
-        public CartController(ICartService cartService, IProductService productService, DIAMOND_DBContext context)
+        public CartController(ICartService cartService)
         {
             _cartService = cartService;
-            _productService = productService;
-            _DBContext = context;
         }
         [HttpGet("{id}")]
         public IActionResult getCart(int id)
