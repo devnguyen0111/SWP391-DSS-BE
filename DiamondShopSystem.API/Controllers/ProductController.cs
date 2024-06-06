@@ -1,5 +1,6 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Model.Models;
 using Services.Products;
 
 namespace DiamondShopSystem.API.Controllers

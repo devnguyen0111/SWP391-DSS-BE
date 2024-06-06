@@ -7,10 +7,12 @@ namespace Services.Charge
 {
     public class PaypalService : IPaypalService
     {
+
         private readonly IConfiguration _configuration;
         private readonly DIAMOND_DBContext _context;
+        private  readonly string clientId;
+        private  readonly string clientSecret;
 
-        
 
         public PaypalService(IConfiguration configuration, DIAMOND_DBContext context)
         {
@@ -20,13 +22,11 @@ namespace Services.Charge
             clientSecret = _configuration["Paypal:ClientSecret"];
         }
 
-        private readonly string clientId;
-        private readonly string clientSecret;
+
 
         public async Task<string> CreatePaymentAsync(Model.Models.Order order, string returnUrl, string cancelUrl)
         {
-/*            var clientId = _configuration["Paypal:ClientId"];
-            var clientSecret = _configuration["Paypal:ClientSecret"];*/
+
             try {
                 var apiContext = new APIContext(new OAuthTokenCredential(clientId, clientSecret).GetAccessToken());
                 var amount = order.TotalAmount;

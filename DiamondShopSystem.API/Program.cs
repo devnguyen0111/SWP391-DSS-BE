@@ -16,6 +16,8 @@ using Repository.Diamonds;
 using Repository.Charge;
 using Repository.Utility;
 using Services.EmailServices;
+using Services;
+using Services.OtherServices;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -25,6 +27,7 @@ builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 builder.Services.AddScoped<ISizeRepository, SizeRepository>();
 builder.Services.AddScoped<IMetaltypeRepository, MetaltypeRepository>();
 builder.Services.AddScoped<ICoverSizeRepository, CoverSizeRepository>();
@@ -36,6 +39,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
 builder.Services.AddScoped<IStripeRepository, StripeRepository>();
 builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
@@ -46,11 +50,14 @@ builder.Services.AddScoped<ICoverSizeService, CoverSizeService>();
 builder.Services.AddScoped<ICoverService, CoverService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IPINCode, PINCode>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IStripeService, StripeService>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>

@@ -29,7 +29,10 @@ namespace Services.Users
             _credentials[token] = user.Email;
             return token;
         }
-
+        public User GetUserByMail(string email)
+        {
+            return _userRepository.GetByEmail(email);
+        }
         public void Logout(string token)
         {
             _credentials.Remove(token);

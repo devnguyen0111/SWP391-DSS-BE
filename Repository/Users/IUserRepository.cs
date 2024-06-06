@@ -9,5 +9,6 @@ namespace Repository.Users
         User GetById(int id);
         List<User> GetAll();
         User Update(User entity);
+        User GetByEmail(string email);
     }
 }

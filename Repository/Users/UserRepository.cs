@@ -36,6 +36,11 @@ namespace Repository
             return _context.Users.ToList();
         }
 
+        public User GetByEmail(string email)
+        {
+            return _context.Users.FirstOrDefault(c => c.Email==email);
+        }
+
         public User GetById(int id)
         {
             return _context.Users.FirstOrDefault(c => c.UserId == id);
