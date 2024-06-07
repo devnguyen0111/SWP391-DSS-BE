@@ -5,7 +5,6 @@ using Model.Models;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Services.OtherServices;
-using Stripe;
 using System.Text.Unicode;
 using MimeKit.Encodings;
 using MimeKit.Utils;

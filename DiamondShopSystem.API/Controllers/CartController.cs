@@ -5,7 +5,6 @@ using Model.Models;
 using Services;
 using Services.Products;
 using Services.Users;
-using Stripe;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -19,7 +18,7 @@ namespace DiamondShopSystem.API.Controllers
             _cartService = cartService;
         }
         [HttpGet("{id}")]
-        public IActionResult getCart(int id)
+        public IActionResult getCart(int id)//tính lại giá
         {
             var ca = _cartService.GetCartFromCus(id).CartProducts;
             var cartItems = ca.Select(c =>
@@ -59,7 +58,7 @@ namespace DiamondShopSystem.API.Controllers
         }
         [HttpPost("emptyCart/{id}")]
 
-        public IActionResult emptyCart(int id)
+        public IActionResult emptyCart(int id)//sẽ thêm vào order
         {
             _cartService.emptyCart(id);
             return Ok();
