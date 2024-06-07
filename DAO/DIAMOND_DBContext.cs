@@ -726,6 +726,5 @@ public partial class DIAMOND_DBContext : DbContext
 
         OnModelCreatingPartial(modelBuilder);
     }
-
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }

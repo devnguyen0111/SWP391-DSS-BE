@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Charge;
+using Services.Utility;
 using Repository.Charge;
 
 namespace DiamondShopSystem.API.Controllers
@@ -13,24 +14,22 @@ namespace DiamondShopSystem.API.Controllers
         private readonly Ivnpay _vnPayService;
         private readonly IVnPayRepository _vnPayRepository;
 
-        // payment service Stripe
-        private readonly IStripeService _stripeService;
-        private readonly IStripeRepository _stripeRepository;
         private readonly IConfiguration _configuration;
 
         // payment service Paypal
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
 
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IStripeService stripeService, IStripeRepository stripeRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration)
+        // logs to webhook discord Server DSS
+        private readonly IDiscordWebhookService _discordWH;
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
-            _stripeService = stripeService;
-            _stripeRepository = stripeRepository;
             _configuration = configuration;
             _paypalService = paypalService;
             _paypalRepository = paypalRepository;
+            _discordWH = discordWebhookService;
 
         }
 
@@ -52,6 +51,7 @@ namespace DiamondShopSystem.API.Controllers
                 /*string returnUrl = Url.Action("PaymentReturn", "Checkout", null, Request.Scheme);*/
                 var returnUrl = "https://google.com.vn";
                 string paymentUrl = _vnPayService.CreatePaymentUrl(order, returnUrl);
+                _discordWH.SendLogAsync($"Payment VN-PAY created for Order {orderId}. Payment URL: {paymentUrl}");
 
                 return Ok(new { url = paymentUrl });
             }
@@ -79,43 +79,14 @@ namespace DiamondShopSystem.API.Controllers
                     {
                         order.Status = "Paid";
                         _vnPayRepository.SaveOrder(order);
+                        _discordWH.SendLogAsync($"Payment VN-PAY executed successfully for Order {orderId}");
                         return Ok("Payment successful.");
                     }
+                    _discordWH.SendLogAsync($"Payment VN-PAY failed for Order {orderId}");
                 }
             }
-
+            
             return BadRequest("Invalid payment.");
-        }
-
-        [HttpPost("create-payment-intent-STRIPE")]
-        public async Task<IActionResult> CreatePaymentIntent(int orderId)
-        {
-            var order = await _stripeRepository.GetOrderByIdAsync(orderId);
-            if (order == null)
-            {
-                return NotFound("Order not found");
-            }
-
-            var clientSecret = await _stripeService.CreatePaymentIntent(order.TotalAmount, "usd");
-            var publishableKey = _configuration["Stripe:PublishableKey"];
-            var returnData = new { clientSecret, publishableKey };
-            return Json(returnData);
-        }
-
-        [HttpPost("webhook-STRIPE")]
-        public async Task<IActionResult> Webhook()
-        {
-            var json = await new StreamReader(HttpContext.Request.Body).ReadToEndAsync();
-            var isHandled = await _stripeService.HandlePaymentWebhook(json);
-
-            if (isHandled)
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
         }
 
         [HttpGet("create-payment-PAYPAL")]
@@ -137,6 +108,7 @@ namespace DiamondShopSystem.API.Controllers
             }
 
             var paymentUrl = await _paypalService.CreatePaymentAsync(order, returnUrl, cancelUrl);
+            await _discordWH.SendLogAsync($"Payment created for Order {orderId}. Payment URL: {paymentUrl}");
             if (string.IsNullOrEmpty(paymentUrl))
             {
                 return BadRequest("Failed to create payment URL.");
@@ -151,11 +123,13 @@ namespace DiamondShopSystem.API.Controllers
             if (await _paypalService.ExecutePaymentAsync(paymentId, payerId))
             {
                 await _paypalRepository.UpdateOrderStatusAsync(orderId, "Paid");
+                await _discordWH.SendLogAsync($"Payment executed successfully for Order {orderId}. Payment ID: {paymentId}");
                 return Redirect("https://google.com");
             }
             else
             {
                 await _paypalRepository.UpdateOrderStatusAsync(orderId, "Failed");
+                await _discordWH.SendLogAsync($"Payment failed for Order {orderId}. Payment ID: {paymentId}");
                 return Redirect("https://youtube.com");
             }
         }
@@ -164,6 +138,7 @@ namespace DiamondShopSystem.API.Controllers
         public async Task<IActionResult> CancelPayment(int orderId)
         {
             await _paypalRepository.UpdateOrderStatusAsync(orderId, "Cancelled");
+            await _discordWH.SendLogAsync($"Payment cancelled for Order {orderId}");
             return Redirect("https://facebook.com");
         }
     }

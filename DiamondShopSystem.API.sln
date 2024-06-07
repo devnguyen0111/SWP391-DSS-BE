@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DiamondShopSystem.API", "DiamondShopSystem.API\DiamondShopSystem.API.csproj", "{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1} = {AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}
+		{C6E43BE3-6058-4731-AAB7-97687C3C8B6A} = {C6E43BE3-6058-4731-AAB7-97687C3C8B6A}
+		{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F} = {DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository", "Repository\Repository.csproj", "{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}"
 EndProject
@@ -11,7 +16,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{C6E43BE3-6058-4731-AAB7-97687C3C8B6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
