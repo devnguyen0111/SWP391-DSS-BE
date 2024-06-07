@@ -6,5 +6,7 @@ namespace Services.EmailServices
     {
         void SendEmail(Email request);
         void SendPinCode(string request, string pin);
+        void SendConfirmation(string request, string url);
+        void SendAttachment(string request);
     }
 }

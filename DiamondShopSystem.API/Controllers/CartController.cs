@@ -5,7 +5,6 @@ using Model.Models;
 using Services;
 using Services.Products;
 using Services.Users;
-using Stripe;
 
 namespace DiamondShopSystem.API.Controllers
 {
