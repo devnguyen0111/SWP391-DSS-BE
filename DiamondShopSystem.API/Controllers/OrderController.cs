@@ -6,6 +6,10 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
+<<<<<<< HEAD
+
+=======
+>>>>>>> 32745c3e5883289e6995b3da30f6e5773e52ee0b
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
@@ -46,6 +50,7 @@ namespace DiamondShopSystem.API.Controllers
             List<Order> orders = _orderService.getOrderByStatus(uid, status);
             var orderReal = orders.Select(OrderMapper.MapToOrderResponse).ToList();
             return Ok(orderReal);
+
         }
         
     }
