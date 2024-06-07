@@ -42,6 +42,7 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(new { Token = token });
         }
+<<<<<<< Updated upstream
         [HttpPost("register")]
         public IActionResult Register([FromBody] registerRequest rq) {
             if (_authenticateService.GetUserByMail(rq.email) != null)
@@ -64,6 +65,9 @@ namespace DiamondShopSystem.API.Controllers
             _customerService.addCustomer(c);
             return Ok(c);
         }
+=======
+        
+>>>>>>> Stashed changes
 
     }
 }
