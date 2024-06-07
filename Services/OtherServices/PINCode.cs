@@ -47,7 +47,7 @@ namespace Services.OtherServices
             font-size: 48px;
             letter-spacing: 10px;
             font-family: Arial, sans-serif;
-            color: red;
+            color: #CCCC33;
             font-weight: bold;
         }}
     </style>

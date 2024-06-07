@@ -17,7 +17,7 @@ namespace DiamondShopSystem.API.Controllers
             _productService = productService;
         }
 
-        [HttpGet]
+        [HttpGet("products")]
         public ActionResult<List<ProductRequest>> GetAllProducts()
         {
             var products = _productService.GetAllProducts();
@@ -33,15 +33,20 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(productRequest);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetProductById(int id)
+        [HttpGet("productDetail/{id}")]
+        public IActionResult GetProductDetailById(int id)
         {
             var product = _productService.GetProductById(id);
-            var productDetail = new ProductRequest
+            var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
-                ProductName = product.ProductName,
-                UnitPrice = product.UnitPrice
+                ProductName = product.Cover.CoverName + product.Diamond.DiamondName,
+                DiamondName = product.Diamond.DiamondName,
+                CoverName = product.Cover.CoverName,
+                MetaltypeName = product.Metaltype.MetaltypeName,
+                SizeName = product.Cover.CoverName,
+                Pp = product.Pp,
+                UnitPrice = product.UnitPrice,
             };
             if (product == null)
             {
