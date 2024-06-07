@@ -7,15 +7,23 @@
       "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\orderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\ordercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\repository\\users\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\diamondcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\diamondshopsystem.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DBC4A7D6-FC7A-42D3-A65F-D8E61BC34E68}|DiamondShopSystem.API\\DiamondShopSystem.API.csproj|solutionrelative:diamondshopsystem.api\\controllers\\paymentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\repository\\users\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{AFF45B91-EC2A-4E22-8E13-90FE495A5EA1}|Repository\\Repository.csproj|solutionrelative:repository\\users\\orderrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|c:\\users\\caotr\\onedrive\\documents\\swp391\\swp391-dss-be\\services\\users\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\services\\users\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B9AA413E-CED9-42F8-8929-1981F6DE546C}|Services\\Services.csproj|solutionrelative:services\\users\\iorderservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -26,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,7 +50,33 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "DiamondController.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\DiamondController.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\DiamondController.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\DiamondController.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\DiamondController.cs",
+              "ViewState": "AQIAAHYAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-07T11:59:41.473Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "PaymentController.cs",
+              "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\PaymentController.cs",
+              "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\PaymentController.cs",
+              "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\PaymentController.cs",
+              "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\PaymentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-07T11:59:07.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "IOrderService.cs",
               "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\IOrderService.cs",
               "RelativeDocumentMoniker": "Services\\Users\\IOrderService.cs",
@@ -50,8 +84,7 @@
               "RelativeToolTip": "Services\\Users\\IOrderService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T10:14:59.151Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T10:14:59.151Z"
             },
             {
               "$type": "Document",
@@ -61,14 +94,14 @@
               "RelativeDocumentMoniker": "Services\\Users\\OrderService.cs",
               "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Services\\Users\\OrderService.cs",
               "RelativeToolTip": "Services\\Users\\OrderService.cs",
-              "ViewState": "AQIAADkAAAAAAAAAAAAgwFIAAAAOAAAA",
+              "ViewState": "AQIAABIAAAAAAAAAAAApwCAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-06T09:01:11.919Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "OrderRepository.cs",
               "DocumentMoniker": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\Repository\\Users\\OrderRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Users\\OrderRepository.cs",
@@ -76,8 +109,7 @@
               "RelativeToolTip": "Repository\\Users\\OrderRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAfAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T08:47:10.036Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-06T08:47:10.036Z"
             },
             {
               "$type": "Document",
@@ -87,7 +119,7 @@
               "RelativeDocumentMoniker": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
               "ToolTip": "C:\\Users\\caotr\\OneDrive\\Documents\\SWP391\\SWP391-DSS-BE\\DiamondShopSystem.API\\Controllers\\OrderController.cs",
               "RelativeToolTip": "DiamondShopSystem.API\\Controllers\\OrderController.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAQwBEAAAAmAAAA",
+              "ViewState": "AQIAACEAAAAAAAAAAAApwC4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-06T05:35:30.267Z",
               "EditorCaption": ""

@@ -6,10 +6,7 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
-<<<<<<< Updated upstream
-=======
-using Stripe.Climate;
->>>>>>> Stashed changes
+
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
@@ -47,14 +44,10 @@ namespace DiamondShopSystem.API.Controllers
         [Route("GetOrderByStatus")]
         public IActionResult getOrders(int uid,string status)
         {
-<<<<<<< Updated upstream
             List<Order> orders = _orderService.getOrderByStatus(uid, status);
             var orderReal = orders.Select(OrderMapper.MapToOrderResponse).ToList();
             return Ok(orderReal);
-=======
-            List<Order> lo = _orderService.getOrderByStatus(uid, status);
-            
->>>>>>> Stashed changes
+
         }
         
     }
