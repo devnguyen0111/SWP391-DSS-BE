@@ -31,9 +31,28 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult SendPinCode(string email)
         {
             string pin = _pinCode.GeneratedPinCode();
-            System.Diagnostics.Debug.WriteLine(pin);
             _emailService.SendPinCode(email, pin);
             return Ok(pin);
+        }
+
+        [HttpPost]
+        [Route("send/confirmation")]
+
+        public IActionResult SendConfirmation(string email, string url)
+        {
+            _emailService.SendConfirmation(email, url);
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("send/attachment")]
+
+        public IActionResult SendAttachment(string email)
+        {
+            _emailService.SendAttachment(email);
+
+            return Ok();
         }
 
     }
