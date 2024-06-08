@@ -52,6 +52,7 @@ builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IPINCode, PINCode>();
+builder.Services.AddScoped<ITOSService, TOSService>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
