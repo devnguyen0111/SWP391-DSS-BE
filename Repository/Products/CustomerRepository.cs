@@ -31,7 +31,13 @@ namespace Repository.Products
             _dbcontext.SaveChanges(true);
             return customer;
         }
+        public Address addAddress(Address address)
+        {
+            _dbcontext.Addresses.Add(address);
+            _dbcontext.SaveChanges();
+            return address;
 
+        }
         public Address getCustomerAddress(int id)
         {
             return _dbcontext.Addresses.FirstOrDefault(c => c.AddressId == id);
