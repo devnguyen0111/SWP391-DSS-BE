@@ -106,5 +106,16 @@ namespace Repository
              _context.SaveChanges();
             return cartProduct;
         }
+        public Cart createCart(int id)
+        {
+            Cart c = new Cart
+            {
+                CartId = id,
+                CartQuantity = 0
+            };
+            _context.Carts.Add(c);
+            _context.SaveChanges();
+            return c;
+        }
     }
 }
