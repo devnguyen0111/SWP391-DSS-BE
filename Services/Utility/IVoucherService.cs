@@ -3,6 +3,7 @@ namespace Services.Utility
 {
     public interface IVoucherService
     {
+        string createRandomNameVoucher();
         void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate, int cusId);
         void deleteVoucher(int Id);
         List<Voucher> GetAllVouchers();

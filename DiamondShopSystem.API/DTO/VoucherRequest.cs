@@ -2,7 +2,6 @@
 {
     public class VoucherRequest
     {
-        public string VoucherName { get; set; }
         public string Description { get; set; }
         public DateOnly ExpDate { get; set; }
 

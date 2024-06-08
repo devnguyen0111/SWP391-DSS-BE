@@ -14,13 +14,23 @@ namespace Repository
             this._context = context;
         }
 
+        public string createRandomNameVoucher()
+        {
+            var patern = "CD-XXXXXX";
+            var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var random = new Random();
+            var randomString = patern.Replace("XXXXXX", new string(Enumerable.Repeat(alphabet, 6).Select(s => s[random.Next(s.Length)]).ToArray()));
+            Console.WriteLine(randomString);
+            return randomString;
+        }
+
         // Method to create a new voucher
         public void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate, int cusId)
         {
             // add new voucher to the database with the provided information (name, description, expDate, quantity, rate, cusId)
             Voucher voucher = new Voucher
             {
-                Name = name,
+                Name = createRandomNameVoucher(),
                 Description = description,
                 ExpDate = expdate,
                 Quantity = quantity,
@@ -35,6 +45,7 @@ namespace Repository
         // Method to retrieve all vouchers
         public List<Voucher> getAllVouchers()
         {
+            // Fix rate int32 to decimal
             return _context.Vouchers.ToList();
         }
 

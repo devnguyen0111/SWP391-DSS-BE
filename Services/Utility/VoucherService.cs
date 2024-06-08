@@ -12,6 +12,11 @@ namespace Services.Utility
             _voucherRepository = voucherRepository;
         }
 
+        public string createRandomNameVoucher()
+        {
+            return _voucherRepository.createRandomNameVoucher();
+        }
+
         public void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate, int cusId)
         {
             _voucherRepository.createVoucher(name, description, expdate, quantity, rate, cusId);
