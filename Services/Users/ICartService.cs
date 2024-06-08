@@ -10,5 +10,6 @@ namespace Services.Users
         Cart GetCartFromCus(int id);
         CartProduct RemoveFromCart(int id, int pid);
         CartProduct updateCart(int id, int pid, int quantity);
+        Cart createCart(int id);
     }
 }

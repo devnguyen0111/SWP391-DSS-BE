@@ -6,7 +6,6 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
-using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
 {

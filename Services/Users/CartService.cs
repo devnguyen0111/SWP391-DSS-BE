@@ -39,5 +39,10 @@ namespace Services.Users
         {
             return repository.UpdateCartAsync(id, pid, quantity);
         }
+
+        public Cart createCart(int id)
+        {
+            return repository.createCart(id);
+        }
     }
 }

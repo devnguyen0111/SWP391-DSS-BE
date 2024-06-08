@@ -13,6 +13,7 @@ namespace DiamondShopSystem.API.Controllers
     {
         private readonly IAuthenticateService _authenticateService;
         private readonly ICustomerService _customerService;
+        private readonly ICartService _cartService;
         public static byte[] GetHash(string inputString)
         {
             using (HashAlgorithm algorithm = SHA256.Create())
@@ -27,10 +28,11 @@ namespace DiamondShopSystem.API.Controllers
 
             return sb.ToString();
         }
-        public AuthenticationController(IAuthenticateService authenticateService, ICustomerService customerService)
+        public AuthenticationController(IAuthenticateService authenticateService, ICustomerService customerService, ICartService cartService)
         {
             _authenticateService = authenticateService;
             _customerService = customerService;
+            _cartService = cartService;
         }
         [HttpPost("login")]
         public IActionResult Login([FromBody] DTO.LoginRequest request)
@@ -57,10 +59,23 @@ namespace DiamondShopSystem.API.Controllers
                     Email = rq.email,
                     Password = GetHashString(rq.password),
                     Status = "active",
-                    Role = "customer"
+                    Role = "customer",
+                    
                 }
             };
+            Address a = new Address
+            {
+                AddressId = c.CusId,
+                State = "",
+                City = "",
+                Country = "VietNam",
+                Street = "",
+                ZipCode = "",
+
+            };
+            c.Address = a;
             _customerService.addCustomer(c);
+            _cartService.createCart(c.CusId);
             return Ok(c);
         }
 

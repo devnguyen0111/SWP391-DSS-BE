@@ -38,5 +38,10 @@ namespace Services.Users
         {
             return _repository.updateCustomer(customer);
         }
+
+        public Address addAddress(Address address)
+        {
+            return _repository.addAddress(address);
+        }
     }
 }
