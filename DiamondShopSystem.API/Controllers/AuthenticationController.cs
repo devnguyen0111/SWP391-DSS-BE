@@ -79,7 +79,10 @@ namespace DiamondShopSystem.API.Controllers
             _cartService.createCart(c.CusId);
             return Ok(c);
         }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 
     }
 }
