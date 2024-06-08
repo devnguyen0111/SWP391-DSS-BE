@@ -4,6 +4,7 @@ namespace Repository.Utility
 {
     public interface IVoucherRepository
     {
+        string createRandomNameVoucher();
         void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate, int cusId);
         List<Voucher> getAllVouchers();
         Voucher getVoucherById(int Id);

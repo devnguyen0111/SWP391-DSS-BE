@@ -1,5 +1,4 @@
 ﻿using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Users;
@@ -79,10 +78,6 @@ namespace DiamondShopSystem.API.Controllers
             _cartService.createCart(c.CusId);
             return Ok(c);
         }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
 
     }
 }

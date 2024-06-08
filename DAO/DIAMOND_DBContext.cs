@@ -716,7 +716,7 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasColumnName("name");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.Rate)
-                .HasColumnType("decimal(18, 0)")
+                .HasColumnType("int(18, 0)")
                 .HasColumnName("rate");
 
             entity.HasOne(d => d.CusNavigation).WithMany(p => p.VouchersNavigation)
