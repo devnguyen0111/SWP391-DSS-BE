@@ -6,10 +6,7 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers

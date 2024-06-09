@@ -46,10 +46,6 @@ namespace DiamondShopSystem.API.Controllers
         }
         [HttpPost("register")]
         public IActionResult Register([FromBody] registerRequest rq) {
-            if (_authenticateService.GetUserByMail(rq.email) != null)
-            {
-                return BadRequest("Email address is already registered.");
-            }
             Customer c = new Customer
             {
                 CusFirstName = rq.firstname,
@@ -79,10 +75,15 @@ namespace DiamondShopSystem.API.Controllers
             _cartService.createCart(c.CusId);
             return Ok(c);
         }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
+        [HttpPost("checkMail")]
+        public IActionResult checkMail(string mail)
+        {
+            if (_authenticateService.GetUserByMail(mail) != null)
+            {
+                return BadRequest("Email address is already registered.");
+            }
+            return Ok(mail);
+        }
 
     }
 }
