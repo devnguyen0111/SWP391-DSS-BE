@@ -16,7 +16,6 @@ using Repository.Diamonds;
 using Repository.Charge;
 using Repository.Utility;
 using Services.EmailServices;
-using Services;
 using Services.OtherServices;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +38,7 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
 builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
@@ -57,6 +57,9 @@ builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+
+builder.Services.AddHttpClient<IDiscordWebhookService, DiscordWebhookService>();
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>

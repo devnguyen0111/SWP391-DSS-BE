@@ -1,9 +1,7 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit.Tnef;
 using Model.Models;
-using Services;
 using Services.Users;
 
 namespace DiamondShopSystem.API.Controllers
