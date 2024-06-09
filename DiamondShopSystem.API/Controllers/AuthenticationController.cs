@@ -1,5 +1,4 @@
 ﻿using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Users;
