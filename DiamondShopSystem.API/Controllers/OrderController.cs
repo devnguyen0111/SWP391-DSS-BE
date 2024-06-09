@@ -1,7 +1,5 @@
-﻿using DAO;
-using DiamondShopSystem.API.DTO;
+﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Model.Models;
 using Services.EmailServices;
 using Services.Products;
 using Services.Users;

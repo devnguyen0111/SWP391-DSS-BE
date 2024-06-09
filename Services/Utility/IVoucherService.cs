@@ -1,4 +1,5 @@
 ﻿using Model.Models;
+
 namespace Services.Utility
 {
     public interface IVoucherService

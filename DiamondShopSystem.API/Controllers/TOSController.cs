@@ -1,13 +1,5 @@
-﻿using DAO;
-using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Mvc;
-using Model.Models;
-using Services.EmailServices;
+﻿using Microsoft.AspNetCore.Mvc;
 using Services.OtherServices;
-using Services.Products;
-using Services.Users;
-using Services.Utility;
-using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
 {

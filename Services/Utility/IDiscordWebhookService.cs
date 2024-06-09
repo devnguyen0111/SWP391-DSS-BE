@@ -1,6 +1,4 @@
-﻿
-
-namespace Services.Utility
+﻿namespace Services.Utility
 {
     public interface IDiscordWebhookService
     {
