@@ -7,6 +7,12 @@ namespace Services.Products
     {
         private readonly IMetaltypeRepository _metaltypeRepository;
 
+        public MetaltypeService(IMetaltypeRepository metaltypeRepository)
+        {
+            _metaltypeRepository = metaltypeRepository;
+        }
+
+
         /*public DiamondService(IDiamondRepository diamondRepository)
         {
             _diamondRepository = diamondRepository;

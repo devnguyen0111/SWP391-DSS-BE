@@ -81,7 +81,6 @@ namespace Repository
             var product =  _context.Products.Find(productId);
             if (product == null)
                 throw new Exception("Product not found");
-
             var cartProduct = cart.CartProducts.FirstOrDefault(cp => cp.ProductId == productId);
             if (cartProduct == null)
             {
@@ -92,7 +91,12 @@ namespace Repository
                     Quantity = quantity
                 };
                 cart.CartProducts.Add(cartProduct);
-                cart.CartQuantity += 1;
+                //if cart dont have that items increase quantity by 1
+                if (!cart.CartProducts.Contains(cartProduct))
+                {
+                    cart.CartQuantity += 1;
+                }
+                
             }
             else
             {
