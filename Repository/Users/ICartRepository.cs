@@ -8,7 +8,7 @@ namespace Repository.Users
         void ClearCartAsync(int cartId);
         Cart getCartFromCustomer(int id);
         List<Cart> getCarts();
-        CartProduct RemoveFromCart(int cartID, int pid);
+        void RemoveFromCart(int cartID, int pid);
         CartProduct UpdateCartAsync(int cartId, int productId, int quantity);
         Cart createCart(int id);
     }

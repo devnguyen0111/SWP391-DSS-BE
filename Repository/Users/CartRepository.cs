@@ -35,7 +35,7 @@ namespace Repository
              _context.SaveChanges();
             return cartProduct;
         }
-        public CartProduct RemoveFromCart(int cartID, int pid)
+        public void RemoveFromCart(int cartID, int pid)
         {
             var cart =  _context.Carts
            .Include(c => c.CartProducts)
@@ -53,8 +53,7 @@ namespace Repository
             cart.CartQuantity -= 1;
             cart.CartProducts.Remove(cartProduct);
 
-            _context.SaveChangesAsync();
-            return cartProduct;
+             _context.SaveChangesAsync();
         }
         public void ClearCartAsync(int cartId)
         {
@@ -91,11 +90,9 @@ namespace Repository
                     Quantity = quantity
                 };
                 cart.CartProducts.Add(cartProduct);
-                //if cart dont have that items increase quantity by 1
-                if (!cart.CartProducts.Contains(cartProduct))
-                {
+                
                     cart.CartQuantity += 1;
-                }
+                
                 
             }
             else

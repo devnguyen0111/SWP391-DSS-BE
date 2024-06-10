@@ -14,7 +14,6 @@ namespace Repository.Charge
 
         public void SaveOrder(Order order)
         {
-            _context.Orders.Add(order);
             _context.SaveChanges();
         }
 
