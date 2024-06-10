@@ -8,7 +8,7 @@ namespace Services.Users
         void emptyCart(int id);
         List<Cart> GetAll();
         Cart GetCartFromCus(int id);
-        CartProduct RemoveFromCart(int id, int pid);
+        void RemoveFromCart(int id, int pid);
         CartProduct updateCart(int id, int pid, int quantity);
         Cart createCart(int id);
     }

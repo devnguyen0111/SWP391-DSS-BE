@@ -22,9 +22,9 @@ namespace Services.Users
         {
             return repository.AddToCartAsync(id, pid, 1);
         }
-        public CartProduct RemoveFromCart(int id, int pid)
+        public void RemoveFromCart(int id, int pid)
         {
-            return repository.RemoveFromCart(id, pid);
+              repository.RemoveFromCart(id, pid);
         }
         public void emptyCart(int id)
         {

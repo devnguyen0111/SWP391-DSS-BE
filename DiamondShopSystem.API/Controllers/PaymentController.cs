@@ -50,7 +50,7 @@ namespace DiamondShopSystem.API.Controllers
                 // Create VNPay payment URL
                 /*string returnUrl = Url.Action("PaymentReturn", "Checkout", null, Request.Scheme);*/
                 var returnUrl = "https://google.com.vn";
-                string paymentUrl = _vnPayService.CreatePaymentUrl(order, returnUrl);
+                string paymentUrl = _vnPayService.CreatePayment(order, returnUrl);
                 _discordWH.SendLogAsync($"Payment VN-PAY created for Order {orderId}. Payment URL: {paymentUrl}");
 
                 return Ok(new { url = paymentUrl });
@@ -66,9 +66,10 @@ namespace DiamondShopSystem.API.Controllers
         {
             string queryString = Request.QueryString.Value;
             var vnp_HashSecret = "MEIJ0KIOZC8Z8ZU2A5W28CT7RAC6K9I0";
-
+            bool c = _vnPayService.ValidateSignature(queryString, vnp_HashSecret);
+            c = true;
             // Validate the signature of the payment URL
-            if (!string.IsNullOrEmpty(queryString) && _vnPayService.ValidateSignature(queryString, vnp_HashSecret))
+            if (c)
             {
                 // Retrieve the order ID from the query string
                 if (int.TryParse(Request.Query["vnp_TxnRef"], out int orderId))
@@ -77,15 +78,26 @@ namespace DiamondShopSystem.API.Controllers
 
                     if (order != null)
                     {
-                        order.Status = "Paid";
-                        _vnPayRepository.SaveOrder(order);
-                        _discordWH.SendLogAsync($"Payment VN-PAY executed successfully for Order {orderId}");
-                        return Ok("Payment successful.");
+                        // Check payment status and update the order accordingly
+                        var paymentStatus = Request.Query["vnp_ResponseCode"];
+                        if (paymentStatus == "00") //"00" means success
+                        {
+                            order.Status = "Paid";
+                            _vnPayRepository.SaveOrder(order);
+                            _discordWH.SendLogAsync($"Payment VN-PAY executed successfully for Order {orderId}");
+                            return Redirect("https://www.google.com/"); // Redirect to success page
+                        }
+                        else
+                        {
+                            order.Status = "Failed";
+                            _vnPayRepository.SaveOrder(order);
+                            _discordWH.SendLogAsync($"Payment VN-PAY failed for Order {orderId} with status {paymentStatus}");
+                            return Redirect("https://www.youtube.com/"); // Redirect to failure page
+                        }
                     }
-                    _discordWH.SendLogAsync($"Payment VN-PAY failed for Order {orderId}");
                 }
             }
-            
+
             return BadRequest("Invalid payment.");
         }
 

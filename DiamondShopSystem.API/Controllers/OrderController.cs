@@ -32,7 +32,7 @@ namespace DiamondShopSystem.API.Controllers
         }
         [HttpPost]
         [Route("createOrderFromCart")]
-        public IActionResult CreateOrderFromCart([FromBody] OrderRequest request)
+        public IActionResult CreateOrderFromCart([FromBody] OrderRequestCart request)
         {
             Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId);
             return Ok(o);

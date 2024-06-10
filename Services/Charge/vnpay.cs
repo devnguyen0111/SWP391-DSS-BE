@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using Microsoft.Extensions.Configuration;
+using static System.Net.WebRequestMethods;
 
 namespace Services.Charge
 {
@@ -56,7 +57,7 @@ namespace Services.Charge
             //var ExpireDate = order.OrderDate.AddMinutes(15).ToString("yyyyMMddHHmmss");
             //string checksum = Utils.HmacSHA512(vnp_HashSecret, data);
             //decimal convertMoney = order.TotalAmount * 25000;
-            returnUrl = "https://google.com.vn";
+            returnUrl = "https://localhost:7262/api/Payment/PaymentReturn-VNPAY";
 
             var vnPay = new VnPayLibrary();
 

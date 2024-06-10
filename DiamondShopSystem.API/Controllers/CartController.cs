@@ -6,6 +6,7 @@ using Services;
 using Services.Diamonds;
 using Services.Products;
 using Services.Users;
+using System.Runtime.InteropServices;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -77,33 +78,32 @@ namespace DiamondShopSystem.API.Controllers
                 };
             }).ToList();
             CartRespone car = new CartRespone();
-            car.items = (List<CartItemRespone>)cartItems;
+            car.items = cartItems;
             return Ok(car);
         }
-        [HttpPost("addToCart/{id}")]
-        public IActionResult addtoCart(int id,int pid)
+        [HttpPost("addToCart")]
+        public IActionResult addtoCart([FromBody] CartRequest c)
         {
-            CartProduct p = _cartService.AddToCart(id, pid);
+            CartProduct p = _cartService.AddToCart(c.id, c.pid);
             return Ok(new {p.ProductId,p.Quantity});
         }
-        [HttpPost("removeFromCart/{id}")]
-        public IActionResult removeFromCart(int id,int pid)
+        [HttpPost("removeFromCart")]
+        public IActionResult removeFromCartAsync([FromBody] CartRequest c)
         {
-            CartProduct p =_cartService.RemoveFromCart(id, pid);
-            decimal total = getotal(id);
-            return Ok(new { p.Quantity,total});
+            _cartService.RemoveFromCart(c.id, c.pid);
+            return Ok();
         }
-        [HttpPut("updateCart/{id}")]
+        [HttpPut("updateCart")]
 
-        public IActionResult updateCart(int id,int pid,int quantity)
+        public  IActionResult updateCart(int id,int pid,int quantity)
         {
             CartProduct p =_cartService.updateCart(id, pid,quantity);
             decimal total = getotal(id);
             return Ok(new { p.Quantity, total });
         }
-        [HttpPost("emptyCart/{id}")]
+        [HttpPost("emptyCart")]
 
-        public IActionResult emptyCart(int id)//sẽ thêm vào order
+        public IActionResult emptyCart([FromBody]int id)//sẽ thêm vào order
         {
             _cartService.emptyCart(id);
             return Ok();
