@@ -7,11 +7,11 @@ namespace Services.Products
     {
         private readonly ISizeRepository _sizeRepository;
 
-        /*public DiamondService(IDiamondRepository diamondRepository)
+        public SizeService(ISizeRepository sizeRepository)
         {
-            _diamondRepository = diamondRepository;
+            _sizeRepository = sizeRepository;
         }
-
+/*
         public Diamond AddDiamond(Diamond diamond)
         {
             return _diamondRepository.createDiamond(diamond);

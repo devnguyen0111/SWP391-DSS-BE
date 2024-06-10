@@ -41,10 +41,8 @@ namespace DiamondShopSystem.API.Controllers
         [Route("GetOrderByStatus")]
         public IActionResult getOrders(int uid,string status)
         {
-            List<Order> orders = _orderService.getOrderByStatus(uid, status);
-            var orderReal = orders.Select(OrderMapper.MapToOrderResponse).ToList();
-            return Ok(orderReal);
-
+            List<Order> l = _orderService.getOrderByStatus(uid, status);
+            return Ok(l.Select(OrderMapper.MapToOrderResponse).ToList());
         }
         
     }

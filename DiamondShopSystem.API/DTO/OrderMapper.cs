@@ -8,19 +8,17 @@ namespace DiamondShopSystem.API.DTO
         {
             return new orderRespone
             {
-                id = order.OrderId,
                 status = order.Status,
+                total = order.TotalAmount,
                 items = order.ProductOrders.Select(po => new orderItem
                 {
                     pid = po.Product.ProductId,
                     name1 = po.Product.ProductName,
                     quantity = po.Quantity,
-                    total = po.Quantity,
                     img = po.Product.Pp,
-                    size = "hihi",  // will fix later :P
-                    metal = "hihi"  //  will fix later :P
                 }).ToList()
             };
         }
+        
     }
 }

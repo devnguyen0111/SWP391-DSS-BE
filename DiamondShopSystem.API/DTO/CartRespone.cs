@@ -1,4 +1,7 @@
-﻿namespace DiamondShopSystem.API.DTO
+﻿using Model.Models;
+using System.Runtime.CompilerServices;
+
+namespace DiamondShopSystem.API.DTO
 {
     public class CartRespone
     {
@@ -25,6 +28,11 @@
         public string img { get; set; }
         public string size { get; set; }
         public string metal { get; set; }
+        public string diamond { get; set; }
+        public decimal diamondPrice { get; set; }
+        public string cover { get; set; }
+        public decimal coverPrice { get; set; }
+        public decimal labor {  get; set; }
         public CartItemRespone()
         {
         }

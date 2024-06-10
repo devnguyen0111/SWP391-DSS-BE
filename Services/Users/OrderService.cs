@@ -75,7 +75,7 @@ namespace Services.Users
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = GetTotalPrice(_productRepository.GetProductById(pid)),
-                Status = "processing",
+                Status = "pending",
                 CusId = uid,
                 ShippingMethodId = sid
             };
