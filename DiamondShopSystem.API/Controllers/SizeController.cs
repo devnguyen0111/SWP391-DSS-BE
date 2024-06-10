@@ -1,7 +1,5 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Model.Models;
-using Repository.Products;
 using Services.Products;
 
 [Route("api/[controller]")]

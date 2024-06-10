@@ -1,15 +1,9 @@
 ﻿using MailKit.Security;
 using MimeKit.Text;
 using MimeKit;
-using Model.Models;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Services.OtherServices;
-using System.Text.Unicode;
-using MimeKit.Encodings;
-using MimeKit.Utils;
-using System.Net;
-using System.IO;
 
 namespace Services.EmailServices
 {

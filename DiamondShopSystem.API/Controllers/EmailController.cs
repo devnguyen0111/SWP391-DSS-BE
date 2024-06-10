@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MimeKit.Encodings;
-using Model.Models;
 using Services.EmailServices;
 using Services.OtherServices;
 

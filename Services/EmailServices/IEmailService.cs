@@ -1,6 +1,4 @@
-﻿using Model.Models;
-
-namespace Services.EmailServices
+﻿namespace Services.EmailServices
 {
     public interface IEmailService
     {
