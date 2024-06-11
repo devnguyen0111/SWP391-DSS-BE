@@ -5,6 +5,7 @@ namespace DiamondShopSystem.API.DTO
     public class ProductRequest
     {
         public int ProductId { get; set; }
+        public string imgUrl { get; set; }
 
         public string ProductName { get; set; }
 

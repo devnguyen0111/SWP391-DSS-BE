@@ -21,6 +21,10 @@ namespace Services.Products
         {
             return _productRepository.GetProductById(productId);
         }
+        public List<ProductQuantity> getMostSaleProduct(int count, string subcate)
+        {
+            return _productRepository.GetMostOrderedProductsBySubCategory(count, subcate);
+        }
         public List<Product> FilterProducts(
         int? categoryId = null,
         int? subCategoryId = null,
@@ -29,7 +33,7 @@ namespace Services.Products
         decimal? minPrice = null,
         decimal? maxPrice = null)
         {
-            var filteredProducts = _productRepository.getAllProductsNotReally();
+            var filteredProducts = _productRepository.GetAllProducts();
 
             if (categoryId.HasValue)
             {
@@ -60,7 +64,6 @@ namespace Services.Products
             {
                 filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value).ToList();
             }
-
             return filteredProducts.ToList();
         }
     }

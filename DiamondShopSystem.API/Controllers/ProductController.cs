@@ -1,6 +1,7 @@
 ﻿
 using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Model.Models;
 using Services.Products;
 
 namespace DiamondShopSystem.API.Controllers
@@ -39,6 +40,7 @@ namespace DiamondShopSystem.API.Controllers
             var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
+                imgUrl = "hihi",
                 ProductName = product.Cover.CoverName + product.Diamond.DiamondName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
@@ -53,7 +55,50 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(productDetail);
         }
+        [HttpGet("getMostSaleProduct")]
+        public IActionResult getMostSaleProducrByCate(int count,string cate)
+        {
+            var products = _productService.getMostSaleProduct(count, cate);
+            var productRequest = products.Select(c =>
+            {
+                return new ProductRequest
+                {
+                    ProductId = c.ProductId,
+                    imgUrl = "hehe",
+                    ProductName = _productService.GetProductById(c.ProductId).ProductName,
+                    UnitPrice = _productService.GetProductById(c.ProductId).UnitPrice,
+                };
+            }).ToList();
+            return Ok(productRequest);
+        }
+        [HttpGet("GetFilteredProducts")]
+        public IActionResult GetFilteredProducts(
+        [FromQuery] int? categoryId,
+        [FromQuery] int? subCategoryId,
+        [FromQuery] int? metaltypeId,
+        [FromQuery] int? sizeId,
+        [FromQuery] decimal? minPrice,
+        [FromQuery] decimal? maxPrice)
+        {
+            var filteredProducts = _productService.FilterProducts(
+                categoryId,
+                subCategoryId,
+                metaltypeId,
+                sizeId,
+                minPrice,
+                maxPrice).Select(c =>
+                {
+                    return new ProductRequest
+                    {
+                        ProductId = c.ProductId,
+                        imgUrl = "hehe",
+                        ProductName = c.ProductName,
+                        UnitPrice = c.UnitPrice
+                    };
+                }).ToList(); ;
 
+            return Ok(filteredProducts);
+        }
     }
 }
 
