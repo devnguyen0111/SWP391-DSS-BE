@@ -1,4 +1,5 @@
 ﻿using Model.Models;
+using Repository.Products;
 
 namespace Services.Products
 {
@@ -6,7 +7,8 @@ namespace Services.Products
     {
         List<Product> GetAllProducts();
         Product GetProductById(int productId);
-        public List<Product> FilterProducts(
+        List<ProductQuantity> getMostSaleProduct(int count, string subcate);
+         List<Product> FilterProducts(
         int? categoryId = null,
         int? subCategoryId = null,
         int? metaltypeId = null,

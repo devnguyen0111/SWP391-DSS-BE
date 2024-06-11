@@ -22,10 +22,6 @@ namespace Repository.Products
                 .Include(p => p.Size)
                 .ToList();
         }
-        public List<Product> getAllProductsNotReally()
-        {
-            return _context.Products.Include(c => c.Cover).ToList();
-        }
         public Product GetProductById(int productId)
         {
             return _context.Products
@@ -55,9 +51,29 @@ namespace Repository.Products
             }
         }
 
+        public List<ProductQuantity> GetMostOrderedProductsBySubCategory(int count, string subcate)
+        {
+            var result = _context.ProductOrders.Include(c => c.Product).ThenInclude(c => c.Cover).ThenInclude(c => c.SubCategory)
+                .Where(po => po.Product.Cover.SubCategory.SubCategoryName == subcate)
+                .GroupBy(po => po.ProductId)
+                .Select(g => new ProductQuantity
+                {
+                    ProductId = g.Key,
+                    TotalQuantity = g.Sum(po => po.Quantity)
+                })
+                .OrderByDescending(x => x.TotalQuantity)
+                .Take(count)
+                .ToList();
+            return result;
+        }
         public void Save()
         {
             _context.SaveChanges();
         }
+    }
+    public class ProductQuantity
+    {
+        public int ProductId { get; set; }
+        public int TotalQuantity { get; set; }
     }
 }
