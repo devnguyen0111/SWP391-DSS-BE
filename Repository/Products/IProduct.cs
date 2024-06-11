@@ -6,5 +6,6 @@ namespace Repository.Products
     {
         List<Product> GetAllProducts();
         Product GetProductById(int productId);
+        public List<Product> getAllProductsNotReally();
     }
 }
