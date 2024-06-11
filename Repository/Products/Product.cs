@@ -22,7 +22,10 @@ namespace Repository.Products
                 .Include(p => p.Size)
                 .ToList();
         }
-
+        public List<Product> getAllProductsNotReally()
+        {
+            return _context.Products.Include(c => c.Cover).ToList();
+        }
         public Product GetProductById(int productId)
         {
             return _context.Products

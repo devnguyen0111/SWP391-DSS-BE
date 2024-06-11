@@ -95,7 +95,8 @@ namespace DiamondShopSystem.API.Controllers
             [FromQuery] decimal? minCaratWeight,
             [FromQuery] decimal? maxCaratWeight,
             [FromQuery] decimal? minPrice,
-            [FromQuery] decimal? maxPrice)
+            [FromQuery] decimal? maxPrice,
+            [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
             // Define custom sorting orders
             Dictionary<string, int> colorOrder = new Dictionary<string, int>
@@ -153,10 +154,9 @@ namespace DiamondShopSystem.API.Controllers
 
             // Sort the list of diamonds
             var sortedDiamonds = filteredDiamonds.Where(c => c.Shape == sortBy).ToList();
-
-             
-
-            return Ok(sortedDiamonds);
+            return Ok(sortedDiamonds.Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToList());
         }
     }
 }

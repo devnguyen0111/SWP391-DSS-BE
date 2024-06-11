@@ -53,6 +53,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(productDetail);
         }
+
     }
 }
 
