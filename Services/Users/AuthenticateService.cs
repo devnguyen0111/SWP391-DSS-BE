@@ -32,6 +32,9 @@ namespace Services.Users
         public User GetUserByMail(string email)
         {
             return _userRepository.GetByEmail(email);
+        }public User GetUserById(int id)
+        {
+            return _userRepository.GetById(id);
         }
         public void Logout(string token)
         {
@@ -59,6 +62,10 @@ namespace Services.Users
                 signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+        public void UpdateUserPassword(User user)
+        {
+            _userRepository.Update(user);
         }
     }
 }

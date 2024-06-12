@@ -4,7 +4,8 @@
     {
         void SendEmail(Email request);
         void SendPinCode(string request, string pin);
-        void SendConfirmation(string request, string url);
+        void SendConfirmationLink(string request, string url);
         void SendAttachment(string request);
+        void SendResetLink(string request, string url);
     }
 }

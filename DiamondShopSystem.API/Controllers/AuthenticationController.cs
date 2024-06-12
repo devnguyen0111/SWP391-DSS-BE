@@ -83,6 +83,34 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(mail);
         }
-
+        [HttpPost("changePassword")]
+        public IActionResult changeUserPassword([FromBody] DTO.PasswordRequest request)
+        {
+            User updatingUser = _authenticateService.GetUserById(request.userId);
+            if (updatingUser == null)
+            {
+                return BadRequest("There is no such user with this id");
+            }
+            else { 
+                updatingUser.Password = request.NewPassword;
+                _authenticateService.UpdateUserPassword(updatingUser);
+            return Ok(_authenticateService.GetUserById(request.userId));
+            }
+        }
+        [HttpPost("forgotPassword")]
+        public IActionResult resetUserPassword(int userId, string newPassword)
+        {
+            User updatingUser = _authenticateService.GetUserById(userId);
+            if (updatingUser == null)
+            {
+                return BadRequest("There is no such user with this id");
+            }
+            else
+            {
+                updatingUser.Password = newPassword;
+                _authenticateService.UpdateUserPassword(updatingUser);
+                return Ok(_authenticateService.GetUserById(userId));
+            }
+        }
     }
 }
