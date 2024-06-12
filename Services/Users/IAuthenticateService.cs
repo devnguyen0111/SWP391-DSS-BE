@@ -7,5 +7,7 @@ namespace Services.Users
         string Authenticate(string email, string password);
         void Logout(string token);
         User GetUserByMail(string email);
+        User GetUserById(int id);
+        void UpdateUserPassword(User user);
     }
 }

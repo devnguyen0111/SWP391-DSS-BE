@@ -9,8 +9,8 @@ namespace DiamondShopSystem.API.Controllers
     public class EmailController : ControllerBase
     {
         private readonly IEmailService _emailService;
-        private readonly IPINCode _pinCode;
-        public EmailController(IEmailService emailService, IPINCode pinCode)
+        private readonly IEmailRelatedService _pinCode;
+        public EmailController(IEmailService emailService, IEmailRelatedService pinCode)
         {
             _emailService = emailService;
             _pinCode = pinCode;
@@ -18,11 +18,11 @@ namespace DiamondShopSystem.API.Controllers
 
         [HttpPost]
         [Route("send/email")]
-        public IActionResult SendEmail(Email request)
+        public IActionResult SendEmail(Email email)
         {
-            _emailService.SendEmail(request);
+            _emailService.SendEmail(email);
 
-            return Ok();
+            return Ok("Email has successfully been sent to " + email.To + " !!");
         }
         [HttpPost]
         [Route("send/PIN")]
@@ -38,20 +38,30 @@ namespace DiamondShopSystem.API.Controllers
 
         public IActionResult SendConfirmation(string email, string url)
         {
-            _emailService.SendConfirmation(email, url);
+            _emailService.SendConfirmationLink(email, url);
 
-            return Ok();
+            return Ok("A confirmation has been sent succesfully to " + email + "!!");
         }
 
         [HttpPost]
         [Route("send/attachment")]
 
+        // ///this is it
         public IActionResult SendAttachment(string email)
         {
             _emailService.SendAttachment(email);
 
-            return Ok();
+            return Ok("An attachment has been sent successfully to " + email + "!!");
         }
 
+        [HttpPost]
+        [Route("send/resetPasswordLink")]
+
+        public IActionResult SendResetPasswordLink(string email, string url)
+        {
+            _emailService.SendResetLink(email, url);
+
+            return Ok("A confirmation has been sent succesfully to " + email + "!!");
+        }
     }
 }
