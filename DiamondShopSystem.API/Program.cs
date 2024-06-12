@@ -58,6 +58,7 @@ builder.Services.AddScoped<Ivnpay, VnPay>();
 builder.Services.AddScoped<IPaypalService, PaypalService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 
 builder.Services.AddHttpClient<IDiscordWebhookService, DiscordWebhookService>();
 
