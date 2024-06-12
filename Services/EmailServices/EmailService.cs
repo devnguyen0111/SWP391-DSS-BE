@@ -4,17 +4,25 @@ using MimeKit;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using Services.OtherServices;
+using System.Globalization;
+using Microsoft.Extensions.Logging;
+using MimeKit.Cryptography;
+using static System.Net.Mime.MediaTypeNames;
+using Model.Models;
 
 namespace Services.EmailServices
 {
     public class EmailService : IEmailService
     {
         private readonly IConfiguration _config;
-        private readonly IPINCode _pinCode;
-        public EmailService(IConfiguration config, IPINCode pinCode)
+        private readonly IEmailRelatedService _emailRelatedService;
+        private readonly ILogger<EmailService> _logger;
+
+        public EmailService(IConfiguration config, IEmailRelatedService emailRelatedService, ILogger<EmailService> logger)
         {
             this._config = config;
-            this._pinCode = pinCode;
+            this._emailRelatedService = emailRelatedService;
+            this._logger = logger;
         }
         public void SendEmail(Email requestedEmail)
         {
@@ -24,11 +32,20 @@ namespace Services.EmailServices
             email.Subject = requestedEmail.Subject;
             email.Body = new TextPart(TextFormat.Html) { Text = requestedEmail.Body };
 
-            using var smtp = new SmtpClient();
-            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
-            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
-            smtp.Send(email);
-            smtp.Disconnect(true);
+            try
+            {
+                using var smtp = new SmtpClient();
+                smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+                smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+                smtp.Send(email);
+                smtp.Disconnect(true);
+
+                _logger.LogInformation("Email sent successfully to {Email}", requestedEmail.To);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to send email to {Email}", requestedEmail.To);
+            }
         }
 
         public void SendPinCode(string requestedEmail, string pin)
@@ -37,7 +54,7 @@ namespace Services.EmailServices
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
             email.To.Add(MailboxAddress.Parse(requestedEmail));
             email.Subject = _config.GetSection("PinCodeSubject").Value;
-            email.Body = new TextPart(TextFormat.Html) { Text = _config.GetSection("PinCodeBody").Value + "</br>" + _pinCode.PinCodeHtmlContent(pin) };
+            email.Body = new TextPart(TextFormat.Html) { Text = _config.GetSection("PinCodeBody").Value + "</br>" + _emailRelatedService.PinCodeHtmlContent(requestedEmail , pin) };
 
             using var smtp = new SmtpClient();
             smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
@@ -46,13 +63,13 @@ namespace Services.EmailServices
             smtp.Disconnect(true);
         }
 
-        public void SendConfirmation(string requestedEmail, string confirmation)
+        public void SendConfirmationLink(string requestedEmail, string confirmation)
         {
             var email = new MimeMessage();
             email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
             email.To.Add(MailboxAddress.Parse(requestedEmail));
             email.Subject = _config.GetSection("ConfirmationSubject").Value;
-            email.Body = new TextPart(TextFormat.Html) { Text = _config.GetSection("ConfirmationBody").Value + "</br><hr></br><a href=" + confirmation +">" + _config.GetSection("ConfirmationLink").Value + "</a>"};
+            email.Body = new TextPart(TextFormat.Html) { Text = _config.GetSection("ConfirmationBody").Value + "</br><hr></br><a href=" + confirmation + ">" + _config.GetSection("ConfirmationLink").Value + "</a>" };
 
             using var smtp = new SmtpClient();
             smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
@@ -99,6 +116,22 @@ namespace Services.EmailServices
             smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
             smtp.Send(email);
             smtp.Disconnect(true);
+        }
+
+        public void SendResetLink(string requestedEmail, string resetUrl)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            email.To.Add(MailboxAddress.Parse(requestedEmail));
+            email.Subject = _config.GetSection("ResetPasswordSubject").Value;
+            email.Body = new TextPart(TextFormat.Html) { Text = _emailRelatedService.ResetPasswordContent(requestedEmail, resetUrl) };
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
         }
     }
 }

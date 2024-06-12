@@ -17,12 +17,18 @@ using Repository.Charge;
 using Repository.Utility;
 using Services.EmailServices;
 using Services.OtherServices;
+using Serilog;
+using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<DIAMOND_DBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDbContext<DIAMOND_DBContext>(options => 
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    .EnableSensitiveDataLogging()); //allow seeing sensitive information in logging
+
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDiamondRepository, DiamondRepository>();
 builder.Services.AddScoped<IVoucherRepository, VoucherRepository>();
@@ -51,7 +57,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-builder.Services.AddScoped<IPINCode, PINCode>();
+builder.Services.AddScoped<IEmailRelatedService, EmailRelatedService>();
 builder.Services.AddScoped<ITOSService, TOSService>();
 builder.Services.AddScoped<CalculatorService ,CalculatorService>();
 builder.Services.AddScoped<Ivnpay, VnPay>();
@@ -61,6 +67,14 @@ builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 
 builder.Services.AddHttpClient<IDiscordWebhookService, DiscordWebhookService>();
+
+//this is logger using Serilog
+builder.Host.UseSerilog((context, configuration) =>
+    configuration
+        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
+        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
+        .WriteTo.Console(outputTemplate: "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine} {Message:1j}{NewLine}{Exception}")
+);
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(options =>
@@ -137,6 +151,9 @@ if (app.Environment.IsDevelopment())
 }
 // Configure the HTTP request pipeline.
 /*app.UseCors("AllowSpecificOrigin");*/
+
+app.UseSerilogRequestLogging();
+
 app.UseCors("AllowAnyOrigin");
 
 app.UseHttpsRedirection();

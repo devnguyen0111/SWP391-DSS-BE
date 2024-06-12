@@ -14,7 +14,6 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         [HttpGet]
-        [Route("TOS")]
         public IActionResult getTOS()
         {
             _TOSService.createTOS();
