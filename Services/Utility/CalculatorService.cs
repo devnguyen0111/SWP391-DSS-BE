@@ -193,5 +193,30 @@ namespace Services.Utility
             Console.WriteLine("CalculateSellingPriceAsync Final Price: " + costPrice * priceMarkupRate);
             return costPrice * priceMarkupRate;
         }
+
+
+        public async Task<decimal> GetProductPriceAsync(int productId)
+        {
+            var product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+            if (product != null)
+            {
+                //decimal? productPrice = product.UnitPrice;
+                decimal? productMetalTypePrice = await _context.Metaltypes.Where(m => m.MetaltypeId == product.MetaltypeId).Select(m => m.MetaltypePrice).FirstOrDefaultAsync();
+                int? productDiamondId = product.DiamondId;
+                decimal diamondPrice = await GetDiamondPriceAsync((int)productDiamondId);
+                int? productSizeId = product.SizeId;
+                int? productCoverId = product.CoverId;
+                decimal productCostPrice = await CalculateCostPriceAsync((int)productDiamondId, (int)productCoverId);
+                decimal priceMarkupRate = 1.2m;
+                decimal? productSizePrice = await _context.Sizes.Where(s => s.SizeId == product.SizeId).Select(s => s.SizePrice).FirstOrDefaultAsync();
+                decimal? productPrice = (productCostPrice  + productSizePrice + product.UnitPrice) * priceMarkupRate;
+                Console.WriteLine($"Product Final price: {productPrice} | productUnit: {product.UnitPrice} | diamond Price: {diamondPrice} | metalType Price: {productMetalTypePrice} | size Price: {productSizePrice}");
+                return (decimal)productPrice;
+            }
+            else
+            {
+                throw new Exception("Product not found");
+            }
+        }
     }
 }
