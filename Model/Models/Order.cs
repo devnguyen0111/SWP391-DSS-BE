@@ -15,7 +15,11 @@ public partial class Order
 
     public string Status { get; set; }
 
-    public int? CusId { get; set; }
+    public int CusId { get; set; }
+
+    public string DeliveryAddress { get; set; }
+
+    public string ContactNumber { get; set; }
 
     public int? ShippingMethodId { get; set; }
 

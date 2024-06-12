@@ -13,6 +13,8 @@ public partial class CoverMetaltype
 
     public string Status { get; set; }
 
+    public string ImgUrl { get; set; }
+
     public virtual Cover Cover { get; set; }
 
     public virtual Metaltype Metaltype { get; set; }

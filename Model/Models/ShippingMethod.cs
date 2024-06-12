@@ -15,7 +15,5 @@ public partial class ShippingMethod
 
     public string Description { get; set; }
 
-    public DateOnly? Date { get; set; }
-
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

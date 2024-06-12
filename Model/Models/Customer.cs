@@ -21,13 +21,11 @@ public partial class Customer
 
     public virtual User Cus { get; set; }
 
+    public virtual ICollection<CustomerVoucher> CustomerVouchers { get; set; } = new List<CustomerVoucher>();
+
     public virtual Favorite Favorite { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-
-    public virtual ICollection<Voucher> VouchersNavigation { get; set; } = new List<Voucher>();
-
-    public virtual ICollection<Voucher> Vouchers { get; set; } = new List<Voucher>();
 }
