@@ -42,7 +42,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             int customerId = request.CusId == 0 ? 0 : request.CusId;
 
-            _voucherService.createVoucher(_voucherService.createRandomNameVoucher(), request.Description, request.ExpDate, request.Quantity, request.Rate, customerId);
+            _voucherService.createVoucher(_voucherService.createRandomNameVoucher(), request.Description, request.ExpDate, request.Quantity, request.Rate);
             return CreatedAtAction("GetVouchers", _voucherService.GetAllVouchers());
         }
 

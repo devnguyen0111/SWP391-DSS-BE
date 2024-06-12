@@ -27,14 +27,14 @@ namespace DiamondShopSystem.API.Controllers
         [Route("createOrderDirecly")]
         public IActionResult CreateOrder([FromBody] OrderRequest request)
         {
-            Order o = _orderService.createOrderDirectly((int)request.CusId, request.pid, (int)request.ShippingMethodId);
+            Order o = _orderService.createOrderDirectly((int)request.CusId, request.pid, (int)request.ShippingMethodId,request.deliveryAddress,request.contactNumber);
             return Ok(o);
         }
         [HttpPost]
         [Route("createOrderFromCart")]
         public IActionResult CreateOrderFromCart([FromBody] OrderRequestCart request)
         {
-            Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId);
+            Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId, request.deliveryAddress, request.contactNumber);
             return Ok(o);
         }
         [HttpGet]

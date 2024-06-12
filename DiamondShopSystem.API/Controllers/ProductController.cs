@@ -47,7 +47,7 @@ namespace DiamondShopSystem.API.Controllers
                 MetaltypeName = product.Metaltype.MetaltypeName,
                 SizeName = product.Cover.CoverName,
                 Pp = product.Pp,
-                UnitPrice = product.UnitPrice,
+                UnitPrice = product.UnitPrice + product.Size.SizePrice + product.Diamond.Price + product.Cover.UnitPrice + product.Metaltype.MetaltypePrice + product.Diamond.Price + product.Cover.UnitPrice + product.Metaltype.MetaltypePrice,
             };
             if (product == null)
             {
@@ -66,7 +66,9 @@ namespace DiamondShopSystem.API.Controllers
                     ProductId = c.ProductId,
                     imgUrl = "hehe",
                     ProductName = _productService.GetProductById(c.ProductId).ProductName,
-                    UnitPrice = _productService.GetProductById(c.ProductId).UnitPrice,
+                    UnitPrice =(decimal) _productService.GetProductById(c.ProductId).UnitPrice+
+                    _productService.GetProductById(c.ProductId).Diamond.Price+ _productService.GetProductById(c.ProductId).Cover.UnitPrice+
+                    _productService.GetProductById(c.ProductId).Size.SizePrice+ _productService.GetProductById(c.ProductId).Metaltype.MetaltypePrice,
                 };
             }).ToList();
             return Ok(productRequest);
@@ -93,7 +95,7 @@ namespace DiamondShopSystem.API.Controllers
                         ProductId = c.ProductId,
                         imgUrl = "hehe",
                         ProductName = c.ProductName,
-                        UnitPrice = c.UnitPrice
+                        UnitPrice = c.UnitPrice+c.Size.SizePrice+c.Diamond.Price+c.Cover.UnitPrice+c.Metaltype.MetaltypePrice,
                     };
                 }).ToList(); ;
 

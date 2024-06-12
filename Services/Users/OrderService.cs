@@ -38,7 +38,7 @@ namespace Services.Users
             totalPrice += (decimal)s.SizePrice;
             return totalPrice;
         }
-        public Order createOrderFromCart(int uid, int sid)
+        public Order createOrderFromCart(int uid, int sid,string address,string phonenum)
         {
             Cart cart = _cartRepository.getCartFromCustomer(uid);
             if (cart == null || !cart.CartProducts.Any())
@@ -52,7 +52,10 @@ namespace Services.Users
                 TotalAmount = totalAmount,
                 Status = "processing",
                 CusId = uid,
-                ShippingMethodId = sid
+                ShippingMethodId = sid,
+                DeliveryAddress = address,
+                ContactNumber = phonenum,
+                
             };
             var cartItems = cart.CartProducts;
             var orderProducts = cartItems.Select(c =>
@@ -68,7 +71,7 @@ namespace Services.Users
             _orderRepository.createOrder(newo);
             return newo;
         }
-        public Order createOrderDirectly(int uid, int pid, int sid)
+        public Order createOrderDirectly(int uid, int pid, int sid,string address,string phonenum)
         {
 
             Order newo = new Order
@@ -77,7 +80,9 @@ namespace Services.Users
                 TotalAmount = GetTotalPrice(_productRepository.GetProductById(pid)),
                 Status = "pending",
                 CusId = uid,
-                ShippingMethodId = sid
+                ShippingMethodId = sid,
+                DeliveryAddress = address,
+                ContactNumber = phonenum,
             };
             var orderProducts = new ProductOrder
             {

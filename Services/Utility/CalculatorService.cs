@@ -41,31 +41,31 @@ namespace Services.Utility
         }
 
         //get cusId and check if voucher is valid
-        public async Task<int> GetCusIdByVoucherAsync(string Voucher)
-        {
-            if (Voucher == null)
-            {
-                return 0;
-            }
-            var voucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.Name == Voucher);
-            if (voucher == null)
-            {
-                return 0;
-                throw new Exception("Voucher not found");
-            }
-            else if (
-                voucher.ExpDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
-            {
-                return 0;
-                throw new Exception("Voucher expired");
-            }
-            else if (voucher.CusId == null)
-            {
-                return 0;
-                throw new Exception("Voucher not belong to any customer");
-            }
-            return voucher.CusId;
-        }
+        //public async Task<int> GetCusIdByVoucherAsync(string Voucher)
+        //{
+        //    if (Voucher == null)
+        //    {
+        //        return 0;
+        //    }
+        //    var voucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.Name == Voucher);
+        //    if (voucher == null)
+        //    {
+        //        return 0;
+        //        throw new Exception("Voucher not found");
+        //    }
+        //    else if (
+        //        voucher.ExpDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
+        //    {
+        //        return 0;
+        //        throw new Exception("Voucher expired");
+        //    }
+        //    else if (voucher.CusId == null)
+        //    {
+        //        return 0;
+        //        throw new Exception("Voucher not belong to any customer");
+        //    }
+        //    return voucher.CusId;
+        //}
 
         /*public bool CheckVoucherEXP(string Voucher)
         {
@@ -112,11 +112,11 @@ namespace Services.Utility
                 Console.WriteLine("Voucher expired");
                 return Result = 2;
             }
-            else if (GetCusIdByVoucherAsync(Voucher).Result == 0)
-            {
-                Console.WriteLine("Voucher not belong to any customer");
-                return Result = 3;
-            }
+            //else if (GetCusIdByVoucherAsync(Voucher).Result == 0)
+            //{
+            //    Console.WriteLine("Voucher not belong to any customer");
+            //    return Result = 3;
+            //}
             return Result = 1;
         }
 
@@ -150,7 +150,7 @@ namespace Services.Utility
                             throw new Exception("Voucher expired");
                         }
 
-                        decimal voucherRate = await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Rate).FirstOrDefaultAsync();
+                        decimal voucherRate = (decimal)await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Rate).FirstOrDefaultAsync();
                         Console.WriteLine("Voucher rate: " + voucherRate);
                         //convert 10 to 10%
                         voucherRate = voucherRate / 100;

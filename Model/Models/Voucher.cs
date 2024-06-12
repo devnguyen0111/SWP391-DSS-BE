@@ -15,13 +15,9 @@ public partial class Voucher
 
     public DateOnly ExpDate { get; set; }
 
-    public int Quantity { get; set; }
+    public int? Quantity { get; set; }
 
-    public int Rate { get; set; }
+    public int? Rate { get; set; }
 
-    public int CusId { get; set; }
-
-    public virtual Customer CusNavigation { get; set; }
-
-    public virtual ICollection<Customer> Cus { get; set; } = new List<Customer>();
+    public virtual ICollection<CustomerVoucher> CustomerVouchers { get; set; } = new List<CustomerVoucher>();
 }

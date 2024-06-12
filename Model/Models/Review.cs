@@ -11,11 +11,15 @@ public partial class Review
 
     public string Review1 { get; set; }
 
-    public int? Rating { get; set; }
+    public decimal? Rating { get; set; }
 
     public DateOnly? ReviewDate { get; set; }
 
-    public int? CusId { get; set; }
+    public int CusId { get; set; }
+
+    public int ProductId { get; set; }
 
     public virtual Customer Cus { get; set; }
+
+    public virtual Product Product { get; set; }
 }

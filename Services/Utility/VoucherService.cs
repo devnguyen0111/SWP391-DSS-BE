@@ -17,9 +17,9 @@ namespace Services.Utility
             return _voucherRepository.createRandomNameVoucher();
         }
 
-        public void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate, int cusId)
+        public void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate)
         {
-            _voucherRepository.createVoucher(name, description, expdate, quantity, rate, cusId);
+            _voucherRepository.createVoucher(name, description, expdate, quantity, rate);
         }
 
         public void deleteVoucher(int Id)

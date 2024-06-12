@@ -13,13 +13,13 @@ public partial class Product
 
     public decimal? UnitPrice { get; set; }
 
-    public int? DiamondId { get; set; }
+    public int DiamondId { get; set; }
 
-    public int? CoverId { get; set; }
+    public int CoverId { get; set; }
 
-    public int? MetaltypeId { get; set; }
+    public int MetaltypeId { get; set; }
 
-    public int? SizeId { get; set; }
+    public int SizeId { get; set; }
 
     public string Pp { get; set; }
 
@@ -35,6 +35,7 @@ public partial class Product
 
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
-    public virtual Size Size { get; set; }
+    public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
+    public virtual Size Size { get; set; }
 }
