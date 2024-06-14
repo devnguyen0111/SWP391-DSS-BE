@@ -92,8 +92,6 @@ namespace Repository
                 cart.CartProducts.Add(cartProduct);
                 
                     cart.CartQuantity += 1;
-                
-                
             }
             else
             {
