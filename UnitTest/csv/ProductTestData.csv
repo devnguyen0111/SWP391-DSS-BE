@@ -1,0 +1,13 @@
+﻿TestCaseName,CategoryId,SubCategoryId,MetaltypeId,SizeId,MinPrice,MaxPrice,ExpectedProductCount
+Filter_ByCategory_Valid,1,,,1,,100,1
+Filter_BySubCategory_Valid,,1,,,100,,2
+Filter_ByMetaltype_Invalid,,,,2,,100,0
+Filter_BySize_Valid,,,,2,200,300,1
+Filter_ByMinPrice_Valid,,,,,200,,3
+Filter_ByMaxPrice_Valid,,,,,,300,3
+Filter_ByMinAndMaxPrice_Valid,,,,,150,350,2
+Filter_NoFilters,,,,,,,4
+Filter_AllNulls,,,,,,,4
+Filter_NonExistentCategory,999,,,,,,0
+Filter_InvalidPriceRange,,,,,300,100,0
+Filter_BoundaryValues,,,,,0.01,9999.99,4
