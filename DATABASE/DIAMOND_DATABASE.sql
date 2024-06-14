@@ -1,3 +1,4 @@
+
 CREATE DATABASE DIAMOND_DB
 GO
 USE DIAMOND_DB
@@ -54,11 +55,12 @@ CREATE TABLE CoverSize (
     FOREIGN KEY (coverId) REFERENCES Cover(coverId)
 );
 GO
--- Table: CoverMetalType
+-- Table: CoverMetalType --add img:Cover with MetalType will create an img
 CREATE TABLE CoverMetaltype (
     metaltypeId INT,
     coverId INT,
     status VARCHAR(50),
+	imgUrl varchar(200),
     PRIMARY KEY (metaltypeId, coverId),
     FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId),
     FOREIGN KEY (coverId) REFERENCES Cover(coverId)
@@ -81,15 +83,15 @@ CREATE TABLE Product (
     productId INT IDENTITY PRIMARY KEY,
     productName NVARCHAR(255) NOT NULL,
     unitPrice Money,
-    diamondId INT,
-    coverId INT,
-	metaltypeId INT,
-	sizeId INT,
+    diamondId INT NOT NULL,
+    coverId INT NOT NULL,
+	metaltypeId INT NOT NULL,
+	sizeId INT NOT NULL,
 	PP VARCHAR(50),
-    FOREIGN KEY (diamondId) REFERENCES Diamond(diamondId),
-    FOREIGN KEY (coverId) REFERENCES Cover(coverId),
-	FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId),
-    FOREIGN KEY (sizeId) REFERENCES Size(sizeId)
+    FOREIGN KEY (diamondId) REFERENCES Diamond(diamondId) on delete cascade,
+    FOREIGN KEY (coverId) REFERENCES Cover(coverId) on delete cascade,
+	FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId)on delete cascade,
+    FOREIGN KEY (sizeId) REFERENCES Size(sizeId)on delete cascade
 );
 GO
 -- Table: User
@@ -107,16 +109,16 @@ CREATE TABLE Customer (
     cusId INT PRIMARY KEY,
     cusFirstName VARCHAR(255) NOT NULL,
     cusLastName VARCHAR(255) NOT NULL,
-    cusPhoneNum VARCHAR(20) NOT NULL,
-    FOREIGN KEY (cusId) REFERENCES [User](userId)
+    cusPhoneNum VARCHAR(20),
+    FOREIGN KEY (cusId) REFERENCES [User](userId) on delete cascade
 );
 GO
 -- Table: Manager
 CREATE TABLE Manager (
     manId INT  PRIMARY KEY,
     manName VARCHAR(255) NOT NULL,
-    manPhone VARCHAR(20),
-    FOREIGN KEY (manId) REFERENCES [User](userId)
+    manPhone VARCHAR(20), 
+    FOREIGN KEY (manId) REFERENCES [User](userId) on delete cascade
 );
 GO
 -- Table: SaleStaff
@@ -126,7 +128,7 @@ CREATE TABLE SaleStaff (
     phone VARCHAR(20),
     email VARCHAR(255),
     managerId INT,
-    FOREIGN KEY (sStaffId) REFERENCES [User](userId),
+    FOREIGN KEY (sStaffId) REFERENCES [User](userId) on delete cascade,
     FOREIGN KEY (managerId) REFERENCES Manager(manId)
 );
 GO
@@ -136,7 +138,7 @@ CREATE TABLE DeliveryStaff (
     name VARCHAR(255) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     managerId INT,
-    FOREIGN KEY (dStaffId) REFERENCES [User](userId),
+    FOREIGN KEY (dStaffId) REFERENCES [User](userId) on delete cascade,
     FOREIGN KEY (managerId) REFERENCES Manager(manId)
 );
 GO
@@ -144,7 +146,7 @@ GO
 CREATE TABLE Cart (
     cartId INT PRIMARY KEY,
     cartQuantity INT NOT NULL,
-    FOREIGN KEY (cartId) REFERENCES Customer(cusId)
+    FOREIGN KEY (cartId) REFERENCES Customer(cusId) on delete cascade
 );
 GO
 -- Table: CartProduct
@@ -153,20 +155,19 @@ CREATE TABLE CartProduct (
     productId INT,
     quantity INT NOT NULL,
     PRIMARY KEY (cartId, productId),
-    FOREIGN KEY (cartId) REFERENCES Cart(cartId),
+    FOREIGN KEY (cartId) REFERENCES Cart(cartId) on delete cascade,
     FOREIGN KEY (productId) REFERENCES Product(productId)
 );
 GO
 CREATE TABLE favorite (
     favoriteId INT PRIMARY KEY,
     quantity INT NOT NULL,
-    FOREIGN KEY (favoriteId) REFERENCES Customer(cusId)
+    FOREIGN KEY (favoriteId) REFERENCES Customer(cusId) on delete cascade
 );
 
 CREATE TABLE favoriteProduct (
     favoriteId INT,
     productId INT,
-    quantity INT NOT NULL,
     PRIMARY KEY (favoriteId, productId),
     FOREIGN KEY (favoriteId) REFERENCES favorite(favoriteId),
     FOREIGN KEY (productId) REFERENCES Product(productId)
@@ -180,48 +181,49 @@ CREATE TABLE [Address] (
     city VARCHAR(50),
     zipCode VARCHAR(20),
     country VARCHAR(50),
-    FOREIGN KEY (addressId) REFERENCES Customer(cusId)
+    FOREIGN KEY (addressId) REFERENCES Customer(cusId) on delete cascade
 );
 GO
--- Table: ShippingMethod
+-- Table: ShippingMethod --remove Date
 CREATE TABLE ShippingMethod (
     shippingMethodId INT IDENTITY PRIMARY KEY,
     methodName VARCHAR(255) NOT NULL,
     cost DECIMAL(10, 2) NOT NULL,
     description VARCHAR(255),
-    date DATE
 );
 GO
--- Table: Order
+-- Table: Order --Add deliveryAddress and contactNumber
 CREATE TABLE [Order] (
     orderId INT IDENTITY PRIMARY KEY,
     orderDate DATETIME NOT NULL,
     totalAmount DECIMAL(10, 2) NOT NULL,
     status VARCHAR(50),
-    cusId INT,
+    cusId INT NOT NULL,
+	deliveryAddress varchar(200),
+	contactNumber varchar(20),
     shippingMethodId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId),
+    FOREIGN KEY (cusId) REFERENCES Customer(cusId) on delete cascade,
     FOREIGN KEY (shippingMethodId) REFERENCES ShippingMethod(shippingMethodId)
 );
 GO
 -- Table: ProductOrder
 CREATE TABLE ProductOrder (
-    productId INT,
-    orderId INT,
+    productId INT not null,
+    orderId INT not null,
     quantity INT NOT NULL,
     PRIMARY KEY (productId, orderId),
-    FOREIGN KEY (productId) REFERENCES Product(productId),
-    FOREIGN KEY (orderId) REFERENCES [Order](orderId)
+    FOREIGN KEY (productId) REFERENCES Product(productId)on delete cascade,
+    FOREIGN KEY (orderId) REFERENCES [Order](orderId) on delete cascade
 );
 GO
--- Table: Shipping
+-- Table: Shipping --add assignDate and expectedFinishDate
 CREATE TABLE Shipping (
     shippingId INT IDENTITY PRIMARY KEY,
     status VARCHAR(50),
     orderId INT,
-    saleStaffId INT,
-    deliveryStaffId INT,
-    FOREIGN KEY (orderId) REFERENCES [Order](orderId),
+    saleStaffId INT NOT NULL,
+    deliveryStaffId INT NOT NULL,
+    FOREIGN KEY (orderId) REFERENCES [Order](orderId)on delete cascade,
     FOREIGN KEY (saleStaffId) REFERENCES SaleStaff(sStaffId),
     FOREIGN KEY (deliveryStaffId) REFERENCES DeliveryStaff(dStaffId)
 );
@@ -230,13 +232,15 @@ GO
 CREATE TABLE Review (
     reviewId INT IDENTITY PRIMARY KEY,
     review TEXT,
-    rating INT,
+    rating DECIMAL,
     reviewDate DATE,
-    cusId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
+    cusId INT NOT NULL,
+	productId INT NOT NULL,
+    FOREIGN KEY (cusId) REFERENCES Customer(cusId)on delete cascade,
+	FOREIGN KEY (productId) REFERENCES Product(productId) on delete cascade
 );
 GO
--- Table: Voucher
+-- Table: Voucher --remove userid --change rate to int
 CREATE TABLE Voucher (
     voucherId INT IDENTITY PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -244,8 +248,6 @@ CREATE TABLE Voucher (
     expDate DATE NOT NULL,
 	quantity INT,
 	rate INT,
-    cusId INT,
-    FOREIGN KEY (cusId) REFERENCES Customer(cusId)
 );
 GO
 -- Table: CustomerVoucher
@@ -257,40 +259,3 @@ CREATE TABLE CustomerVoucher (
     FOREIGN KEY (voucherId) REFERENCES Voucher(voucherId)
 );	
 
--- Disable foreign key constraints temporarily
-EXEC sp_MSforeachtable "ALTER TABLE ? NOCHECK CONSTRAINT all";
-
--- Delete data from leaf tables first
-DELETE FROM CoverSize;
-DELETE FROM CoverMetalType;
-DELETE FROM CartProduct;
-DELETE FROM ProductOrder;
-DELETE FROM CustomerVoucher;
-DELETE FROM Review;
-DELETE FROM Voucher;
-DELETE FROM Address;
-
--- Delete data from tables with foreign keys
-DELETE FROM Cart;
-DELETE FROM Shipping;
-DELETE FROM [Order];
-DELETE FROM SaleStaff;
-DELETE FROM DeliveryStaff;
-DELETE FROM Manager;
-DELETE FROM Customer;
-
--- Delete data from tables without foreign keys
-DELETE FROM Product;
-DELETE FROM Size;
-DELETE FROM MetalType;
-DELETE FROM Cover;
-DELETE FROM SubCategory;
-DELETE FROM Category;
-DELETE FROM Diamond;
-DELETE FROM ShippingMethod;
-
--- Finally, delete data from the User table
-DELETE FROM [User];
-
--- Re-enable foreign key constraints
-EXEC sp_MSforeachtable "ALTER TABLE ? CHECK CONSTRAINT all";
