@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Model.Models;
 using Services.Utility;
 
 namespace DiamondShopSystem.API.Controllers
@@ -15,7 +16,7 @@ namespace DiamondShopSystem.API.Controllers
             _calculatorService = calculatorService;
         }
 
-        [HttpGet]
+        [HttpGet("Cal-Did-Cid-V")]
         public async Task<IActionResult> SellingPrice(int diamondId, int coverId, string voucherName = null)
         {
             try
@@ -49,13 +50,14 @@ namespace DiamondShopSystem.API.Controllers
                                 sellingPrice = SellingPrice
                             });
                         case 1:
+                            var mnv=  _calculatorService.MinusVoucherQuantity(voucherName);
                             return Ok(new
                             {
                                 DiamondID = diamondId,
                                 CoverID = coverId,
                                 VoucherName = voucherName,
                                 VoucherCode = voucherEXP,
-                                VoucherNote = "Voucher valid",
+                                VoucherNote = $"Voucher valid | {mnv}",
                                 sellingPrice = SellingPrice
                             });
                         case 2:
@@ -96,6 +98,51 @@ namespace DiamondShopSystem.API.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("Cal-Pid-V")]
+        public async Task<IActionResult> SellingPriceV2(int productId, string voucherName = null)
+        {
+            try
+            {
+                decimal sellingPrice = await _calculatorService.CalculateSellingProductWithVoucher(productId, voucherName);
+                string voucherNote = "No Voucher";
+                if (voucherName != null)
+                {
+                    int voucherStatus = _calculatorService.CheckVoucherValid(voucherName);
+                    switch (voucherStatus)
+                    {
+                        case 1:
+                            _calculatorService.MinusVoucherQuantity(voucherName);
+                            voucherNote = "Voucher applied";
+                            break;
+                        case 2:
+                            voucherNote = "Voucher expired";
+                            break;
+                        case 3:
+                            voucherNote = "Voucher out of stock";
+                            // sellingPrice is without voucher discount
+                            sellingPrice = await _calculatorService.CalculateSellingProductWithVoucher(productId, null);
+                            break;
+                        default:
+                            voucherNote = "Voucher status unknown";
+                            break;
+                    }
+                }
+
+                return Ok(new
+                {
+                    ProductId = productId,
+                    VoucherName = voucherName ?? "No Voucher",
+                    VoucherNote = voucherNote,
+                    SellingPrice = sellingPrice
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
     }
 }
 
