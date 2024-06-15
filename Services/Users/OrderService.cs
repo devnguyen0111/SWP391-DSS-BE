@@ -28,11 +28,8 @@ namespace Services.Users
             decimal totalPrice = product.UnitPrice ?? 0;
             Cover c = _coverRepository.GetCoverById((int)product.CoverId);
             Size s = _sizeRepository.GetSizeById((int)product.CoverId);
-            Metaltype mt = _metaltypeRepository.GetMetaltypeById((int)product.CoverId);
-
-            
-                totalPrice += (decimal)product.Diamond.Price;
-
+            Metaltype mt = _metaltypeRepository.GetMetaltypeById((int)product.MetaltypeId);
+            totalPrice += (decimal)product.Diamond.Price;
             totalPrice += (decimal)c.UnitPrice;
             totalPrice += (decimal)mt.MetaltypePrice;
             totalPrice += (decimal)s.SizePrice;
