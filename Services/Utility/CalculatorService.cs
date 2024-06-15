@@ -40,6 +40,33 @@ namespace Services.Utility
             }
         }
 
+        public string MinusVoucherQuantity(string Voucher)
+        {
+            if (Voucher == null)
+            {
+                return "Voucher not found";
+            }
+            var voucher = _context.Vouchers.FirstOrDefault(v => v.Name == Voucher);
+            if (voucher == null)
+            {
+                return "Voucher not found";
+                throw new Exception("Voucher not found");
+            }
+            else
+            {
+                if (voucher.Quantity > 0)
+                {
+                    voucher.Quantity -= 1;
+                    _context.SaveChanges();
+                    return "Voucher quantity -1";
+                }
+                else
+                {
+                    return "Voucher out of stock";
+                }
+            }
+        }
+
         //get cusId and check if voucher is valid
         //public async Task<int> GetCusIdByVoucherAsync(string Voucher)
         //{
@@ -92,32 +119,30 @@ namespace Services.Utility
 
         public int CheckVoucherValid(string Voucher)
         {
-
-            // 0 = Cút (đ tìm thấy mã) | 1 = có (giảm giá OK) | 2 = đéo(hết hạn) | 3 = biến(cusId=null)
-            var Result = 0;
-            if (Voucher == null)
-            {
-                return Result = 0;
-            }
+            int Result = 0;
             var voucher = _context.Vouchers.FirstOrDefault(v => v.Name == Voucher);
+            var voucherQuantity = _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Quantity).FirstOrDefault();
             if (voucher == null)
             {
                 Console.WriteLine("Voucher not found");
-                return Result = 0;
-
+                Result = 0;
             }
-            else if (
-                voucher.ExpDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
+            else if (voucher.ExpDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
             {
                 Console.WriteLine("Voucher expired");
-                return Result = 2;
+                Result = 2;
             }
-            //else if (GetCusIdByVoucherAsync(Voucher).Result == 0)
-            //{
-            //    Console.WriteLine("Voucher not belong to any customer");
-            //    return Result = 3;
-            //}
-            return Result = 1;
+            else if (voucherQuantity <= 0) // Corrected condition
+            {
+                Console.WriteLine("Voucher out of stock");
+                Result = 3;
+            }
+            else
+            {
+                Console.WriteLine("Voucher valid");
+                Result = 1;
+            }
+            return Result;
         }
 
         public async Task<decimal> ApplyVoucherAsync(string Voucher, decimal costPrice)
@@ -130,17 +155,16 @@ namespace Services.Utility
             {
                 var voucher = await _context.Vouchers.FirstOrDefaultAsync(v => v.Name == Voucher);
                 Console.WriteLine("Voucher: " + voucher.Name);
-                if (voucher == null)
+                if (voucher == null || voucher.Quantity <= 0)
                 {
                     return costPrice;
-                    throw new Exception("Voucher not found");
+                    //throw new exception voucher not found or out of stock
+                    throw new Exception("Voucher not found or out of stock");
                 }
                 else
                 {
                     if (CheckVoucherValid(Voucher) == 1)
                     {
-
-
                         var voucherDate = await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.ExpDate).FirstOrDefaultAsync();
                         if (voucherDate < DateOnly.Parse(DateTime.Now.ToString("yyyy-MM-dd")))
                         {
@@ -164,6 +188,27 @@ namespace Services.Utility
                     {
                         return costPrice;
                     }
+                    /*int caseVoucher = CheckVoucherValid(Voucher);
+                    switch (caseVoucher)
+                    {
+                            case 1: 
+                            decimal voucherRate = (decimal)await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Rate).FirstOrDefaultAsync();
+                            Console.WriteLine("Voucher rate: " + voucherRate);
+                            //convert 10 to 10%
+                            voucherRate = voucherRate / 100;
+                            Console.WriteLine("Voucher rate after convert: " + voucherRate);
+                            //costPrice after discount
+                            costPrice = costPrice - costPrice * voucherRate;
+                            Console.WriteLine("Cost price after discount: " + costPrice);
+                            return costPrice;
+                            case 2:
+                            return costPrice;
+                            throw new Exception("Voucher expired");
+                            case 3:
+                            return costPrice;
+                            throw new Exception("Voucher out of stock");
+                    }
+                    return costPrice;*/
                 }
 
             }
@@ -194,6 +239,29 @@ namespace Services.Utility
             return costPrice * priceMarkupRate;
         }
 
+        public async Task<decimal> CalculateSellingProductWithVoucher(int productId, string voucherName)
+        {
+            var product = await _context.Products.Where(p => p.ProductId == productId).FirstOrDefaultAsync();
+            decimal finalPrice = 0;
+            if (product != null)
+            {
+                decimal productDiamondPrice = await GetDiamondPriceAsync(product.DiamondId);
+                decimal productCoverPrice = await GetCoverPriceAsync(product.CoverId);
+                decimal? productMetalTypePrice = productMetalTypePrice = await _context.Metaltypes.Where(m => m.MetaltypeId == product.MetaltypeId).Select(m => m.MetaltypePrice).FirstOrDefaultAsync();
+                decimal? productSizePrice = await _context.Sizes.Where(s => s.SizeId == product.SizeId).Select(s => s.SizePrice).FirstOrDefaultAsync();
+                
+                decimal? checkoutPrice = product.UnitPrice + productDiamondPrice + productCoverPrice + productMetalTypePrice + productSizePrice;
+                Console.WriteLine($"checkoutPrice: {checkoutPrice} | productUnit: {product.UnitPrice} | diamond Price: {productDiamondPrice} | metalType Price: {productMetalTypePrice} | size Price: {productSizePrice}");
+
+                decimal priceMarkupRate = 1.2m;
+                finalPrice = finalPrice * priceMarkupRate;
+                finalPrice = await ApplyVoucherAsync(voucherName, (decimal)checkoutPrice);
+                
+            }
+            // return product final price
+            Console.WriteLine("CalculateSellingProductWithVoucher Final Price: " + finalPrice);
+            return finalPrice;
+        }
 
         public async Task<decimal> GetProductPriceAsync(int productId)
         {
