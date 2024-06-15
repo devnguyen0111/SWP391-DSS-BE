@@ -188,27 +188,6 @@ namespace Services.Utility
                     {
                         return costPrice;
                     }
-                    /*int caseVoucher = CheckVoucherValid(Voucher);
-                    switch (caseVoucher)
-                    {
-                            case 1: 
-                            decimal voucherRate = (decimal)await _context.Vouchers.Where(v => v.Name == Voucher).Select(v => v.Rate).FirstOrDefaultAsync();
-                            Console.WriteLine("Voucher rate: " + voucherRate);
-                            //convert 10 to 10%
-                            voucherRate = voucherRate / 100;
-                            Console.WriteLine("Voucher rate after convert: " + voucherRate);
-                            //costPrice after discount
-                            costPrice = costPrice - costPrice * voucherRate;
-                            Console.WriteLine("Cost price after discount: " + costPrice);
-                            return costPrice;
-                            case 2:
-                            return costPrice;
-                            throw new Exception("Voucher expired");
-                            case 3:
-                            return costPrice;
-                            throw new Exception("Voucher out of stock");
-                    }
-                    return costPrice;*/
                 }
 
             }
