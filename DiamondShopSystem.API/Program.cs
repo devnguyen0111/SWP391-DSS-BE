@@ -19,6 +19,7 @@ using Services.EmailServices;
 using Services.OtherServices;
 using Serilog;
 using Serilog.Events;
+using Serilog.Formatting.Compact;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -70,10 +71,7 @@ builder.Services.AddHttpClient<IDiscordWebhookService, DiscordWebhookService>();
 
 //this is logger using Serilog
 builder.Host.UseSerilog((context, configuration) =>
-    configuration
-        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
-        .WriteTo.Console(outputTemplate: "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine} {Message:1j}{NewLine}{Exception}")
+    configuration.ReadFrom.Configuration(context.Configuration)
 );
 
 builder.Services.AddHttpContextAccessor();

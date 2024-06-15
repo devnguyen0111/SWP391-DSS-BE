@@ -1,86 +1,86 @@
-﻿using DAO;
-using Microsoft.EntityFrameworkCore;
-using Model.Models;
-using NUnit.Framework;
-using Repository.Users;
-using Repository;
-using System.Collections.Generic;
-using System.Linq;
+﻿//using dao;
+//using microsoft.entityframeworkcore;
+//using model.models;
+//using nunit.framework;
+//using repository.users;
+//using repository;
+//using system.collections.generic;
+//using system.linq;
 
-public class CartServiceTests
-{
-    private DIAMOND_DBContext _DBContext;
-    private ICartRepository _cartService;
+//public class cartservicetests
+//{
+//    private diamond_dbcontext _dbcontext;
+//    private icartrepository _cartservice;
 
-    [SetUp]
-    public void Setup()
-    {
-        var options = new DbContextOptionsBuilder<DIAMOND_DBContext>()
-                        .UseInMemoryDatabase(databaseName: "TestDatabase")
-                        .Options;
-        _DBContext = new DIAMOND_DBContext(options);
-        _cartService = new CartRepository(_DBContext);
+//    [setup]
+//    public void setup()
+//    {
+//        var options = new dbcontextoptionsbuilder<diamond_dbcontext>()
+//                        .useinmemorydatabase(databasename: "testdatabase")
+//                        .options;
+//        _dbcontext = new diamond_dbcontext(options);
+//        _cartservice = new cartrepository(_dbcontext);
 
-        // Add sample data to the in-memory database
-        _DBContext.Carts.Add(new Cart { CartId = 1, CartProducts = new List<CartProduct>() });
-        _DBContext.Products.Add(new Product { ProductId = 1 });
-        _DBContext.SaveChanges();
-    }
+//        add sample data to the in-memory database
+//        _dbcontext.carts.add(new cart { cartid = 1, cartproducts = new list<cartproduct>() });
+//        _dbcontext.products.add(new product { productid = 1 });
+//        _dbcontext.savechanges();
+//    }
 
-    public static IEnumerable<TestCaseData> GetTestCasesFromCsv()
-    {
-        var testCases = new List<TestCaseData>();
-        var filePath = @"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\CartTestData.csv";
-        var csvLines = File.ReadAllLines(filePath).Skip(1);
+//    public static ienumerable<testcasedata> gettestcasesfromcsv()
+//    {
+//        var testcases = new list<testcasedata>();
+//        var filepath = @"a:\fifth-semester\swp391\swp391-dss-be\unittest\csv\carttestdata.csv";
+//        var csvlines = file.readalllines(filepath).skip(1);
 
-        foreach (var line in csvLines)
-        {
-            var values = line.Split(',');
-            var testCaseName = values[0];
-            var cartId = int.Parse(values[1]);
-            var productId = int.Parse(values[2]);
-            var quantity = int.Parse(values[3]);
-            var expectedCartQuantity = int.Parse(values[4]);
-            var expectedProductQuantity = int.Parse(values[5]);
-            var shouldThrow = bool.Parse(values[6]);
-            var testCase = new TestCaseData(cartId, productId, quantity, expectedCartQuantity, expectedProductQuantity, shouldThrow).SetName(testCaseName);
+//        foreach (var line in csvlines)
+//        {
+//            var values = line.split(',');
+//            var testcasename = values[0];
+//            var cartid = int.parse(values[1]);
+//            var productid = int.parse(values[2]);
+//            var quantity = int.parse(values[3]);
+//            var expectedcartquantity = int.parse(values[4]);
+//            var expectedproductquantity = int.parse(values[5]);
+//            var shouldthrow = bool.parse(values[6]);
+//            var testcase = new testcasedata(cartid, productid, quantity, expectedcartquantity, expectedproductquantity, shouldthrow).setname(testcasename);
 
-            testCases.Add(testCase);
-        }
+//            testcases.add(testcase);
+//        }
 
-        return testCases;
-    }
+//        return testcases;
+//    }
 
-    [Test, TestCaseSource(nameof(GetTestCasesFromCsv))]
-    public void AddToCartAsync_ShouldHandleCases(
-        int cartId, int productId, int quantity, int expectedCartQuantity, int expectedProductQuantity, bool shouldThrow)
-    {
-        // Arrange
-        if (shouldThrow)
-        {
-            if (cartId == 999)
-            {
-                _DBContext.Carts.Remove(_DBContext.Carts.Find(cartId));
-            }
-            if (productId == 999)
-            {
-                _DBContext.Products.Remove(_DBContext.Products.Find(productId));
-            }
-            _DBContext.SaveChanges();
-        }
+//    [test, testcasesource(nameof(gettestcasesfromcsv))]
+//    public void addtocartasync_shouldhandlecases(
+//        int cartid, int productid, int quantity, int expectedcartquantity, int expectedproductquantity, bool shouldthrow)
+//    {
+//        arrange
+//        if (shouldthrow)
+//        {
+//            if (cartid == 999)
+//            {
+//                _dbcontext.carts.remove(_dbcontext.carts.find(cartid));
+//            }
+//            if (productid == 999)
+//            {
+//                _dbcontext.products.remove(_dbcontext.products.find(productid));
+//            }
+//            _dbcontext.savechanges();
+//        }
 
-        // Act & Assert
-        if (shouldThrow)
-        {
-            var ex = Assert.Throws<Exception>(() => _cartService.AddToCartAsync(cartId, productId, quantity));
-            Assert.IsTrue(ex.Message == "Cart not found" || ex.Message == "Product not found");
-        }
-        else
-        {
-            var result = _cartService.AddToCartAsync(cartId, productId, quantity);
-            Assert.AreEqual(expectedProductQuantity, result.Quantity);
-            var cart = _DBContext.Carts.Include(c => c.CartProducts).FirstOrDefault(c => c.CartId == cartId);
-            Assert.AreEqual(expectedCartQuantity, cart.CartQuantity);
-        }
-    }
-}
+//        act & assert
+//        if (shouldthrow)
+//        {
+//            var ex = assert.throws<exception>(() => _cartservice.addtocartasync(cartid, productid, quantity));
+//            assert.istrue(ex.message == "cart not found" || ex.message == "product not found");
+//        }
+//        else
+//        {
+//            var result = _cartservice.addtocartasync(cartid, productid, quantity);
+//            assert.areequal(expectedproductquantity, result.quantity);
+//            var cart = _dbcontext.carts.include(c => c.cartproducts).firstordefault(c => c.cartid == cartid);
+//            assert.areequal(expectedcartquantity, cart.cartquantity);
+//        }
+//    }
+//}
