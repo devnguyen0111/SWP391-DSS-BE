@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAO", "DAO\DAO.csproj", "{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest", "UnitTest\UnitTest.csproj", "{9B98EF67-02EE-49E8-BD84-F5F6F2FB235D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBC06E24-67FA-4503-8D8E-EB31EEE8CF8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B98EF67-02EE-49E8-BD84-F5F6F2FB235D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B98EF67-02EE-49E8-BD84-F5F6F2FB235D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B98EF67-02EE-49E8-BD84-F5F6F2FB235D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B98EF67-02EE-49E8-BD84-F5F6F2FB235D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
