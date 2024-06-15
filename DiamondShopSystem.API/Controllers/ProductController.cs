@@ -101,6 +101,7 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(filteredProducts);
         }
+        
     }
 }
 

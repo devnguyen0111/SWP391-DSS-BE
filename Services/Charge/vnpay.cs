@@ -61,7 +61,7 @@ namespace Services.Charge
 
             var vnPay = new VnPayLibrary();
 
-            vnPay.AddRequestData("vnp_Amount", ((int)order.TotalAmount * 25000).ToString());
+            vnPay.AddRequestData("vnp_Amount", ((int)order.TotalAmount * 25).ToString());
             vnPay.AddRequestData("vnp_Command", "pay");
             vnPay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
             vnPay.AddRequestData("vnp_CurrCode", "VND");

@@ -27,10 +27,10 @@ namespace UnitTest
         {
             return new List<Product>
         {
-            new Product { Cover = new Cover { CategoryId = 1, SubCategoryId = 1 }, Metaltype = new Metaltype { MetaltypeId = 1 }, Size = new Size { SizeId = 1 }, UnitPrice = 100 },
-            new Product { Cover = new Cover { CategoryId = 1, SubCategoryId = 2 }, Metaltype = new Metaltype { MetaltypeId = 2 }, Size = new Size { SizeId = 2 }, UnitPrice = 200 },
-            new Product { Cover = new Cover { CategoryId = 2, SubCategoryId = 1 }, Metaltype = new Metaltype { MetaltypeId = 1 }, Size = new Size { SizeId = 3 }, UnitPrice = 300 },
-            new Product { Cover = new Cover { CategoryId = 2, SubCategoryId = 2 }, Metaltype = new Metaltype { MetaltypeId = 2 }, Size = new Size { SizeId = 4 }, UnitPrice = 400 },
+            new Product { ProductName="product1", Cover = new Cover { CategoryId = 1, SubCategoryId = 1 }, Metaltype = new Metaltype { MetaltypeId = 1 }, Size = new Size { SizeId = 1 }, UnitPrice = 100 },
+            new Product {ProductName="product2", Cover = new Cover { CategoryId = 1, SubCategoryId = 2 }, Metaltype = new Metaltype { MetaltypeId = 2 }, Size = new Size { SizeId = 2 }, UnitPrice = 200 },
+            new Product {ProductName="product3", Cover = new Cover { CategoryId = 2, SubCategoryId = 1 }, Metaltype = new Metaltype { MetaltypeId = 1 }, Size = new Size { SizeId = 3 }, UnitPrice = 300 },
+            new Product {ProductName="product4", Cover = new Cover { CategoryId = 2, SubCategoryId = 2 }, Metaltype = new Metaltype { MetaltypeId = 2 }, Size = new Size { SizeId = 4 }, UnitPrice = 400 },
         };
         }
 
@@ -65,15 +65,13 @@ namespace UnitTest
             int? categoryId, int? subCategoryId, int? metaltypeId, int? sizeId,
             decimal? minPrice, decimal? maxPrice, int expectedProductCount)
         {
-            // Arrange
             var sampleProducts = GetSampleProducts();
             _productRepositoryMock.Setup(repo => repo.GetAllProducts()).Returns(sampleProducts);
 
-            // Act
             var result = _productService.FilterProducts(categoryId, subCategoryId, metaltypeId, sizeId, minPrice, maxPrice);
 
-            // Assert
             Assert.AreEqual(expectedProductCount, result.Count);
+            Console.WriteLine("Filtered Products: " + string.Join(", ", result.Select(p => p.ProductName.ToString())));
         }
     }
 }
