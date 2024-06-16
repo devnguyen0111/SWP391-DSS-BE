@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using MimeKit.IO;
 using Model.Models;
 using Services.Products;
+using System.Reflection.Metadata.Ecma335;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -11,28 +13,65 @@ namespace DiamondShopSystem.API.Controllers
     public class CoverController : ControllerBase
     {
         private readonly ICoverService _coverService;
-
-        public CoverController(ICoverService coverService)
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
+        private readonly ICoverSizeService _coverSizeService;
+        private readonly IMetaltypeService _metaltypeService;
+        private readonly ISizeService _sizeService;
+        public CoverController(ICoverService coverService, ICoverMetaltypeService coverMetaltypeService, ICoverSizeService coverSizeService, IMetaltypeService metaltypeService, ISizeService sizeService)
         {
             _coverService = coverService;
+            _coverMetaltypeService = coverMetaltypeService;
+            _coverSizeService = coverSizeService;
+            _metaltypeService = metaltypeService;
+            _sizeService = sizeService;
         }
 
-        [HttpGet]
+        [HttpGet("getAllCover")]
         public IActionResult GetAllCovers()
         {
             var covers = _coverService.GetAllCovers();
             return Ok(covers);
         }
-
-        [HttpGet("{id}")]
+        //forcustomer
+        [HttpGet("getCoverDetail")]
         public IActionResult GetCoverById(int id)
         {
             var cover = _coverService.GetCoverById(id);
             if (cover == null)
             {
-                return NotFound();
+                return BadRequest("Cover does not exist");
             }
-            return Ok(cover);
+            List<CoverSize> sizes = _coverSizeService.GetCoverSizes(id);
+            List<CoverMetaltype> metals = _coverMetaltypeService.GetCoverMetaltypes(id);
+            List<CoverReponseMetal> c = (List<CoverReponseMetal>)metals.Select(metal => 
+            {
+                return new CoverReponseMetal
+                {
+                    metalId = metal.MetaltypeId,
+                    name = _metaltypeService.GetMetaltypeById(metal.MetaltypeId).MetaltypeName,
+                    url = metal.ImgUrl,
+                    prize = (decimal)_metaltypeService.GetMetaltypeById(metal.MetaltypeId).MetaltypePrice
+                };
+            }).ToList();
+            List<CoverResponeSize> s = (List<CoverResponeSize>)sizes.Select(size =>
+            {
+                return new CoverResponeSize
+                {
+                    sizeId = size.SizeId,
+                    name = _sizeService.GetSizeById(size.SizeId).SizeValue,
+                    prices = (decimal)_sizeService.GetSizeById(size.SizeId).SizePrice,
+                };
+            }).ToList();
+            CoverResponse cr = new CoverResponse()
+            {
+                
+                coverId = cover.CoverId,
+                name = cover.CoverName,
+                prices = (decimal)cover.UnitPrice,
+                metals = (List<CoverReponseMetal>)c,
+                sizes = (List<CoverResponeSize>)s
+            };
+            return Ok(cr);
         }
 
         [HttpPost]
@@ -75,14 +114,14 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         [HttpGet]
-        [Route("CoverFilter")]
+        [Route("getAllCoverWithFilter")]
         public IActionResult GetCoversByFilter(
-            [FromQuery] string sortBy,
-            [FromQuery] string status,
+            [FromQuery] string? status,
             [FromQuery] decimal? minUnitPrice,
             [FromQuery] decimal? maxUnitPrice,
             [FromQuery] int? categoryId,
-            [FromQuery] int? subCategoryId)
+            [FromQuery] int? subCategoryId, [FromQuery] string? sortOrder,
+            [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
             // Fetch all covers
             IEnumerable<Cover> filteredCovers = _coverService.GetAllCovers();
@@ -112,11 +151,32 @@ namespace DiamondShopSystem.API.Controllers
             {
                 filteredCovers = filteredCovers.Where(c => c.SubCategoryId == subCategoryId.Value);
             }
-
-            // Sort the list of covers
-            var sortedDiamonds = filteredCovers.Where(c => c.CoverName == sortBy).ToList();
-
-            return Ok(filteredCovers);
+           var filteredCovers1 = (IEnumerable<CoverResponse>)filteredCovers.Select(c =>
+            {
+                return new CoverResponse
+                {
+                    coverId = c.CoverId,
+                    name = c.CoverName,
+                    prices = (decimal)(c.UnitPrice + _sizeService.GetSizeById(c.CoverSizes.First().SizeId).SizePrice+
+                    _metaltypeService.GetMetaltypeById(c.CoverMetaltypes.First().MetaltypeId).MetaltypePrice),
+                    url = c.CoverMetaltypes.First().ImgUrl,
+                };
+            });
+            filteredCovers1 = filteredCovers1
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize);
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                if (sortOrder.ToLower() == "desc")
+                {
+                    filteredCovers1 = filteredCovers1.OrderByDescending(d => d.prices);
+                }
+                else
+                {
+                    filteredCovers1 = filteredCovers1.OrderBy(d => d.prices);
+                }
+            }
+            return Ok(filteredCovers1.ToList());
         }
     }
 }

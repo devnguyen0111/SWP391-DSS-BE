@@ -16,5 +16,13 @@ namespace Services.Products
         {
             return _coverSizeRepository.GetCoverSize(coverId, sizeId);
         }
+        public List<CoverSize>? GetCoverSizes(int coverId)
+        {
+            if(_coverSizeRepository.GetCoverSizes(coverId) == null)
+            {
+                return null;
+            }
+            return _coverSizeRepository.GetCoverSizes(coverId); 
+        }
     }
 }

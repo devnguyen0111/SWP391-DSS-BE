@@ -12,9 +12,10 @@ namespace Services.Products
             _coverRepository = coverRepository;
         }
 
+        //for customer
         public IEnumerable<Cover> GetAllCovers()
         {
-            return _coverRepository.GetAllCovers();
+            return _coverRepository.GetAllCovers().Where(c => c.Status.ToLower()=="available");
         }
 
         public Cover GetCoverById(int coverId)

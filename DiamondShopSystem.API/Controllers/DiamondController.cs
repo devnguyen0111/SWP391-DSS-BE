@@ -86,6 +86,16 @@ namespace DiamondShopSystem.API.Controllers
 
             return NoContent();
         }
+        [HttpGet("getDiamondDetail")]
+        public IActionResult getDiamondDetail(int id)
+        {
+            var diamond = _diamondService.GetDiamondById(id);
+            if (!diamond.Equals(null))
+            {
+                return Ok(diamond);
+            }
+            return BadRequest("Diamond not exist");
+        }
         [HttpGet]
         public IActionResult GetDiamonds(
             [FromQuery] string sortBy,

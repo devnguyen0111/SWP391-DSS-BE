@@ -45,6 +45,7 @@ builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
+builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
