@@ -15,6 +15,8 @@ namespace Services.Products
         int? sizeId = null,
         decimal? minPrice = null,
         decimal? maxPrice = null);
-        
+        decimal GetProductTotal(int productId);
+
+
     }
 }

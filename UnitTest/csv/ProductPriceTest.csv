@@ -1,0 +1,7 @@
+﻿TestCaseName,ProductId,ExpectedTotalPrice
+GetProductTotal_ShouldReturnCorrectTotalPrice_ForProductId_1,1,1500
+GetProductTotal_ShouldReturnCorrectTotalPrice_ForProductId_2,2,2500
+GetProductTotal_ProductNotFound_ReturnsZero,100,0
+GetProductTotal_ZeroPriceProduct_ReturnsZero,3,0
+GetProductTotal_NullProduct_ReturnsZero,4,0
+GetProductTotal_LargeProductPrice_ReturnsCorrectTotal,5,5000

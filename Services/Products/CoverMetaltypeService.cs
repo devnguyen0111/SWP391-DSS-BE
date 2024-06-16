@@ -16,5 +16,16 @@ namespace Services.Products
         {
             return _coverSizeRepository.GetCoverMetaltype(coverId, metaltypeId);
         }
+        public List<CoverMetaltype> GetCoverMetaltypes(int coverId) {
+            return _coverSizeRepository.getAll().Where(c => c.CoverId == coverId).ToList();
+        }
+        public void AddCoverMetalType(CoverMetaltype c)
+        {
+             _coverSizeRepository.AddCoverMetaType(c);
+        }
+        public void RemoveCoverMetalType(CoverMetaltype c)
+        {
+            _coverSizeRepository.RemoveCoverMetalType(c);
+        }
     }
 }
