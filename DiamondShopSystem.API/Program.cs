@@ -18,8 +18,6 @@ using Repository.Utility;
 using Services.EmailServices;
 using Services.OtherServices;
 using Serilog;
-using Serilog.Events;
-using Serilog.Formatting.Compact;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
