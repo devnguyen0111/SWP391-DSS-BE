@@ -20,5 +20,10 @@ namespace Repository.Products
                 .Include(cs => cs.Size)
                 .SingleOrDefault(cs => cs.CoverId == coverId && cs.SizeId == sizeId);
         }
+        public List<CoverSize> GetCoverSizes(int coverId)
+        {
+            return _context.CoverSizes.Where(c => c.CoverId == coverId).ToList();
+
+        }
     }
 }

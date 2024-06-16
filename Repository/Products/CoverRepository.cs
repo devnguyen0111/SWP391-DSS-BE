@@ -15,12 +15,12 @@ namespace Repository.Products
 
         public IEnumerable<Cover> GetAllCovers()
         {
-            return _context.Covers.ToList();
+            return _context.Covers.Include(c => c.CoverMetaltypes).Include(c => c.CoverSizes).ToList();
         }
 
         public Cover GetCoverById(int coverId)
         {
-            return _context.Covers.Find(coverId);
+            return _context.Covers.FirstOrDefault(c => c.CoverId == coverId);
         }
 
         public void AddCover(Cover cover)

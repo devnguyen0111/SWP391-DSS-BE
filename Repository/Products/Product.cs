@@ -26,7 +26,7 @@ namespace Repository.Products
         {
             return _context.Products
                 .Include(p => p.Diamond)
-                .Include(p => p.Cover)
+                .Include(p => p.Cover).ThenInclude(p=>p.CoverMetaltypes)
                 .Include(p => p.Metaltype)
                 .Include(p => p.Size)
                 .FirstOrDefault(p => p.ProductId == productId);

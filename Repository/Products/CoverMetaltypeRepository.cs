@@ -18,7 +18,7 @@ namespace Repository.Products
             return _context.CoverMetaltypes
                 .Include(cs => cs.Cover)
                 .Include(cs => cs.Metaltype)
-                .SingleOrDefault(cs => cs.CoverId == coverId && cs.MetaltypeId == metaltypeId);
+                .FirstOrDefault(cs => cs.CoverId == coverId && cs.MetaltypeId == metaltypeId);
         }
         public void AddCoverMetaType(CoverMetaltype c)
         {

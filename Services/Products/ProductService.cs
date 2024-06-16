@@ -1,4 +1,5 @@
-﻿using Model.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Model.Models;
 using Repository.Diamonds;
 using Repository.Products;
 
@@ -59,7 +60,9 @@ namespace Services.Products
         int? metaltypeId = null,
         int? sizeId = null,
         decimal? minPrice = null,
-        decimal? maxPrice = null)
+        decimal? maxPrice = null,
+        string?sortOrder=null,
+        int? pageNumber=null,int? pageSize=null)
         {
             var filteredProducts = _productRepository.GetAllProducts();
 
@@ -92,6 +95,22 @@ namespace Services.Products
             {
                 filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value).ToList();
             }
+
+            if (sortOrder!=null)
+            {
+                if (sortOrder.Equals("asc"))
+                {
+                    filteredProducts = filteredProducts.OrderBy(c => GetProductTotal(c.ProductId)).ToList();
+                }
+                else
+                {
+                    filteredProducts = filteredProducts.OrderByDescending(c => GetProductTotal(c.ProductId)).ToList();
+                }
+            }
+            var paginatedDiamonds = filteredProducts
+        .Skip((int)((pageNumber - 1) * pageSize))
+        .Take((int)pageSize)
+        .ToList();
             return filteredProducts.ToList();
         }
     }

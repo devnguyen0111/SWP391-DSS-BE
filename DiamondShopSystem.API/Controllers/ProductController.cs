@@ -11,10 +11,16 @@ namespace DiamondShopSystem.API.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
+        private readonly ISizeService _sizeService;
+        private readonly IMetaltypeService _metaltypeService;
 
-        public ProductController(IProductService productService)
+        public ProductController(IProductService productService,ICoverMetaltypeService c,ISizeService s,IMetaltypeService mt)
         {
             _productService = productService;
+            _coverMetaltypeService = c;
+            _sizeService = s;
+            _metaltypeService = mt;
         }
 
         [HttpGet("products")]
@@ -37,11 +43,16 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult GetProductDetailById(int id)
         {
             var product = _productService.GetProductById(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            //product.Cover.CoverName + product.Diamond.DiamondName
             var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
-                imgUrl = "hihi",
-                ProductName = product.Cover.CoverName + product.Diamond.DiamondName,
+                imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                ProductName = product.ProductName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
                 MetaltypeName = product.Metaltype.MetaltypeName,
@@ -49,10 +60,7 @@ namespace DiamondShopSystem.API.Controllers
                 Pp = product.Pp,
                 UnitPrice = product.UnitPrice + product.Size.SizePrice + product.Diamond.Price + product.Cover.UnitPrice + product.Metaltype.MetaltypePrice + product.Diamond.Price + product.Cover.UnitPrice + product.Metaltype.MetaltypePrice,
             };
-            if (product == null)
-            {
-                return NotFound();
-            }
+            
             return Ok(productDetail);
         }
         [HttpGet("getMostSaleProduct")]
@@ -64,7 +72,7 @@ namespace DiamondShopSystem.API.Controllers
                 return new ProductRequest
                 {
                     ProductId = c.ProductId,
-                    imgUrl = "hehe",
+                    imgUrl = _coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(c.ProductId).CoverId, _productService.GetProductById(c.ProductId).MetaltypeId).ImgUrl,
                     ProductName = _productService.GetProductById(c.ProductId).ProductName,
                     UnitPrice =(decimal) _productService.GetProductById(c.ProductId).UnitPrice+
                     _productService.GetProductById(c.ProductId).Diamond.Price+ _productService.GetProductById(c.ProductId).Cover.UnitPrice+
@@ -80,7 +88,8 @@ namespace DiamondShopSystem.API.Controllers
         [FromQuery] int? metaltypeId,
         [FromQuery] int? sizeId,
         [FromQuery] decimal? minPrice,
-        [FromQuery] decimal? maxPrice)
+        [FromQuery] decimal? maxPrice,[FromQuery] string? sortOrder,
+        [FromQuery] int? pageNumber, [FromQuery] int? pageSize)
         {
             var filteredProducts = _productService.FilterProducts(
                 categoryId,
@@ -88,20 +97,27 @@ namespace DiamondShopSystem.API.Controllers
                 metaltypeId,
                 sizeId,
                 minPrice,
-                maxPrice).Select(c =>
+                maxPrice,sortOrder,pageNumber,pageSize).Select(c =>
                 {
                     return new ProductRequest
                     {
                         ProductId = c.ProductId,
-                        imgUrl = "hehe",
+                        imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567"
+                        ,
                         ProductName = c.ProductName,
-                        UnitPrice = c.UnitPrice+c.Size.SizePrice+c.Diamond.Price+c.Cover.UnitPrice+c.Metaltype.MetaltypePrice,
+                        UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
                 }).ToList(); ;
 
             return Ok(filteredProducts);
         }
-        
+        [HttpGet]
+        public IActionResult getFilterOption()
+        {
+            var o = _metaltypeService.GetAllMetaltypes();
+            var s = _sizeService.GetAllSizes();
+            return Ok(new {o,s});;
+        }
     }
 }
 
