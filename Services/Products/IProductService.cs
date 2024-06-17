@@ -16,6 +16,20 @@ namespace Services.Products
         decimal? minPrice = null,
         decimal? maxPrice = null, string? sortOrder = null,
         int? pageNumber = null, int? pageSize = null);
+        List<Product> FilterProductsAd(
+    int? categoryId = null,
+    int? subCategoryId = null,
+    int? metaltypeId = null,
+    int? sizeId = null,
+    decimal? minPrice = null,
+    decimal? maxPrice = null,
+    string? sortOrder = null,
+    List<int>? sizeIds = null,
+    List<int>? metaltypeIds = null,
+    List<string>? diamondShapes = null,
+    int? pageNumber = null,
+    int? pageSize = null);
+
         decimal GetProductTotal(int productId);
         Product GetExistingProduct(int coverId, int diamondId, int metaltypeId, int sizeId);
         Product UpdateProduct(Product produdct);

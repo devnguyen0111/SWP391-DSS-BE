@@ -92,7 +92,7 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("There is no such user with this id");
             }
             else { 
-                updatingUser.Password = request.NewPassword;
+                updatingUser.Password =GetHashString(request.NewPassword);
                 _authenticateService.UpdateUserPassword(updatingUser);
             return Ok(_authenticateService.GetUserById(request.userId));
             }
@@ -107,7 +107,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             else
             {
-                updatingUser.Password = newPassword;
+                updatingUser.Password =GetHashString(newPassword);
                 _authenticateService.UpdateUserPassword(updatingUser);
                 return Ok(_authenticateService.GetUserById(userId));
             }
