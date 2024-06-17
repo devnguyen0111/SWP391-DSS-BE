@@ -17,7 +17,8 @@ namespace Services.Products
         decimal? maxPrice = null, string? sortOrder = null,
         int? pageNumber = null, int? pageSize = null);
         decimal GetProductTotal(int productId);
-
-
+        Product GetExistingProduct(int coverId, int diamondId, int metaltypeId, int sizeId);
+        Product UpdateProduct(Product produdct);
+        Product AddProduct(Product produdct);
     }
 }

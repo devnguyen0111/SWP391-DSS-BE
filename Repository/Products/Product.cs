@@ -32,14 +32,18 @@ namespace Repository.Products
                 .FirstOrDefault(p => p.ProductId == productId);
         }
 
-        public void AddProduct(Product product)
+        public Product AddProduct(Product product)
         {
             _context.Products.Add(product);
+            _context.SaveChanges();
+            return product;
         }
 
-        public void UpdateProduct(Product product)
+        public Product UpdateProduct(Product product)
         {
             _context.Entry(product).State = EntityState.Modified;
+            _context.SaveChanges();
+            return product;
         }
 
         public void DeleteProduct(int productId)
