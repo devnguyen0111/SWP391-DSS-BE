@@ -111,11 +111,23 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(filteredProducts);
         }
-        [HttpGet]
-        public IActionResult getFilterOption()
+        [HttpGet("getFilterOption")]
+        public IActionResult getFilterOption(string category)
         {
-            var o = _metaltypeService.GetAllMetaltypes();
-            var s = _sizeService.GetAllSizes();
+            var o = _metaltypeService.GetAllMetaltypes().Select(mt =>
+            {
+                return new metaltypeFilter
+                {
+                    value = mt.MetaltypeName,
+                };
+            }).ToList();
+            var s = _sizeService.GetAllSizes().Where(c => c.SizeName.Contains(category)).Select(s =>
+            {
+                return new sizeFilter
+                {
+                    value = s.SizeValue,
+                };
+            }).ToList();
             return Ok(new {o,s});;
         }
     }

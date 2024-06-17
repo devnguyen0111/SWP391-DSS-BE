@@ -113,5 +113,19 @@ namespace Services.Products
         .ToList();
             return filteredProducts.ToList();
         }
+        public Product GetExistingProduct(int coverId, int diamondId, int metaltypeId, int sizeId)
+        {
+            return  _productRepository.GetAllProducts()
+                .FirstOrDefault(p => p.CoverId == coverId && p.DiamondId == diamondId
+                    && p.MetaltypeId == metaltypeId && p.SizeId == sizeId);
+        }
+        public Product UpdateProduct(Product produdct)
+        {
+            return _productRepository.UpdateProduct(produdct);
+        }
+        public Product AddProduct(Product produdct)
+        {
+            return _productRepository.AddProduct(produdct);
+        }
     }
 }
