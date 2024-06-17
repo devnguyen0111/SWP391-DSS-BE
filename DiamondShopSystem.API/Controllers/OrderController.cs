@@ -37,6 +37,7 @@ namespace DiamondShopSystem.API.Controllers
             Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId, request.deliveryAddress, request.contactNumber);
             return Ok(o);
         }
+
         [HttpGet]
         [Route("GetOrderByStatus")]
         public IActionResult getOrders(int uid,string status)
@@ -44,6 +45,39 @@ namespace DiamondShopSystem.API.Controllers
             List<Order> l = _orderService.getOrderByStatus(uid, status);
             return Ok(l.Select(OrderMapper.MapToOrderResponse).ToList());
         }
-        
+
+        [HttpGet("customer/{customerId}/history")]
+        public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string status = "Done")
+        {
+            try
+            {
+                var orders = _orderService.getOrderByStatus(customerId, status);
+
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound(new { Message = "No orders found for the given customer ID and status." });
+                }
+
+                var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse
+                {
+                    OrderId = o.OrderId,
+                    OrderDate = o.OrderDate,
+                    Status = o.Status,
+                    ShippingMethodName = o.ShippingMethod.MethodName,
+                    TotalAmount = o.TotalAmount,
+                    ProductName = o.ProductOrders.Select(po => po.Product.ProductName).FirstOrDefault(),
+                    SizeName = o.ProductOrders.Select(po => po.Product.Size.SizeName).FirstOrDefault(),
+                    MetaltypeName = o.ProductOrders.Select(po => po.Product.Metaltype.MetaltypeName).FirstOrDefault(),
+                    DiamondName = o.ProductOrders.Select(po => po.Product.Diamond.DiamondName).FirstOrDefault(),
+                }).ToList();
+
+                return Ok(orderHistoryResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
     }
 }
