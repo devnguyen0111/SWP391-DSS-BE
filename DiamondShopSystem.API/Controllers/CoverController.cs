@@ -116,12 +116,15 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet]
         [Route("getAllCoverWithFilter")]
         public IActionResult GetCoversByFilter(
-            [FromQuery] string? status,
-            [FromQuery] decimal? minUnitPrice,
-            [FromQuery] decimal? maxUnitPrice,
-            [FromQuery] int? categoryId,
-            [FromQuery] int? subCategoryId, [FromQuery] string? sortOrder,
-            [FromQuery] int pageNumber, [FromQuery] int pageSize)
+      [FromQuery] string? status,
+      [FromQuery] int? categoryId,
+      [FromQuery] int? subCategoryId,
+      [FromQuery] string? sortOrder,
+      [FromQuery] decimal? minUnitPrice,
+      [FromQuery] decimal? maxUnitPrice,
+      [FromQuery] int pageNumber,
+      [FromQuery] int pageSize,
+      [FromBody] FilterRequest r)
         {
             // Fetch all covers
             IEnumerable<Cover> filteredCovers = _coverService.GetAllCovers();
@@ -151,31 +154,44 @@ namespace DiamondShopSystem.API.Controllers
             {
                 filteredCovers = filteredCovers.Where(c => c.SubCategoryId == subCategoryId.Value);
             }
-           var filteredCovers1 = (IEnumerable<CoverResponse>)filteredCovers.Select(c =>
+
+            if (r.MetaltypeIds != null && r.MetaltypeIds.Any())
             {
+                filteredCovers = filteredCovers.Where(c => c.CoverMetaltypes.Any(cm => r.MetaltypeIds.Contains(cm.MetaltypeId)));
+            }
+
+            if (r.SizeIds != null && r.SizeIds.Any())
+            {
+                filteredCovers = filteredCovers.Where(c => c.CoverSizes.Any(cs => r.SizeIds.Contains(cs.SizeId)));
+            }
+
+            var filteredCovers1 = filteredCovers.Select(c =>
+            {
+                var firstCoverSize = c.CoverSizes.FirstOrDefault();
+                var firstCoverMetaltype = c.CoverMetaltypes.FirstOrDefault();
+
                 return new CoverResponse
                 {
                     coverId = c.CoverId,
                     name = c.CoverName,
-                    prices = (decimal)(c.UnitPrice + _sizeService.GetSizeById(c.CoverSizes.First().SizeId).SizePrice+
-                    _metaltypeService.GetMetaltypeById(c.CoverMetaltypes.First().MetaltypeId).MetaltypePrice),
-                    url = c.CoverMetaltypes.First().ImgUrl,
+                    prices = (decimal)(c.UnitPrice +
+                                       (firstCoverSize != null ? _sizeService.GetSizeById(firstCoverSize.SizeId).SizePrice : 0) +
+                                       (firstCoverMetaltype != null ? _metaltypeService.GetMetaltypeById(firstCoverMetaltype.MetaltypeId).MetaltypePrice : 0)),
+                    url = firstCoverMetaltype?.ImgUrl
                 };
             });
-            filteredCovers1 = filteredCovers1
-        .Skip((pageNumber - 1) * pageSize)
-        .Take(pageSize);
+
             if (!string.IsNullOrEmpty(sortOrder))
             {
-                if (sortOrder.ToLower() == "desc")
-                {
-                    filteredCovers1 = filteredCovers1.OrderByDescending(d => d.prices);
-                }
-                else
-                {
-                    filteredCovers1 = filteredCovers1.OrderBy(d => d.prices);
-                }
+                filteredCovers1 = sortOrder.ToLower() == "desc" ?
+                    filteredCovers1.OrderByDescending(d => d.prices) :
+                    filteredCovers1.OrderBy(d => d.prices);
             }
+
+            filteredCovers1 = filteredCovers1
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize);
+
             return Ok(filteredCovers1.ToList());
         }
     }

@@ -1,7 +1,10 @@
 ﻿
 using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
+using Services.Diamonds;
+using Services.OtherServices;
 using Services.Products;
 
 namespace DiamondShopSystem.API.Controllers
@@ -14,13 +17,17 @@ namespace DiamondShopSystem.API.Controllers
         private readonly ICoverMetaltypeService _coverMetaltypeService;
         private readonly ISizeService _sizeService;
         private readonly IMetaltypeService _metaltypeService;
+        private readonly ICoverService _coverService;
+        private readonly IDiamondService _diamondService;
 
-        public ProductController(IProductService productService,ICoverMetaltypeService c,ISizeService s,IMetaltypeService mt)
+        public ProductController(IProductService productService,ICoverMetaltypeService c,ISizeService s,IMetaltypeService mt,ICoverService cv,IDiamondService d)
         {
             _productService = productService;
             _coverMetaltypeService = c;
             _sizeService = s;
             _metaltypeService = mt;
+            _coverService = cv;
+            _diamondService = d;
         }
 
         [HttpGet("products")]
@@ -122,9 +129,7 @@ namespace DiamondShopSystem.API.Controllers
     [FromQuery] string? sortOrder,
     [FromQuery] int? pageNumber,
     [FromQuery] int? pageSize,
-    [FromQuery] List<int>? sizeIds,
-    [FromQuery] List<int>? metaltypeIds,
-    [FromQuery] List<string>? diamondShapes)
+    [FromBody] FilterRequest? r)
         {
             var filteredProducts = _productService.FilterProductsAd(
                 categoryId,
@@ -134,9 +139,9 @@ namespace DiamondShopSystem.API.Controllers
                 minPrice,
                 maxPrice,
                 sortOrder,
-                sizeIds,
-                metaltypeIds,
-                diamondShapes,
+                r?.SizeIds,
+                r?.MetaltypeIds,
+                r?.DiamondShapes,
                 pageNumber,
                 pageSize).Select(c =>
                 {
@@ -175,7 +180,157 @@ namespace DiamondShopSystem.API.Controllers
             
             return Ok(new { Metal, Sizes, Shape });
         }
+        [HttpPost]
+        [Route("addProduct")]
+        public IActionResult AddProduct([FromBody] AddProductRequest request)
+        {
+            // Validate SizeId
+            var size = _sizeService.GetSizeById(request.SizeId);
+            if (size == null)
+            {
+                return BadRequest("Invalid SizeId");
+            }
 
+            // Validate MetaltypeId
+            var metaltype = _metaltypeService.GetMetaltypeById(request.MetaltypeId);
+            if (metaltype == null)
+            {
+                return BadRequest("Invalid MetaltypeId");
+            }
+
+            // Fetch Cover and Diamond to concatenate names
+            var cover = _coverService.GetCoverById(request.CoverId);
+            if (cover == null)
+            {
+                return BadRequest("Invalid CoverId");
+            }
+
+            var diamond = _diamondService.GetDiamondById(request.DiamondId);
+            if (diamond == null)
+            {
+                return BadRequest("Invalid DiamondId");
+            }
+
+            // Concatenate CoverName and DiamondName to form ProductName
+            var productName = cover.CoverName + " " + diamond.DiamondName;
+
+            var product = new Product
+            {
+                ProductName = productName,
+                UnitPrice = request.UnitPrice,
+                DiamondId = request.DiamondId,
+                CoverId = request.CoverId,
+                MetaltypeId = request.MetaltypeId,
+                SizeId = request.SizeId,
+                Pp = request.Pp
+            };
+
+            _productService.AddProduct(product);
+            return Ok(product);
+        }
+        [HttpPut]
+        [Route("updateProduct")]
+        public IActionResult UpdateProduct([FromBody] UpdateProductRequest request)
+        {
+            var product = _productService.GetProductById(request.ProductId);
+            if (product == null)
+            {
+                return NotFound();
+            }
+
+            // Validate SizeId
+            var size = _sizeService.GetSizeById(request.SizeId);
+            if (size == null)
+            {
+                return BadRequest("Invalid SizeId");
+            }
+
+            // Validate MetaltypeId
+            var metaltype = _metaltypeService.GetMetaltypeById(request.MetaltypeId);
+            if (metaltype == null)
+            {
+                return BadRequest("Invalid MetaltypeId");
+            }
+
+            // Fetch Cover and Diamond to concatenate names
+            var cover = _coverService.GetCoverById(request.CoverId);
+            if (cover == null)
+            {
+                return BadRequest("Invalid CoverId");
+            }
+
+            var diamond = _diamondService.GetDiamondById(request.DiamondId);
+            if (diamond == null)
+            {
+                return BadRequest("Invalid DiamondId");
+            }
+
+            // Concatenate CoverName and DiamondName to form ProductName
+            var productName = cover.CoverName +" "+ diamond.DiamondName;
+
+            product.ProductName = productName;
+            product.UnitPrice = request.UnitPrice;
+            product.DiamondId = request.DiamondId;
+            product.CoverId = request.CoverId;
+            product.MetaltypeId = request.MetaltypeId;
+            product.SizeId = request.SizeId;
+            product.Pp = request.Pp;
+
+            _productService.UpdateProduct(product);
+            return Ok(product);
+        }
+        [HttpPost("select")]
+        public IActionResult SelectProductOptions([FromBody] TempProductSelection selection)
+        {
+            HttpContext.Session.Set("TempProductSelection", selection);
+            return Ok("Product selection saved.");
+        }
+
+        [HttpGet("get-selection")]
+        public IActionResult GetProductSelection()
+        {
+            TempProductSelection selection = HttpContext.Session.Get<TempProductSelection>("TempProductSelection");
+            return Ok(selection);
+        }
+
+        [HttpPost("confirm")]
+        public IActionResult ConfirmProduct()
+        {
+            var selection = HttpContext.Session.Get<TempProductSelection>("TempProductSelection");
+
+            if (selection == null || !selection.CoverId.HasValue || !selection.MetaltypeId.HasValue || !selection.SizeId.HasValue || !selection.DiamondId.HasValue)
+            {
+                return BadRequest("Incomplete product selection.");
+            }
+
+            var size = _sizeService.GetSizeById(selection.SizeId.Value);
+            var metaltype = _metaltypeService.GetMetaltypeById(selection.MetaltypeId.Value);
+            var cover = _coverService.GetCoverById(selection.CoverId.Value);
+            var diamond = _diamondService.GetDiamondById(selection.DiamondId.Value);
+
+            if (size == null || metaltype == null || cover == null || diamond == null)
+            {
+                return BadRequest("Invalid selection.");
+            }
+
+            var productName = cover.CoverName + " " + diamond.DiamondName;
+
+            var product = new Product
+            {
+                ProductName = productName,
+                UnitPrice = cover.UnitPrice + size.SizePrice + metaltype.MetaltypePrice,
+                DiamondId = selection.DiamondId.Value,
+                CoverId = selection.CoverId.Value,
+                MetaltypeId = selection.MetaltypeId.Value,
+                SizeId = selection.SizeId.Value,
+                Pp = "Custom"
+            };
+
+            _productService.AddProduct(product);
+            HttpContext.Session.Remove("TempProductSelection");
+
+            return Ok(product);
+        }
     }
 }
 

@@ -11,5 +11,31 @@ namespace DiamondShopSystem.API.DTO
 
         public decimal? UnitPrice { get; set; }
     }
+    public class AddProductRequest
+    {
+        public int CoverId { get; set; }
+        public int DiamondId { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public int MetaltypeId { get; set; }
+        public int SizeId { get; set; }
+        public string Pp { get; set; }
+    }
+    public class UpdateProductRequest
+    {
+        public int ProductId { get; set; }
+        public int CoverId { get; set; }
+        public int DiamondId { get; set; }
+        public decimal? UnitPrice { get; set; }
+        public int MetaltypeId { get; set; }
+        public int SizeId { get; set; }
+        public string Pp { get; set; }
+    }
+    public class TempProductSelection
+    {
+        public int? CoverId { get; set; }
+        public int? MetaltypeId { get; set; }
+        public int? SizeId { get; set; }
+        public int? DiamondId { get; set; }
+    }
 }
 
