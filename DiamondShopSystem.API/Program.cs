@@ -18,7 +18,6 @@ using Repository.Utility;
 using Services.EmailServices;
 using Services.OtherServices;
 using Serilog;
-using Serilog.Events;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -46,6 +45,7 @@ builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
+builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
 builder.Services.AddScoped<IDiamondService, DiamondService>();
 builder.Services.AddScoped<IVoucherService, VoucherService>();
@@ -70,10 +70,7 @@ builder.Services.AddHttpClient<IDiscordWebhookService, DiscordWebhookService>();
 
 //this is logger using Serilog
 builder.Host.UseSerilog((context, configuration) =>
-    configuration
-        .MinimumLevel.Override("Microsoft", LogEventLevel.Warning)
-        .MinimumLevel.Override("Microsoft.EntityFrameworkCore", LogEventLevel.Information)
-        .WriteTo.Console(outputTemplate: "[{Timestamp:dd-MM HH:mm:ss} {Level:u3}] |{SourceContext}| {NewLine} {Message:1j}{NewLine}{Exception}")
+    configuration.ReadFrom.Configuration(context.Configuration)
 );
 
 builder.Services.AddHttpContextAccessor();
@@ -95,6 +92,14 @@ builder.Services.AddAuthentication(options =>
         ValidateLifetime = true,
         ValidateIssuerSigningKey = true
     };
+});
+//Add session for product customize
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 builder.Services.AddControllers()
         .AddJsonOptions(options =>
@@ -153,6 +158,8 @@ if (app.Environment.IsDevelopment())
 /*app.UseCors("AllowSpecificOrigin");*/
 
 app.UseSerilogRequestLogging();
+
+app.UseSession();
 
 app.UseCors("AllowAnyOrigin");
 

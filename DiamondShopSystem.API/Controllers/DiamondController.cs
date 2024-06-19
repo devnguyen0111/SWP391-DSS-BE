@@ -86,16 +86,27 @@ namespace DiamondShopSystem.API.Controllers
 
             return NoContent();
         }
+        [HttpGet("getDiamondDetail")]
+        public IActionResult getDiamondDetail(int id)
+        {
+            var diamond = _diamondService.GetDiamondById(id);
+            if (!diamond.Equals(null))
+            {
+                return Ok(diamond);
+            }
+            return BadRequest("Diamond not exist");
+        }
         [HttpGet]
         public IActionResult GetDiamonds(
             [FromQuery] string sortBy,
-            [FromQuery] List<string> clarityRange,
-            [FromQuery] List<string> colorRange,
-            [FromQuery] List<string> cutRange,
+            [FromQuery] List<string>? clarityRange,
+            [FromQuery] List<string>? colorRange,
+            [FromQuery] List<string>? cutRange,
             [FromQuery] decimal? minCaratWeight,
             [FromQuery] decimal? maxCaratWeight,
             [FromQuery] decimal? minPrice,
             [FromQuery] decimal? maxPrice,
+            [FromQuery] string?sortOrder,
             [FromQuery] int pageNumber, [FromQuery] int pageSize)
         {
             // Define custom sorting orders
@@ -152,11 +163,25 @@ namespace DiamondShopSystem.API.Controllers
                 filteredDiamonds = filteredDiamonds.Where(d => d.Price <= maxPrice.Value);
             }
 
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                if (sortOrder.ToLower() == "desc")
+                {
+                    filteredDiamonds = filteredDiamonds.OrderByDescending(d => d.Price);
+                }
+                else
+                {
+                    filteredDiamonds = filteredDiamonds.OrderBy(d => d.Price);
+                }
+            }
             // Sort the list of diamonds
-            var sortedDiamonds = filteredDiamonds.Where(c => c.Shape == sortBy).ToList();
-            return Ok(sortedDiamonds.Skip((pageNumber - 1) * pageSize)
-            .Take(pageSize)
-            .ToList());
+            var sortedDiamonds = filteredDiamonds.Where(c => string.Equals(c.Shape,sortBy,StringComparison.CurrentCultureIgnoreCase)).ToList();
+            var paginatedDiamonds = filteredDiamonds
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+
+            return Ok(paginatedDiamonds);
         }
     }
 }
