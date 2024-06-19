@@ -124,7 +124,8 @@ namespace DiamondShopSystem.API.Controllers
       [FromQuery] decimal? maxUnitPrice,
       [FromQuery] int pageNumber,
       [FromQuery] int pageSize,
-      [FromBody] FilterRequest r)
+    [FromQuery] List<int>? sizeIds,
+    [FromQuery] List<int>? metaltypeIds)
         {
             // Fetch all covers
             IEnumerable<Cover> filteredCovers = _coverService.GetAllCovers();
@@ -155,14 +156,14 @@ namespace DiamondShopSystem.API.Controllers
                 filteredCovers = filteredCovers.Where(c => c.SubCategoryId == subCategoryId.Value);
             }
 
-            if (r.MetaltypeIds != null && r.MetaltypeIds.Any())
+            if (metaltypeIds != null && metaltypeIds.Any())
             {
-                filteredCovers = filteredCovers.Where(c => c.CoverMetaltypes.Any(cm => r.MetaltypeIds.Contains(cm.MetaltypeId)));
+                filteredCovers = filteredCovers.Where(c => c.CoverMetaltypes.Any(cm => metaltypeIds.Contains(cm.MetaltypeId)));
             }
 
-            if (r.SizeIds != null && r.SizeIds.Any())
+            if (sizeIds != null && sizeIds.Any())
             {
-                filteredCovers = filteredCovers.Where(c => c.CoverSizes.Any(cs => r.SizeIds.Contains(cs.SizeId)));
+                filteredCovers = filteredCovers.Where(c => c.CoverSizes.Any(cs => sizeIds.Contains(cs.SizeId)));
             }
 
             var filteredCovers1 = filteredCovers.Select(c =>

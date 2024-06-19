@@ -101,7 +101,9 @@ namespace DiamondShopSystem.API.Controllers
     [FromQuery] string? sortOrder,
     [FromQuery] int? pageNumber,
     [FromQuery] int? pageSize,
-    [FromBody] FilterRequest? r)
+    [FromQuery] List<int>? sizeIds,
+    [FromQuery] List<int>? metaltypeIds,
+    [FromQuery] List<string>? diamondShapes)
         {
             var filteredProducts = _productService.FilterProductsAd(
                 categoryId,
@@ -111,9 +113,9 @@ namespace DiamondShopSystem.API.Controllers
                 minPrice,
                 maxPrice,
                 sortOrder,
-                r?.SizeIds,
-                r?.MetaltypeIds,
-                r?.DiamondShapes,
+                sizeIds,
+                metaltypeIds,
+                diamondShapes,
                 pageNumber,
                 pageSize).Select(c =>
                 {
