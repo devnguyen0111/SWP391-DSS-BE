@@ -17,11 +17,11 @@ namespace DiamondShopSystem.API.Controllers
             _diamondService = diamondService;
         }
 
-        [HttpGet("diamonds")]
+/*        [HttpGet("diamonds")]
         public ActionResult<IEnumerable<Diamond>> GetDiamonds()
         {
             return _diamondService.GetAllDiamonds();
-        }
+        }*/
 
         [HttpGet("{id}")]
         public ActionResult<Diamond> GetDiamond(int id)
