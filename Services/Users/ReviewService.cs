@@ -12,19 +12,24 @@ namespace Services.Users
             _reviewRepository = reviewRepository;
         }
 
+        public List<Review> GetReviewByProduct(int productId)
+        {
+            return _reviewRepository.GetReviewByProduct(productId);
+        }
+
         public Review AddReview(Review review)
         {
             return _reviewRepository.AddReview(review);
         }
 
-        public Review UpdateReview(int reviewId)
+        public Review UpdateReview(Review review)
         {
-            return _reviewRepository.UpdateReview(reviewId);
+            return _reviewRepository.UpdateReview(review);
         }
 
-        public void DeleteReview(int reviewId)
+        public Review DeleteReview(int reviewId)
         {
-            _reviewRepository.DeleteReview(reviewId);
+            return _reviewRepository.DeleteReview(reviewId);
         }
     }
 }

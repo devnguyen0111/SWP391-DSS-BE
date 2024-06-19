@@ -11,7 +11,16 @@ namespace Repository.Users
         {
             _dbContext = dbContext;
         }
-
+        public List<Review> GetReviewByProduct(int productId)
+        {
+            //check if no review for the product return no review for this product
+            var reviews = _dbContext.Reviews.Where(r => r.ProductId == productId).ToList();
+            if (reviews.Count == 0)
+            {
+                return null;
+            }
+            return reviews;
+        }
         public Review AddReview(Review review)
         {
             if (review.Rating > 5)
@@ -27,23 +36,7 @@ namespace Repository.Users
             return review;
         }
 
-        public Review UpdateReview(int reviewId)
-        {
-            var review = _dbContext.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
-
-            if (review == null)
-            {
-                throw new ArgumentException("Review not found.");
-            }
-
-            // Perform the necessary update logic here
-
-            _dbContext.SaveChanges();
-
-            return review;
-        }
-
-        public void DeleteReview(int reviewId)
+        public Review DeleteReview(int reviewId)
         {
             var review = _dbContext.Reviews.FirstOrDefault(r => r.ReviewId == reviewId);
 
@@ -54,6 +47,25 @@ namespace Repository.Users
 
             _dbContext.Reviews.Remove(review);
             _dbContext.SaveChanges();
+
+            return review;
         }
+
+        public Review UpdateReview(Review review) { 
+            var reviewToUpdate = _dbContext.Reviews.FirstOrDefault(r => r.ReviewId == review.ReviewId);
+            if (reviewToUpdate == null)
+            {
+                throw new ArgumentException("Review not found.");
+            }
+            reviewToUpdate.Review1 = review.Review1;
+            reviewToUpdate.Rating = review.Rating;
+            reviewToUpdate.ReviewDate = review.ReviewDate;
+            reviewToUpdate.CusId = review.CusId;
+            reviewToUpdate.ProductId = review.ProductId;
+            _dbContext.SaveChanges();
+            return reviewToUpdate;
+        }
+        
+
     }
 }

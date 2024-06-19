@@ -33,6 +33,8 @@ namespace Repository.Diamonds
         public List<Diamond> getAllDiamonds()
         {
             return _context.Diamonds.ToList();
+            //get 100 records and slice page by page
+            //return _context.Diamonds.Take(5000).ToList();
         }
 
         public Diamond getDiamondById(int Id)
