@@ -21,6 +21,10 @@ namespace Services.Products
             _sizeRepository = sizeRepository;
             _diamondRepository = diamondRepository;
         }
+        public ProductService(IProductRepository r) {
+            _productRepository = r;
+        }
+
 
         public List<Product> GetAllProducts()
         {
@@ -55,14 +59,12 @@ namespace Services.Products
             return _productRepository.GetMostOrderedProductsBySubCategory(count, subcate);
         }
         public List<Product> FilterProducts(
-        int? categoryId = null,
-        int? subCategoryId = null,
-        int? metaltypeId = null,
-        int? sizeId = null,
-        decimal? minPrice = null,
-        decimal? maxPrice = null,
-        string?sortOrder=null,
-        int? pageNumber=null,int? pageSize=null)
+      int? categoryId = null,
+      int? subCategoryId = null,
+      int? metaltypeId = null,
+      int? sizeId = null,
+      decimal? minPrice = null,
+      decimal? maxPrice = null)
         {
             var filteredProducts = _productRepository.GetAllProducts();
 
@@ -95,22 +97,6 @@ namespace Services.Products
             {
                 filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value).ToList();
             }
-
-            if (sortOrder!=null)
-            {
-                if (sortOrder.Equals("asc"))
-                {
-                    filteredProducts = filteredProducts.OrderBy(c => GetProductTotal(c.ProductId)).ToList();
-                }
-                else
-                {
-                    filteredProducts = filteredProducts.OrderByDescending(c => GetProductTotal(c.ProductId)).ToList();
-                }
-            }
-            var paginatedDiamonds = filteredProducts
-        .Skip((int)((pageNumber - 1) * pageSize))
-        .Take((int)pageSize)
-        .ToList();
             return filteredProducts.ToList();
         }
         public List<Product> FilterProductsAd(

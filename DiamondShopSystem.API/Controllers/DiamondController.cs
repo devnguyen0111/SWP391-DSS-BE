@@ -36,16 +36,16 @@ namespace DiamondShopSystem.API.Controllers
             return diamond;
         }
 
-       [HttpPost]
+       /*[HttpPost]
         public ActionResult<Diamond> PostDiamomnd([FromBody] DTO.DiamondRequest diamond)
         {
             var newDiamond = new Diamond(diamond.DiamondName, diamond.CaratWeight, diamond.Color, diamond.Clarity, diamond.Cut, diamond.Shape, diamond.Price);
 
            _diamondService.AddDiamond(newDiamond);
           return Ok(newDiamond);
-       }
+       }*/
 
-        [HttpPut("{id}")]
+/*        [HttpPut("{id}")]
         public IActionResult PutDiamond(int id, [FromBody] Diamond diamondDTO)
         {
             if (id != diamondDTO.DiamondId)
@@ -71,7 +71,7 @@ namespace DiamondShopSystem.API.Controllers
             }
 
             return NoContent();
-        }
+        }*/
 
         [HttpDelete("{id}")]
         public IActionResult DeleteDiamond(int id)
@@ -175,8 +175,8 @@ namespace DiamondShopSystem.API.Controllers
                 }
             }
             // Sort the list of diamonds
-            var sortedDiamonds = filteredDiamonds.Where(c => string.Equals(c.Shape,sortBy,StringComparison.CurrentCultureIgnoreCase)).ToList();
-            var paginatedDiamonds = filteredDiamonds
+            var sortedDiamonds = filteredDiamonds.Where(c =>c.Shape==sortBy).ToList();
+            var paginatedDiamonds = sortedDiamonds
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToList();
