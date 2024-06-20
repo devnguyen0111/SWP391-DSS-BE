@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+}
+
+.container {
+    max-width: 800px;
+}
+
+.report-header h1 {
+    font-size: 36px;
+}
+
+.report-number h2 {
+    font-size: 20px;
+}
+
+.report-number p {
+    font-size: 16px;
+}
+
+.h5{
+  background-color: #d8b993;
+  color: white
+}
+
+.report-section h3, .grading-scales h3, .clarity-characteristics h3 {
+    font-size: 18px;
+}
+
+.report-section p, .grading-scales p, .clarity-characteristics p {
+    font-size: 14px;
+}
+
+.report-footer {
+    font-size: 12px;
+}
+
+.footer-left p {
+    margin-bottom: 0;
+}
+
+.footer-right img {
+    max-width: 100px;
+    height: auto;
+}
+
+.scaled-image {
+    max-width: 50%;
+    height: auto;
+}
+
+.banner {
+  font-family: 'Times New Roman', serif;
+  font-size: 4em;
+  color: #d8b993
+}
+
+.cosmo-color{
+  color: #d8b993
+}
