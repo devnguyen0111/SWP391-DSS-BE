@@ -69,7 +69,7 @@ namespace DiamondShopSystem.API.Controllers
                 name = cover.CoverName,
                 prices = (decimal)cover.UnitPrice,
                 metals = (List<CoverReponseMetal>)c,
-                sizes = (List<CoverResponeSize>)s
+                sizes = (List<CoverResponeSize>)s,
             };
             return Ok(cr);
         }
@@ -170,7 +170,6 @@ namespace DiamondShopSystem.API.Controllers
             {
                 var firstCoverSize = c.CoverSizes.FirstOrDefault();
                 var firstCoverMetaltype = c.CoverMetaltypes.FirstOrDefault();
-
                 return new CoverResponse
                 {
                     coverId = c.CoverId,

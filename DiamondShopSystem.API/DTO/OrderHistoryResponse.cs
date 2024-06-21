@@ -19,5 +19,20 @@
         public string DiamondName { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public List<OrderHistoryItem> Items { get; set; }
+
+        public OrderHistoryResponse()
+        {
+            Items = new List<OrderHistoryItem>();
+        }
     }
+    public class OrderHistoryItem
+    {
+        public int oHId { get; set; }
+        public string name { get; set; }
+        public int quantity { get; set; }
+        public string img { get; set; }
+    }
+
 }

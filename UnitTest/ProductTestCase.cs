@@ -88,7 +88,7 @@ public class ProductServiceTests
 
     public static IEnumerable<ProductTestCase> GetTestCases()
     {
-        using (var reader = new StreamReader(@"C:\Users\caotr\OneDrive\Documents\SWP391\SWP391-DSS-BE\UnitTest\csv\ProductTestCases.csv"))
+        using (var reader = new StreamReader(@"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\ProductTestCases.csv"))
         using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
         {
             return csv.GetRecords<ProductTestCase>().ToList();
