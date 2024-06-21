@@ -66,7 +66,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     pid = c.Product.ProductId,
                     name1 = c.Product.ProductName,
-                    price = getTotal(id),
+                    price = _productService.GetProductTotal(c.ProductId),
                     quantity = c.Quantity,
                     size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
                     metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,

@@ -9,14 +9,8 @@ namespace DiamondShopSystem.API.DTO
         public decimal prices { get; set; }
         public string? url { get; set; }
         public List<CoverReponseMetal>? metals { get; set; }
-        public List<CoverResponeSize>? sizes { get; set; }
-        public decimal defaultPrice {
-            get
-            {
-                return prices+metals.FirstOrDefault().prize+sizes.FirstOrDefault().prices;
-            }
-        }
-
+        public List<CoverResponeSize>? sizes { get; set; }            
+        
     }
     public class CoverReponseMetal
     {
