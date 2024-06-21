@@ -20,14 +20,14 @@
 
         public decimal TotalAmount { get; set; }
 
-        public List<orderHistoryItem> items { get; set; }
+        public List<OrderHistoryItem> Items { get; set; }
 
         public OrderHistoryResponse()
         {
-            items = new List<OrderHistoryItem>();
+            Items = new List<OrderHistoryItem>();
         }
     }
-    public class orderHistoryItem
+    public class OrderHistoryItem
     {
         public int oHId { get; set; }
         public string name { get; set; }
