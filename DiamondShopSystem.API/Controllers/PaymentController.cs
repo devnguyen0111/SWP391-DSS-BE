@@ -3,6 +3,7 @@ using Model.Models;
 using Services.Charge;
 using Services.Utility;
 using Repository.Charge;
+using Services.Users;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -19,10 +20,10 @@ namespace DiamondShopSystem.API.Controllers
         // payment service Paypal
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
-
+        private readonly IOrderService orderService;
         // logs to webhook discord Server DSS
         private readonly IDiscordWebhookService _discordWH;
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService)
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService,IOrderService o)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
@@ -30,6 +31,7 @@ namespace DiamondShopSystem.API.Controllers
             _paypalService = paypalService;
             _paypalRepository = paypalRepository;
             _discordWH = discordWebhookService;
+            orderService = o;
 
         }
 
