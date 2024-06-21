@@ -9,5 +9,7 @@ namespace Services.OtherServices
         string PinCodeHtmlContent(string email, string pinCode);
 
         string ResetPasswordContent(string email, string resetUrl);
+
+        string GIAContent();
     }
 }

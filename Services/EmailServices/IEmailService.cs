@@ -7,5 +7,6 @@
         void SendConfirmationLink(string request, string url);
         void SendAttachment(string request);
         void SendResetLink(string request, string url);
+        void SendGIA(string request);
     }
 }
