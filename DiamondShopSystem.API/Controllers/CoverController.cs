@@ -174,9 +174,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     coverId = c.CoverId,
                     name = c.CoverName,
-                    prices = (decimal)(c.UnitPrice +
-                                       (firstCoverSize != null ? _sizeService.GetSizeById(firstCoverSize.SizeId).SizePrice : 0) +
-                                       (firstCoverMetaltype != null ? _metaltypeService.GetMetaltypeById(firstCoverMetaltype.MetaltypeId).MetaltypePrice : 0)),
+                    prices = (decimal)(c.UnitPrice),
                     url = firstCoverMetaltype?.ImgUrl
                 };
             });

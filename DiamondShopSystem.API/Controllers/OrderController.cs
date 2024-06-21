@@ -65,16 +65,15 @@ namespace DiamondShopSystem.API.Controllers
                     Status = o.Status,
                     ShippingMethodName = o.ShippingMethod.MethodName,
                     TotalAmount = o.TotalAmount,
-                    ProductName = o.ProductOrders.Select(po => po.Product.ProductName).FirstOrDefault(),
-                    SizeName = o.ProductOrders.Select(po => po.Product.Size.SizeName).FirstOrDefault(),
-                    MetaltypeName = o.ProductOrders.Select(po => po.Product.Metaltype.MetaltypeName).FirstOrDefault(),
-                    DiamondName = o.ProductOrders.Select(po => po.Product.Diamond.DiamondName).FirstOrDefault(),
                     Items = o.ProductOrders.Select(po => new OrderHistoryItem
                     {
-                        oHId = po.ProductId, // Assuming this maps to OrderHistoryItem's OHId
-                        name = po.Product.ProductName,
-                        quantity = po.Quantity,
-                        img = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567" // Adjust according to your actual model
+                        PId = po.ProductId, // Assuming this maps to OrderHistoryItem's OHId
+                       SizeName = _productService.GetProductById(po.ProductId).Size.SizeValue,
+                        DiamondName = _productService.GetProductById(po.ProductId).Diamond.DiamondName,
+                        MetaltypeName = _productService.GetProductById(po.ProductId).Metaltype.MetaltypeName,
+                        Name = po.Product.ProductName,
+                        Total = _productService.GetProductTotal(po.ProductId),
+                        Img = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567" // Adjust according to your actual model
                     }).ToList()
                 }).ToList();
 

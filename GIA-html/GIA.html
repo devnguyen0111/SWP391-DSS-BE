@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -11,19 +12,18 @@
             padding: 0;
         }
         .container {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
-            background-color: white;
-            border: 1px solid #ccc;
-            max-width: 1200px;
+            width: 100%;
+            max-width: 600px; /* Set maximum width for better email client support */
             margin: 20px auto;
+            border: 1px solid #ccc;
+            background-color: white;
         }
         .column {
-            flex: 1;
+            width: 33.33%;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
             padding: 10px;
             box-sizing: border-box;
-            border-right: 1px solid #ccc;
         }
         .column:last-child {
             border-right: none;
@@ -32,14 +32,18 @@
             background-color: #d8b993;
             color: white;
             padding: 5px;
+            font-family: 'Mukta', Arial, sans-serif;
+            margin-top: 0;
+        }
+        p {
+            font-family: "Roboto", sans-serif;
+            margin-top: 5px;
+            margin-bottom: 5px;
         }
         img {
             max-width: 100%;
             height: auto;
-        }
-        .scaled-image {
-            max-width: 50%;
-            height: auto;
+            display: block;
         }
         .text-center {
             text-align: center;
@@ -47,6 +51,7 @@
         .list-inline {
             list-style: none;
             padding: 0;
+            text-align: center;
         }
         .list-inline-item {
             display: inline-block;
@@ -56,10 +61,11 @@
 </head>
 <body>
 
-    <div class="container">
+<table class="container" cellpadding="0" cellspacing="0" border="0" style="width: 100%; max-width: 600px;">
+    <tr>
         <!-- First Column -->
-        <div class="column">
-            <div class="mb-2">
+        <td class="column">
+            <div>
                 <img src="https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/GIA.png?alt=media&token=c208c241-01e5-4b79-bcd1-d353e7f55bf5" alt="GIA banner">
             </div>
             <div class="border-top pt-3">
@@ -84,10 +90,10 @@
                 <p>Inscription(s): <strong>GIA 2141438167, I Love You</strong></p>
                 <p>Comments: <strong>"SAMPLE"-"SAMPLE"-"SAMPLE"-"SAMPLE"</strong></p>
             </div>
-        </div>
-
+        </td>
+        
         <!-- Second Column -->
-        <div class="column">
+        <td class="column">
             <div class="text-center mb-2">
                 <h2 class="h4">GIA REPORT</h2>
                 <p class="font-weight-bold">214438167</p>
@@ -119,21 +125,20 @@
                     <li class="list-inline-item">Natural</li>
                 </ul>
             </div>
-        </div>
-
+        </td>
+        
         <!-- Third Column -->
-        <div class="column">
-            <div class="pt-3 d-flex justify-content-between">
-                <div>
-                    <p class="mb-0">The results documented in this report refer only to the diamond described, and were obtained using the techniques and equipment available to GIA at the time of examination. This report is not a guarantee or valuation. For additional information and important limitations and disclaimers, please see gia.edu/terms.</p>
-                    <p>For additional information, contact us at <strong>800-421-7250</strong> or <strong>760-603-4500</strong>.</p>
-                </div>
-                <div class="text-right">
-                    <img src="https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/GIA-seal.png?alt=media&token=ef7e7eb0-fcc0-4767-ac47-85ed041bee5f" alt="GIA Seal" style="max-width: 100px;">
-                </div>
+        <td class="column">
+            <div class="pt-3">
+                <p>The results documented in this report refer only to the diamond described, and were obtained using the techniques and equipment available to GIA at the time of examination. This report is not a guarantee or valuation. For additional information and important limitations and disclaimers, please see gia.edu/terms.</p>
+                <p>For additional information, contact us at <strong>800-421-7250</strong> or <strong>760-603-4500</strong>.</p>
             </div>
-        </div>
-    </div>
+            <div class="pt-3 text-right">
+                <img src="https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/GIA-seal.png?alt=media&token=ef7e7eb0-fcc0-4767-ac47-85ed041bee5f" alt="GIA Seal" style="max-width: 100px;">
+            </div>
+        </td>
+    </tr>
+</table>
 
 </body>
 </html>
