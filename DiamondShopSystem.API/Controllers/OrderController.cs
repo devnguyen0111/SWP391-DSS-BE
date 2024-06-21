@@ -79,5 +79,10 @@ namespace DiamondShopSystem.API.Controllers
                 return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
             }
         }
+        //[HttpGet]
+        //public IActionResult getCheckOutDetail([FromQuery] int uid, [FromQuery]int? cid, [FromQuery]int? pid)
+        //{
+
+        //}
     }
 }

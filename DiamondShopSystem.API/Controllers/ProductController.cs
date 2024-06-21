@@ -268,9 +268,8 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         [HttpPost("confirm")]
-        public IActionResult ConfirmProduct()
+        public IActionResult ConfirmProduct([FromBody] TempProductSelection selection)
         {
-            var selection = HttpContext.Session.Get<TempProductSelection>("TempProductSelection");
 
             if (selection == null || !selection.CoverId.HasValue || !selection.MetaltypeId.HasValue || !selection.SizeId.HasValue || !selection.DiamondId.HasValue)
             {
