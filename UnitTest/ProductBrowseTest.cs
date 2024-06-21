@@ -37,8 +37,13 @@ namespace UnitTest
         public static IEnumerable<TestCaseData> GetTestCasesFromCsv()
         {
             var testCases = new List<TestCaseData>();
-            var filePath = @"C:\Users\caotr\OneDrive\Documents\SWP391\SWP391-DSS-BE\UnitTest\csv\ProductTestData.csv";
+            var filePath = @"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\ProductTestData.csv";
             var csvLines = File.ReadAllLines(filePath).Skip(1);
+
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("The CSV file was not found.", filePath);
+            }
 
             foreach (var line in csvLines)
             {
