@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using DAO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Charge
 {
@@ -14,6 +15,7 @@ namespace Repository.Charge
 
         public void SaveOrder(Order order)
         {
+            _context.Entry(order).State = EntityState.Modified;
             _context.SaveChanges();
         }
 
