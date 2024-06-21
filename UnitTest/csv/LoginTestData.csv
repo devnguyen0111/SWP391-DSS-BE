@@ -1,0 +1,6 @@
+﻿TestCaseName,Email,Password,ExpectedResult
+ValidCredentials,test@example.com,Password123,Success
+InvalidCredentials,test@example.com,InvalidPassword,Failure
+NonExistentUser,nonexistent@example.com,Password123,Failure
+EmptyEmail,,Password123,Failure
+EmptyPassword,test@example.com,,Failure
