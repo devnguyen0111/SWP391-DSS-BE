@@ -152,23 +152,24 @@ namespace Services.Products
 
             if (minPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.UnitPrice >= minPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price >= minPrice.Value).ToList();
             }
 
             if (maxPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price <= maxPrice.Value).ToList();
             }
 
             if (sortOrder != null)
             {
                 if (sortOrder.Equals("asc"))
                 {
-                    filteredProducts = filteredProducts.OrderBy(c => GetProductTotal(c.ProductId)).ToList();
+                    filteredProducts = filteredProducts.OrderBy(c => c.Cover.UnitPrice+c.UnitPrice+c.Diamond.Price).ToList();
+
                 }
                 else
                 {
-                    filteredProducts = filteredProducts.OrderByDescending(c => GetProductTotal(c.ProductId)).ToList();
+                    filteredProducts = filteredProducts.OrderByDescending(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price).ToList();
                 }
             }
 
