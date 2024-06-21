@@ -133,5 +133,21 @@ namespace Services.EmailServices
             smtp.Disconnect(true);
 
         }
+
+        public void SendGIA(string requestedEmail)
+        {
+            var email = new MimeMessage();
+            email.From.Add(MailboxAddress.Parse(_config.GetSection("EmailUsername").Value));
+            email.To.Add(MailboxAddress.Parse(requestedEmail));
+            email.Subject = _config.GetSection("ResetPasswordSubject").Value;
+            email.Body = new TextPart(TextFormat.Html) { Text = _emailRelatedService.GIAContent() };
+
+            using var smtp = new SmtpClient();
+            smtp.Connect(_config.GetSection("EmailHost").Value, 587, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_config.GetSection("EmailUsername").Value, _config.GetSection("EmailPassword").Value);
+            smtp.Send(email);
+            smtp.Disconnect(true);
+
+        }
     }
 }

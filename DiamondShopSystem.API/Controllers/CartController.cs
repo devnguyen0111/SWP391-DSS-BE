@@ -32,7 +32,7 @@ namespace DiamondShopSystem.API.Controllers
             _productService = productService;
         }
         [HttpGet]
-        public decimal getotal(int id)
+        public decimal getTotal(int id)
         {
             var ca = _cartService.GetCartFromCus(id).CartProducts;
             var cartItems = ca.Select(c =>
@@ -98,7 +98,7 @@ namespace DiamondShopSystem.API.Controllers
         public  IActionResult updateCart(int id,int pid,int quantity)
         {
             CartProduct p =_cartService.updateCart(id, pid,quantity);
-            decimal total = getotal(id);
+            decimal total = getTotal(id);
             return Ok(new { p.Quantity, total });
         }
         [HttpPost("emptyCart")]

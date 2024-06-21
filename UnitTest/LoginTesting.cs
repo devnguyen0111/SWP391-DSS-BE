@@ -1,86 +1,111 @@
-﻿//using dao;
-//using microsoft.entityframeworkcore;
-//using model.models;
-//using nunit.framework;
-//using repository.users;
-//using repository;
-//using system.collections.generic;
-//using system.linq;
+﻿using Moq;
+using NUnit.Framework;
+using Services.Users;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Microsoft.Extensions.Configuration;
+using Repository.Users;
+using Model.Models;
 
-//public class cartservicetests
-//{
-//    private diamond_dbcontext _dbcontext;
-//    private icartrepository _cartservice;
+namespace UnitTest
+{
+    [TestFixture]
+    public class AuthenticateServiceTests
+    {
+        private Mock<IUserRepository> _mockUserRepository;
+        private Mock<IConfiguration> _mockConfiguration;
+        private AuthenticateService _authenticateService;
 
-//    [setup]
-//    public void setup()
-//    {
-//        var options = new dbcontextoptionsbuilder<diamond_dbcontext>()
-//                        .useinmemorydatabase(databasename: "testdatabase")
-//                        .options;
-//        _dbcontext = new diamond_dbcontext(options);
-//        _cartservice = new cartrepository(_dbcontext);
+        [SetUp]
+        public void Setup()
+        {
+            _mockUserRepository = new Mock<IUserRepository>();
+            _mockConfiguration = new Mock<IConfiguration>();
 
-//        add sample data to the in-memory database
-//        _dbcontext.carts.add(new cart { cartid = 1, cartproducts = new list<cartproduct>() });
-//        _dbcontext.products.add(new product { productid = 1 });
-//        _dbcontext.savechanges();
-//    }
+            // Mock configuration for JWT
+            var jwtSection = new Mock<IConfigurationSection>();
+            jwtSection.Setup(x => x["Key"]).Returns("my_secret_key_12345");
+            jwtSection.Setup(x => x["Issuer"]).Returns("myIssuer");
+            jwtSection.Setup(x => x["Audience"]).Returns("myAudience");
+            _mockConfiguration.Setup(x => x.GetSection("Jwt")).Returns(jwtSection.Object);
 
-//    public static ienumerable<testcasedata> gettestcasesfromcsv()
-//    {
-//        var testcases = new list<testcasedata>();
-//        var filepath = @"a:\fifth-semester\swp391\swp391-dss-be\unittest\csv\carttestdata.csv";
-//        var csvlines = file.readalllines(filepath).skip(1);
+            _authenticateService = new AuthenticateService(_mockUserRepository.Object, _mockConfiguration.Object);
+        }
 
-//        foreach (var line in csvlines)
-//        {
-//            var values = line.split(',');
-//            var testcasename = values[0];
-//            var cartid = int.parse(values[1]);
-//            var productid = int.parse(values[2]);
-//            var quantity = int.parse(values[3]);
-//            var expectedcartquantity = int.parse(values[4]);
-//            var expectedproductquantity = int.parse(values[5]);
-//            var shouldthrow = bool.parse(values[6]);
-//            var testcase = new testcasedata(cartid, productid, quantity, expectedcartquantity, expectedproductquantity, shouldthrow).setname(testcasename);
+        private static IEnumerable<TestCaseData> GetTestCasesFromCsv()
+        {
+            var testCases = new List<TestCaseData>();
+            var filePath = @"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\LoginTestData.csv";  // Adjust the path to your CSV file
 
-//            testcases.add(testcase);
-//        }
+            if (!File.Exists(filePath))
+            {
+                throw new FileNotFoundException("The CSV file was not found.", filePath);
+            }
 
-//        return testcases;
-//    }
+            var csvLines = File.ReadAllLines(filePath).Skip(1);
 
-//    [test, testcasesource(nameof(gettestcasesfromcsv))]
-//    public void addtocartasync_shouldhandlecases(
-//        int cartid, int productid, int quantity, int expectedcartquantity, int expectedproductquantity, bool shouldthrow)
-//    {
-//        arrange
-//        if (shouldthrow)
-//        {
-//            if (cartid == 999)
-//            {
-//                _dbcontext.carts.remove(_dbcontext.carts.find(cartid));
-//            }
-//            if (productid == 999)
-//            {
-//                _dbcontext.products.remove(_dbcontext.products.find(productid));
-//            }
-//            _dbcontext.savechanges();
-//        }
+            foreach (var line in csvLines)
+            {
+                var values = line.Split(',');
+                var testCaseName = values[0];
+                var email = values[1];
+                var password = values[2];
+                var expectedResult = values[3];
 
-//        act & assert
-//        if (shouldthrow)
-//        {
-//            var ex = assert.throws<exception>(() => _cartservice.addtocartasync(cartid, productid, quantity));
-//            assert.istrue(ex.message == "cart not found" || ex.message == "product not found");
-//        }
-//        else
-//        {
-//            var result = _cartservice.addtocartasync(cartid, productid, quantity);
-//            assert.areequal(expectedproductquantity, result.quantity);
-//            var cart = _dbcontext.carts.include(c => c.cartproducts).firstordefault(c => c.cartid == cartid);
-//            assert.areequal(expectedcartquantity, cart.cartquantity);
-//        }
-//    }
-//}
+                var testCase = new TestCaseData(email, password, expectedResult).SetName(testCaseName);
+                testCases.Add(testCase);
+            }
+
+            return testCases;
+        }
+
+        [Test, TestCaseSource(nameof(GetTestCasesFromCsv))]
+        public void AuthenticateTest(string email, string password, string expectedResult)
+        {
+            // Arrange
+            var hashedPassword = GetHashString(password); // Reuse the hashing method
+            User user = null;
+
+            if (expectedResult == "Success")
+            {
+                user = new User
+                {
+                    Email = email,
+                    Password = hashedPassword
+                };
+            }
+
+            _mockUserRepository.Setup(repo => repo.GetAll())
+                .Returns((Delegate)new List<User> { user }.Where(u => u != null));
+
+            // Act
+            var result = _authenticateService.Authenticate(email, hashedPassword);
+
+            // Assert
+            if (expectedResult == "Success")
+            {
+                Assert.IsNotNull(result);
+            }
+            else
+            {
+                Assert.IsNull(result);
+            }
+        }
+
+        private static byte[] GetHash(string inputString)
+        {
+            using (var algorithm = System.Security.Cryptography.SHA256.Create())
+                return algorithm.ComputeHash(System.Text.Encoding.UTF8.GetBytes(inputString));
+        }
+
+        private static string GetHashString(string inputString)
+        {
+            var sb = new System.Text.StringBuilder();
+            foreach (var b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+        }
+    }
+}

@@ -63,5 +63,16 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok("A confirmation has been sent succesfully to " + email + "!!");
         }
+
+        [HttpPost]
+        [Route("send/GIA")]
+
+        // ///this is it
+        public IActionResult SendGIA(string email)
+        {
+            _emailService.SendGIA(email);
+
+            return Ok("An GIA Report has been sent successfully to " + email + "!!");
+        }
     }
 }

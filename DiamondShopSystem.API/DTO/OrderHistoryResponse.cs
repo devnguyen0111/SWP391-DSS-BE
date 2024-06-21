@@ -1,4 +1,6 @@
-﻿namespace DiamondShopSystem.API.DTO
+﻿using System.Numerics;
+
+namespace DiamondShopSystem.API.DTO
 {
     public class OrderHistoryResponse
     {
@@ -19,5 +21,20 @@
         public string DiamondName { get; set; }
 
         public decimal TotalAmount { get; set; }
+
+        public List<OrderHistoryItem> Items { get; set; }
+
+        public OrderHistoryResponse()
+        {
+            Items = new List<OrderHistoryItem>();
+        }
     }
+    public class OrderHistoryItem
+    {
+        public int PId { get; set; }
+        public string Name { get; set; }
+        public decimal Total {get; set; }
+        public string Img { get; set; }
+    }
+
 }
