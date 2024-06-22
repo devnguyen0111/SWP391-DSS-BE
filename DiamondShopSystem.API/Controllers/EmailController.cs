@@ -72,7 +72,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             _emailService.SendGIA(email);
 
-            return Ok("An GIA Report has been sent successfully to " + email + "!!");
+            return Ok("An attachment has been sent successfully to " + email + "!!");
         }
     }
 }

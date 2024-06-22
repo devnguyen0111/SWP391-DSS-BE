@@ -76,8 +76,7 @@ namespace UnitTest
                 };
             }
 
-            _mockUserRepository.Setup(repo => repo.GetAll())
-                .Returns((Delegate)new List<User> { user }.Where(u => u != null));
+            _mockUserRepository.Setup(repo => repo.GetAll()).Returns(new List<User> { user }.Where(u => u != null).ToList()); //ToList ở đây là do phải convert về List
 
             // Act
             var result = _authenticateService.Authenticate(email, hashedPassword);
