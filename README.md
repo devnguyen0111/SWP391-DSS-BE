@@ -1,4 +1,5 @@
-# **DIAMOND SHOP SYSTEM** (Phần mềm quản lý cửa hàng kim cương)
+# **DIAMOND SHOP SYSTEM** 
+#(Phần mềm quản lý cửa hàng kim cương)
 ## Functional requirements
 
 _Phần mềm quản lý việc bán kim cương trực tuyến của công ty kinh doanh kim cương_
