@@ -16,7 +16,7 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 
 # Short Link
 
-- [Github BE](https://github.com/devnguyen0111/SWP391-DSS-BE)
+- [Github FE](https://github.com/devnguyen0111/SWP391-DiamondShopSystem)
 
 # Testing
 <details>
