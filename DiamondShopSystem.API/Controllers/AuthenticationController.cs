@@ -37,14 +37,21 @@ namespace DiamondShopSystem.API.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] DTO.LoginRequest request)
         {
+            if (_authenticateService.GetUserByMail(request.Email)==null)
+            {
+                return BadRequest("Email address is not registered");
+            }
             var token = _authenticateService.Authenticate(request.Email, GetHashString(request.Password));
             if (token == null)
-                return Unauthorized();
-
+                return BadRequest("Wrong Email or Password");
             return Ok(new { Token = token });
         }
         [HttpPost("register")]
         public IActionResult Register([FromBody] registerRequest rq) {
+            if (_authenticateService.GetUserByMail(rq.email)!=null)
+            {
+                return BadRequest("Email address is already registered");
+            }
             Customer c = new Customer
             {
                 CusFirstName = rq.firstname,
