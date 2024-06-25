@@ -5,6 +5,7 @@ namespace DiamondShopSystem.API.DTO
     public class CoverResponse
     {
         public int coverId {  get; set; }
+        public int categoryId { get; set; }
         public string name {  get; set; }
         public decimal prices { get; set; }
         public string? url { get; set; }

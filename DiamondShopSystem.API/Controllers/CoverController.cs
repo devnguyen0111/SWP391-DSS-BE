@@ -66,6 +66,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 
                 coverId = cover.CoverId,
+                categoryId =cover.CategoryId ,
                 name = cover.CoverName,
                 prices = (decimal)cover.UnitPrice,
                 metals = (List<CoverReponseMetal>)c,
@@ -191,6 +192,16 @@ namespace DiamondShopSystem.API.Controllers
                 .Take(pageSize);
 
             return Ok(filteredCovers1.ToList());
+        }
+        [HttpGet("testSize")]
+        public IActionResult getAllSizeByCate(int id)
+        {
+            return Ok(_sizeService.getSizeByCate(id));
+        }
+        [HttpGet("testMetalTypes")]
+        public IActionResult getAllMetalByCate(int id)
+        {
+            return Ok(_metaltypeService.getMetalTypeByCate(id));
         }
     }
 }

@@ -21,6 +21,16 @@ namespace Repository.Products
         {
             return _context.Metaltypes.Find(id);
         }
+        public List<int> getMetalTypesByCate(int cateId)
+        {
+            var metaltypeIds = (from mt in _context.Metaltypes
+                                join cm in _context.CoverMetaltypes on mt.MetaltypeId equals cm.MetaltypeId
+                                join c in _context.Covers on cm.CoverId equals c.CoverId
+                                join sc in _context.SubCategories on c.SubCategoryId equals sc.SubCategoryId
+                                where sc.CategoryId == cateId
+                                select mt.MetaltypeId).Distinct().ToList();
+            return metaltypeIds;
+        }
 
         /*public void Add(Metaltype metaltype)
         {

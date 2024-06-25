@@ -11,16 +11,16 @@ namespace Services.Products
         {
             _sizeRepository = sizeRepository;
         }
-/*
-        public Diamond AddDiamond(Diamond diamond)
-        {
-            return _diamondRepository.createDiamond(diamond);
-        }
+        /*
+                public Diamond AddDiamond(Diamond diamond)
+                {
+                    return _diamondRepository.createDiamond(diamond);
+                }
 
-        public void DeleteDiamond(int Id)
-        {
-            _diamondRepository.deleteDiamond(Id);
-        }*/
+                public void DeleteDiamond(int Id)
+                {
+                    _diamondRepository.deleteDiamond(Id);
+                }*/
 
         public List<Size> GetAllSizes()
         {
@@ -30,6 +30,10 @@ namespace Services.Products
         public Size GetSizeById(int Id)
         {
             return _sizeRepository.GetSizeById(Id);
+        }
+        public List<int> getSizeByCate(int cateId)
+        {
+            return _sizeRepository.getSizesByCate(cateId);
         }
 
         /*public Diamond UpdateDiamond(Diamond diamond)

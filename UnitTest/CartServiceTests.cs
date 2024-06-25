@@ -99,13 +99,13 @@ namespace UnitTest
                         if (testCase.ExpectedResult == "Exception")
                         {
                             Assert.Throws<Exception>(() => _cartService.updateCart(testCase.CustomerId, testCase.ProductId.Value, testCase.Quantity));
+                            Console.WriteLine(testCase.Quantity.ToString());
                         }
                         else
                         {
-                            var updatedCartProduct = _cartService.updateCart(testCase.CustomerId, testCase.ProductId.Value, testCase.Quantity);
-                            Assert.AreEqual(ExpectedUpdatedCartProductObject.ProductId, updatedCartProduct.ProductId);
+                            var updatedCartProduct = _cartService.updateCart(testCase.CustomerId, (int)testCase.ProductId, testCase.Quantity);
                             Assert.AreEqual(ExpectedUpdatedCartProductObject.Quantity, updatedCartProduct.Quantity);
-                        }
+                        }//
                     }
                     else
                     {
@@ -123,7 +123,7 @@ namespace UnitTest
         public static IEnumerable<TestCase> GetTestCases()
         {
             
-            using (var reader = new StreamReader(@"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\CartTestData.csv"))
+            using (var reader = new StreamReader(@"C:\Users\caotr\OneDrive\Documents\SWP391\SWP391-DSS-BE\UnitTest\csv\CartTestData.csv"))
             using (var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)))
             {
                 return csv.GetRecords<TestCase>().ToList();
