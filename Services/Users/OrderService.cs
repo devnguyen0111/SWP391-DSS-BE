@@ -96,5 +96,9 @@ namespace Services.Users
         {
             return _orderRepository.getOrderby(uid, status);
         }
+        public List<Order> getOrders(int uid)
+        {
+            return _orderRepository.getOrders(uid);
+        }
     }
 }

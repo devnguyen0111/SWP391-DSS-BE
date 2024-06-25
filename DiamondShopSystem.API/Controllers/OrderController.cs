@@ -1,5 +1,6 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Services.EmailServices;
 using Services.Products;
 using Services.Users;
@@ -47,11 +48,20 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         [HttpGet("customer/{customerId}/history")]
-        public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string status = "Done")
+        public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string? status)
         {
             try
             {
-                var orders = _orderService.getOrderByStatus(customerId, status);
+                var orders = new List<Order>();
+                if(status.IsNullOrEmpty())
+                {
+                     orders = _orderService.getOrders(customerId);
+                }
+                else
+                {
+                     orders = _orderService.getOrderByStatus(customerId, status);
+
+                }
 
                 if (orders == null || !orders.Any())
                 {
@@ -60,22 +70,22 @@ namespace DiamondShopSystem.API.Controllers
 
                 var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse
                 {
-                    OrderId = o.OrderId,
-                    OrderDate = o.OrderDate,
-                    Status = o.Status,
-                    ShippingMethodName = o.ShippingMethod.MethodName,
-                    TotalAmount = o.TotalAmount,
-                    Items = o.ProductOrders.Select(po => new OrderHistoryItem
+                    OrderId = o?.OrderId ?? 0, // Added null check
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                    Status = o?.Status ?? "Unknown", // Added null check
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                    Items = o?.ProductOrders?.Select(po => new OrderHistoryItem
                     {
-                        PId = po.ProductId, // Assuming this maps to OrderHistoryItem's OHId
-                       SizeName = _productService.GetProductById(po.ProductId).Size.SizeValue,
-                        DiamondName = _productService.GetProductById(po.ProductId).Diamond.DiamondName,
-                        MetaltypeName = _productService.GetProductById(po.ProductId).Metaltype.MetaltypeName,
-                        Name = po.Product.ProductName,
-                        Total = _productService.GetProductTotal(po.ProductId),
+                        PId = po?.ProductId ?? 0, // Added null check
+                        SizeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Size?.SizeValue ?? "Unknown Size" : "Unknown Size", // Added null check
+                        DiamondName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Diamond?.DiamondName ?? "Unknown Diamond" : "Unknown Diamond", // Added null check
+                        MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
+                        Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
+                        Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
                         Img = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567" // Adjust according to your actual model
-                    }).ToList()
-                }).ToList();
+                    }).ToList() ?? new List<OrderHistoryItem>() // Added null check
+                }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
 
                 return Ok(orderHistoryResponses);
             }

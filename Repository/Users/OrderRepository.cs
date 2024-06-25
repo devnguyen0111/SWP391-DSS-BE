@@ -16,6 +16,11 @@ namespace Repository.Users
             return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product)
             .Where(o => o.Status == status && o.CusId == uid).ToList();
         }
+        public List<Order> getOrders(int uid)
+        {
+            return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product)
+            .Where(o =>  o.CusId == uid).ToList();
+        }
         public void createOrder(Order order)
         {
             _context.Orders.Add(order);
