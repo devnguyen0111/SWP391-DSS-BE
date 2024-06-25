@@ -8,6 +8,7 @@ namespace Services.Products
         void DeleteDiamond(int id);*/
         List<Metaltype> GetAllMetaltypes();
         Metaltype GetMetaltypeById(int id);
+        List<int> getMetalTypeByCate(int id);
         //Diamond UpdateDiamond(Diamond diamond);
     }
 }

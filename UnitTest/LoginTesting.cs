@@ -36,7 +36,7 @@ namespace UnitTest
         private static IEnumerable<TestCaseData> GetTestCasesFromCsv()
         {
             var testCases = new List<TestCaseData>();
-            var filePath = @"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\LoginTestData.csv";  // Adjust the path to your CSV file
+            var filePath = @"C:\Users\caotr\OneDrive\Documents\SWP391\SWP391-DSS-BE\UnitTest\csv\ProductTestData.csv";  // Adjust the path to your CSV file
 
             if (!File.Exists(filePath))
             {

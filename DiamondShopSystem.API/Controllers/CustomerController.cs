@@ -77,5 +77,21 @@ namespace DiamondShopSystem.API.Controllers
             _customerService.updateCustomer(c);
             return Ok(_customerService.GetCustomer(pq.id));
         }
+        [Authorize]
+        [HttpPost("updateProfile")]
+        public IActionResult updateCustomer([FromBody] CustomerProfileRequest cf)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+            _customerService.updateAddress(cf.customerId, cf.street, cf.city, cf.state, cf.zipcode);
+            Customer c = _customerService.GetCustomer(cf.customerId);
+            c.CusPhoneNum = cf.phonenumber;
+            c.CusLastName = cf.lastName;
+            c.CusFirstName = cf.firstName;
+            _customerService.updateCustomer(c);
+            return Ok("Update successfully");
+        }
     }
 }

@@ -71,15 +71,77 @@ namespace DiamondShopSystem.API.Controllers
                     size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
                     metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,
                     cover = _coverService.GetCoverById((int)c.Product.CoverId).CoverName,
-                    coverPrice =(decimal) _coverService.GetCoverById((int)c.Product.CoverId).UnitPrice +(decimal) _sizeService.GetSizeById((int)c.Product.SizeId).SizePrice + (decimal)_metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypePrice,
+                    coverPrice = (decimal)_coverService.GetCoverById((int)c.Product.CoverId).UnitPrice + (decimal)_sizeService.GetSizeById((int)c.Product.SizeId).SizePrice + (decimal)_metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypePrice,
                     diamond = _diamondService.GetDiamondById((int)c.Product.DiamondId).DiamondName,
                     diamondPrice = _diamondService.GetDiamondById((int)c.Product.DiamondId).Price,
-                    labor =(decimal) c.Product.UnitPrice,
+                    labor = (decimal)c.Product.UnitPrice,
                 };
             }).ToList();
             CartRespone car = new CartRespone();
             car.items = cartItems;
             return Ok(car);
+            //try
+            //{
+            //    // Get the cart from the customer
+            //    var cart = _cartService.GetCartFromCus(id);
+
+            //    // Check if the cart is null or empty
+            //    if (cart == null || !cart.CartProducts.Any())
+            //    {
+            //        return NotFound("Cart not found or is empty.");
+            //    }
+
+            //    // Get cart products
+            //    var ca = cart.CartProducts;
+
+            //    // Map cart products to response
+            //    var cartItems = ca.Select(c =>
+            //    {
+            //        var product = c.Product;
+
+            //        // Check if the product is null
+            //        if (product == null)
+            //        {
+            //            throw new Exception("Product not found in cart.");
+            //        }
+
+            //        var size = _sizeService.GetSizeById((int)product.SizeId);
+            //        var metal = _metaltypeService.GetMetaltypeById((int)product.MetaltypeId);
+            //        var cover = _coverService.GetCoverById((int)product.CoverId);
+            //        var diamond = _diamondService.GetDiamondById((int)product.DiamondId);
+
+            //        // Create response object
+            //        return new CartItemRespone
+            //        {
+            //            pid = product.ProductId,
+            //            name1 = product.ProductName,
+            //            price = _productService.GetProductTotal(product.ProductId),
+            //            quantity = c.Quantity,
+            //            size = size?.SizeValue ?? "N/A",
+            //            metal = metal?.MetaltypeName ?? "N/A",
+            //            cover = cover?.CoverName ?? "N/A",
+            //            coverPrice = (cover?.UnitPrice ?? 0) + (size?.SizePrice ?? 0) + (metal?.MetaltypePrice ?? 0),
+            //            diamond = diamond?.DiamondName ?? "N/A",
+            //            diamondPrice = diamond?.Price ?? 0,
+            //            labor = product.UnitPrice ?? 0
+            //        };
+            //    }).ToList();
+
+            //    // Create and return the cart response
+            //    var car = new CartRespone
+            //    {
+            //        items = cartItems
+            //    };
+            //    return Ok(car);
+        
+            //catch (Exception ex)
+            //{
+            //    // Log the exception and return an error response
+            //    // You can use a logging framework like Serilog or NLog
+            //    // Log.Error(ex, "Error retrieving cart");
+
+            //    return StatusCode(500, "An error occurred while processing your request.");
+            //}
         }
         [HttpPost("addToCart")]
         public IActionResult addtoCart([FromBody] CartRequest c)

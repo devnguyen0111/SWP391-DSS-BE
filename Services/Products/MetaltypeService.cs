@@ -37,6 +37,10 @@ namespace Services.Products
         {
             return _metaltypeRepository.GetMetaltypeById(Id);
         }
+        public List<int> getMetalTypeByCate(int id)
+        {
+            return _metaltypeRepository.getMetalTypesByCate(id);
+        }
 
         /*public Diamond UpdateDiamond(Diamond diamond)
         {

@@ -21,6 +21,16 @@ namespace Repository.Products
         {
             return _context.Sizes.Find(id);
         }
+        public List<int> getSizesByCate(int cateId)
+        {
+            var sizeIds = (from s in _context.Sizes
+                           join cs in _context.CoverSizes on s.SizeId equals cs.SizeId
+                           join c in _context.Covers on cs.CoverId equals c.CoverId
+                           join sc in _context.SubCategories on c.SubCategoryId equals sc.SubCategoryId
+                           where sc.CategoryId == cateId
+                           select s.SizeId).Distinct().ToList();
+            return sizeIds;
+        }
 
         /*public void Add(Size size)
         {
