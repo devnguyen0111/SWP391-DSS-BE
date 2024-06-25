@@ -8,5 +8,6 @@ namespace Services.Users
         Order createOrderFromCart(int uid, int sid, string address, string phonenum);
         List<Order> getOrderByStatus(int uid, string status);
         decimal GetTotalPrice(Product product);
+        List<Order> getOrders(int uid);
     }
 }

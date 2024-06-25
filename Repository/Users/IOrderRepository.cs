@@ -7,5 +7,6 @@ namespace Repository.Users
         void createOrder(Order order);
         List<Order> getOrderby(int uid, string status);
         void updateOrder(int oid, string status);
+        List<Order> getOrders(int uid);
     }
 }
