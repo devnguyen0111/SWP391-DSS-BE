@@ -1,7 +1,4 @@
-﻿using Model.Models;
-using System.Runtime.CompilerServices;
-
-namespace DiamondShopSystem.API.DTO
+﻿namespace DiamondShopSystem.API.DTO
 {
     public class CartRespone
     {

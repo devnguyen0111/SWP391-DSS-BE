@@ -1,12 +1,10 @@
 ﻿
 using DiamondShopSystem.API.DTO;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Diamonds;
 using Services.OtherServices;
 using Services.Products;
-using SkiaSharp;
 
 namespace DiamondShopSystem.API.Controllers
 {
