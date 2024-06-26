@@ -1,5 +1,6 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Model.Models;
 
 using Services;
@@ -59,24 +60,30 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("{id}")]
         public IActionResult getCart(int id)
         {
-            var ca = _cartService.GetCartFromCus(id).CartProducts;
-            var cartItems = ca.Select(c =>
+            if (_cartService.GetCartFromCus(id).CartProducts.IsNullOrEmpty())
             {
-                return new CartItemRespone
+                return BadRequest("Cart is empty");
+            }
+            
+                var ca = _cartService.GetCartFromCus(id).CartProducts;
+                var cartItems = ca.Select(c =>
                 {
-                    pid = c.Product.ProductId,
-                    name1 = c.Product.ProductName,
-                    price = _productService.GetProductTotal(c.ProductId),
-                    quantity = c.Quantity,
-                    size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
-                    metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,
-                    cover = _coverService.GetCoverById((int)c.Product.CoverId).CoverName,
-                    coverPrice = (decimal)_coverService.GetCoverById((int)c.Product.CoverId).UnitPrice + (decimal)_sizeService.GetSizeById((int)c.Product.SizeId).SizePrice + (decimal)_metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypePrice,
-                    diamond = _diamondService.GetDiamondById((int)c.Product.DiamondId).DiamondName,
-                    diamondPrice = _diamondService.GetDiamondById((int)c.Product.DiamondId).Price,
-                    labor = (decimal)c.Product.UnitPrice,
-                };
-            }).ToList();
+                    return new CartItemRespone
+                    {
+                        pid = c.Product.ProductId,
+                        name1 = c.Product.ProductName,
+                        price = _productService.GetProductTotal(c.ProductId),
+                        quantity = c.Quantity,
+                        size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
+                        metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,
+                        cover = _coverService.GetCoverById((int)c.Product.CoverId).CoverName,
+                        coverPrice = (decimal)_coverService.GetCoverById((int)c.Product.CoverId).UnitPrice + (decimal)_sizeService.GetSizeById((int)c.Product.SizeId).SizePrice + (decimal)_metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypePrice,
+                        diamond = _diamondService.GetDiamondById((int)c.Product.DiamondId).DiamondName,
+                        diamondPrice = _diamondService.GetDiamondById((int)c.Product.DiamondId).Price,
+                        labor = (decimal)c.Product.UnitPrice,
+                    };
+                }).ToList();
+            
             CartRespone car = new CartRespone();
             car.items = cartItems;
             return Ok(car);

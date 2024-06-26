@@ -64,7 +64,7 @@ namespace Repository
             if (cart == null)
                 throw new Exception("Cart not found");
 
-            cart.CartProducts.Clear();
+            cart.CartProducts = new List<CartProduct>();
             cart.CartQuantity = 0;
 
              _context.SaveChangesAsync();
