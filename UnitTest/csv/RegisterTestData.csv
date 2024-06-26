@@ -1,0 +1,3 @@
+﻿firstname,lastname,phonenumber,email,password,expectedEmail,expectedStatus,expectedRole
+John,Doe,123456789,john.doe@example.com,password,john.doe@example.com,active,customer
+Jane,Smith,987654321,jane.smith@example.com,password,jane.smith@example.com,active,customer

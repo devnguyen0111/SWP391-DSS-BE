@@ -1,19 +1,25 @@
 # **DIAMOND SHOP SYSTEM** (Phần mềm quản lý cửa hàng kim cương)
+
 ## Functional requirements
 
 _Phần mềm quản lý việc bán kim cương trực tuyến của công ty kinh doanh kim cương_
- - Trang chủ giới thiệu cửa hàng, sản phẩm về kim cương, bộ sưu tập, bảng giá kim cương, kiến thức trang sức, kiến thức kim cương, hướng dẫn chọn ni, câu hỏi thường gặp, …
- - Quản lý quá trình mua hàng của khách hàng.
-   **Khách hàng chọn sản phẩm và đặt hàng --> NV bán hàng tiếp nhận đơn hàng và hướng dẫn đo ni cho khách hàng --> Khách hàng xác nhận ni và thực hiện thanh toán --> NV bán hàng xuất sản phẩm và kèm theo phiếu bảo hành và giấy chứng nhận kim cương để bàn giao --> NV giao hàng gửi sản phẩm đến khách hàng**
- - Quản lý phiếu bảo hành sản phẩm, giấy chứng nhận kim cương theo tiêu chuẩn 4C của GIA.
- - Quản lý chương trình khuyến mãi, tích lũy điểm.
- - Khai báo bảng giá viên kim cương theo các tiêu chí: loại nguồn gốc (diamond origin), trọng lượng (Carat weight), màu sắc (Color), độ tinh khiết (Clarity), cắt mài (Cut); khai báo bảng giá vỏ kim cương.
- - Quản lý sản phẩm kim cương bao gồm: vỏ kim cương, viên kim cương chính, các viên kim cương phụ, ...
-   **Giá bán = giá vốn sản phẩm * tỉ lệ áp giá, Giá vốn sản phẩm = tiền kim cương + vỏ kim cương + tiền công**
- - Dashboard thống kê.
+
+- Trang chủ giới thiệu cửa hàng, sản phẩm về kim cương, bộ sưu tập, bảng giá kim cương, kiến thức trang sức, kiến thức kim cương, hướng dẫn chọn ni, câu hỏi thường gặp, …
+- Quản lý quá trình mua hàng của khách hàng.
+  **Khách hàng chọn sản phẩm và đặt hàng --> NV bán hàng tiếp nhận đơn hàng và hướng dẫn đo ni cho khách hàng --> Khách hàng xác nhận ni và thực hiện thanh toán --> NV bán hàng xuất sản phẩm và kèm theo phiếu bảo hành và giấy chứng nhận kim cương để bàn giao --> NV giao hàng gửi sản phẩm đến khách hàng**
+- Quản lý phiếu bảo hành sản phẩm, giấy chứng nhận kim cương theo tiêu chuẩn 4C của GIA.
+- Quản lý chương trình khuyến mãi, tích lũy điểm.
+- Khai báo bảng giá viên kim cương theo các tiêu chí: loại nguồn gốc (diamond origin), trọng lượng (Carat weight), màu sắc (Color), độ tinh khiết (Clarity), cắt mài (Cut); khai báo bảng giá vỏ kim cương.
+- Quản lý sản phẩm kim cương bao gồm: vỏ kim cương, viên kim cương chính, các viên kim cương phụ, ...
+  **Giá bán = giá vốn sản phẩm \* tỉ lệ áp giá, Giá vốn sản phẩm = tiền kim cương + vỏ kim cương + tiền công**
+- Dashboard thống kê.
 
 # Short Link
-- [Github FE](https://github.com/devnguyen0111/SWP391-DiamondShopSystem)
+
+- [Github BackEnd](https://github.com/devnguyen0111/SWP391-DSS-BE)
+- [Github FrontEnd](https://github.com/devnguyen0111/SWP391-DiamondShopSystem)
+- [SWP391-NET1817](https://docs.google.com/spreadsheets/d/1kO166hgUD31-DIYq5_fsoDtkX_Ifbo-Fclt_xM124Bg/edit?gid=0#gid=0)
+- [SWP391-Topic](https://docs.google.com/spreadsheets/d/1kO166hgUD31-DIYq5_fsoDtkX_Ifbo-Fclt_xM124Bg/edit?gid=2063864594#gid=2063864594)
 
 # Testing
 <details>
@@ -83,24 +89,26 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 | `UC-60`  | Print warranty card                      | Admin        | Admins can generate and print a warranty card.                         |
 | `UC-61`  | Prepare custom invoice                   | Admin        | Admins can prepare a customized invoice.                               |
 | `UC-62`  | Handle returns and exchanges             | Admin        | Admins can manage the process of returns and exchanges.                |
-| `UC-63` | Manage customer review                   | Admin        | Admins can manage reviews submitted by customers.                      |
+| `UC-63`  | Manage customer review                   | Admin        | Admins can manage reviews submitted by customers.                      |
 | `UC-64`  | Manage customer                          | Admin        | Admins can manage customer accounts and details.                       |
-| `UC-65` | Disable a customer                       | Admin        | Admins can disable a customer account.                                 |
-| `UC-66` | View a customer detail                   | Admin        | Admins can view detailed information of a customer.                    |
+| `UC-65`  | Disable a customer                       | Admin        | Admins can disable a customer account.                                 |
+| `UC-66`  | View a customer detail                   | Admin        | Admins can view detailed information of a customer.                    |
 
 </details>
  
 | Sprint | UC |
 | --- | --- |
-| Sprint 1 | `UC-02` `UC-03` `UC-05` `UC-07` `UC-15` `UC-28` `UC-29` `UC-30` `UC-35` `UC-44` `UC-45` `UC-46` `UC-47` `UC-60`  |
+| Sprint 1 | `UC-02` `UC-03` `UC-05` `UC-07` `UC-15` `UC-28` `UC-29` `UC-30` `UC-35` `UC-44` `UC-45` `UC-46` `UC-47` `UC-60` `UC-65` |
+| Sprint 2 |  |
+| Sprint 3 |  |
+| Sprint 4 |  |
 
 | Member | assigned UC |
 | --- | --- |
-| Huỳnh Minh Long |  |
+| Huỳnh Minh Long | `UC-29` `UC-35` |
 | Nguyễn Cao Trí |  |
-| Nguyễn Trần Hồng Phúc |  `UC-28`, |
+| Nguyễn Trần Hồng Phúc |  `UC-28` `UC-05` `UC-30` `UC-65` |
 | Lê Quang Vinh |  |
-| Trần Hoàng Tuấn |  |
+| Trần Hoàng Tuấn | `UC-03` `UC-04` `UC-05` `UC-60`  |
 
-
-_FIN_
+_the end_
