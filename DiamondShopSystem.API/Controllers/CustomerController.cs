@@ -26,14 +26,22 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult profile(int id)
         {
             Address d = _customerService.getCustomerAddress(id);
-            var ad = new
+            AddressRequest ad = new AddressRequest();
+            if (d.City != null)
             {
-                d.City,
-                d.Country,
-                d.State,
-                d.Street,
-                d.ZipCode,
-            };
+                ad.city = d.City;
+                ad.state = d.State;
+                ad.street = d.Street;
+                ad.zipcode = d.ZipCode;
+            }
+            //var ad = new
+            //{
+            //    d.City,
+            //    d.Country,
+            //    d.State,
+            //    d.Street,
+            //    d.ZipCode,
+            //};
             var mail = _customerService.getmail(id);
             var customer = _customerService.GetCustomer(id);
             var customerinfo = new {customer.CusLastName,customer.CusFirstName,customer.CusPhoneNum,mail};
