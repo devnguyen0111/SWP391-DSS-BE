@@ -24,6 +24,7 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 # Testing
 <details>
 <summary>Use Case Description</summary>
+ 
 | ID     | Use Case                                   | Actors               | Use Case Description                                                                 |
 |--------|--------------------------------------------|----------------------|--------------------------------------------------------------------------------------|
 | UC-01  | Register an account                        | Guest                | The system enables guests to create a new user account.                              |
@@ -80,6 +81,7 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 | UC-55  | Manage customer review                     | Admin                | Admins can manage reviews submitted by customers.                                    |
 | UC-56  | Manage users                               | Admin                | Admins can manage users accounts and details.                                     |
 | UC-57  | Disable a customer                         | Admin                | Admins can disable a customer account.                                               |
+
 </details>
  
 | Sprint | UC |
