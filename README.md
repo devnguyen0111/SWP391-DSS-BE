@@ -70,7 +70,7 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 | UC-43  | Update information of a product            | Manager              | Managers can update details of a product.                                            |
 | UC-44  | Disable a product                          | Manager              | Managers can disable a product from being available.                                 |
 | UC-45  | Cancel order                               | Manager              | Managers can reject a customer order.                                                |
-| UC-46  | Approve Cancel order permission            | Manager              | Managers can approve the request from sales and delivery staff.                      |
+| UC-46  | Approve or Reject Cancel order permission  | Manager              | Managers can approve or reject the request from sales and delivery staff.            |
 | UC-47  | Set discount rate                          | Manager              | Managers can set discount rates for products.                                        |
 | UC-49  | View created orders                        | Manager              | Managers can view the list of all customer orders that have just been created, review them, and assign them to staff. |
 | UC-50  | Upgrade customer loyalty level             | Admin                | Admin can upgrade the loyalty level of a customer based on their performance.        |
