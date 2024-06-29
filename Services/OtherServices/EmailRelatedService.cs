@@ -1,8 +1,4 @@
-﻿using Model.Models;
-using Org.BouncyCastle.Bcpg.OpenPgp;
-using Services.EmailServices;
-
-namespace Services.OtherServices
+﻿namespace Services.OtherServices
 {
     public class EmailRelatedService : IEmailRelatedService
     {

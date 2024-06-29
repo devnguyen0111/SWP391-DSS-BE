@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Model.Models;
 
-using Services;
 using Services.Diamonds;
 using Services.Products;
 using Services.Users;
-using System.Runtime.InteropServices;
 
 namespace DiamondShopSystem.API.Controllers
 {
