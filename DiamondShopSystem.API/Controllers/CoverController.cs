@@ -1,9 +1,7 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
-using MimeKit.IO;
 using Model.Models;
 using Services.Products;
-using System.Reflection.Metadata.Ecma335;
 
 namespace DiamondShopSystem.API.Controllers
 {
