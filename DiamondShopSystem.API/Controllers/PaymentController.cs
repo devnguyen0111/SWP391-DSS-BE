@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Model.Models;
 using Services.Charge;
-using Services.Utility;
 using Repository.Charge;
 using Services.Users;
 
@@ -21,16 +20,13 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
         private readonly IOrderService orderService;
-        // logs to webhook discord Server DSS
-        private readonly IDiscordWebhookService _discordWH;
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration, IDiscordWebhookService discordWebhookService,IOrderService o)
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration,IOrderService o)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
             _configuration = configuration;
             _paypalService = paypalService;
             _paypalRepository = paypalRepository;
-            _discordWH = discordWebhookService;
             orderService = o;
 
         }
@@ -53,7 +49,6 @@ namespace DiamondShopSystem.API.Controllers
                 /*string returnUrl = Url.Action("PaymentReturn", "Checkout", null, Request.Scheme);*/
                 var returnUrl = "https://google.com.vn";
                 string paymentUrl = _vnPayService.CreatePayment(order, returnUrl);
-                _discordWH.SendLogAsync($"Payment VN-PAY created for Order {orderId}. Payment URL: {paymentUrl}");
 
                 return Ok(new { url = paymentUrl });
             }
@@ -86,14 +81,12 @@ namespace DiamondShopSystem.API.Controllers
                         {
                             order.Status = "Paid";
                             _vnPayRepository.SaveOrder(order);
-                            _discordWH.SendLogAsync($"Payment VN-PAY executed successfully for Order {orderId}");
                             return Redirect("https://www.google.com/"); // Redirect to success page
                         }
                         else
                         {
                             order.Status = "Failed";
                             _vnPayRepository.SaveOrder(order);
-                            _discordWH.SendLogAsync($"Payment VN-PAY failed for Order {orderId} with status {paymentStatus}");
                             return Redirect("https://www.youtube.com/"); // Redirect to failure page
                         }
                     }
@@ -122,7 +115,6 @@ namespace DiamondShopSystem.API.Controllers
             }
 
             var paymentUrl = await _paypalService.CreatePaymentAsync(order, returnUrl, cancelUrl);
-            await _discordWH.SendLogAsync($"Payment created for Order {orderId}. Payment URL: {paymentUrl}");
             if (string.IsNullOrEmpty(paymentUrl))
             {
                 return BadRequest("Failed to create payment URL.");
@@ -137,13 +129,11 @@ namespace DiamondShopSystem.API.Controllers
             if (await _paypalService.ExecutePaymentAsync(paymentId, payerId))
             {
                 await _paypalRepository.UpdateOrderStatusAsync(orderId, "Paid");
-                await _discordWH.SendLogAsync($"Payment executed successfully for Order {orderId}. Payment ID: {paymentId}");
                 return Redirect("https://google.com");
             }
             else
             {
                 await _paypalRepository.UpdateOrderStatusAsync(orderId, "Failed");
-                await _discordWH.SendLogAsync($"Payment failed for Order {orderId}. Payment ID: {paymentId}");
                 return Redirect("https://youtube.com");
             }
         }
@@ -152,7 +142,6 @@ namespace DiamondShopSystem.API.Controllers
         public async Task<IActionResult> CancelPayment(int orderId)
         {
             await _paypalRepository.UpdateOrderStatusAsync(orderId, "Cancelled");
-            await _discordWH.SendLogAsync($"Payment cancelled for Order {orderId}");
             return Redirect("https://facebook.com");
         }
     }
