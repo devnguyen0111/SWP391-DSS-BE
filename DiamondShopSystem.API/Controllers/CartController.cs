@@ -58,7 +58,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("{id}")]
         public IActionResult getCart(int id)
         {
-            if (_cartService.GetCartFromCus(id).CartProducts.IsNullOrEmpty())
+            if (_cartService.GetCartFromCus(id).CartProducts == null)
             {
                 return BadRequest("Cart is empty");
             }

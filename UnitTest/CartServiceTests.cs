@@ -105,7 +105,7 @@ namespace UnitTest
                         {
                             var updatedCartProduct = _cartService.updateCart(testCase.CustomerId, (int)testCase.ProductId, testCase.Quantity);
                             Assert.AreEqual(ExpectedUpdatedCartProductObject.Quantity, updatedCartProduct.Quantity);
-                        }//
+                        }
                     }
                     else
                     {

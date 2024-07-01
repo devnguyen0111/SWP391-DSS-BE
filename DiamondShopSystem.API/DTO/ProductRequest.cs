@@ -8,6 +8,7 @@ namespace DiamondShopSystem.API.DTO
         public string imgUrl { get; set; }
 
         public string ProductName { get; set; }
+        public string PP {  get; set; }
 
         public decimal? UnitPrice { get; set; }
     }

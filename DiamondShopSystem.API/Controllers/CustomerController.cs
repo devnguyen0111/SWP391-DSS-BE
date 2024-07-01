@@ -91,7 +91,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                return BadRequest("Field cannot be blank");
             }
             _customerService.updateAddress(cf.customerId, cf.street, cf.city, cf.state, cf.zipcode);
             Customer c = _customerService.GetCustomer(cf.customerId);

@@ -5,6 +5,7 @@ namespace Services.Users
     public interface IAuthenticateService
     {
         string Authenticate(string email, string password);
+        string googleAuthen(string email);
         void Logout(string token);
         User GetUserByMail(string email);
         User GetUserById(int id);
