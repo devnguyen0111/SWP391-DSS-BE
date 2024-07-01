@@ -37,14 +37,29 @@ namespace DiamondShopSystem.API.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] DTO.LoginRequest request)
         {
-            if (_authenticateService.GetUserByMail(request.Email)==null)
+
+            var user = _authenticateService.GetUserByMail(request.Email);
+            if (user == null)
             {
                 return BadRequest("Email address is not registered");
             }
-            var token = _authenticateService.Authenticate(request.Email, GetHashString(request.Password));
-            if (token == null)
-                return BadRequest("Wrong Email or Password");
-            return Ok(new { Token = token });
+
+            if ((bool)request.IsGoogleLogin)
+            {
+                // For Google login, bypass password check
+                var token = _authenticateService.googleAuthen(user.Email); // Implement token generation logic
+                return Ok(new { Token = token });
+            }
+            else
+            {
+                // Traditional email/password login
+                var token = _authenticateService.Authenticate(request.Email, GetHashString(request.Password));
+                if (token == null)
+                {
+                    return BadRequest("Wrong Email or Password");
+                }
+                return Ok(new { Token = token });
+            }
         }
         [HttpPost("register")]
         public IActionResult Register([FromBody] registerRequest rq) {

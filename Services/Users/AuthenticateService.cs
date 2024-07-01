@@ -29,6 +29,13 @@ namespace Services.Users
             _credentials[token] = user.Email;
             return token;
         }
+        public string googleAuthen(string email)
+        {
+            var user = _userRepository.GetByEmail(email);
+            var token = GenerateJwtToken(user);
+            _credentials[token] = user.Email;
+            return token;
+        }
         public User GetUserByMail(string email)
         {
             return _userRepository.GetByEmail(email);

@@ -99,77 +99,160 @@ namespace Services.Products
             }
             return filteredProducts.ToList();
         }
+        //    public List<Product> FilterProductsAd(
+        //int? categoryId = null,
+        //int? subCategoryId = null,
+        //int? metaltypeId = null,
+        //int? sizeId = null,
+        //decimal? minPrice = null,
+        //decimal? maxPrice = null,
+        //string? sortOrder = null,
+        //List<int>? sizeIds = null,
+        //List<int>? metaltypeIds = null,
+        //List<string>? diamondShapes = null,
+        //int? pageNumber = null,
+        //int? pageSize = null)
+        //    {
+        //        var filteredProducts = _productRepository.GetAllProducts();
+
+        //        if (categoryId.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value).ToList();
+        //        }
+
+        //        if (subCategoryId.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value).ToList();
+        //        }
+
+        //        if (metaltypeId.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value).ToList();
+        //        }
+
+        //        if (sizeId.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value).ToList();
+        //        }
+
+        //        if (sizeIds != null && sizeIds.Any())
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => sizeIds.Contains(p.Size.SizeId)).ToList();
+        //        }
+
+        //        if (metaltypeIds != null && metaltypeIds.Any())
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => metaltypeIds.Contains(p.Metaltype.MetaltypeId)).ToList();
+        //        }
+
+        //        if (diamondShapes != null && diamondShapes.Any())
+        //        {
+        //            filteredProducts = filteredProducts.Where(p => diamondShapes.Contains(p.Diamond.Shape)).ToList();
+        //        }
+
+        //        if (minPrice.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price >= minPrice.Value).ToList();
+        //        }
+
+        //        if (maxPrice.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price <= maxPrice.Value).ToList();
+        //        }
+
+        //        if (sortOrder != null)
+        //        {
+        //            if (sortOrder.Equals("asc"))
+        //            {
+        //                filteredProducts = filteredProducts.OrderBy(c => c.Cover.UnitPrice+c.UnitPrice+c.Diamond.Price).ToList();
+
+        //            }
+        //            else
+        //            {
+        //                filteredProducts = filteredProducts.OrderByDescending(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price).ToList();
+        //            }
+        //        }
+
+        //        if (pageNumber.HasValue && pageSize.HasValue)
+        //        {
+        //            filteredProducts = filteredProducts
+        //                .Skip((pageNumber.Value - 1) * pageSize.Value)
+        //                .Take(pageSize.Value)
+        //                .ToList();
+        //        }
+
+        //        return filteredProducts;
+        //    }
         public List<Product> FilterProductsAd(
-    int? categoryId = null,
-    int? subCategoryId = null,
-    int? metaltypeId = null,
-    int? sizeId = null,
-    decimal? minPrice = null,
-    decimal? maxPrice = null,
-    string? sortOrder = null,
-    List<int>? sizeIds = null,
-    List<int>? metaltypeIds = null,
-    List<string>? diamondShapes = null,
-    int? pageNumber = null,
-    int? pageSize = null)
+        int? categoryId = null,
+        int? subCategoryId = null,
+        int? metaltypeId = null,
+        int? sizeId = null,
+        decimal? minPrice = null,
+        decimal? maxPrice = null,
+        string? sortOrder = null,
+        List<int>? sizeIds = null,
+        List<int>? metaltypeIds = null,
+        List<string>? diamondShapes = null,
+        int? pageNumber = null,
+        int? pageSize = null)
         {
-            var filteredProducts = _productRepository.GetAllProducts();
+            var filteredProducts = _productRepository.GetAllProducts().AsQueryable();
 
             if (categoryId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value);
             }
 
             if (subCategoryId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value);
             }
 
             if (metaltypeId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value);
             }
 
             if (sizeId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value);
             }
 
             if (sizeIds != null && sizeIds.Any())
             {
-                filteredProducts = filteredProducts.Where(p => sizeIds.Contains(p.Size.SizeId)).ToList();
+                filteredProducts = filteredProducts.Where(p => sizeIds.Contains(p.Size.SizeId));
             }
 
             if (metaltypeIds != null && metaltypeIds.Any())
             {
-                filteredProducts = filteredProducts.Where(p => metaltypeIds.Contains(p.Metaltype.MetaltypeId)).ToList();
+                filteredProducts = filteredProducts.Where(p => metaltypeIds.Contains(p.Metaltype.MetaltypeId));
             }
 
             if (diamondShapes != null && diamondShapes.Any())
             {
-                filteredProducts = filteredProducts.Where(p => diamondShapes.Contains(p.Diamond.Shape)).ToList();
+                filteredProducts = filteredProducts.Where(p => diamondShapes.Contains(p.Diamond.Shape));
             }
 
             if (minPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price >= minPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price >= minPrice.Value);
             }
 
             if (maxPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price <= maxPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price <= maxPrice.Value);
             }
 
             if (sortOrder != null)
             {
                 if (sortOrder.Equals("asc"))
                 {
-                    filteredProducts = filteredProducts.OrderBy(c => c.Cover.UnitPrice+c.UnitPrice+c.Diamond.Price).ToList();
-
+                    filteredProducts = filteredProducts.OrderBy(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price);
                 }
                 else
                 {
-                    filteredProducts = filteredProducts.OrderByDescending(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price).ToList();
+                    filteredProducts = filteredProducts.OrderByDescending(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price);
                 }
             }
 
@@ -177,12 +260,12 @@ namespace Services.Products
             {
                 filteredProducts = filteredProducts
                     .Skip((pageNumber.Value - 1) * pageSize.Value)
-                    .Take(pageSize.Value)
-                    .ToList();
+                    .Take(pageSize.Value);
             }
 
-            return filteredProducts;
+            return filteredProducts.ToList();
         }
+
 
         public Product GetExistingProduct(int coverId, int diamondId, int metaltypeId, int sizeId)
         {

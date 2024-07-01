@@ -41,6 +41,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     ProductId = c.ProductId,
                     ProductName = c.ProductName,
+                    PP = c.Pp,
                     UnitPrice = c.UnitPrice
                 };
             }).ToList();
@@ -65,6 +66,13 @@ namespace DiamondShopSystem.API.Controllers
                 CoverName = product.Cover.CoverName,
                 MetaltypeName = product.Metaltype.MetaltypeName,
                 SizeName = product.Cover.CoverName,
+                coverPrice = product.Cover.UnitPrice+_metaltypeService.GetMetaltypeById(product.MetaltypeId).MetaltypePrice+_sizeService.GetSizeById(product.SizeId).SizePrice,
+                diamondPrice = product.Cover.UnitPrice,
+                carat = product.Diamond.CaratWeight,
+                color = product.Diamond.Color,
+                cut = product.Diamond.Cut,
+                clarity = product.Diamond.Clarity,
+                shape = product.Diamond.Shape,
                 Pp = product.Pp,
                 UnitPrice = _productService.GetProductTotal(product.ProductId),
             };
