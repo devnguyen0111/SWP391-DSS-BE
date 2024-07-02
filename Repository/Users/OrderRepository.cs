@@ -31,5 +31,9 @@ namespace Repository.Users
             _context.Orders.FirstOrDefault(c => c.OrderId == oid).Status = status;
             _context.SaveChanges();
         }
+        public List<ShippingMethod> GetShippingMethods()
+        {
+            return _context.ShippingMethods.ToList();
+        }
     }
 }

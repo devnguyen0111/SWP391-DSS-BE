@@ -8,5 +8,6 @@ namespace Repository.Users
         List<Order> getOrderby(int uid, string status);
         void updateOrder(int oid, string status);
         List<Order> getOrders(int uid);
+        List<ShippingMethod> GetShippingMethods();
     }
 }

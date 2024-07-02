@@ -68,6 +68,39 @@ namespace Services.Users
             _orderRepository.createOrder(newo);
             return newo;
         }
+        public Order createOrderFromProducts(int uid, int sid, string address, string phonenum, List<ProductQuantity1> products)
+        {
+            if (products == null || !products.Any())
+            {
+                throw new Exception("Product list is empty or not provided.");
+            }
+
+            decimal totalAmount = products.Sum(pq => pq.Quantity * GetTotalPrice(_productRepository.GetProductById(pq.ProductId)));
+
+            Order newo = new Order
+            {
+                OrderDate = DateTime.Now,
+                TotalAmount = totalAmount,
+                Status = "processing",
+                CusId = uid,
+                ShippingMethodId = sid,
+                DeliveryAddress = address,
+                ContactNumber = phonenum,
+            };
+
+            var orderProducts = products.Select(pq => new ProductOrder
+            {
+                ProductId = pq.ProductId,
+                OrderId = newo.OrderId,
+                Quantity = pq.Quantity,
+            }).ToList();
+
+            newo.ProductOrders = orderProducts;
+
+            _orderRepository.createOrder(newo);
+            return newo;
+        }
+
         public Order createOrderDirectly(int uid, int pid, int sid,string address,string phonenum)
         {
 
@@ -100,5 +133,18 @@ namespace Services.Users
         {
             return _orderRepository.getOrders(uid);
         }
+        public void addOrder(Order order)
+        {
+            _orderRepository.createOrder(order);
+        }
+       public List<ShippingMethod> GetShippingMethods()
+        {
+            return _orderRepository.GetShippingMethods();
+        }
+    }
+    public class ProductQuantity1
+    {
+        public int ProductId { get; set; }
+        public int Quantity { get; set; }
     }
 }
