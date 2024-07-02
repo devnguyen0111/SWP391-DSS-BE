@@ -9,5 +9,7 @@ namespace Services.Users
         List<Order> getOrderByStatus(int uid, string status);
         decimal GetTotalPrice(Product product);
         List<Order> getOrders(int uid);
+        void addOrder(Order order);
+        List<ShippingMethod> GetShippingMethods();
     }
 }

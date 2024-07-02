@@ -111,5 +111,26 @@ namespace Repository
             _context.SaveChanges();
             return c;
         }
+        public void SaveCart(Cart cart)
+        {
+            var existingCart = _context.Carts
+                .Include(c => c.CartProducts)
+                .FirstOrDefault(c => c.CartId == cart.CartId);
+
+            if (existingCart == null)
+            {
+                _context.Carts.Add(cart);
+            }
+            else
+            {
+                existingCart.CartProducts.Clear();
+                foreach (var cartProduct in cart.CartProducts)
+                {
+                    existingCart.CartProducts.Add(cartProduct);
+                }
+                _context.Carts.Update(existingCart);
+            }
+            _context.SaveChanges();
+        }
     }
 }

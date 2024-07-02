@@ -22,6 +22,10 @@ namespace Services.Users
         {
             return repository.AddToCartAsync(id, pid, 1);
         }
+        public CartProduct AddToCartMany(int id, int pid,int quantity)
+        {
+            return repository.AddToCartAsync(id, pid, quantity);
+        }
         public void RemoveFromCart(int id, int pid)
         {
               repository.RemoveFromCart(id, pid);
@@ -34,7 +38,10 @@ namespace Services.Users
         {
             return repository.UpdateCartAsync(id, pid, quantity);
         }
-
+        public void saveCart(Cart cart)
+        {
+            repository.SaveCart(cart);
+        }
         public Cart createCart(int id)
         {
             return repository.createCart(id);

@@ -14,7 +14,7 @@ namespace Repository.Products
         }
         public Customer GetCustomer(int id)
         {
-            return _dbcontext.Customers.FirstOrDefault(c => c.CusId == id)!;
+            return _dbcontext.Customers.Include(c => c.Cus).FirstOrDefault(c => c.CusId == id)!;
         }
         public void deleteCustomer(int id)
         {

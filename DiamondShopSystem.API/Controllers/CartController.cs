@@ -175,5 +175,27 @@ namespace DiamondShopSystem.API.Controllers
             _cartService.emptyCart(id);
             return Ok();
         }
+        //public void MergeCarts(int userId, List<ProductQuantity> guestCart)
+        //{
+        //    var userCart = _cartService.GetCartFromCus(userId);
+        //    if (userCart == null)
+        //    {
+        //        userCart = new Cart { CartId = userId, CartProducts = new List<CartProduct>() };
+        //    }
+
+        //    foreach (var guestItem in guestCart)
+        //    {
+        //        var existingItem = userCart.CartProducts.FirstOrDefault(cp => cp.ProductId == guestItem.ProductId);
+        //        if (existingItem != null)
+        //        {
+        //            existingItem.Quantity += guestItem.Quantity;
+        //        }
+        //        else
+        //        {
+        //            _cartService.AddToCartMany(userId, guestItem.ProductId, guestItem.Quantity);
+        //        }
+        //    }
+        //    _cartService.saveCart(userCart);
+        //}
     }
 }
