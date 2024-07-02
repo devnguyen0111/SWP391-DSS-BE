@@ -23,7 +23,7 @@ namespace UnitTest
 
         public static IEnumerable<TestCaseData> GetTestCasesFromCsv()
         {
-            var csvLines = File.ReadAllLines("A:\\FIfth-semester\\SWP391\\SWP391-DSS-BE\\UnitTest\\csv\\RegisterTestData.csv").Skip(1);
+            var csvLines = File.ReadAllLines(@"A:\FIfth-semester\SWP391\SWP391-DSS-BE\UnitTest\csv\RegisterTestData.csv").Skip(1);
             foreach (var line in csvLines)
             {
                 var values = line.Split(',');

@@ -18,6 +18,8 @@ using Repository.Utility;
 using Services.EmailServices;
 using Services.OtherServices;
 using Serilog;
+using Repository.Orders;
+using Services.OrdersManagement;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -44,6 +46,9 @@ builder.Services.AddScoped<IVnPayRepository, VnPayRepository>();
 builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<ISaleStaffRepository, SaleStaffRepository>();
+builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
+builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 
 builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
@@ -65,6 +70,9 @@ builder.Services.AddScoped<IPaypalService, PaypalService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IAssignOrderService, AssignOrderService>();
+builder.Services.AddScoped<IShippingService, ShippingService>();
 
 //this is logger using Serilog
 builder.Host.UseSerilog((context, configuration) =>
