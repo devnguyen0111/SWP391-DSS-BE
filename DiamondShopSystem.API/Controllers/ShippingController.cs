@@ -22,7 +22,33 @@ namespace DiamondShopSystem.API.Controllers
             _managerService = managerService;
         }
 
-        [HttpGet("shipping/{shippingId}")]
+        [HttpGet("Shippings")]
+        public async Task<ActionResult<List<Shipping>>> GetAllShipping()
+        {
+            var shippingList = await _shippingService.GetAllShippingAsync();
+
+            if (shippingList == null || shippingList.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(shippingList);
+        }
+
+        [HttpGet("shippingsByStatus/{status}")]
+        public async Task<ActionResult<List<Shipping>>> GetShippingByStatus(string status)
+        {
+            var shippingList = await _shippingService.GetShippingByStatusAsync(status);
+
+            if (shippingList == null || shippingList.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(shippingList);
+        }
+
+        [HttpGet("shippingById/{shippingId}")]
         public async Task<ActionResult<Shipping>> GetShippingById(int shippingId)
         {
             var shipping = await _shippingService.GetShippingByIdAsync(shippingId);
@@ -33,7 +59,7 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(shipping);
         }
         //Get the list of saleStaff base on the managerId
-        [HttpGet("saleStaffList/{managerId}")]
+        [HttpGet("saleStaffListByManagerId/{managerId}")]
         public IActionResult GetSaleStaffByManagerId(int managerId)
         {
             var saleStaffs = _assignOrderService.GetSaleStaffByManagerId(managerId);
@@ -61,7 +87,7 @@ namespace DiamondShopSystem.API.Controllers
         }
         //Assign staff the order and make the shipping
         [HttpPost("assignStaff")]
-        public async Task<IActionResult> CreateShipping(string status, int orderId, int saleStaffId)
+        public async Task<IActionResult> CreateShipping(int orderId, int saleStaffId, string status = "Pending")
         {
             if (!ModelState.IsValid)
             {
@@ -70,7 +96,7 @@ namespace DiamondShopSystem.API.Controllers
 
             try
             {
-                var shipping = await _shippingService.AssignOrderAsync(status = "Pending",orderId,saleStaffId);
+                var shipping = await _shippingService.AssignOrderAsync(status, orderId, saleStaffId);
                 return CreatedAtAction(nameof(GetShippingById), new { shippingId = shipping.ShippingId }, shipping);
             }
             catch (Exception ex)
@@ -80,10 +106,10 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
-        [HttpGet("ordersFromShipping/{saleStaffId}")]
+        [HttpGet("ordersFromShippingBySaleStaffId/{saleStaffId}")]
         public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId)
         {
-            string status = "Pending"; 
+            string status = "Pending";
 
             var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
 
@@ -96,7 +122,7 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         //Get OrderDetail by OrderId from shipping
-        [HttpGet("orderFromShipping/{orderId}")]
+        [HttpGet("orderFromShippingByOrderId/{orderId}")]
         public async Task<ActionResult<Order>> GetOrderByOrderId(int orderId)
         {
             var order = await _shippingService.GetOrderByOrderIdAsync(orderId);
@@ -111,7 +137,7 @@ namespace DiamondShopSystem.API.Controllers
 
         //Assgin to deliveryStaff and change the status
         [HttpPost("assignDelivery")]
-        public async Task<IActionResult> AssignOrderToDelivery([FromBody] int orderId, int deliveryStaffId)
+        public async Task<IActionResult> AssignShippingToDelivery( int shippingId, int deliveryStaffId)
         {
             if (!ModelState.IsValid)
             {
@@ -120,8 +146,8 @@ namespace DiamondShopSystem.API.Controllers
 
             try
             {
-                await _shippingService.AssignOrderToDeliveryAsync(orderId,deliveryStaffId);
-                return Ok("Order assigned to delivery successfully.");
+                await _shippingService.AssignShippingToDeliveryAsync(shippingId, deliveryStaffId);
+                return Ok($"Shipping with ID {shippingId} assigned to delivery successfully.");
             }
             catch (ArgumentException ex)
             {

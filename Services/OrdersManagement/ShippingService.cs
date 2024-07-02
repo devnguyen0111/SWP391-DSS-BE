@@ -18,6 +18,16 @@ namespace Services.OrdersManagement
             _shippingRepository = shippingRepository;
         }
 
+        public async Task<List<Shipping>> GetAllShippingAsync()
+        {
+            return await _shippingRepository.GetAllShippingAsync();
+        }
+
+        public async Task<List<Shipping>> GetShippingByStatusAsync(string status)
+        {
+            return await _shippingRepository.GetShippingByStatusAsync(status);
+        }
+
         public async Task<Shipping> GetShippingByIdAsync(int shippingId)
         {
             return await _shippingRepository.GetByIdAsync(shippingId);
@@ -49,9 +59,9 @@ namespace Services.OrdersManagement
         {
             return await _shippingRepository.GetOrderByOrderIdAsync(orderId);
         }
-        public async Task AssignOrderToDeliveryAsync(int orderId, int deliveryStaffId)
+        public async Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId)
         {
-            await _shippingRepository.AssignOrderToDeliveryAsync(orderId, deliveryStaffId);
+            await _shippingRepository.AssignShippingToDeliveryAsync(shippingId, deliveryStaffId);
         }
 
         //public async Task UpdateShippingAsync(Shipping shipping)

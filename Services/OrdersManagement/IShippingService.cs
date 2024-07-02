@@ -10,11 +10,13 @@ namespace Services.OrdersManagement
 {
     public interface IShippingService
     {
+        Task<List<Shipping>> GetAllShippingAsync();
+        Task<List<Shipping>> GetShippingByStatusAsync(string status);
         Task<Shipping> GetShippingByIdAsync(int shippingId);
         Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId);
         Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);
         Task<Order> GetOrderByOrderIdAsync(int orderId);
-        Task AssignOrderToDeliveryAsync(int orderId, int deliveryStaffId);
+        Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId);
         //Task UpdateShippingAsync(Shipping shipping);
         //Task DeleteShippingAsync(int shippingId);
     }

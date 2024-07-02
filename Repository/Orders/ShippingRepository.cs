@@ -18,6 +18,18 @@ namespace Repository.Orders
             _context = context;
         }
 
+        public async Task<List<Shipping>> GetAllShippingAsync()
+        {
+            return await _context.Shippings.ToListAsync();
+        }
+
+        public async Task<List<Shipping>> GetShippingByStatusAsync(string status)
+        {
+            return await _context.Shippings
+                .Where(s => s.Status == status)
+                .ToListAsync();
+        }
+
         public async Task<Shipping> GetByIdAsync(int shippingId)
         {
             return await _context.Shippings.FindAsync(shippingId);
@@ -47,9 +59,9 @@ namespace Repository.Orders
             return shipping?.Order; // Assuming Order is a navigation property in Shipping
         }
 
-        public async Task AssignOrderToDeliveryAsync(int orderId, int deliveryStaffId)
+        public async Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId)
         {
-            var shipping = await _context.Shippings.FirstOrDefaultAsync(s => s.OrderId == orderId && s.Status == "Pending");
+            var shipping = await _context.Shippings.FirstOrDefaultAsync(s => s.ShippingId == shippingId && s.Status == "Pending");
 
             if (shipping != null)
             {
@@ -59,9 +71,11 @@ namespace Repository.Orders
             }
             else
             {
-                throw new ArgumentException($"Order with ID {orderId} and status 'Pending' not found.");
+                throw new ArgumentException($"Shipping with ID {shippingId} and status Pending not found.");
             }
         }
+    }
+        
 
         // Other repository methods as needed
     }
@@ -81,5 +95,5 @@ namespace Repository.Orders
     //        await _context.SaveChangesAsync();
     //    }
     //}
-}
+
 
