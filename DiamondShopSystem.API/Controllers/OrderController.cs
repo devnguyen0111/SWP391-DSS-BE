@@ -162,6 +162,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound(new { message = "User not found" });
                 }
+                decimal totalAmount = request.Products.Sum(pq => pq.Quantity * _productService.GetProductTotal(pq.ProductId));
 
                 var products = request.Products.Select(pq =>
                 {
@@ -189,6 +190,7 @@ namespace DiamondShopSystem.API.Controllers
                         phoneNum = user.CusPhoneNum,
                     },
                     Products = products,
+                    total = totalAmount,
                     shippingMethods = _orderService.GetShippingMethods().Select(c => 
                     {
                         return new DTO.ShippingMethod1

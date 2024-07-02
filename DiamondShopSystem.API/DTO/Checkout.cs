@@ -9,6 +9,7 @@
     public class CheckoutInfoResponse
     {
         public UserInfo UserInfo { get; set; }
+        public decimal total {  get; set; }
         public List<ProductInfo> Products { get; set; }
         public List<ShippingMethod1> shippingMethods { get; set; }
         public Address1 ShippingAddress1 { get; set; }
