@@ -20,6 +20,7 @@ using Services.OtherServices;
 using Serilog;
 using Repository.Orders;
 using Services.OrdersManagement;
+using Services.Admin;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -73,6 +74,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IAssignOrderService, AssignOrderService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 //this is logger using Serilog
 builder.Host.UseSerilog((context, configuration) =>
