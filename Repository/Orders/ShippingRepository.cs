@@ -30,7 +30,7 @@ namespace Repository.Orders
                 .ToListAsync();
         }
 
-        public async Task<Shipping> GetByIdAsync(int shippingId)
+        public async Task<Shipping> GetShippingByIdAsync(int shippingId)
         {
             return await _context.Shippings.FindAsync(shippingId);
         }
@@ -74,26 +74,26 @@ namespace Repository.Orders
                 throw new ArgumentException($"Shipping with ID {shippingId} and status Pending not found.");
             }
         }
+        public async Task UpdateShippingAsync(Shipping shipping)
+        {
+            _context.Shippings.Update(shipping);
+            await _context.SaveChangesAsync();
+        }
+
+        //public async Task DeleteAsync(int shippingId)
+        //{
+        //    var shipping = await GetByIdAsync(shippingId);
+        //    if (shipping != null)
+        //    {
+        //        _context.Shippings.Remove(shipping);
+        //        await _context.SaveChangesAsync();
+        //    }
+        //}
     }
-        
+}
 
-        // Other repository methods as needed
-    }
 
-    //public async Task UpdateAsync(Shipping shipping)
-    //{
-    //    _context.Shippings.Update(shipping);
-    //    await _context.SaveChangesAsync();
-    //}
 
-    //public async Task DeleteAsync(int shippingId)
-    //{
-    //    var shipping = await GetByIdAsync(shippingId);
-    //    if (shipping != null)
-    //    {
-    //        _context.Shippings.Remove(shipping);
-    //        await _context.SaveChangesAsync();
-    //    }
-    //}
+
 
 

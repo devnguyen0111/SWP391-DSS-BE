@@ -30,7 +30,7 @@ namespace Services.OrdersManagement
 
         public async Task<Shipping> GetShippingByIdAsync(int shippingId)
         {
-            return await _shippingRepository.GetByIdAsync(shippingId);
+            return await _shippingRepository.GetShippingByIdAsync(shippingId);
         }
 
         public async Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId)  //tạo trong shipping luôn
@@ -63,6 +63,20 @@ namespace Services.OrdersManagement
         {
             await _shippingRepository.AssignShippingToDeliveryAsync(shippingId, deliveryStaffId);
         }
+
+        public async Task<bool> IsConfirmFinishShippingAsync(int shippingId)
+        {
+            var shipping = await _shippingRepository.GetShippingByIdAsync(shippingId);
+            if (shipping == null)
+            {
+                return false;
+            }
+
+            shipping.Status = "Delivered";
+            await _shippingRepository.UpdateShippingAsync(shipping);
+            return true;
+        }
+
 
         //public async Task UpdateShippingAsync(Shipping shipping)
         //{
