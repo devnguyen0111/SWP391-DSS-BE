@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Mvc;
 using Services.EmailServices;
 using Services.OtherServices;
 
@@ -57,11 +58,11 @@ namespace DiamondShopSystem.API.Controllers
         [HttpPost]
         [Route("send/resetPasswordLink")]
 
-        public IActionResult SendResetPasswordLink(string email, string url)
+        public IActionResult SendResetPasswordLink([FromBody] EmailResponse response)
         {
-            _emailService.SendResetLink(email, url);
+            _emailService.SendResetLink(response.Email, response.Url);
 
-            return Ok("A confirmation has been sent succesfully to " + email + "!!");
+            return Ok("A confirmation has been sent succesfully to " + response.Email + "!!");
         }
 
         [HttpPost]
