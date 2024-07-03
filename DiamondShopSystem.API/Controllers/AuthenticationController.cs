@@ -1,5 +1,6 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Model.Models;
 using Services.Users;
 using System.Security.Cryptography;
@@ -108,31 +109,55 @@ namespace DiamondShopSystem.API.Controllers
         [HttpPost("changePassword")]
         public IActionResult changeUserPassword([FromBody] DTO.PasswordRequest request)
         {
-            User updatingUser = _authenticateService.GetUserById(request.userId);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                          .Where(y => y.Count > 0)
+                          .ToList();
+                return BadRequest(errors);
+            }
+            User updatingUser = _authenticateService.GetUserById(request.Id);
             if (updatingUser == null)
             {
-                return BadRequest("There is no such user with this id");
+                return BadRequest("Cannot find user with this id");
             }
-            else { 
-                updatingUser.Password =GetHashString(request.NewPassword);
-                _authenticateService.UpdateUserPassword(updatingUser);
-            return Ok(_authenticateService.GetUserById(request.userId));
+            if (updatingUser.Password != GetHashString(request.OldPassword))
+            {
+                return BadRequest("Old password is not correct");
             }
+            if (request.NewPassword != request.ConfirmNewPassword)
+            {
+                return BadRequest("The new password and confirmation password do not match");
+            }
+            updatingUser.Password =GetHashString(request.NewPassword);
+            _authenticateService.UpdateUserPassword(updatingUser);
+            return Ok(updatingUser);
+            
         }
         [HttpPost("forgotPassword")]
-        public IActionResult resetUserPassword(int userId, string newPassword)
+        public IActionResult resetUserPassword([FromBody] PasswordRequestForgor huh)
         {
-            User updatingUser = _authenticateService.GetUserById(userId);
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Select(x => x.Value.Errors)
+                          .Where(y => y.Count > 0)
+                          .ToList();
+                return BadRequest(errors);
+            }
+            
+            User updatingUser = _authenticateService.GetUserByMail(huh.Email);
             if (updatingUser == null)
             {
                 return BadRequest("There is no such user with this id");
             }
-            else
+            if (huh.NewPassword != huh.ConfirmNewPassword)
             {
-                updatingUser.Password =GetHashString(newPassword);
-                _authenticateService.UpdateUserPassword(updatingUser);
-                return Ok(_authenticateService.GetUserById(userId));
+                return BadRequest("The new password and confirmation password do not match");
             }
+            updatingUser.Password =GetHashString(huh.NewPassword);
+            _authenticateService.UpdateUserPassword(updatingUser);
+            return Ok(updatingUser);
+            
         }
     }
 }

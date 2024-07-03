@@ -107,7 +107,7 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 Order newOrder = CreateOrderFromProducts1(request.UserId, request.ShippingMethodId, request.DeliveryAddress, request.ContactNumber, request.Products);
-                return Ok("hehe");
+                return Ok(newOrder.OrderId);
             }
             catch (Exception ex)
             {
