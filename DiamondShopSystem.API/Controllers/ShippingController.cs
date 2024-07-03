@@ -158,6 +158,18 @@ namespace DiamondShopSystem.API.Controllers
                 return StatusCode(500, $"An error occurred: {ex.Message}");
             }
         }
+
+        [HttpPost("confirmFinishOrder/{shippingId}")]
+        public async Task<IActionResult> IsConfirmFinishOrder(int shippingId)
+        {
+            var result = await _shippingService.IsConfirmFinishShippingAsync(shippingId);
+            if (!result)
+            {
+                return NotFound(new { Message = "Shipping not found." });
+            }
+
+            return Ok(new { Message = "Shipping status updated to Delivered." });
+        }
     }
 
 }

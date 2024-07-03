@@ -17,6 +17,7 @@ namespace Services.OrdersManagement
         Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);
         Task<Order> GetOrderByOrderIdAsync(int orderId);
         Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId);
+        Task<bool> IsConfirmFinishShippingAsync(int shippingId);
         //Task UpdateShippingAsync(Shipping shipping);
         //Task DeleteShippingAsync(int shippingId);
     }
