@@ -1,4 +1,5 @@
 ﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Model.Models;
@@ -12,6 +13,7 @@ using Order = Model.Models.Order;
 namespace DiamondShopSystem.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class OrderController : Controller
     {

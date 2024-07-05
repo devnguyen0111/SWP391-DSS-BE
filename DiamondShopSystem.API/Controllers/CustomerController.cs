@@ -22,6 +22,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             return Ok(_customerService.GetCustomer(id));
         }
+        [Authorize(Policy = "CustomJwtPolicy")]
         [HttpGet("customer/{id}/profile")]
         public IActionResult profile(int id)
         {

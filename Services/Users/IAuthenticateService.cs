@@ -1,4 +1,5 @@
 ﻿using Model.Models;
+using System.Security.Claims;
 
 namespace Services.Users
 {
@@ -9,6 +10,8 @@ namespace Services.Users
         void Logout(string token);
         User GetUserByMail(string email);
         User GetUserById(int id);
+        ClaimsPrincipal GetPrincipalFromExpiredToken(string token);
         void UpdateUserPassword(User user);
+        string GenerateJwtToken(User user, int expireTime);
     }
 }
