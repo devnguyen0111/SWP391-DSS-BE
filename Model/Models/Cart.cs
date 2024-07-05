@@ -14,4 +14,4 @@ public partial class Cart
     public virtual Customer CartNavigation { get; set; }
 
     public virtual ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
-}   
+}

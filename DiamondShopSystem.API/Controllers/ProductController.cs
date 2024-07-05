@@ -58,7 +58,7 @@ namespace DiamondShopSystem.API.Controllers
             var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
-                imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
                 ProductName = product.ProductName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
@@ -128,7 +128,7 @@ namespace DiamondShopSystem.API.Controllers
                     return new ProductRequest
                     {
                         ProductId = c.ProductId,
-                        imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId).ImgUrl,
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
@@ -136,7 +136,8 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(filteredProducts);
         }
-
+        //_coverMetaltypeService.GetCoverMetaltype(c.ProductId, c.MetaltypeId).ImgUrl
+        //https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567
         [HttpGet("getFilterOption")]
         public IActionResult getFilterOption(string category)
         {

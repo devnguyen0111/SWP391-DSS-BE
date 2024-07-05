@@ -17,9 +17,9 @@ namespace Services.Utility
             return _voucherRepository.createRandomNameVoucher();
         }
 
-        public void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate)
+        public void createVoucher(string name, string description, DateOnly expdate, int quantity, int rate,decimal bottom,decimal top)
         {
-            _voucherRepository.createVoucher(name, description, expdate, quantity, rate);
+            _voucherRepository.createVoucher(name, description, expdate, quantity, rate,top,bottom);
         }
 
         public void deleteVoucher(int Id)
@@ -36,7 +36,10 @@ namespace Services.Utility
         {
             return _voucherRepository.getVoucherById(Id);
         }
-
+        public Voucher GetVoucherByName(string name)
+        {
+            return _voucherRepository.getAllVouchers().FirstOrDefault(v => v.Name == name);
+        }
         public Voucher updateVoucher(Voucher voucher)
         {
             return _voucherRepository.updateVoucher(voucher);
