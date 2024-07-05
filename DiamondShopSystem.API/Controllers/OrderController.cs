@@ -92,7 +92,7 @@ namespace DiamondShopSystem.API.Controllers
                         MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
                         Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
                         Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
-                        Img =_coverMetaltypeService.GetCoverMetaltype(po.ProductId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
+                        Img =_coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
                     }).ToList() ?? new List<OrderHistoryItem>() // Added null check
                 }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
 
@@ -242,7 +242,7 @@ namespace DiamondShopSystem.API.Controllers
                     {
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
-                        imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId,product.MetaltypeId).ImgUrl,
                         Price = _productService.GetProductTotal(product.ProductId),
                         Quantity = pq.Quantity
                     };
