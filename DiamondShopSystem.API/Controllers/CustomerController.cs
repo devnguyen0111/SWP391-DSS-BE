@@ -7,6 +7,7 @@ using Services.Users;
 namespace DiamondShopSystem.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CustomerController : Controller
     {
@@ -22,7 +23,6 @@ namespace DiamondShopSystem.API.Controllers
         {
             return Ok(_customerService.GetCustomer(id));
         }
-        [Authorize(Policy = "CustomJwtPolicy")]
         [HttpGet("customer/{id}/profile")]
         public IActionResult profile(int id)
         {
