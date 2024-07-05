@@ -20,13 +20,16 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IEmailService _emailService;
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
-        public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService, ICustomerService customerService)
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
+        public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService, ICustomerService customerService,
+            ICoverMetaltypeService coverMetaltypeService)
         {
             _orderService = orderService;
             _emailService = emailService;
             _voucherService = voucherService;
             _productService = productService;
             _customerService = customerService;
+            _coverMetaltypeService = coverMetaltypeService;
         }
         [HttpPost]
         [Route("createOrderDirecly")]
@@ -87,7 +90,7 @@ namespace DiamondShopSystem.API.Controllers
                         MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
                         Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
                         Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
-                        Img = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567" // Adjust according to your actual model
+                        Img =_coverMetaltypeService.GetCoverMetaltype(po.ProductId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
                     }).ToList() ?? new List<OrderHistoryItem>() // Added null check
                 }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
 
@@ -128,9 +131,8 @@ namespace DiamondShopSystem.API.Controllers
 
                 if (totalAmount >= voucher.BottomPrice && totalAmount <= voucher.TopPrice)
                 {
-                    totalAmount = ApplyVoucherDiscount(totalAmount, voucher);
-                    voucher.Quantity -= 1; // Decrement voucher quantity
-                    _voucherService.updateVoucher(voucher); // Update the voucher in the database
+                    totalAmount =totalAmount - ApplyVoucherDiscount(totalAmount, voucher);
+                   
                     return Ok(totalAmount);
                 }
                 else
