@@ -25,7 +25,7 @@ namespace Repository
         }
 
         // Method to create a new voucher
-        public void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate)
+        public void createVoucher( string name, string description, DateOnly expdate, int quantity, int rate,decimal topPrice,decimal bottomPrice)
         {
             // add new voucher to the database with the provided information (name, description, expDate, quantity, rate, cusId)
             Voucher voucher = new Voucher
@@ -34,6 +34,8 @@ namespace Repository
                 Description = description,
                 ExpDate = expdate,
                 Quantity = quantity,
+                TopPrice = topPrice,
+                BottomPrice = bottomPrice,
                 Rate = rate,
             };
             _context.Vouchers.Add(voucher);

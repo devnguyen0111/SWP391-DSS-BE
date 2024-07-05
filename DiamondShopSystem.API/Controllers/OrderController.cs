@@ -106,7 +106,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             try
             {
-                Order newOrder = CreateOrderFromProducts1(request.UserId, request.ShippingMethodId, request.DeliveryAddress, request.ContactNumber, request.Products);
+                Order newOrder = CreateOrderFromProducts1(request.UserId, request.ShippingMethodId, request.DeliveryAddress, request.ContactNumber, request.Products,request.voucherName);
                 return Ok(newOrder.OrderId);
             }
             catch (Exception ex)
@@ -114,7 +114,37 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        private Order CreateOrderFromProducts1(int uid, int sid, string address, string phonenum, List<DTO.ProductQuantity> products)
+        [HttpPost("applyVoucher")]
+        public IActionResult applyVoucher([FromBody] VoucherRequest1 vq)
+        {
+            Voucher voucher = _voucherService.GetVoucherByName(vq.voucherName); // Assuming you have a service to get voucher by name
+            if (voucher != null)
+            {
+                decimal totalAmount = vq.Products.Sum(pq => pq.Quantity * _productService.GetProductTotal(pq.ProductId));
+                if (voucher.Quantity <= 0)
+                {
+                    return BadRequest("Voucher is no longer valid.");
+                }
+
+                if (totalAmount >= voucher.BottomPrice && totalAmount <= voucher.TopPrice)
+                {
+                    totalAmount = ApplyVoucherDiscount(totalAmount, voucher);
+                    voucher.Quantity -= 1; // Decrement voucher quantity
+                    _voucherService.updateVoucher(voucher); // Update the voucher in the database
+                    return Ok(totalAmount);
+                }
+                else
+                {
+                    return BadRequest("Total amount does not meet the voucher's price requirements.");
+                }
+            }
+            else
+            {
+                return BadRequest("Voucher not found.");
+            }
+        }
+
+        private Order CreateOrderFromProducts1(int uid, int sid, string address, string phonenum, List<DTO.ProductQuantity> products, string voucherName)
         {
             if (products == null || !products.Any())
             {
@@ -122,6 +152,35 @@ namespace DiamondShopSystem.API.Controllers
             }
 
             decimal totalAmount = products.Sum(pq => pq.Quantity * _productService.GetProductTotal(pq.ProductId));
+
+            // Check for voucher
+            Voucher voucher = null;
+            if (!string.IsNullOrEmpty(voucherName))
+            {
+                voucher = _voucherService.GetVoucherByName(voucherName); // Assuming you have a service to get voucher by name
+                if (voucher != null)
+                {
+                    if (voucher.Quantity <= 0)
+                    {
+                        throw new Exception("Voucher is no longer valid.");
+                    }
+
+                    if (totalAmount >= voucher.BottomPrice && totalAmount <= voucher.TopPrice)
+                    {
+                        totalAmount = ApplyVoucherDiscount(totalAmount, voucher);
+                        voucher.Quantity -= 1; // Decrement voucher quantity
+                        _voucherService.updateVoucher(voucher); // Update the voucher in the database
+                    }
+                    else
+                    {
+                        throw new Exception("Total amount does not meet the voucher's price requirements.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Voucher not found.");
+                }
+            }
 
             Order newOrder = new Order
             {
@@ -146,6 +205,14 @@ namespace DiamondShopSystem.API.Controllers
             _orderService.addOrder(newOrder);
             return newOrder;
         }
+
+        private decimal ApplyVoucherDiscount(decimal totalAmount, Voucher voucher)
+        {
+            // Assuming the voucher has a Rate property that represents a percentage discount
+            return (decimal)(totalAmount - (totalAmount * (voucher.Rate / 100m)));
+        }
+
+
         [HttpPost]
         [Route("checkoutInfo")]
         public IActionResult GetCheckoutInfo([FromBody] CheckoutRequest request)
