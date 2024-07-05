@@ -1,4 +1,5 @@
 ﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Model.Models;
@@ -10,6 +11,7 @@ using Services.Users;
 namespace DiamondShopSystem.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class CartController : Controller
     {

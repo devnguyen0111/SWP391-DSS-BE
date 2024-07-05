@@ -1,8 +1,14 @@
 ﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Model.Models;
 using Services.Users;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -35,6 +41,45 @@ namespace DiamondShopSystem.API.Controllers
             _customerService = customerService;
             _cartService = cartService;
         }
+        [HttpPost("refresh")]
+        public IActionResult Refresh([FromBody] TokenModel tokenModel)
+        {
+            if (tokenModel == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            string accessToken = tokenModel.AccessToken;
+            string refreshToken = tokenModel.RefreshToken;
+
+            var principal =_authenticateService.GetPrincipalFromExpiredToken(accessToken);
+            if (principal == null)
+            {
+                return BadRequest("Invalid access token or refresh token");
+            }
+
+            var userEmail = principal.Identity.Name;
+            var user = _authenticateService.GetUserByMail(userEmail);
+
+            if (user == null || user.RefreshToken != refreshToken || user.RefreshTokenExpiryTime <= DateTime.Now)
+            {
+                return BadRequest("Invalid access token or refresh token");
+            }
+
+            var newAccessToken = _authenticateService.GenerateJwtToken(user, 15);
+            var newRefreshToken = _authenticateService.GenerateJwtToken(user, 60);
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(60);
+            _authenticateService.UpdateUserPassword(user);
+
+            return new ObjectResult(new
+            {
+                AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken
+            });
+        }
+
         [HttpPost("login")]
         public IActionResult Login([FromBody] DTO.LoginRequest request)
         {
@@ -106,6 +151,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(mail);
         }
+        [Authorize]
         [HttpPost("changePassword")]
         public IActionResult changeUserPassword([FromBody] DTO.PasswordRequest request)
         {

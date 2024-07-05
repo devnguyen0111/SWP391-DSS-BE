@@ -21,6 +21,7 @@ using Serilog;
 using Repository.Orders;
 using Services.OrdersManagement;
 using Services.Admin;
+using Microsoft.AspNetCore.Authorization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -76,6 +77,15 @@ builder.Services.AddScoped<IAssignOrderService, AssignOrderService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 
+
+//Custom policy
+builder.Services.AddSingleton<IAuthorizationHandler, CustomJwtHandler>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CustomJwtPolicy", policy =>
+        policy.Requirements.Add(new CustomJwtRequirement()));
+});
 //this is logger using Serilog
 builder.Host.UseSerilog((context, configuration) =>
     configuration.ReadFrom.Configuration(context.Configuration)

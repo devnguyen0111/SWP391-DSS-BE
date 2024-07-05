@@ -191,11 +191,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Invalid DiamondId");
             }
-            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId==request.MetaltypeId && c.CoverId==request.CoverId && c.DiamondId ==request.DiamondId && c.SizeId == request.SizeId);
-            if (producthaha != null)
-            {
-                return Ok(producthaha);
-            }
+            
             // Concatenate CoverName and DiamondName to form ProductName
             var productName = cover.CoverName + " " + diamond.DiamondName;
 
@@ -296,7 +292,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Invalid selection.");
             }
-
+            
             var productName = cover.CoverName + " " + diamond.DiamondName;
 
             var product = new Product
@@ -309,7 +305,12 @@ namespace DiamondShopSystem.API.Controllers
                 SizeId = selection.SizeId.Value,
                 Pp = "Custom"
             };
-
+            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == selection.MetaltypeId && c.CoverId == selection.CoverId && c.DiamondId == selection.DiamondId && c.SizeId == selection.SizeId);
+            if (producthaha != null)
+            {
+                product.ProductId = producthaha.ProductId;
+                return Ok(product);
+            }
             _productService.AddProduct(product);
             HttpContext.Session.Remove("TempProductSelection");
 
