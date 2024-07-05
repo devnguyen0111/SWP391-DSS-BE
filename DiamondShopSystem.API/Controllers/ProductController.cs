@@ -191,7 +191,11 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Invalid DiamondId");
             }
-
+            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId==request.MetaltypeId && c.CoverId==request.CoverId && c.DiamondId ==request.DiamondId && c.SizeId == request.SizeId);
+            if (producthaha != null)
+            {
+                return Ok(producthaha);
+            }
             // Concatenate CoverName and DiamondName to form ProductName
             var productName = cover.CoverName + " " + diamond.DiamondName;
 
