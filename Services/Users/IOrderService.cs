@@ -12,5 +12,7 @@ namespace Services.Users
         List<Order> getAllOrders();
         void addOrder(Order order);
         List<ShippingMethod> GetShippingMethods();
+        public Order GetOrderByIdAndStatus(int orderId, string status);
+        Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId);
     }
 }

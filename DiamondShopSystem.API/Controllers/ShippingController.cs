@@ -14,12 +14,14 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IShippingService _shippingService;
         private readonly IAssignOrderService _assignOrderService;
         private readonly IManagerService _managerService;
+        private readonly IOrderService _orderService;
 
-        public ShippingController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService)
+        public ShippingController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService)
         {
             _shippingService = shippingService;
             _assignOrderService = assignOrderService;
             _managerService = managerService;
+            _orderService = orderService;
         }
 
         [HttpGet("Shippings")]
@@ -86,8 +88,45 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(saleStaffRequests);
         }
         //Assign staff the order and make the shipping
+        
+
+        //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
+        [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}")]
+        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId)
+        {
+            string status = "Pending";
+
+            var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
+
+            if (orders == null || orders.Count == 0)
+            {
+                return NotFound("There is no Orders match your given data!!");
+            }
+
+            return Ok(orders);
+        }
+
+        [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}")]
+        public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId)
+        {
+            try
+            {
+                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId);
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"An error occurred: {ex.Message}");
+            }
+        }
+
         [HttpPost("assignStaff")]
-        public async Task<IActionResult> CreateShipping(int orderId, int saleStaffId, string status = "Pending")
+        public async Task<IActionResult> CreateShipping(int orderId, int saleStaffId, string status = "Approve")
         {
             if (!ModelState.IsValid)
             {
@@ -105,39 +144,9 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
-        [HttpGet("ordersFromShippingBySaleStaffId/{saleStaffId}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId)
-        {
-            string status = "Pending";
-
-            var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
-
-            if (orders == null || orders.Count == 0)
-            {
-                return NotFound("There is no Orders match your given data!!");
-            }
-
-            return Ok(orders);
-        }
-
-        //Get OrderDetail by OrderId from shipping
-        [HttpGet("orderFromShippingByOrderId/{orderId}")]
-        public async Task<ActionResult<Order>> GetOrderByOrderId(int orderId)
-        {
-            var order = await _shippingService.GetOrderByOrderIdAsync(orderId);
-
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(order);
-        }
-
         //Assgin to deliveryStaff and change the status
         [HttpPost("assignDelivery")]
-        public async Task<IActionResult> AssignShippingToDelivery( int shippingId, int deliveryStaffId)
+        public async Task<IActionResult> AssignShippingToDelivery(int orderId, int deliveryStaffId)
         {
             if (!ModelState.IsValid)
             {
@@ -146,8 +155,8 @@ namespace DiamondShopSystem.API.Controllers
 
             try
             {
-                await _shippingService.AssignShippingToDeliveryAsync(shippingId, deliveryStaffId);
-                return Ok($"Shipping with ID {shippingId} assigned to delivery successfully.");
+                await _shippingService.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
+                return Ok($"Shipping with order ID {orderId} assigned to delivery successfully.");
             }
             catch (ArgumentException ex)
             {
@@ -159,17 +168,19 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        [HttpPost("confirmFinishOrder/{shippingId}")]
-        public async Task<IActionResult> IsConfirmFinishOrder(int shippingId)
+        [HttpPost("confirmFinishOrder/{orderId}")]
+        public async Task<IActionResult> IsConfirmFinishOrder(int orderId)
         {
-            var result = await _shippingService.IsConfirmFinishShippingAsync(shippingId);
+            var result = await _shippingService.IsConfirmFinishShippingAsync(orderId);
             if (!result)
             {
                 return NotFound(new { Message = "Shipping not found." });
             }
 
-            return Ok(new { Message = "Shipping status updated to Delivered." });
+            return Ok(new { Message = "Order and Shipping statuses updated successfully." });
         }
+
+        
     }
 
 }

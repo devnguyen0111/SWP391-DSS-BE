@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using Repository.Orders;
+using Repository.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace Services.OrdersManagement
     public class ShippingService : IShippingService
     {
         private readonly IShippingRepository _shippingRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public ShippingService(IShippingRepository shippingRepository)
+        public ShippingService(IShippingRepository shippingRepository, IOrderRepository orderRepository)
         {
             _shippingRepository = shippingRepository;
+            _orderRepository = orderRepository;
         }
 
         public async Task<List<Shipping>> GetAllShippingAsync()
@@ -33,17 +36,29 @@ namespace Services.OrdersManagement
             return await _shippingRepository.GetShippingByIdAsync(shippingId);
         }
 
-        public async Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId)  //tạo trong shipping luôn
+        public async Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId)
         {
+            var order = _orderRepository.GetOrderByIdAndStatus(orderId, "processing");
 
+            if (order == null)
+            {
+                throw new Exception("Order not found");
+            }
+
+            // Update the order status to "pending"
+            order.Status = "Pending";
+            await _orderRepository.UpdateOrderAsync(order);
+
+            // Create the shipping record
             var shipping = new Shipping
             {
                 Status = status,
                 OrderId = orderId,
-                SaleStaffId = saleStaffId                              //nhớ sửa database
+                SaleStaffId = saleStaffId,
+                DeliveryStaffId = 1,                                                    // Assuming DeliveryStaffId is always 1
+
             };
 
-            // Save the shipping record
             await _shippingRepository.CreateAsync(shipping);
 
             return shipping;
@@ -58,24 +73,28 @@ namespace Services.OrdersManagement
         {
             return await _shippingRepository.GetOrderByOrderIdAsync(orderId);
         }
-        public async Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId)
-        {
-            await _shippingRepository.AssignShippingToDeliveryAsync(shippingId, deliveryStaffId);
-        }
 
-        public async Task<bool> IsConfirmFinishShippingAsync(int shippingId)
+        public async Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
         {
-            var shipping = await _shippingRepository.GetShippingByIdAsync(shippingId);
+            await _shippingRepository.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
+        }
+        public async Task<bool> IsConfirmFinishShippingAsync(int orderId)
+        {
+            var shipping = await _shippingRepository.GetShippingByOrderIdAsync(orderId);
             if (shipping == null)
             {
                 return false;
             }
 
-            shipping.Status = "Delivered";
+            // Update the shipping status to "Finish"
+            shipping.Status = "Finish";
+
+            // Update the order status to "Delivered"
+            shipping.Order.Status = "Delivered";
+
             await _shippingRepository.UpdateShippingAsync(shipping);
             return true;
         }
-
 
         //public async Task UpdateShippingAsync(Shipping shipping)
         //{
