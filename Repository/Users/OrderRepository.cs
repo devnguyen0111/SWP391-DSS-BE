@@ -35,27 +35,5 @@ namespace Repository.Users
         {
             return _context.ShippingMethods.ToList();
         }
-        public Order GetOrderByIdAndStatus(int orderId, string status)
-        {
-            return _context.Orders
-                .Include(o => o.ProductOrders)
-                .Include(o => o.Shippings)
-                .Include(o => o.ShippingMethod)
-                .FirstOrDefault(o => o.OrderId == orderId && o.Status == status);
-        }
-
-        public async Task UpdateOrderAsync(Order order)
-        {
-            _context.Orders.Update(order);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId)
-        {
-            return await _context.Orders
-                .Include(o => o.Shippings)
-                .Where(o => o.Shippings.Any(s => s.DeliveryStaffId == deliveryStaffId))
-                .ToListAsync();
-        }
     }
 }

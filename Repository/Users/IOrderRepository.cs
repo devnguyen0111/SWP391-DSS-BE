@@ -9,8 +9,5 @@ namespace Repository.Users
         void updateOrder(int oid, string status);
         List<Order> getOrders(int uid);
         List<ShippingMethod> GetShippingMethods();
-        Order GetOrderByIdAndStatus(int orderId, string status);
-        Task UpdateOrderAsync(Order order);
-        Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId);
     }
 }

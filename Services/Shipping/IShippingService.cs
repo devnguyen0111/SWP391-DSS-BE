@@ -16,7 +16,7 @@ namespace Services.OrdersManagement
         Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId);
         Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);
         Task<Order> GetOrderByOrderIdAsync(int orderId);
-        Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);
+        Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId);
         Task<bool> IsConfirmFinishShippingAsync(int shippingId);
         //Task UpdateShippingAsync(Shipping shipping);
         //Task DeleteShippingAsync(int shippingId);

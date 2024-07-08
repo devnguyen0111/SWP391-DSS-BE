@@ -108,7 +108,7 @@ namespace Services.Users
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = GetTotalPrice(_productRepository.GetProductById(pid)),
-                Status = "processing",
+                Status = "pending",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -140,16 +140,6 @@ namespace Services.Users
        public List<ShippingMethod> GetShippingMethods()
         {
             return _orderRepository.GetShippingMethods();
-        }
-
-        public Order GetOrderByIdAndStatus(int orderId, string status)
-        {
-            return _orderRepository.GetOrderByIdAndStatus(orderId, status);
-        }
-
-        public async Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId)
-        {
-            return await _orderRepository.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId);
         }
     }
     public class ProductQuantity1
