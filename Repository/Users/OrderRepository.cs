@@ -35,5 +35,10 @@ namespace Repository.Users
         {
             return _context.ShippingMethods.ToList();
         }
+
+        public List<Order> getOrders()
+        {
+            return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product).ToList();
+        }
     }
 }

@@ -13,7 +13,6 @@ using Order = Model.Models.Order;
 namespace DiamondShopSystem.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class OrderController : Controller
     {
@@ -48,14 +47,8 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(o);
         }
 
-        [HttpGet]
-        [Route("GetOrderByStatus")]
-        public IActionResult getOrders(int uid,string status)
-        {
-            List<Order> l = _orderService.getOrderByStatus(uid, status);
-            return Ok(l.Select(OrderMapper.MapToOrderResponse).ToList());
-        }
-
+        
+        [Authorize]
         [HttpGet("customer/{customerId}/history")]
         public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string? status)
         {
@@ -95,6 +88,46 @@ namespace DiamondShopSystem.API.Controllers
                         Img =_coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
                     }).ToList() ?? new List<OrderHistoryItem>() // Added null check
                 }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
+
+                return Ok(orderHistoryResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
+        [HttpGet("getOrderDetail")]
+        public ActionResult<List<OrderHistoryResponse>> getOrderDetail(int orderId)
+        {
+            try
+            {
+                var o = new Order();
+              o =_orderService.getAllOrders().FirstOrDefault(c => c.OrderId == orderId);
+
+                if (o == null)
+                {
+                    return NotFound(new { Message = "No orders found for the given customer ID and status." });
+                }
+
+                var orderHistoryResponses = new OrderHistoryResponse
+                {
+                    OrderId = o?.OrderId ?? 0, // Added null check
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                    Status = o?.Status ?? "Unknown", // Added null check
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                    Items = o?.ProductOrders?.Select(po => new OrderHistoryItem
+                    {
+                        PId = po?.ProductId ?? 0, // Added null check
+                        SizeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Size?.SizeValue ?? "Unknown Size" : "Unknown Size", // Added null check
+                        DiamondName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Diamond?.DiamondName ?? "Unknown Diamond" : "Unknown Diamond", // Added null check
+                        MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
+                        Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
+                        Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
+                        Img = _coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
+                    }).ToList() ?? new List<OrderHistoryItem>() // Added null check
+                }; // Added null check
 
                 return Ok(orderHistoryResponses);
             }
@@ -216,6 +249,38 @@ namespace DiamondShopSystem.API.Controllers
             return (decimal)(totalAmount - (totalAmount * (voucher.Rate / 100m)));
         }
 
+        [HttpGet]
+        [Route("getAllOrders")]
+        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string status = "Paid")
+        {
+            try
+            {
+                var orders = new List<Order>();
+                orders = _orderService.getAllOrders();
+
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound(new { Message = "No orders found for the given status." });
+                }
+
+                var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse1
+                {
+                    OrderId = o?.OrderId ?? 0, // Added null check
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                    Status = o?.Status ?? "Unknown", // Added null check
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                     // Added null check
+                }).ToList() ?? new List<OrderHistoryResponse1>(); // Added null check
+
+                return Ok(orderHistoryResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
 
         [HttpPost]
         [Route("checkoutInfo")]

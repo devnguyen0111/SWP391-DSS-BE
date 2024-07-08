@@ -36,9 +36,14 @@ namespace Services.OtherServices
             var authorizationHeader = httpContext.Request.Headers["Authorization"].FirstOrDefault();
             if (authorizationHeader == null || !authorizationHeader.StartsWith("Bearer "))
             {
+                httpContext.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                httpContext.Response.ContentType = "application/json";
+                var responseContent = new { error = "Missing or invalid Authorization header" };
+                httpContext.Response.WriteAsync(System.Text.Json.JsonSerializer.Serialize(responseContent));
                 context.Fail();
                 return Task.CompletedTask;
             }
+
 
             var token = authorizationHeader.Substring("Bearer ".Length).Trim();
 
