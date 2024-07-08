@@ -16,8 +16,9 @@ namespace Repository.Orders
         Task CreateAsync(Shipping shipping);                                                           // Assign Order cho Staff, sau đó sẽ tự động add vào shipping
         Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);        // Lấy list orders trong bảng Shipping ra cho staff, cùng với status "Pending"
         Task<Order> GetOrderByOrderIdAsync(int orderId);                                               // Lấy Order Detail trong bảng Shipping
-        Task AssignShippingToDeliveryAsync(int shippingId, int deliveryStaffId);                        // Staff assign cho delivery đồng thời đổi status thành "Shipping"
+        Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);                        // Staff assign cho delivery đồng thời đổi status thành "Shipping"
         Task UpdateShippingAsync(Shipping shipping);                                                    // Update Shipping
+        Task<Shipping> GetShippingByOrderIdAsync(int orderId);
         //Task UpdateAsync(Shipping shipping);
         //Task DeleteAsync(int shippingId);
         // Add more methods as needed
