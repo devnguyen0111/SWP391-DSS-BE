@@ -22,7 +22,10 @@ namespace Repository.Users
             }
             return reviews;
         }
-
+        public bool HasReview(int productId, int customerId)
+        {
+            return _dbContext.Reviews.Any(r => r.ProductId == productId && r.CusId == customerId);
+        }
         public Review AddReview(Review review)
         {
             if (review.Rating > 5)

@@ -8,7 +8,7 @@ namespace Repository.Users
         public Review AddReview(Review review);
 
         public Review UpdateReview(Review review);
-
+        bool HasReview(int productId, int customerId);
         public Review DeleteReview(int reviewId);
     }
 }

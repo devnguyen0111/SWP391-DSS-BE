@@ -22,8 +22,9 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
         private readonly ICoverMetaltypeService _coverMetaltypeService;
+        private readonly IReviewService _reviewService;
         public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService, ICustomerService customerService,
-            ICoverMetaltypeService coverMetaltypeService)
+            ICoverMetaltypeService coverMetaltypeService,IReviewService i)
         {
             _orderService = orderService;
             _emailService = emailService;
@@ -31,6 +32,7 @@ namespace DiamondShopSystem.API.Controllers
             _productService = productService;
             _customerService = customerService;
             _coverMetaltypeService = coverMetaltypeService;
+            _reviewService = i;
         }
         [HttpPost]
         [Route("createOrderDirecly")]
@@ -69,7 +71,31 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound(new { Message = "No orders found for the given customer ID and status." });
                 }
+                if(status == "Delivered")
+                {
+                    var orderHistoryResponses2 = orders.Select(o => new OrderHistoryResponse
+                    {
+                        OrderId = o?.OrderId ?? 0, // Added null check
+                        OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                        Status = o?.Status ?? "Unknown", // Added null check
+                        ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                        TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                        Items = o?.ProductOrders?.Select(po => new OrderHistoryItem
+                        {
+                            PId = po?.ProductId ?? 0, // Added null check
+                            SizeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Size?.SizeValue ?? "Unknown Size" : "Unknown Size", // Added null check
+                            DiamondName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Diamond?.DiamondName ?? "Unknown Diamond" : "Unknown Diamond", // Added null check
+                            MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
+                            Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
+                            ReviewCheck = _reviewService.HasReview(po.ProductId,customerId),
+                            Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
+                            Img = _coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
 
+                        }).ToList() ?? new List<OrderHistoryItem>() // Added null check
+                    }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
+
+                    return Ok(orderHistoryResponses2);
+                }
                 var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse
                 {
                     OrderId = o?.OrderId ?? 0, // Added null check
@@ -86,6 +112,7 @@ namespace DiamondShopSystem.API.Controllers
                         Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
                         Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
                         Img =_coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
+                       
                     }).ToList() ?? new List<OrderHistoryItem>() // Added null check
                 }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
 
