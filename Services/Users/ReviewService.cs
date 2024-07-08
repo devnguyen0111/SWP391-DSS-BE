@@ -16,7 +16,10 @@ namespace Services.Users
         {
             return _reviewRepository.GetReviewByProduct(productId);
         }
-
+        public bool HasReview(int productId, int customerId)
+        {
+            return _reviewRepository.HasReview(productId, customerId);
+        }
         public Review AddReview(Review review)
         {
             return _reviewRepository.AddReview(review);

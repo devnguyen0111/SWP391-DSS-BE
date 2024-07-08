@@ -1,4 +1,5 @@
 ﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Model.Models;
@@ -20,7 +21,9 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IDiamondService _diamondService;    
         private readonly IOrderService _orderService;
         private IProductService _productService;
-        public CartController(ICartService cartService, ICoverService coverService, IMetaltypeService metaltypeService, ISizeService sizeService,IDiamondService diamondService,IOrderService orderService,IProductService productService)
+        ICoverMetaltypeService _coverMetaltypeService;
+        public CartController(ICartService cartService, ICoverService coverService, IMetaltypeService metaltypeService, ISizeService sizeService,IDiamondService diamondService,IOrderService orderService,IProductService productService,
+            ICoverMetaltypeService coverMetaltypeService)
         {
             _cartService = cartService;
             _coverService = coverService;
@@ -29,6 +32,7 @@ namespace DiamondShopSystem.API.Controllers
             _diamondService = diamondService;
             _orderService = orderService;
             _productService = productService;
+            _coverMetaltypeService = coverMetaltypeService;
         }
         [HttpGet]
         public decimal getTotal(int id)
@@ -40,6 +44,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     pid = c.Product.ProductId,
                     name1 = c.Product.ProductName,
+                    img = _coverMetaltypeService.GetCoverMetaltype(c.Product.CoverId, c.Product.MetaltypeId).ImgUrl,
                     price = _orderService.GetTotalPrice(_productService.GetProductById(c.ProductId)),
                     quantity = c.Quantity,
                     size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
@@ -71,6 +76,7 @@ namespace DiamondShopSystem.API.Controllers
                         pid = c.Product.ProductId,
                         name1 = c.Product.ProductName,
                         price = _productService.GetProductTotal(c.ProductId),
+                        
                         quantity = c.Quantity,
                         size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
                         metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,

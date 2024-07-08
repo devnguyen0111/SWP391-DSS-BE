@@ -11,6 +11,10 @@ public partial class Voucher
 
     public string Name { get; set; }
 
+    public decimal? TopPrice { get; set; }
+
+    public decimal? BottomPrice { get; set; }
+
     public string Description { get; set; }
 
     public DateOnly ExpDate { get; set; }

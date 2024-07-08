@@ -13,4 +13,12 @@
         public int quantity { get; set; }
         public string img { get; set; }
     }
+    public class OrderHistoryResponse1
+    {
+        public int OrderId { get; set; }
+        public DateTime OrderDate { get; set; }
+        public string Status { get; set; }
+        public decimal TotalAmount { get; set; }
+        public string ShippingMethodName { get; set; }
+    }
 }

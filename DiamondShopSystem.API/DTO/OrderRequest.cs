@@ -1,5 +1,10 @@
 ﻿namespace DiamondShopSystem.API.DTO
 {
+    public class VoucherRequest1
+    {
+        public List<ProductQuantity> Products { get; set; }
+        public string? voucherName { get; set; }
+    }
     public class OrderRequest
     {
         public int? CusId { get; set; }
@@ -22,6 +27,8 @@
         public string DeliveryAddress { get; set; }
         public string ContactNumber { get; set; }
         public List<ProductQuantity> Products { get; set; }
+        public string? voucherName { get; set; }
+
     }
 
     public class ProductQuantity
