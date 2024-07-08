@@ -17,6 +17,10 @@ public partial class User
 
     public string Role { get; set; }
 
+    public string RefreshToken { get; set; }
+
+    public DateTime? RefreshTokenExpiryTime { get; set; }
+
     public virtual Customer Customer { get; set; }
 
     public virtual DeliveryStaff DeliveryStaff { get; set; }

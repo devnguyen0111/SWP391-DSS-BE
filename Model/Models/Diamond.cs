@@ -7,8 +7,6 @@ namespace Model.Models;
 
 public partial class Diamond
 {
-
-
     public int DiamondId { get; set; }
 
     public string DiamondName { get; set; }

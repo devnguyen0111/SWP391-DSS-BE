@@ -1,4 +1,5 @@
 ﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using Model.Models;
@@ -20,13 +21,18 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IEmailService _emailService;
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
-        public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService, ICustomerService customerService)
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
+        private readonly IReviewService _reviewService;
+        public OrderController(IOrderService orderService,IVoucherService voucherService, IEmailService emailService, IProductService productService, ICustomerService customerService,
+            ICoverMetaltypeService coverMetaltypeService,IReviewService i)
         {
             _orderService = orderService;
             _emailService = emailService;
             _voucherService = voucherService;
             _productService = productService;
             _customerService = customerService;
+            _coverMetaltypeService = coverMetaltypeService;
+            _reviewService = i;
         }
         [HttpPost]
         [Route("createOrderDirecly")]
@@ -43,14 +49,8 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(o);
         }
 
-        [HttpGet]
-        [Route("GetOrderByStatus")]
-        public IActionResult getOrders(int uid,string status)
-        {
-            List<Order> l = _orderService.getOrderByStatus(uid, status);
-            return Ok(l.Select(OrderMapper.MapToOrderResponse).ToList());
-        }
-
+        
+        [Authorize]
         [HttpGet("customer/{customerId}/history")]
         public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string? status)
         {
@@ -71,7 +71,31 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound(new { Message = "No orders found for the given customer ID and status." });
                 }
+                if(status == "Delivered")
+                {
+                    var orderHistoryResponses2 = orders.Select(o => new OrderHistoryResponse
+                    {
+                        OrderId = o?.OrderId ?? 0, // Added null check
+                        OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                        Status = o?.Status ?? "Unknown", // Added null check
+                        ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                        TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                        Items = o?.ProductOrders?.Select(po => new OrderHistoryItem
+                        {
+                            PId = po?.ProductId ?? 0, // Added null check
+                            SizeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Size?.SizeValue ?? "Unknown Size" : "Unknown Size", // Added null check
+                            DiamondName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Diamond?.DiamondName ?? "Unknown Diamond" : "Unknown Diamond", // Added null check
+                            MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
+                            Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
+                            ReviewCheck = _reviewService.HasReview(po.ProductId,customerId),
+                            Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
+                            Img = _coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
 
+                        }).ToList() ?? new List<OrderHistoryItem>() // Added null check
+                    }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
+
+                    return Ok(orderHistoryResponses2);
+                }
                 var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse
                 {
                     OrderId = o?.OrderId ?? 0, // Added null check
@@ -87,9 +111,50 @@ namespace DiamondShopSystem.API.Controllers
                         MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
                         Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
                         Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
-                        Img = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567" // Adjust according to your actual model
+                        Img =_coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
+                       
                     }).ToList() ?? new List<OrderHistoryItem>() // Added null check
                 }).ToList() ?? new List<OrderHistoryResponse>(); // Added null check
+
+                return Ok(orderHistoryResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
+        [HttpGet("getOrderDetail")]
+        public ActionResult<List<OrderHistoryResponse>> getOrderDetail(int orderId)
+        {
+            try
+            {
+                var o = new Order();
+              o =_orderService.getAllOrders().FirstOrDefault(c => c.OrderId == orderId);
+
+                if (o == null)
+                {
+                    return NotFound(new { Message = "No orders found for the given customer ID and status." });
+                }
+
+                var orderHistoryResponses = new OrderHistoryResponse
+                {
+                    OrderId = o?.OrderId ?? 0, // Added null check
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                    Status = o?.Status ?? "Unknown", // Added null check
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                    Items = o?.ProductOrders?.Select(po => new OrderHistoryItem
+                    {
+                        PId = po?.ProductId ?? 0, // Added null check
+                        SizeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Size?.SizeValue ?? "Unknown Size" : "Unknown Size", // Added null check
+                        DiamondName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Diamond?.DiamondName ?? "Unknown Diamond" : "Unknown Diamond", // Added null check
+                        MetaltypeName = po?.ProductId != null ? _productService.GetProductById(po.ProductId)?.Metaltype?.MetaltypeName ?? "Unknown Metal Type" : "Unknown Metal Type", // Added null check
+                        Name = po?.Product?.ProductName ?? "Unknown Product", // Added null check
+                        Total = po?.ProductId != null ? _productService.GetProductTotal(po.ProductId) : 0, // Added null check
+                        Img = _coverMetaltypeService.GetCoverMetaltype(_productService.GetProductById(po.ProductId).CoverId, _productService.GetProductById(po.ProductId).MetaltypeId).ImgUrl // Adjust according to your actual model
+                    }).ToList() ?? new List<OrderHistoryItem>() // Added null check
+                }; // Added null check
 
                 return Ok(orderHistoryResponses);
             }
@@ -106,7 +171,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             try
             {
-                Order newOrder = CreateOrderFromProducts1(request.UserId, request.ShippingMethodId, request.DeliveryAddress, request.ContactNumber, request.Products);
+                Order newOrder = CreateOrderFromProducts1(request.UserId, request.ShippingMethodId, request.DeliveryAddress, request.ContactNumber, request.Products,request.voucherName);
                 return Ok(newOrder.OrderId);
             }
             catch (Exception ex)
@@ -114,7 +179,36 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-        private Order CreateOrderFromProducts1(int uid, int sid, string address, string phonenum, List<DTO.ProductQuantity> products)
+        [HttpPost("applyVoucher")]
+        public IActionResult applyVoucher([FromBody] VoucherRequest1 vq)
+        {
+            Voucher voucher = _voucherService.GetVoucherByName(vq.voucherName); // Assuming you have a service to get voucher by name
+            if (voucher != null)
+            {
+                decimal totalAmount = vq.Products.Sum(pq => pq.Quantity * _productService.GetProductTotal(pq.ProductId));
+                if (voucher.Quantity <= 0)
+                {
+                    return BadRequest("Voucher is no longer valid.");
+                }
+
+                if (totalAmount >= voucher.BottomPrice && totalAmount <= voucher.TopPrice)
+                {
+                    totalAmount =totalAmount - ApplyVoucherDiscount(totalAmount, voucher);
+                   
+                    return Ok(totalAmount);
+                }
+                else
+                {
+                    return BadRequest("Total amount does not meet the voucher's price requirements.");
+                }
+            }
+            else
+            {
+                return BadRequest("Voucher not found.");
+            }
+        }
+
+        private Order CreateOrderFromProducts1(int uid, int sid, string address, string phonenum, List<DTO.ProductQuantity> products, string voucherName)
         {
             if (products == null || !products.Any())
             {
@@ -122,6 +216,35 @@ namespace DiamondShopSystem.API.Controllers
             }
 
             decimal totalAmount = products.Sum(pq => pq.Quantity * _productService.GetProductTotal(pq.ProductId));
+
+            // Check for voucher
+            Voucher voucher = null;
+            if (!string.IsNullOrEmpty(voucherName))
+            {
+                voucher = _voucherService.GetVoucherByName(voucherName); // Assuming you have a service to get voucher by name
+                if (voucher != null)
+                {
+                    if (voucher.Quantity <= 0)
+                    {
+                        throw new Exception("Voucher is no longer valid.");
+                    }
+
+                    if (totalAmount >= voucher.BottomPrice && totalAmount <= voucher.TopPrice)
+                    {
+                        totalAmount = ApplyVoucherDiscount(totalAmount, voucher);
+                        voucher.Quantity -= 1; // Decrement voucher quantity
+                        _voucherService.updateVoucher(voucher); // Update the voucher in the database
+                    }
+                    else
+                    {
+                        throw new Exception("Total amount does not meet the voucher's price requirements.");
+                    }
+                }
+                else
+                {
+                    throw new Exception("Voucher not found.");
+                }
+            }
 
             Order newOrder = new Order
             {
@@ -146,6 +269,46 @@ namespace DiamondShopSystem.API.Controllers
             _orderService.addOrder(newOrder);
             return newOrder;
         }
+
+        private decimal ApplyVoucherDiscount(decimal totalAmount, Voucher voucher)
+        {
+            // Assuming the voucher has a Rate property that represents a percentage discount
+            return (decimal)(totalAmount - (totalAmount * (voucher.Rate / 100m)));
+        }
+
+        [HttpGet]
+        [Route("getAllOrders")]
+        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string status = "Paid")
+        {
+            try
+            {
+                var orders = new List<Order>();
+                orders = _orderService.getAllOrders();
+
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound(new { Message = "No orders found for the given status." });
+                }
+
+                var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse1
+                {
+                    OrderId = o?.OrderId ?? 0, // Added null check
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
+                    Status = o?.Status ?? "Unknown", // Added null check
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
+                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
+                     // Added null check
+                }).ToList() ?? new List<OrderHistoryResponse1>(); // Added null check
+
+                return Ok(orderHistoryResponses);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
+
         [HttpPost]
         [Route("checkoutInfo")]
         public IActionResult GetCheckoutInfo([FromBody] CheckoutRequest request)
@@ -171,7 +334,7 @@ namespace DiamondShopSystem.API.Controllers
                     {
                         ProductId = product.ProductId,
                         ProductName = product.ProductName,
-                        imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId,product.MetaltypeId).ImgUrl,
                         Price = _productService.GetProductTotal(product.ProductId),
                         Quantity = pq.Quantity
                     };

@@ -2,7 +2,6 @@
 CREATE DATABASE DIAMOND_DB
 GO
 USE DIAMOND_DB
-
 GO
 -- Table: Size
 CREATE TABLE Size (
@@ -100,7 +99,9 @@ CREATE TABLE [User] (
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     status VARCHAR(50) NOT NULL,
-    role VARCHAR(50) NOT NULL
+    role VARCHAR(50) NOT NULL,
+	RefreshToken VARCHAR(200),
+	RefreshTokenExpiryTime Datetime,
 );
 GO
 -- Table: Customer
@@ -176,7 +177,7 @@ GO
 -- Table: Address
 CREATE TABLE [Address] (
     addressId INT PRIMARY KEY,
-    street VARCHAR(255),
+    street VARCHAR(500),
     state VARCHAR(50),
     city VARCHAR(50),
     zipCode VARCHAR(20),
@@ -216,13 +217,14 @@ CREATE TABLE ProductOrder (
     FOREIGN KEY (orderId) REFERENCES [Order](orderId) on delete cascade
 );
 GO
--- Table: Shipping --add assignDate and expectedFinishDate
+-- Table: Shipping --add and expectedFinishDate
 CREATE TABLE Shipping (
     shippingId INT IDENTITY PRIMARY KEY,
     status VARCHAR(50),
     orderId INT,
+	expectedFinishDate Date,
     saleStaffId INT NOT NULL,
-    deliveryStaffId INT NOT NULL,
+    deliveryStaffId INT,
     FOREIGN KEY (orderId) REFERENCES [Order](orderId)on delete cascade,
     FOREIGN KEY (saleStaffId) REFERENCES SaleStaff(sStaffId),
     FOREIGN KEY (deliveryStaffId) REFERENCES DeliveryStaff(dStaffId)
@@ -240,10 +242,12 @@ CREATE TABLE Review (
 	FOREIGN KEY (productId) REFERENCES Product(productId) on delete cascade
 );
 GO
--- Table: Voucher --remove userid --change rate to int
+-- Table: Voucher --remove userid --change rate to int --add top and bottom price
 CREATE TABLE Voucher (
     voucherId INT IDENTITY PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
+	topPrice money ,
+	bottomPrice money ,
     description TEXT,
     expDate DATE NOT NULL,
 	quantity INT,

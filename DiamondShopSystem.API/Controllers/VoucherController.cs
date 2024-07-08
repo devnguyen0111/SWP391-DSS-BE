@@ -40,9 +40,8 @@ namespace DiamondShopSystem.API.Controllers
         [HttpPost]
         public ActionResult<Voucher> PostVoucher([FromBody] DTO.VoucherRequest request)
         {
-            int customerId = request.CusId == 0 ? 0 : request.CusId;
 
-            _voucherService.createVoucher(_voucherService.createRandomNameVoucher(), request.Description, request.ExpDate, request.Quantity, request.Rate);
+            _voucherService.createVoucher(_voucherService.createRandomNameVoucher(), request.Description, request.ExpDate, request.Quantity, request.Rate, (decimal)request.BottomPrice, (decimal)request.TopPrice);
             return CreatedAtAction("GetVouchers", _voucherService.GetAllVouchers());
         }
 

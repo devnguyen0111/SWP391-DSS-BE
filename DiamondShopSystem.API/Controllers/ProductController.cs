@@ -58,7 +58,7 @@ namespace DiamondShopSystem.API.Controllers
             var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
-                imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
                 ProductName = product.ProductName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
@@ -128,7 +128,7 @@ namespace DiamondShopSystem.API.Controllers
                     return new ProductRequest
                     {
                         ProductId = c.ProductId,
-                        imgUrl = "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId).ImgUrl,
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
@@ -136,7 +136,8 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(filteredProducts);
         }
-
+        //_coverMetaltypeService.GetCoverMetaltype(c.ProductId, c.MetaltypeId).ImgUrl
+        //https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567
         [HttpGet("getFilterOption")]
         public IActionResult getFilterOption(string category)
         {
@@ -190,7 +191,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Invalid DiamondId");
             }
-
+            
             // Concatenate CoverName and DiamondName to form ProductName
             var productName = cover.CoverName + " " + diamond.DiamondName;
 
@@ -291,7 +292,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Invalid selection.");
             }
-
+            
             var productName = cover.CoverName + " " + diamond.DiamondName;
 
             var product = new Product
@@ -304,7 +305,12 @@ namespace DiamondShopSystem.API.Controllers
                 SizeId = selection.SizeId.Value,
                 Pp = "Custom"
             };
-
+            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == selection.MetaltypeId && c.CoverId == selection.CoverId && c.DiamondId == selection.DiamondId && c.SizeId == selection.SizeId);
+            if (producthaha != null)
+            {
+                product.ProductId = producthaha.ProductId;
+                return Ok(product);
+            }
             _productService.AddProduct(product);
             HttpContext.Session.Remove("TempProductSelection");
 
