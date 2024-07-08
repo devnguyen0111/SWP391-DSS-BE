@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using DAO;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository.Users
 {
@@ -14,13 +15,14 @@ namespace Repository.Users
         public List<Review> GetReviewByProduct(int productId)
         {
             //check if no review for the product return no review for this product
-            var reviews = _dbContext.Reviews.Where(r => r.ProductId == productId).ToList();
+            var reviews = _dbContext.Reviews.Include(c => c.Cus).Where(r => r.ProductId == productId).ToList();
             if (reviews.Count == 0)
             {
                 return null;
             }
             return reviews;
         }
+
         public Review AddReview(Review review)
         {
             if (review.Rating > 5)
