@@ -11,7 +11,6 @@ using Services.Users;
 namespace DiamondShopSystem.API.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
     public class CartController : Controller
     {

@@ -35,6 +35,10 @@ namespace Services.Users
             totalPrice += (decimal)s.SizePrice;
             return totalPrice;
         }
+        public List<Order> getAllOrders()
+        {
+            return _orderRepository.getOrders();
+        }
         public Order createOrderFromCart(int uid, int sid,string address,string phonenum)
         {
             Cart cart = _cartRepository.getCartFromCustomer(uid);

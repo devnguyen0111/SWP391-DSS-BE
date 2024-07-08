@@ -17,7 +17,6 @@ namespace DiamondShopSystem.API.Controllers
             _customerService = customerService;
         }
         //tạm
-        [Authorize]
         [HttpGet("{id}")]
         public IActionResult customer(int id)
         {
@@ -86,7 +85,6 @@ namespace DiamondShopSystem.API.Controllers
             _customerService.updateCustomer(c);
             return Ok(_customerService.GetCustomer(pq.id));
         }
-        [Authorize]
         [HttpPost("updateProfile")]
         public IActionResult updateCustomer([FromBody] CustomerProfileRequest cf)
         {
