@@ -26,6 +26,13 @@ namespace DiamondShopSystem.API.Controllers
             return users;
         }
 
+        [HttpGet("CountUser")]
+        public IActionResult CountUser()
+        {
+            List<User> users = _userRepository.GetAll();
+            return Ok(users.Count);
+        }
+
         [HttpGet("usersWithoutAdmin")]
         public ActionResult<IEnumerable<User>> GetUsers()
         {
