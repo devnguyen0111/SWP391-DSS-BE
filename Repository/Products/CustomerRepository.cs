@@ -12,6 +12,15 @@ namespace Repository.Products
         {
             _dbcontext = dbcontext;
         }
+
+        public List<Customer> GetAllCustomer()
+        {
+            return _dbcontext.Customers.ToList();
+        }
+        public int CountCustomer()
+        {
+            return _dbcontext.Customers.Count();
+        }
         public Customer GetCustomer(int id)
         {
             return _dbcontext.Customers.Include(c => c.Cus).FirstOrDefault(c => c.CusId == id)!;

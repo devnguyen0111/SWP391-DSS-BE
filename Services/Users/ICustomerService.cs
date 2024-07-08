@@ -4,6 +4,8 @@ namespace Services.Users
 {
     public interface ICustomerService
     {
+        List<Customer> GetAllCustomers();
+        int CountCustomer();
         Customer GetCustomer(int id);
         Address getCustomerAddress(int id);
         void updateAddress(int id, string street, string city, string state, string zipcode);

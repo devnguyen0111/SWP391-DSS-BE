@@ -11,6 +11,11 @@ namespace Repository.Users
         {
             _context = context;
         }
+
+        public List<Order> getOrders()
+        {
+            return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product).ToList();
+        }
         public List<Order> getOrderby(int uid, string status)
         {
             return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product)

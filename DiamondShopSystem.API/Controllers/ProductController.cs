@@ -46,6 +46,13 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(productRequest);
         }
 
+        [HttpGet("CountProduct")]
+        public IActionResult CountProduct()
+        {
+            int count = _productService.GetAllProducts().Count;
+            return Ok(count);
+        }
+
         [HttpGet("productDetail/{id}")]
         public IActionResult GetProductDetailById(int id)
         {

@@ -51,6 +51,7 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ISaleStaffRepository, SaleStaffRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 
 builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
@@ -76,6 +77,7 @@ builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IAssignOrderService, AssignOrderService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IWishlistService, WishlistService>();
 
 
 //Custom policy

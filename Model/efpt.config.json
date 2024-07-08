@@ -117,6 +117,10 @@
       {
          "Name": "[dbo].[Voucher]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Wishlist]",
+         "ObjectType": 0
       }
    ],
    "UiHint": null,

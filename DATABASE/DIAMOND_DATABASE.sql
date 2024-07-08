@@ -263,3 +263,14 @@ CREATE TABLE CustomerVoucher (
     FOREIGN KEY (voucherId) REFERENCES Voucher(voucherId)
 );	
 
+-- Table: Wishlist
+CREATE TABLE Wishlist (
+	wishlistId INT IDENTITY PRIMARY KEY,
+    userId INT NOT NULL,
+    productId INT NOT NULL,
+    dateAdded DATETIME DEFAULT GETDATE(),
+    PRIMARY KEY (userId, productId),
+    FOREIGN KEY (userId) REFERENCES [User](userId) ON DELETE CASCADE,
+    FOREIGN KEY (productId) REFERENCES Product(productId) ON DELETE CASCADE
+);
+GO
