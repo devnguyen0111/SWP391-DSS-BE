@@ -27,6 +27,15 @@ namespace DiamondShopSystem.API.Controllers
         {
             var result = _reviewService.GetReviewByProduct(productId);
             var count = _reviewService.GetReviewByProduct(productId).Count();
+            decimal avarageRating;
+            if (result == null || result.Count == 0)
+            {
+                avarageRating = 0; // No reviews, return 0 as average rating
+            }
+            else
+            {
+                avarageRating = (decimal)result.Average(r => r.Rating);
+            }
             var _result = result.Select(c =>
             {
                 return new ReviewRespone
@@ -41,7 +50,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return NotFound("No reviews found for this product.");
             }
-            return Ok(new { _result, Rating = GetRatingPercentages(productId),count });
+            return Ok(new { _result, Rating = GetRatingPercentages(productId),count ,avarageRating});
         }
         private Dictionary<decimal, double> GetRatingPercentages(int productId)
         {
