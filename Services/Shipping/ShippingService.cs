@@ -40,8 +40,7 @@ namespace Services.OrdersManagement
             {
                 Status = status,
                 OrderId = orderId,
-                SaleStaffId = saleStaffId,
-                DeliveryStaffId = 1,                              //nhớ sửa database
+                SaleStaffId = saleStaffId                              //nhớ sửa database
             };
 
             // Save the shipping record
