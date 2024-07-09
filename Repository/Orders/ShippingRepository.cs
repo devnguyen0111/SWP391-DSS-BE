@@ -52,8 +52,8 @@ namespace Repository.Orders
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
-                    StaffName = s.SaleStaff.Name,
-                    DeliveryName = s.DeliveryStaff.Name,
+                    StaffId = s.SaleStaff.SStaffId,
+                    DeliveryId = s.DeliveryStaff.DStaffId,
                     OrderDate = s.Order.OrderDate,
                     Status = s.Order.Status,
                     ShippingMethodName = s.Order.ShippingMethod.MethodName,
@@ -112,8 +112,8 @@ namespace Repository.Orders
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
-                    StaffName = s.SaleStaff.Name,
-                    DeliveryName = s.DeliveryStaff.Name,
+                    StaffId = s.SaleStaff.SStaffId,
+                    DeliveryId = s.DeliveryStaff.DStaffId,
                     OrderDate = s.Order.OrderDate,
                     Status = s.Order.Status,
                     ShippingMethodName = s.Order.ShippingMethod.MethodName,
@@ -126,8 +126,8 @@ namespace Repository.Orders
         public class OrderAssigned
         {
             public int OrderId { get; set; }
-            public string StaffName { get; set; }
-            public string DeliveryName { get; set; }
+            public int StaffId { get; set; }
+            public int DeliveryId { get; set; }
             public DateTime OrderDate { get; set; }
             public string Status { get; set; }
             public decimal TotalAmount { get; set; }
