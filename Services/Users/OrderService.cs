@@ -151,10 +151,7 @@ namespace Services.Users
             return _orderRepository.GetOrderByIdAndStatus(orderId, status);
         }
 
-        public async Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
-        {
-            return await _orderRepository.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId,  status);
-        }
+        
     }
     public class ProductQuantity1
     {
