@@ -168,6 +168,7 @@ namespace DiamondShopSystem.API.Controllers
             
             return Ok(new { Metal, Sizes, Shape });
         }
+        //kiểm tra tồn tại chưa
         [HttpPost]
         [Route("addProduct")]
         public IActionResult AddProduct([FromBody] AddProductRequest request)
@@ -216,6 +217,7 @@ namespace DiamondShopSystem.API.Controllers
             _productService.AddProduct(product);
             return Ok(product);
         }
+        //
         [HttpPut]
         [Route("updateProduct")]
         public IActionResult UpdateProduct([FromBody] UpdateProductRequest request)
@@ -225,34 +227,29 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return NotFound();
             }
-
             // Validate SizeId
             var size = _sizeService.GetSizeById(request.SizeId);
             if (size == null)
             {
                 return BadRequest("Invalid SizeId");
             }
-
             // Validate MetaltypeId
             var metaltype = _metaltypeService.GetMetaltypeById(request.MetaltypeId);
             if (metaltype == null)
             {
                 return BadRequest("Invalid MetaltypeId");
             }
-
             // Fetch Cover and Diamond to concatenate names
             var cover = _coverService.GetCoverById(request.CoverId);
             if (cover == null)
             {
                 return BadRequest("Invalid CoverId");
             }
-
             var diamond = _diamondService.GetDiamondById(request.DiamondId);
             if (diamond == null)
             {
                 return BadRequest("Invalid DiamondId");
             }
-
             // Concatenate CoverName and DiamondName to form ProductName
             var productName = cover.CoverName +" "+ diamond.DiamondName;
 
