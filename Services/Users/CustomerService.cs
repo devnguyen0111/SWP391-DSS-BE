@@ -10,6 +10,15 @@ namespace Services.Users
         {
             _repository = repository;
         }
+
+        public List<Customer> GetAllCustomers()
+        {
+            return _repository.GetAllCustomer();
+        }
+        public int CountCustomer()
+        {
+           return _repository.CountCustomer();
+        }
         public Customer GetCustomer(int id)
         {
             return _repository.GetCustomer(id);

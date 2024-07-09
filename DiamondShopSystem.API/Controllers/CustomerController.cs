@@ -16,6 +16,20 @@ namespace DiamondShopSystem.API.Controllers
         {
             _customerService = customerService;
         }
+        [HttpGet("GetAllCustomer")]
+        public IActionResult GetAllCustomer()
+        {
+            var customers = _customerService.GetAllCustomers();
+            return Ok(customers);
+        }
+
+        [HttpGet("CountCustomer")]
+        public IActionResult CountCustomer()
+        {
+            
+            int count = _customerService.CountCustomer();
+            return Ok(count);
+        }
         //tạm
         [HttpGet("{id}")]
         public IActionResult customer(int id)

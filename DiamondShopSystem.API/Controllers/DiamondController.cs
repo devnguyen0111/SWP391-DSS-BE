@@ -23,6 +23,13 @@ namespace DiamondShopSystem.API.Controllers
             return _diamondService.GetAllDiamonds();
         }
 
+        [HttpGet("CountDiamond")]
+        public IActionResult CountDiamond()
+        {
+            int count = _diamondService.GetAllDiamonds().Count();
+            return Ok(count);
+        }
+
         [HttpGet("{id}")]
         public ActionResult<Diamond> GetDiamond(int id)
         {
