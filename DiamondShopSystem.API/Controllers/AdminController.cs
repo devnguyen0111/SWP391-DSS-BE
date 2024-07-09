@@ -57,23 +57,7 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        [HttpGet("GetAllOrders")]
-        public IActionResult GetAllOrders()
-        {
-            var orders = _orderService.getAllOrders();
-            return Ok(orders);
-        }
-
-        [HttpGet("TotalRevenue")]
-        public IActionResult GetTotalRevenue()
-        {
-            // Fetch all orders with status "Paid"
-            var paidOrders = _orderService.getAllOrders().Where(order => order.Status == "Paid");
-
-            // Calculate total revenue
-            decimal totalRevenue = paidOrders.Sum(order => order.TotalAmount);
-
-            return Ok(new { TotalRevenue = totalRevenue });
-        }
+        //[HttpGet("Orders")]
+                
     }
 }
