@@ -108,7 +108,27 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(saleStaffRequests);
         }
         //Assign staff the order and make the shipping
+        //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
+        [HttpGet("ordersFromSaleStaffId/{saleStaffId}")]
+        public async Task<ActionResult<List<OrderAssigned>>> GetOrdersBySaleStaffId(int saleStaffId)
+        {
+            try
+            {
+                var orders = await _shippingService.GetOrdersBySaleStaffIdAsync(saleStaffId);
 
+                if (orders == null || orders.Count == 0)
+                {
+                    return NotFound("There are no orders matching your given data.");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
         [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}/{status}")]
