@@ -46,7 +46,7 @@ namespace Services.OrdersManagement
             }
 
             // Update the order status to "pending"
-            order.Status = "Pending";
+            order.Status = "pending";
             await _orderRepository.UpdateOrderAsync(order);
 
             // Create the shipping record

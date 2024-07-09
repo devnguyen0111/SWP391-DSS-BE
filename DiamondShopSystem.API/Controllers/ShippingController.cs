@@ -88,14 +88,12 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(saleStaffRequests);
         }
         //Assign staff the order and make the shipping
-        
+
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
-        [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId)
+        [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}/{status}")]
+        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId, string status)
         {
-            string status = "Pending";
-
             var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
 
             if (orders == null || orders.Count == 0)
@@ -106,12 +104,12 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}")]
-        public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId)
+        [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}/{status}")]
+        public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId, string status = "Shipping")
         {
             try
             {
-                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId);
+                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
                 if (orders == null || !orders.Any())
                 {
                     return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");
