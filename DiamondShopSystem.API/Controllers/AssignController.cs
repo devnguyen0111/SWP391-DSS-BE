@@ -24,12 +24,12 @@ namespace DiamondShopSystem.API.Controllers
             _managerService = managerService;
             _orderService = orderService;
         }
-        [HttpGet("getAllOrders")]
-        public async Task<ActionResult<List<OrderAssigned>>> GetAllOrders(string status = "Paid")
+        [HttpGet("getAllOrdersFromShipping")]
+        public async Task<ActionResult<List<OrderAssigned>>> GetAllOrdersFromShipping()
         {
             try
             {
-                var orders = await _shippingService.GetAllOrdersAsync(status);
+                var orders = await _shippingService.GetAllOrdersAsync();
 
                 if (orders == null || !orders.Any())
                 {

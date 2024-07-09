@@ -19,7 +19,7 @@ namespace Services.OrdersManagement
         Task<Order> GetOrderByOrderIdAsync(int orderId);
         Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);
         Task<bool> IsConfirmFinishShippingAsync(int shippingId);
-        Task<List<OrderAssigned>> GetAllOrdersAsync(string status);
+        Task<List<OrderAssigned>> GetAllOrdersAsync();
         //Task UpdateShippingAsync(Shipping shipping);
         //Task DeleteShippingAsync(int shippingId);
     }

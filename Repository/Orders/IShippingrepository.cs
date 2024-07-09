@@ -20,7 +20,7 @@ namespace Repository.Orders
         Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);                        // Staff assign cho delivery đồng thời đổi status thành "Shipping"
         Task UpdateShippingAsync(Shipping shipping);                                                    // Update Shipping
         Task<Shipping> GetShippingByOrderIdAsync(int orderId);
-        Task<List<OrderAssigned>> GetAllOrdersAsync(string status);
+        Task<List<OrderAssigned>> GetAllOrdersAsync();
         //Task UpdateAsync(Shipping shipping);
         //Task DeleteAsync(int shippingId);
         // Add more methods as needed
