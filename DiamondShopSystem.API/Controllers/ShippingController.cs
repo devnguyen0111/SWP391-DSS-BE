@@ -104,12 +104,12 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(orders);
         }
 
-        [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}")]
-        public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId)
+        [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}/{status}")]
+        public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId, string status = "Shipping")
         {
             try
             {
-                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId);
+                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
                 if (orders == null || !orders.Any())
                 {
                     return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");

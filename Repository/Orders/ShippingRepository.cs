@@ -44,8 +44,9 @@ namespace Repository.Orders
         public async Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status)
         {
             var orders = await _context.Shippings
-                .Where(s => s.SaleStaffId == saleStaffId && s.Status == status)
+                .Where(s => s.SaleStaffId == saleStaffId)
                 .Select(s => s.Order)
+                .Where(o => o.Status == status)
                 .ToListAsync();
 
             return orders;
