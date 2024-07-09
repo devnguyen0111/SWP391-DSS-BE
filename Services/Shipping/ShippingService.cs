@@ -95,9 +95,9 @@ namespace Services.OrdersManagement
             return true;
         }
 
-        public async Task<List<OrderAssigned>> GetAllOrdersAsync(string status = "Paid")
+        public async Task<List<OrderAssigned>> GetAllOrdersAsync()
         {
-            return await _shippingRepository.GetAllOrdersAsync(status);
+            return await _shippingRepository.GetAllOrdersAsyn();
         }
 
         //public async Task UpdateShippingAsync(Shipping shipping)

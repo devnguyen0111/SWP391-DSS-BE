@@ -101,14 +101,13 @@ namespace Repository.Orders
                 .FirstOrDefaultAsync(s => s.OrderId == orderId);
         }
 
-        public async Task<List<OrderAssigned>> GetAllOrdersAsync(string status = "Paid")
+        public async Task<List<OrderAssigned>> GetAllOrdersAsync()
         {
             var orders = await _context.Shippings
                 .Include(s => s.Order)
                 .Include(s => s.SaleStaff)
                 .Include(s => s.DeliveryStaff)
                 .Include(s => s.Order.ShippingMethod)
-                .Where(s => s.Order.Status == status)
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
