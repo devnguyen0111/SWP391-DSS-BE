@@ -169,7 +169,21 @@ namespace DiamondShopSystem.API.Controllers
 
         }
 
-        //[HttpGet("TopRevenueProducts")]
-                
+        [HttpGet("TopRevenueProducts")]
+        public IActionResult TopRevenueProducts()
+        {
+            List<Order> orders = _orderService.getAllOrders();
+            List<Product> products = new List<Product>();
+            foreach (Order order in orders)
+            {
+                foreach (ProductOrder productOrder in order.ProductOrders)
+                {
+                    products.Add(productOrder.Product);
+                }
+            }
+            List<Product> filteredProducts = products.Where(p => p.ProductName.Contains("ring") || p.ProductName.Contains("earrings") || p.ProductName.Contains("pendant")).ToList();
+            List<Product> topProducts = filteredProducts.GroupBy(p => p.ProductId).Select(g => g.First()).ToList();
+            return Ok(topProducts);
+        }
     }
 }
