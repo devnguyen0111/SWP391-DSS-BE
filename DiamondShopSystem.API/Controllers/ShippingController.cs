@@ -88,10 +88,10 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(saleStaffRequests);
         }
         //Assign staff the order and make the shipping
-        
+
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
-        [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}")]
+        [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}/{status}")]
         public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId, string status)
         {
             var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
