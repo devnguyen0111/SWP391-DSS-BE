@@ -143,6 +143,25 @@ namespace Repository.Orders
             return orders;
         }
 
+        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        {
+            return await _context.Shippings
+                .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
+                .Include(s => s.Order)
+                .ThenInclude(o => o.ShippingMethod)
+                .Select(s => new OrderAssigned
+                {
+                    OrderId = s.Order.OrderId,
+                    StaffId = s.SaleStaffId, 
+                    DeliveryId = s.DeliveryStaffId, 
+                    OrderDate = s.Order.OrderDate,
+                    Status = s.Order.Status, 
+                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
+                    TotalAmount = s.Order.TotalAmount 
+                }).ToListAsync();
+        }
+
+
         public class OrderAssigned
         {
             public int OrderId { get; set; }
