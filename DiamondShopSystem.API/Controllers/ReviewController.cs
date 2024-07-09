@@ -4,6 +4,7 @@ using Services.Users;
 using Services.Products;
 using DiamondShopSystem.API.DTO;
 using System.Reflection.Metadata.Ecma335;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -26,7 +27,16 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult GetReviewByProduct(int productId)
         {
             var result = _reviewService.GetReviewByProduct(productId);
-            var count = _reviewService.GetReviewByProduct(productId).Count();
+            int count;
+            if (result.IsNullOrEmpty())
+            {
+                count = 0;
+            }
+            else
+            {
+                count = _reviewService.GetReviewByProduct(productId).Count();
+            }
+            
             decimal avarageRating;
             if (result == null || result.Count == 0)
             {
