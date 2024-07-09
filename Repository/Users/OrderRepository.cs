@@ -57,9 +57,10 @@ namespace Repository.Users
 
         public async Task<List<Order>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId)
         {
-            return await _context.Orders
-                .Include(o => o.Shippings)
-                .Where(o => o.Shippings.Any(s => s.DeliveryStaffId == deliveryStaffId))
+            return await _context.Shippings
+                .Include(s => s.Order) 
+                .Where(s => s.DeliveryStaffId == deliveryStaffId)
+                .Select(s => s.Order) 
                 .ToListAsync();
         }
     }
