@@ -63,14 +63,12 @@ namespace Repository.Orders
         {
             var shipping = await _context.Shippings
                 .Include(s => s.Order)
-                .FirstOrDefaultAsync(s => s.OrderId == orderId && s.Status == "Pending");
-
+                .FirstOrDefaultAsync(s => s.OrderId == orderId && s.Status == "Approve");
             if (shipping != null)
             {
                 // Update the shipping and order status
                 shipping.DeliveryStaffId = deliveryStaffId;
                 shipping.Order.Status = "Shipping";
-
                 await _context.SaveChangesAsync();
             }
             else

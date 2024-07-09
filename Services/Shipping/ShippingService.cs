@@ -55,8 +55,6 @@ namespace Services.OrdersManagement
                 Status = status,
                 OrderId = orderId,
                 SaleStaffId = saleStaffId,
-                DeliveryStaffId = 1,                                                    // Assuming DeliveryStaffId is always 1
-
             };
 
             await _shippingRepository.CreateAsync(shipping);

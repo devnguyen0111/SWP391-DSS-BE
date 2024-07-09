@@ -50,7 +50,7 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         
-        [Authorize]
+        //[Authorize]
         [HttpGet("customer/{customerId}/history")]
         public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string? status)
         {
@@ -71,7 +71,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound(new { Message = "No orders found for the given customer ID and status." });
                 }
-                if(status == "Delivered")
+                if(status == "Delivered" || status == null)
                 {
                     var orderHistoryResponses2 = orders.Select(o => new OrderHistoryResponse
                     {
