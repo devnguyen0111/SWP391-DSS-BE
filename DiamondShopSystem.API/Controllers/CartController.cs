@@ -76,7 +76,7 @@ namespace DiamondShopSystem.API.Controllers
                         pid = c.Product.ProductId,
                         name1 = c.Product.ProductName,
                         price = _productService.GetProductTotal(c.ProductId),
-                        
+                        img = _coverMetaltypeService.GetCoverMetaltype(c.Product.CoverId,c.Product.MetaltypeId).ImgUrl,
                         quantity = c.Quantity,
                         size = _sizeService.GetSizeById((int)c.Product.SizeId).SizeValue,
                         metal = _metaltypeService.GetMetaltypeById((int)c.Product.MetaltypeId).MetaltypeName,
