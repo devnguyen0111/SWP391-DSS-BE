@@ -45,12 +45,10 @@ namespace DiamondShopSystem.API.Controllers
         [Route("createOrderFromCart")]
         public IActionResult CreateOrderFromCart([FromBody] OrderRequestCart request)
         {
-            Order o = _orderService.createOrderFromCart((int)request.CusId,(int)request.ShippingMethodId, request.deliveryAddress, request.contactNumber);
+            Order o = _orderService.createOrderFromCart((int)request.CusId, (int)request.ShippingMethodId, request.deliveryAddress, request.contactNumber);
             return Ok(o);
         }
-
-        
-        [Authorize]
+        //[Authorize]
         [HttpGet("customer/{customerId}/history")]
         public ActionResult<List<OrderHistoryResponse>> GetOrderHistory(int customerId, string? status)
         {
@@ -71,7 +69,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound(new { Message = "No orders found for the given customer ID and status." });
                 }
-                if(status == "Delivered")
+                if(status == "Delivered" || status == null)
                 {
                     var orderHistoryResponses2 = orders.Select(o => new OrderHistoryResponse
                     {
