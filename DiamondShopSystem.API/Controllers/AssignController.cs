@@ -4,26 +4,46 @@ using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.OrdersManagement;
 using Services.Users;
+using static Repository.Orders.ShippingRepository;
 
 namespace DiamondShopSystem.API.Controllers
 {
     [ApiController]
-    [Route("api/shipping")]
-    public class ShippingController : ControllerBase
+    [Route("api/[controller]")]
+    public class AssignController : ControllerBase
     {
         private readonly IShippingService _shippingService;
         private readonly IAssignOrderService _assignOrderService;
         private readonly IManagerService _managerService;
         private readonly IOrderService _orderService;
 
-        public ShippingController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService)
+        public AssignController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService)
         {
             _shippingService = shippingService;
             _assignOrderService = assignOrderService;
             _managerService = managerService;
             _orderService = orderService;
         }
+        [HttpGet("getAllOrders")]
+        public async Task<ActionResult<List<OrderAssigned>>> GetAllOrders(string status = "Paid")
+        {
+            try
+            {
+                var orders = await _shippingService.GetAllOrdersAsync(status);
 
+                if (orders == null || !orders.Any())
+                {
+                    return NotFound(new { Message = "No orders found for the given status." });
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
         [HttpGet("Shippings")]
         public async Task<ActionResult<List<Shipping>>> GetAllShipping()
         {
@@ -92,17 +112,26 @@ namespace DiamondShopSystem.API.Controllers
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
         [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}/{status}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId, string status)
+        public async Task<ActionResult<List<OrderAssigned>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId, string status)
         {
-            var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
-
-            if (orders == null || orders.Count == 0)
+            try
             {
-                return NotFound("There is no Orders match your given data!!");
-            }
+                var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
 
-            return Ok(orders);
+                if (orders == null || orders.Count == 0)
+                {
+                    return NotFound("There are no orders matching your given data.");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
         }
+
 
         [HttpGet("getOrdersByDeliveryStaffId/{deliveryStaffId}/{status}")]
         public async Task<IActionResult> GetOrdersByDeliveryStaffId(int deliveryStaffId, string status = "Shipping")

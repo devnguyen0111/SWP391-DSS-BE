@@ -41,13 +41,24 @@ namespace Repository.Orders
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status)
+        public async Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status)
         {
             var orders = await _context.Shippings
-                .Where(s => s.SaleStaffId == saleStaffId)
-                .Select(s => s.Order)
-                .Where(o => o.Status == status)
-                .ToListAsync();
+                .Include(s => s.Order)
+                .Include(s => s.SaleStaff)
+                .Include(s => s.DeliveryStaff)
+                .Include(s => s.Order.ShippingMethod)
+                .Where(s => s.SaleStaffId == saleStaffId && s.Order.Status == status)
+                .Select(s => new OrderAssigned
+                {
+                    OrderId = s.Order.OrderId,
+                    StaffName = s.SaleStaff.Name,
+                    DeliveryName = s.DeliveryStaff.Name,
+                    OrderDate = s.Order.OrderDate,
+                    Status = s.Order.Status,
+                    ShippingMethodName = s.Order.ShippingMethod.MethodName,
+                    TotalAmount = s.Order.TotalAmount
+                }).ToListAsync();
 
             return orders;
         }
@@ -88,6 +99,39 @@ namespace Repository.Orders
             return await _context.Shippings
                 .Include(s => s.Order)
                 .FirstOrDefaultAsync(s => s.OrderId == orderId);
+        }
+
+        public async Task<List<OrderAssigned>> GetAllOrdersAsync(string status = "Paid")
+        {
+            var orders = await _context.Shippings
+                .Include(s => s.Order)
+                .Include(s => s.SaleStaff)
+                .Include(s => s.DeliveryStaff)
+                .Include(s => s.Order.ShippingMethod)
+                .Where(s => s.Order.Status == status)
+                .Select(s => new OrderAssigned
+                {
+                    OrderId = s.Order.OrderId,
+                    StaffName = s.SaleStaff.Name,
+                    DeliveryName = s.DeliveryStaff.Name,
+                    OrderDate = s.Order.OrderDate,
+                    Status = s.Order.Status,
+                    ShippingMethodName = s.Order.ShippingMethod.MethodName,
+                    TotalAmount = s.Order.TotalAmount
+                }).ToListAsync();
+
+            return orders;
+        }
+
+        public class OrderAssigned
+        {
+            public int OrderId { get; set; }
+            public string StaffName { get; set; }
+            public string DeliveryName { get; set; }
+            public DateTime OrderDate { get; set; }
+            public string Status { get; set; }
+            public decimal TotalAmount { get; set; }
+            public string ShippingMethodName { get; set; }
         }
 
         //public async Task DeleteAsync(int shippingId)
