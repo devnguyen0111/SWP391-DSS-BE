@@ -92,10 +92,8 @@ namespace DiamondShopSystem.API.Controllers
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
         [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}")]
-        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId)
+        public async Task<ActionResult<List<Order>>> GetOrdersBySaleStaffIdAndStatus(int saleStaffId, string status)
         {
-            string status = "Pending";
-
             var orders = await _shippingService.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
 
             if (orders == null || orders.Count == 0)
