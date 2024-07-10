@@ -96,9 +96,9 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("No sales staff found for the given manager ID.");
             }
 
-            var saleStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
+            var saleStaffRequests = saleStaffs.Select(s => new StaffRequest
             {
-                SStaffId = s.SStaffId,
+                StaffId = s.SStaffId,
                 Name = s.Name,
                 Phone = s.Phone,
                 Email = s.Email,
@@ -107,6 +107,79 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(saleStaffRequests);
         }
+
+        [HttpGet("deliveryStaffListByManagerId/{managerId}")]
+        public IActionResult GetDeliveryStaffBySaleStaffId(int managerId)
+        {
+            var deliveryStaffs = _assignOrderService.GetDeliveryStaffByManagerId(managerId);
+
+            if (_managerService.GetManagerById(managerId) == null)
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            if (deliveryStaffs == null || !deliveryStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var deliveryStaffRequests = deliveryStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.DStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = "",
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(deliveryStaffRequests);
+        }
+
+        [HttpGet("getAllSaleStaff")]
+        public IActionResult GetAllSaleStaff()
+        {
+            var saleStaffs = _assignOrderService.GetAllSaleStaff();
+
+            if (saleStaffs == null || !saleStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var saleStaffStaffRequests = saleStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.SStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = s.Email,
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(saleStaffStaffRequests);
+        }
+
+        [HttpGet("getAllDeliveryStaff")]
+        public IActionResult GetAllDeliveryStaff()
+        {
+            var deliveryStaffs = _assignOrderService.GetAllDeliveryStaff();
+
+            if (deliveryStaffs == null || !deliveryStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var deliveryStaffRequests = deliveryStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.DStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = "",
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(deliveryStaffRequests);
+        }
+
+        
         //Assign staff the order and make the shipping
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
         [HttpGet("ordersFromSaleStaffId/{saleStaffId}")]

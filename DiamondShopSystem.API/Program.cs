@@ -49,6 +49,7 @@ builder.Services.AddScoped<IPaypalRepository, PaypalRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 builder.Services.AddScoped<ISaleStaffRepository, SaleStaffRepository>();
+builder.Services.AddScoped<IDeliveryStaffRepository, DeliveryStaffRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
