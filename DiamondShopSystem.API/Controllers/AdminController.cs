@@ -185,5 +185,8 @@ namespace DiamondShopSystem.API.Controllers
             List<Product> topProducts = filteredProducts.GroupBy(p => p.ProductId).Select(g => g.First()).ToList();
             return Ok(topProducts);
         }
+
+
+
     }
 }
