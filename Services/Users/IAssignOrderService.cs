@@ -10,6 +10,9 @@ namespace Services.Users
     public interface IAssignOrderService
     {
         IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId);
+        IEnumerable<SaleStaff> GetAllSaleStaff();
+        IEnumerable<DeliveryStaff> GetDeliveryStaffByManagerId(int managerId);
+        IEnumerable<DeliveryStaff> GetAllDeliveryStaff();
         void AssignOrderToStaff(int staffId, int orderId);
     }
 

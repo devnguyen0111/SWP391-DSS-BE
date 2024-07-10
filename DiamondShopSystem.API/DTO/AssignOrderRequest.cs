@@ -1,8 +1,8 @@
 ﻿namespace DiamondShopSystem.API.DTO
 {
-    public class SaleStaffRequest
+    public class StaffRequest
     {
-        public int? SStaffId { get; set; }
+        public int? StaffId { get; set; }
 
         public string? Name { get; set; }
 
