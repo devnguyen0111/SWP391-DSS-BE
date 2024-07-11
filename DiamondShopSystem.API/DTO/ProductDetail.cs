@@ -4,9 +4,9 @@
     {
         public int ProductId { get; set; }
         public string imgUrl { get; set; }
-
+        public string? CoverStatus { get; set; }
+        public string ?DiamondStatus { get; set; }
         public string? ProductName { get; set; }
-
         public decimal? UnitPrice { get; set; }
         public string? DiamondName { get; set; }
         public string? CoverName { get; set; }

@@ -10,6 +10,8 @@ namespace Services.Products
         void UpdateCover(Cover cover);
         void DeleteCover(int coverId);
         bool CombinationExists(int coverId, int sizeId, int metaltypeId);
+        string DetermineCoverStatus(int coverId);
+        string DetermineCoverStatus1(Cover cover);
     }
 
 }

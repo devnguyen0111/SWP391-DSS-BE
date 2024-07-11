@@ -5,6 +5,7 @@
         public int coverId {  get; set; }
         public int categoryId { get; set; }
         public string name {  get; set; }
+        public string status { get; set; }
         public decimal prices { get; set; }
         public string? url { get; set; }
         public List<CoverReponseMetal>? metals { get; set; }

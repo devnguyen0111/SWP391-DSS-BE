@@ -44,6 +44,29 @@ namespace Services.Products
         {
             _coverRepository.DeleteCover(coverId);
         }
+        public string DetermineCoverStatus(int coverId)
+        {
+            
+            var cover =_coverRepository.GetCoverById(coverId);
+            if (StringUltis.AreEqualIgnoreCase(cover.Status, "Unavailable"))
+            {
+                return "Unavailable";
+            }
+            bool isAvailable = cover.CoverSizes.Any(cs => cs.Status == "Available") ||
+                          cover.CoverMetaltypes.Any(cm => cm.Status == "Available");
+            return isAvailable ? "Available" : "Unavailable";
+        }
+        public string DetermineCoverStatus1(Cover cover)
+        {
+
+            if (StringUltis.AreEqualIgnoreCase(cover.Status, "Unavailable"))
+            {
+                return "Unavailable";
+            }
+            bool isAvailable = cover.CoverSizes.Any(cs => cs.Status == "Available") ||
+                          cover.CoverMetaltypes.Any(cm => cm.Status == "Available");
+            return isAvailable ? "Available" : "Unavailable";
+        }
     }
 
 }
