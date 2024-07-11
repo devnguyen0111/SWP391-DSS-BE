@@ -26,11 +26,13 @@ namespace Repository.Products
         public void AddCover(Cover cover)
         {
             _context.Covers.Add(cover);
+            _context.SaveChanges();
         }
 
         public void UpdateCover(Cover cover)
         {
             _context.Entry(cover).State = EntityState.Modified;
+            _context.SaveChanges();
         }
 
         public void DeleteCover(int coverId)
@@ -38,7 +40,8 @@ namespace Repository.Products
             var cover = _context.Covers.Find(coverId);
             if (cover != null)
             {
-                _context.Covers.Remove(cover);
+                cover.Status = "Disabled";
+                UpdateCover(cover);
             }
         }
 

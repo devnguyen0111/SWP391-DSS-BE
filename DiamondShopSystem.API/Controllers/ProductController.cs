@@ -40,6 +40,7 @@ namespace DiamondShopSystem.API.Controllers
                     ProductId = c.ProductId,
                     ProductName = c.ProductName,
                     PP = c.Pp,
+                    status = c.Cover.Status,
                     UnitPrice = c.UnitPrice
                 };
             }).ToList();
@@ -213,7 +214,11 @@ namespace DiamondShopSystem.API.Controllers
                 SizeId = request.SizeId,
                 Pp = request.Pp
             };
-
+            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
+            if (producthaha != null)
+            {
+                return BadRequest("Product with these combinations already exist!");
+            }
             _productService.AddProduct(product);
             return Ok(product);
         }

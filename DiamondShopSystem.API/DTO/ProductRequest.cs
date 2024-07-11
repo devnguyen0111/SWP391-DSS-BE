@@ -6,7 +6,7 @@ namespace DiamondShopSystem.API.DTO
     {
         public int ProductId { get; set; }
         public string imgUrl { get; set; }
-
+        public string status { get; set; }
         public string ProductName { get; set; }
         public string PP {  get; set; }
 
