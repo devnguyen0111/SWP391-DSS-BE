@@ -35,7 +35,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 CoverId = c.CoverId,
                 CoverName = c.CoverName,
-                Status = c.Status,
+                Status = _coverService.DetermineCoverStatus(c.CoverId),
                 UnitPrice = c.UnitPrice,
                 SubCategoryId = c.SubCategoryId,
                 CategoryId = c.CategoryId,
@@ -79,6 +79,7 @@ namespace DiamondShopSystem.API.Controllers
                 coverId = cover.CoverId,
                 categoryId =cover.CategoryId ,
                 name = cover.CoverName,
+                status = _coverService.DetermineCoverStatus(cover.CoverId), 
                 prices = (decimal)cover.UnitPrice,
                 metals = (List<CoverReponseMetal>)c,
                 sizes = (List<CoverResponeSize>)s,
@@ -116,7 +117,7 @@ namespace DiamondShopSystem.API.Controllers
             return Ok("Cover add successfully");
         }
 
-        [HttpPut("UpdateProduct")]
+        [HttpPut("UpdateCover")]
         public IActionResult PutCover(int id,CoverUpdateDTO coverUpdateDto)
         {
             var cover = new Cover
@@ -144,6 +145,8 @@ namespace DiamondShopSystem.API.Controllers
             }
             try
             {
+               string status1 = _coverService.DetermineCoverStatus1(cover);
+                cover.Status = status1;
                 _coverService.UpdateCover(cover);
             }
             catch (DbUpdateConcurrencyException)
@@ -157,13 +160,13 @@ namespace DiamondShopSystem.API.Controllers
                     throw;
                 }
             }
-
+            string status = _coverService.DetermineCoverStatus(cover.CoverId);
             return Ok("Cover updated successfully!");
         }
 
 
         [HttpPut("SwitchCoverStatus")]
-        public IActionResult DisableCover(int id)
+        public IActionResult SwitchCoverStatus(int id)
         {
             var cover = _coverService.GetCoverById(id);
             if (cover == null)
@@ -172,6 +175,10 @@ namespace DiamondShopSystem.API.Controllers
             }
             if (StringUltis.AreEqualIgnoreCase(cover.Status, "available"))
             {
+                if (_coverService.DetermineCoverStatus(id)=="Unavailable")
+                {
+                    return BadRequest("No CoverSizes or(and) CoverMetalTypes are available");
+                }
                 cover.Status = "Disabled";
             }
             else

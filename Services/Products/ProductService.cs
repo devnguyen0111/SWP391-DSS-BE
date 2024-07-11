@@ -263,7 +263,7 @@ namespace Services.Products
                     .Take(pageSize.Value);
             }
 
-            return filteredProducts.ToList();
+            return filteredProducts.Where(c => c.Pp != "custom").ToList();
         }
 
 

@@ -67,6 +67,8 @@ namespace DiamondShopSystem.API.Controllers
             {
                 ProductId = product.ProductId,
                 imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
+                CoverStatus = _coverService.DetermineCoverStatus(product.CoverId),
+                DiamondStatus = "Available",
                 ProductName = product.ProductName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
