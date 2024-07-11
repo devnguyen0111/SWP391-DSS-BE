@@ -67,6 +67,10 @@ namespace Services.OrdersManagement
         {
             return await _shippingRepository.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
         }
+        public async Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAsync(int saleStaffId)
+        {
+            return await _shippingRepository.GetOrdersBySaleStaffIdAsync(saleStaffId);
+        }
 
         public async Task<Order> GetOrderByOrderIdAsync(int orderId)
         {
@@ -94,10 +98,13 @@ namespace Services.OrdersManagement
             await _shippingRepository.UpdateShippingAsync(shipping);
             return true;
         }
-
+        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        {
+            return await _shippingRepository.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
+        }
         public async Task<List<OrderAssigned>> GetAllOrdersAsync()
         {
-            return await _shippingRepository.GetAllOrdersAsyn();
+            return await _shippingRepository.GetAllOrdersAsync();
         }
 
         //public async Task UpdateShippingAsync(Shipping shipping)

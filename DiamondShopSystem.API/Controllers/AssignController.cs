@@ -96,9 +96,9 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("No sales staff found for the given manager ID.");
             }
 
-            var saleStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
+            var saleStaffRequests = saleStaffs.Select(s => new StaffRequest
             {
-                SStaffId = s.SStaffId,
+                StaffId = s.SStaffId,
                 Name = s.Name,
                 Phone = s.Phone,
                 Email = s.Email,
@@ -107,8 +107,101 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(saleStaffRequests);
         }
-        //Assign staff the order and make the shipping
 
+        [HttpGet("deliveryStaffListByManagerId/{managerId}")]
+        public IActionResult GetDeliveryStaffBySaleStaffId(int managerId)
+        {
+            var deliveryStaffs = _assignOrderService.GetDeliveryStaffByManagerId(managerId);
+
+            if (_managerService.GetManagerById(managerId) == null)
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            if (deliveryStaffs == null || !deliveryStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var deliveryStaffRequests = deliveryStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.DStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = "",
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(deliveryStaffRequests);
+        }
+
+        [HttpGet("getAllSaleStaff")]
+        public IActionResult GetAllSaleStaff()
+        {
+            var saleStaffs = _assignOrderService.GetAllSaleStaff();
+
+            if (saleStaffs == null || !saleStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var saleStaffStaffRequests = saleStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.SStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = s.Email,
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(saleStaffStaffRequests);
+        }
+
+        [HttpGet("getAllDeliveryStaff")]
+        public IActionResult GetAllDeliveryStaff()
+        {
+            var deliveryStaffs = _assignOrderService.GetAllDeliveryStaff();
+
+            if (deliveryStaffs == null || !deliveryStaffs.Any())
+            {
+                return BadRequest("No sales staff found for the given manager ID.");
+            }
+
+            var deliveryStaffRequests = deliveryStaffs.Select(s => new StaffRequest
+            {
+                StaffId = s.DStaffId,
+                Name = s.Name,
+                Phone = s.Phone,
+                Email = "",
+                ManagerId = s.ManagerId
+            }).ToList();
+
+            return Ok(deliveryStaffRequests);
+        }
+
+        
+        //Assign staff the order and make the shipping
+        //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
+        [HttpGet("ordersFromSaleStaffId/{saleStaffId}")]
+        public async Task<ActionResult<List<OrderAssigned>>> GetOrdersBySaleStaffId(int saleStaffId)
+        {
+            try
+            {
+                var orders = await _shippingService.GetOrdersBySaleStaffIdAsync(saleStaffId);
+
+                if (orders == null || orders.Count == 0)
+                {
+                    return NotFound("There are no orders matching your given data.");
+                }
+
+                return Ok(orders);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception (you can use a logging framework for this)
+                return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
+            }
+        }
 
         //Get orders in the shipping table base on the saleStaffId, let the staff see what are their Orders
         [HttpGet("ordersFromSaleStaffIdAndStatus/{saleStaffId}/{status}")]
@@ -138,7 +231,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             try
             {
-                var orders = await _orderService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
+                var orders = await _shippingService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
                 if (orders == null || !orders.Any())
                 {
                     return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");

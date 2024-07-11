@@ -52,11 +52,32 @@ namespace Repository.Orders
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
-                    StaffId = s.SaleStaff.SStaffId,
-                    DeliveryId = s.DeliveryStaff.DStaffId,
+                    StaffId = s.SaleStaff != null ? s.SaleStaff.SStaffId : (int?)null,
+                    DeliveryId = s.DeliveryStaff != null ? s.DeliveryStaff.DStaffId : (int?)null,
                     OrderDate = s.Order.OrderDate,
                     Status = s.Order.Status,
-                    ShippingMethodName = s.Order.ShippingMethod.MethodName,
+                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
+                    TotalAmount = s.Order.TotalAmount
+                }).ToListAsync();
+
+            return orders;
+        }
+        public async Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAsync(int saleStaffId)
+        {
+            var orders = await _context.Shippings
+                .Include(s => s.Order)
+                .Include(s => s.SaleStaff)
+                .Include(s => s.DeliveryStaff)
+                .Include(s => s.Order.ShippingMethod)
+                .Where(s => s.SaleStaffId == saleStaffId)
+                .Select(s => new OrderAssigned
+                {
+                    OrderId = s.Order.OrderId,
+                    StaffId = s.SaleStaff != null ? s.SaleStaff.SStaffId : (int?)null,
+                    DeliveryId = s.DeliveryStaff != null ? s.DeliveryStaff.DStaffId : (int?)null,
+                    OrderDate = s.Order.OrderDate,
+                    Status = s.Order.Status,
+                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
                     TotalAmount = s.Order.TotalAmount
                 }).ToListAsync();
 
@@ -111,22 +132,41 @@ namespace Repository.Orders
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
-                    StaffId = s.SaleStaff.SStaffId,
-                    DeliveryId = s.DeliveryStaff.DStaffId,
+                    StaffId = s.SaleStaff != null ? s.SaleStaff.SStaffId : (int?)null,
+                    DeliveryId = s.DeliveryStaff != null ? s.DeliveryStaff.DStaffId : (int?)null,
                     OrderDate = s.Order.OrderDate,
                     Status = s.Order.Status,
-                    ShippingMethodName = s.Order.ShippingMethod.MethodName,
+                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
                     TotalAmount = s.Order.TotalAmount
                 }).ToListAsync();
 
             return orders;
         }
 
+        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        {
+            return await _context.Shippings
+                .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
+                .Include(s => s.Order)
+                .ThenInclude(o => o.ShippingMethod)
+                .Select(s => new OrderAssigned
+                {
+                    OrderId = s.Order.OrderId,
+                    StaffId = s.SaleStaffId, 
+                    DeliveryId = s.DeliveryStaffId, 
+                    OrderDate = s.Order.OrderDate,
+                    Status = s.Order.Status, 
+                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
+                    TotalAmount = s.Order.TotalAmount 
+                }).ToListAsync();
+        }
+
+
         public class OrderAssigned
         {
             public int OrderId { get; set; }
-            public int StaffId { get; set; }
-            public int DeliveryId { get; set; }
+            public int? StaffId { get; set; }
+            public int? DeliveryId { get; set; }
             public DateTime OrderDate { get; set; }
             public string Status { get; set; }
             public decimal TotalAmount { get; set; }
