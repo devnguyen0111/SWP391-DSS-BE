@@ -1,7 +1,10 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.Products;
+using Services.Utility;
+using System.Linq;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -24,12 +27,22 @@ namespace DiamondShopSystem.API.Controllers
             _sizeService = sizeService;
         }
 
-        [HttpGet("getAllCover")]
-        public IActionResult GetAllCovers()
+        [HttpGet("getAllCovers")]
+        public ActionResult<IEnumerable<CoverDTO>> GetCovers()
         {
             var covers = _coverService.GetAllCovers();
-            return Ok(covers);
+            var coverDTOs = covers.Select(c => new CoverDTO
+            {
+                CoverId = c.CoverId,
+                CoverName = c.CoverName,
+                Status = c.Status,
+                UnitPrice = c.UnitPrice,
+                SubCategoryId = c.SubCategoryId,
+                CategoryId = c.CategoryId,
+            }).ToList();
+            return Ok(coverDTOs);
         }
+
         //forcustomer
         [HttpGet("getCoverDetail")]
         public IActionResult GetCoverById(int id)
@@ -73,56 +86,113 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(cr);
         }
 
-        [HttpPost]
-        public IActionResult AddCover([FromBody] Cover cover)
+        [HttpPost("addCover")]
+        public ActionResult<CoverDTO> PostCover(CoverUpdateDTO coverUpdateDto)
         {
-            if (cover == null)
+            var covers = _coverService.GetAllCovers();
+            if(covers.Any(c => StringUltis.AreEqualIgnoreCase(c.CoverName,coverUpdateDto.CoverName)) )
             {
-                return BadRequest();
+                string name = coverUpdateDto.CoverName;
+                return BadRequest(name+" already exist!");
             }
+            var cover = new Cover
+            {
+                CoverName = coverUpdateDto.CoverName,
+                Status = coverUpdateDto.Status,
+                UnitPrice = coverUpdateDto.UnitPrice,
+                CoverSizes = coverUpdateDto.CoverSizes.Select(cs => new CoverSize
+                {
+                    SizeId = cs.SizeId,
+                    Status = cs.Status
+                }).ToList(),
+                CoverMetaltypes = coverUpdateDto.CoverMetaltypes.Select(cm => new CoverMetaltype
+                {
+                    MetaltypeId = cm.MetaltypeId,
+                    Status = cm.Status,
+                    ImgUrl = cm.ImgUrl
+                }).ToList()
+            };
             _coverService.AddCover(cover);
-            return CreatedAtAction(nameof(GetCoverById), new { id = cover.CoverId }, cover);
+            return Ok("Cover add successfully");
         }
 
-        [HttpPut("{id}")]
-        public IActionResult UpdateCover(int id, [FromBody] Cover cover)
+        [HttpPut("UpdateProduct")]
+        public IActionResult PutCover(int id,CoverUpdateDTO coverUpdateDto)
         {
-            if (cover == null || cover.CoverId != id)
+            var cover = new Cover
             {
-                return BadRequest();
-            }
-            var existingCover = _coverService.GetCoverById(id);
-            if (existingCover == null)
+                CoverName = coverUpdateDto.CoverName,
+                Status = coverUpdateDto.Status,
+                UnitPrice = coverUpdateDto.UnitPrice,
+                CoverSizes = coverUpdateDto.CoverSizes.Select(cs => new CoverSize
+                {
+                    SizeId = cs.SizeId,
+                    Status = cs.Status
+                }).ToList(),
+                CoverMetaltypes = coverUpdateDto.CoverMetaltypes.Select(cm => new CoverMetaltype
+                {
+                    MetaltypeId = cm.MetaltypeId,
+                    Status = cm.Status,
+                    ImgUrl = cm.ImgUrl
+                }).ToList()
+            };
+            var covers = _coverService.GetAllCovers();
+            if (covers.Any(c => StringUltis.AreEqualIgnoreCase(c.CoverName, coverUpdateDto.CoverName)))
             {
-                return NotFound();
+                string name = coverUpdateDto.CoverName;
+                return BadRequest("The name "+name + " already exist!");
             }
-            _coverService.UpdateCover(cover);
-            return NoContent();
+            try
+            {
+                _coverService.UpdateCover(cover);
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (_coverService.GetCoverById(id) == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return Ok("Cover updated successfully!");
         }
 
-        [HttpDelete("{id}")]
-        public IActionResult DeleteCover(int id)
+
+        [HttpPut("SwitchCoverStatus")]
+        public IActionResult DisableCover(int id)
         {
             var cover = _coverService.GetCoverById(id);
             if (cover == null)
             {
                 return NotFound();
             }
-            _coverService.DeleteCover(id);
+            if (StringUltis.AreEqualIgnoreCase(cover.Status, "available"))
+            {
+                cover.Status = "Disabled";
+            }
+            else
+            {
+                cover.Status = "Available";
+            }
+            _coverService.UpdateCover(cover);
             return NoContent();
         }
 
         [HttpGet]
         [Route("getAllCoverWithFilter")]
-        public IActionResult GetCoversByFilter(
+      public IActionResult GetCoversByFilter(
       [FromQuery] string? status,
       [FromQuery] int? categoryId,
       [FromQuery] int? subCategoryId,
       [FromQuery] string? sortOrder,
       [FromQuery] decimal? minUnitPrice,
       [FromQuery] decimal? maxUnitPrice,
-      [FromQuery] int pageNumber,
-      [FromQuery] int pageSize,
+      [FromQuery] int? pageNumber,
+      [FromQuery] int ?pageSize,
     [FromQuery] List<int>? sizeIds,
     [FromQuery] List<int>? metaltypeIds)
         {
@@ -184,10 +254,12 @@ namespace DiamondShopSystem.API.Controllers
                     filteredCovers1.OrderByDescending(d => d.prices) :
                     filteredCovers1.OrderBy(d => d.prices);
             }
-
-            filteredCovers1 = filteredCovers1
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize);
+            if (pageNumber != null && pageSize != null)
+            {
+                filteredCovers1 = filteredCovers1
+                    .Skip((int)((pageNumber - 1) * pageSize))
+                    .Take((int)pageSize);
+            }
 
             return Ok(filteredCovers1.ToList());
         }

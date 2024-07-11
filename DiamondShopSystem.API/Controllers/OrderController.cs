@@ -278,11 +278,12 @@ namespace DiamondShopSystem.API.Controllers
 
         [HttpGet]
         [Route("getAllOrders")]
-        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string status = "Paid")
+        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string? status = "Paid")
         {
             try
             {
                 var orders = new List<Order>();
+
                 orders = _orderService.getAllOrders();
 
                 if (orders == null || !orders.Any())

@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using Repository.Products;
+using Services.Utility;
 
 namespace Services.Products
 {
@@ -15,9 +16,15 @@ namespace Services.Products
         //for customer
         public IEnumerable<Cover> GetAllCovers()
         {
-            return _coverRepository.GetAllCovers().Where(c => c.Status.ToLower()=="available");
+            return _coverRepository.GetAllCovers();
         }
+        public bool CombinationExists(int coverId, int sizeId, int metaltypeId)
+        {
+            var cover = _coverRepository.GetCoverById(coverId);
+            if (cover == null) return false;
 
+            return cover.CoverSizes.Any(cs => cs.SizeId == sizeId) && cover.CoverMetaltypes.Any(cm => cm.MetaltypeId == metaltypeId);
+        }
         public Cover GetCoverById(int coverId)
         {
             return _coverRepository.GetCoverById(coverId);
@@ -26,19 +33,16 @@ namespace Services.Products
         public void AddCover(Cover cover)
         {
             _coverRepository.AddCover(cover);
-            _coverRepository.Save();
         }
 
         public void UpdateCover(Cover cover)
         {
             _coverRepository.UpdateCover(cover);
-            _coverRepository.Save();
         }
 
         public void DeleteCover(int coverId)
         {
             _coverRepository.DeleteCover(coverId);
-            _coverRepository.Save();
         }
     }
 
