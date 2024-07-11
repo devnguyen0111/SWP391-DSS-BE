@@ -8,6 +8,7 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
+using static Repository.Orders.ShippingRepository;
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
@@ -34,6 +35,7 @@ namespace DiamondShopSystem.API.Controllers
             _coverMetaltypeService = coverMetaltypeService;
             _reviewService = i;
         }
+
         [HttpPost]
         [Route("createOrderDirecly")]
         public IActionResult CreateOrder([FromBody] OrderRequest request)

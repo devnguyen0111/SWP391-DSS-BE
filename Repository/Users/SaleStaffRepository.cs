@@ -21,6 +21,10 @@ namespace Repository.Users
         {
             return _context.SaleStaffs.Where(s => s.ManagerId == managerId).ToList();
         }
+        public IEnumerable<SaleStaff> GetAllSaleStaff()
+        {
+            return _context.SaleStaffs.ToList();
+        }
 
         public SaleStaff GetSaleStaffById(int id)
         {

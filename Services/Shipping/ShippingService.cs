@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Repository.Orders.ShippingRepository;
 using static Services.OrdersManagement.IShippingService;
 
 namespace Services.OrdersManagement
@@ -62,9 +63,13 @@ namespace Services.OrdersManagement
             return shipping;
         }
 
-        public async Task<List<Order>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status)
+        public async Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status)
         {
             return await _shippingRepository.GetOrdersBySaleStaffIdAndStatusAsync(saleStaffId, status);
+        }
+        public async Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAsync(int saleStaffId)
+        {
+            return await _shippingRepository.GetOrdersBySaleStaffIdAsync(saleStaffId);
         }
 
         public async Task<Order> GetOrderByOrderIdAsync(int orderId)
@@ -92,6 +97,14 @@ namespace Services.OrdersManagement
 
             await _shippingRepository.UpdateShippingAsync(shipping);
             return true;
+        }
+        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        {
+            return await _shippingRepository.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
+        }
+        public async Task<List<OrderAssigned>> GetAllOrdersAsync()
+        {
+            return await _shippingRepository.GetAllOrdersAsync();
         }
 
         //public async Task UpdateShippingAsync(Shipping shipping)
