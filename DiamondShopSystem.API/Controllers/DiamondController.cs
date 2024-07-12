@@ -176,6 +176,9 @@ namespace DiamondShopSystem.API.Controllers
             {
                 filteredDiamonds = filteredDiamonds.Where(d => d.Price <= maxPrice.Value);
             }
+            int totalDiamonds = filteredDiamonds.Count();
+
+            int totalPages = (int)Math.Ceiling(totalDiamonds / (double)pageSize);
 
             if (!string.IsNullOrEmpty(sortOrder))
             {
@@ -194,8 +197,12 @@ namespace DiamondShopSystem.API.Controllers
         .Skip((pageNumber - 1) * pageSize)
         .Take(pageSize)
         .ToList();
-
-            return Ok(paginatedDiamonds);
+            var result = new
+            {
+                TotalPages = totalPages,
+                Diamonds = paginatedDiamonds
+            };
+            return Ok(result);
         }
     }
 }

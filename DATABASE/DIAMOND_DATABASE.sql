@@ -8,7 +8,8 @@ CREATE TABLE Size (
     sizeId INT IDENTITY PRIMARY KEY,
     sizeName VARCHAR(255) NOT NULL,
     sizeValue VARCHAR(255) NOT NULL,
-	sizePrice Money
+	sizePrice Money,
+	--status varchar(50)
 );
 GO
 -- Table: MetalType
@@ -16,6 +17,7 @@ CREATE TABLE Metaltype (
     metaltypeId INT IDENTITY PRIMARY KEY,
     metaltypeName VARCHAR(255) NOT NULL,
     metaltypePrice Money
+    --status varchar(50)
 );
 GO
 -- Table: Category
