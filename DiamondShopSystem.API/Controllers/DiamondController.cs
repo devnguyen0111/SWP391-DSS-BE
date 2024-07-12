@@ -43,16 +43,24 @@ namespace DiamondShopSystem.API.Controllers
             return diamond;
         }
 
-        /*[HttpPost]
+       [HttpPost]
          public ActionResult<Diamond> PostDiamomnd([FromBody] DTO.DiamondRequest diamond)
          {
-             var newDiamond = new Diamond(diamond.DiamondName, diamond.CaratWeight, diamond.Color, diamond.Clarity, diamond.Cut, diamond.Shape, diamond.Price);
+            var diamond1 = new Diamond
+            {
+                DiamondName = diamond.DiamondName,
+                CaratWeight = diamond.CaratWeight,
+                Clarity = diamond.Clarity,
+                Color = diamond.Color,
+                Cut = diamond.Cut,
+                Price = diamond.Price,
+                Shape = diamond.Shape,
+            };
+            _diamondService.AddDiamond(diamond1);
+           return Ok(diamond1);
+        }
 
-            _diamondService.AddDiamond(newDiamond);
-           return Ok(newDiamond);
-        }*/
-
-        /*        [HttpPut("{id}")]
+               [HttpPut("{id}")]
                 public IActionResult PutDiamond(int id, [FromBody] Diamond diamondDTO)
                 {
                     if (id != diamondDTO.DiamondId)
@@ -78,7 +86,6 @@ namespace DiamondShopSystem.API.Controllers
                     }
 
                     return NoContent();
-                }*/
 
         [HttpDelete("{id}")]
         public IActionResult DeleteDiamond(int id)

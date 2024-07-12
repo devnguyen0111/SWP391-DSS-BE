@@ -4,6 +4,7 @@
     {
         public int ProductId { get; set; }
         public string imgUrl { get; set; }
+        public int categoryId { get; set; }
         public string? CoverStatus { get; set; }
         public string ?DiamondStatus { get; set; }
         public string? ProductName { get; set; }
