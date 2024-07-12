@@ -25,7 +25,10 @@ namespace Services.Products
             _productRepository = r;
         }
 
-
+        public Category GetCategoryById(int categoryId)
+        {
+            return _productRepository.GetCategoryById(categoryId);
+        }
         public List<Product> GetAllProducts()
         {
             return _productRepository.GetAllProducts();

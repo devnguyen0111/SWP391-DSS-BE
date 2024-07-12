@@ -31,6 +31,10 @@ namespace Repository.Products
                 .Include(p => p.Size)
                 .FirstOrDefault(p => p.ProductId == productId);
         }
+        public Category GetCategoryById(int categoryId)
+        {
+            return _context.Categories.FirstOrDefault( c=> c.CategoryId==categoryId);
+        }
 
         public Product AddProduct(Product product)
         {
