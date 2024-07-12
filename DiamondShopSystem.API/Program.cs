@@ -82,6 +82,7 @@ builder.Services.AddScoped<IWishlistService, WishlistService>();
 
 
 //Custom policy
+
 builder.Services.AddSingleton<IAuthorizationHandler, CustomJwtHandler>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization(options =>

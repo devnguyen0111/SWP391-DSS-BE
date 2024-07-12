@@ -8,5 +8,7 @@
         void SendAttachment(string request);
         void SendResetLink(string request, string url);
         void SendGIA(string request);
+        byte[] GeneratePdfFromHtml(string htmlTemplate, Dictionary<string, string> replacements);
+        void SendEmailWithAttachment(Email requestedEmail, byte[] attachmentBytes, string attachmentName);
     }
 }

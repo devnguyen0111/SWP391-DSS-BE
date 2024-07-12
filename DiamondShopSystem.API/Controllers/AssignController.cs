@@ -1,10 +1,19 @@
 ﻿using DiamondShopSystem.API.DTO;
+using iTextSharp.text.pdf;
+using iTextSharp.tool.xml.html;
+using iTextSharp.tool.xml.parser;
+using iTextSharp.tool.xml.pipeline.css;
+using iTextSharp.tool.xml.pipeline.end;
+using iTextSharp.tool.xml.pipeline.html;
+using iTextSharp.tool.xml;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
+using Services.EmailServices;
 using Services.OrdersManagement;
 using Services.Users;
 using static Repository.Orders.ShippingRepository;
+using iTextSharp.text;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -16,13 +25,45 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IAssignOrderService _assignOrderService;
         private readonly IManagerService _managerService;
         private readonly IOrderService _orderService;
+        private readonly IEmailService _emailService;
 
-        public AssignController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService)
+        public AssignController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService,IEmailService e)
         {
             _shippingService = shippingService;
             _assignOrderService = assignOrderService;
             _managerService = managerService;
             _orderService = orderService;
+            _emailService = e;
+        }
+        [HttpPost("SendPdf")]
+        public IActionResult GeneratePdf([FromBody] HtmlContentModel model)
+        {
+            byte[] pdfBytes;
+            using (var ms = new MemoryStream())
+            {
+                var document = new Document();
+                PdfWriter writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+                using (var strReader = new StringReader(model.HtmlContent))
+                {
+                    HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+                    htmlContext.SetTagFactory(Tags.GetHtmlTagProcessorFactory());
+
+                    ICSSResolver cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(false);
+                    // Add CSS if necessary
+                    // cssResolver.AddCssFile("path_to_css_file", true);
+
+                    IPipeline pipeline = new CssResolverPipeline(cssResolver, new HtmlPipeline(htmlContext, new PdfWriterPipeline(document, writer)));
+                    var worker = new XMLWorker(pipeline, true);
+                    var xmlParse = new XMLParser(true, worker);
+                    xmlParse.Parse(strReader);
+                    xmlParse.Flush();
+                }
+                document.Close();
+                pdfBytes = ms.ToArray();
+            }
+            return Ok(pdfBytes);
+            //return File(pdfBytes, "application/pdf", "generated.pdf");
         }
         [HttpGet("getAllOrdersFromShipping")]
         public async Task<ActionResult<List<OrderAssigned>>> GetAllOrdersFromShipping()

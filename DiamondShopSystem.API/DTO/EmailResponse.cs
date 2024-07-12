@@ -6,4 +6,8 @@
 
         public string Url { get; set; }
     }
+    public class HtmlContentModel
+    {
+        public string HtmlContent { get; set; }
+    }
 }
