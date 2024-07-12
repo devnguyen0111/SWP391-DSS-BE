@@ -10,7 +10,7 @@ namespace Services.Utility
     {
         public static bool AreEqualIgnoreCase(string str1, string str2)
         {
-            return StringComparer.OrdinalIgnoreCase.Equals(str1, str2);
+            return str1.ToLower().Equals(str2.ToLower());
         }
     }
 }
