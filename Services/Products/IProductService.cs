@@ -34,5 +34,6 @@ namespace Services.Products
         Product GetExistingProduct(int coverId, int diamondId, int metaltypeId, int sizeId);
         Product UpdateProduct(Product produdct);
         Product AddProduct(Product produdct);
+        Category GetCategoryById(int categoryId);
     }
 }
