@@ -43,49 +43,49 @@ namespace DiamondShopSystem.API.Controllers
             return diamond;
         }
 
-       [HttpPost]
-         public ActionResult<Diamond> PostDiamomnd([FromBody] DTO.DiamondRequest diamond)
-         {
-            var diamond1 = new Diamond
-            {
-                DiamondName = diamond.DiamondName,
-                CaratWeight = diamond.CaratWeight,
-                Clarity = diamond.Clarity,
-                Color = diamond.Color,
-                Cut = diamond.Cut,
-                Price = diamond.Price,
-                Shape = diamond.Shape,
-            };
-            _diamondService.AddDiamond(diamond1);
-           return Ok(diamond1);
-        }
+       //[HttpPost]
+       //  public ActionResult<Diamond> PostDiamomnd([FromBody] DTO.DiamondRequest diamond)
+       //  {
+       //     var diamond1 = new Diamond
+       //     {
+       //         DiamondName = diamond.DiamondName,
+       //         CaratWeight = diamond.CaratWeight,
+       //         Clarity = diamond.Clarity,
+       //         Color = diamond.Color,
+       //         Cut = diamond.Cut,
+       //         Price = diamond.Price,
+       //         Shape = diamond.Shape,
+       //     };
+       //     _diamondService.AddDiamond(diamond1);
+       //    return Ok(diamond1);
+       // }
 
-               [HttpPut("{id}")]
-                public IActionResult PutDiamond(int id, [FromBody] Diamond diamondDTO)
-                {
-                    if (id != diamondDTO.DiamondId)
-                    {
-                        return BadRequest();
-                    }
-                    var newDiamond = new Diamond(diamondDTO.DiamondName, diamondDTO.CaratWeight, diamondDTO.Color, diamondDTO.Clarity, diamondDTO.Cut, diamondDTO.Shape, diamondDTO.Price);
+       //        [HttpPut("{id}")]
+       //         public IActionResult PutDiamond(int id, [FromBody] Diamond diamondDTO)
+       //         {
+       //             if (id != diamondDTO.DiamondId)
+       //             {
+       //                 return BadRequest();
+       //             }
+       //             var newDiamond = new Diamond(diamondDTO.DiamondName, diamondDTO.CaratWeight, diamondDTO.Color, diamondDTO.Clarity, diamondDTO.Cut, diamondDTO.Shape, diamondDTO.Price);
 
-                    try
-                    {
-                        _diamondService.UpdateDiamond(newDiamond);
-                    }
-                    catch (DbUpdateConcurrencyException)
-                    {
-                        if (_diamondService.GetDiamondById(id) == null)
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
+       //             try
+       //             {
+       //                 _diamondService.UpdateDiamond(newDiamond);
+       //             }
+       //             catch (DbUpdateConcurrencyException)
+       //             {
+       //                 if (_diamondService.GetDiamondById(id) == null)
+       //                 {
+       //                     return NotFound();
+       //                 }
+       //                 else
+       //                 {
+       //                     throw;
+       //                 }
+       //             }
 
-                    return NoContent();
+       //             return NoContent();
 
         [HttpDelete("{id}")]
         public IActionResult DeleteDiamond(int id)

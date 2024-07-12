@@ -6,6 +6,7 @@
         public string imgUrl { get; set; }
         public int categoryId { get; set; }
         public string categoryName { get; set; }
+        public int sizeId { get; set; }
         public int coverId { get; set; }
         public int metalTypeId { get; set; }
         public string? CoverStatus { get; set; }

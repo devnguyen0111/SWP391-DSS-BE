@@ -68,6 +68,7 @@ namespace DiamondShopSystem.API.Controllers
                 ProductId = product.ProductId,
                 imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
                 categoryName = _productService.GetCategoryById(product.Cover.CategoryId).CategoryName,
+                sizeId = product.SizeId,
                 coverId = product.CoverId,
                 metalTypeId = product.MetaltypeId,
                 categoryId = product.Cover.CategoryId,
