@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.Diamonds;
+using Services.Utility;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -140,7 +141,7 @@ namespace DiamondShopSystem.API.Controllers
             };
 
             // Filter diamonds based on the provided criteria
-            IEnumerable<Diamond> filteredDiamonds = _diamondService.GetAllDiamonds();
+            IEnumerable<Diamond> filteredDiamonds = _diamondService.GetAllDiamonds().Where(c => StringUltis.AreEqualIgnoreCase(c.Shape,sortBy));
 
             if (clarityRange != null && clarityRange.Any())
             {
@@ -171,15 +172,11 @@ namespace DiamondShopSystem.API.Controllers
             {
                 filteredDiamonds = filteredDiamonds.Where(d => d.Price >= minPrice.Value);
             }
-
             if (maxPrice.HasValue)
             {
                 filteredDiamonds = filteredDiamonds.Where(d => d.Price <= maxPrice.Value);
             }
             int totalDiamonds = filteredDiamonds.Count();
-
-            int totalPages = (int)Math.Ceiling(totalDiamonds / (double)pageSize);
-
             if (!string.IsNullOrEmpty(sortOrder))
             {
                 if (sortOrder.ToLower() == "desc")
@@ -199,7 +196,7 @@ namespace DiamondShopSystem.API.Controllers
         .ToList();
             var result = new
             {
-                TotalPages = totalPages,
+                totalDiamond = totalDiamonds,
                 Diamonds = paginatedDiamonds
             };
             return Ok(result);
