@@ -5,6 +5,8 @@
         public int ProductId { get; set; }
         public string imgUrl { get; set; }
         public int categoryId { get; set; }
+        public int diamondId { get; set; }
+        public decimal realUnitPrice { get; set; }  
         public string categoryName { get; set; }
         public int sizeId { get; set; }
         public int coverId { get; set; }

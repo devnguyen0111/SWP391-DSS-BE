@@ -68,6 +68,8 @@ namespace DiamondShopSystem.API.Controllers
                 ProductId = product.ProductId,
                 imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
                 categoryName = _productService.GetCategoryById(product.Cover.CategoryId).CategoryName,
+                diamondId = product.DiamondId,
+                realUnitPrice = (decimal)product.UnitPrice,
                 sizeId = product.SizeId,
                 coverId = product.CoverId,
                 metalTypeId = product.MetaltypeId,
@@ -221,11 +223,7 @@ namespace DiamondShopSystem.API.Controllers
                 SizeId = request.SizeId,
                 Pp = request.Pp
             };
-            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
-            if (producthaha != null)
-            {
-                return BadRequest("Product with these combinations already exist!");
-            }
+           
             _productService.AddProduct(product);
             return Ok(product);
         }
@@ -272,7 +270,11 @@ namespace DiamondShopSystem.API.Controllers
             product.MetaltypeId = request.MetaltypeId;
             product.SizeId = request.SizeId;
             product.Pp = request.Pp;
-
+            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
+            if (producthaha != null)
+            {
+                return BadRequest("Product with these combinations already exist!");
+            }
             _productService.UpdateProduct(product);
             return Ok(product);
         }
