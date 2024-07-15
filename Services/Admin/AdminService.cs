@@ -26,13 +26,13 @@ namespace Services.Admin
                 switch (user.Status.ToLower())
                 {
                     case "active":
-                        user.Status = "Disabled";
+                        user.Status = "disabled";
                         _userRepository.Update(user);
-                        return "Disabled";
+                        return "disabled";
                     case "disabled":
-                        user.Status = "Active";
+                        user.Status = "active";
                         _userRepository.Update(user);
-                        return "Active";
+                        return "active";
                     default:
                         return "null";
                 }

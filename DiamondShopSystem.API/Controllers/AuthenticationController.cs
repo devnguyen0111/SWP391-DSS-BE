@@ -87,7 +87,13 @@ namespace DiamondShopSystem.API.Controllers
             var user = _authenticateService.GetUserByMail(request.Email);
             if (user == null)
             {
-                return BadRequest("Email address is not registered");
+                return BadRequest("Email address is not registered ");
+            }
+
+            // check user is active
+            if (user.Status != "active")
+            {
+                return BadRequest("Account has been Disable");
             }
 
             if ((bool)request.IsGoogleLogin)

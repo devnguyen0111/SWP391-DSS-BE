@@ -137,19 +137,19 @@ namespace DiamondShopSystem.API.Controllers
             int paid = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "processing")
+                if (order.Status == "Processing")
                 {
                     processing++;
                 }
-                else if (order.Status == "shipping")
+                else if (order.Status == "Shipping")
                 {
                     shipping++;
                 }
-                else if (order.Status == "delivered")
+                else if (order.Status == "Delivered")
                 {
                     delivered++;
                 }
-                else if (order.Status == "cancelled")
+                else if (order.Status == "Cancelled")
                 {
                     cancelled++;
                 }
@@ -179,19 +179,19 @@ namespace DiamondShopSystem.API.Controllers
             int earrings = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Paid")
+                if (order.Status == "Paid" || order.Status == "Pending" || order.Status == "Delivered")
                 {
                     foreach (ProductOrder productOrder in order.ProductOrders)
                     {
-                        if (productOrder.Product.ProductName.Contains("ring"))
+                        if (productOrder.Product.ProductName.Contains("Ring"))
                         {
                             rings++;
                         }
-                        else if (productOrder.Product.ProductName.Contains("pendant"))
+                        else if (productOrder.Product.ProductName.Contains("Pendant"))
                         {
                             pendant++;
                         }
-                        else if (productOrder.Product.ProductName.Contains("earrings"))
+                        else if (productOrder.Product.ProductName.Contains("Earrings"))
                         {
                             earrings++;
                         }
@@ -206,5 +206,51 @@ namespace DiamondShopSystem.API.Controllers
             };
             return Ok(productRevenue);
         }
+
+        [HttpGet("Conversion")]
+        public IActionResult Conversion()
+        {
+            List<Order> orders = _orderService.getAllOrders();
+            var monthlyConversions = new List<object>();
+
+            for (int month = 1; month <= 12; month++)
+            {
+                int rings = 0;
+                int pendant = 0;
+                int earrings = 0;
+
+                var filteredOrders = orders.Where(o => o.OrderDate.Month == month && (o.Status == "Paid" || o.Status == "Pending" || o.Status == "Delivered"));
+
+                foreach (var order in filteredOrders)
+                {
+                    foreach (var productOrder in order.ProductOrders)
+                    {
+                        if (productOrder.Product.ProductName.Contains("Ring"))
+                        {
+                            rings++;
+                        }
+                        else if (productOrder.Product.ProductName.Contains("Pendant"))
+                        {
+                            pendant++;
+                        }
+                        else if (productOrder.Product.ProductName.Contains("Earrings"))
+                        {
+                            earrings++;
+                        }
+                    }
+                }
+
+                monthlyConversions.Add(new
+                {
+                    Quarter = $"Month {month}",
+                    Rings = rings,
+                    Pendant = pendant,
+                    Earrings = earrings
+                });
+            }
+
+            return Ok(monthlyConversions);
+        }
+
     }
 }
