@@ -6,6 +6,7 @@ using Services.Admin;
 using Services.Diamonds;
 using Services.Products;
 using Repository.Users;
+using Services.Utility;
 namespace DiamondShopSystem.API.Controllers
 {
     [ApiController]
@@ -39,7 +40,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("usersWithoutAdmin")]
         public ActionResult<IEnumerable<User>> GetUsers()
         {
-            List<User> users = _userRepository.GetAll().Where(u => u.Role != "Admin").ToList();
+            List<User> users = _userRepository.GetAll().Where(u => !StringUltis.AreEqualIgnoreCase(u.Role,"admin")).ToList();
             return users;
         }
 
@@ -173,20 +174,37 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult TopRevenueProducts()
         {
             List<Order> orders = _orderService.getAllOrders();
-            List<Product> products = new List<Product>();
+            int rings = 0;
+            int pendant = 0;
+            int earrings = 0;
             foreach (Order order in orders)
             {
-                foreach (ProductOrder productOrder in order.ProductOrders)
+                if (order.Status == "Paid")
                 {
-                    products.Add(productOrder.Product);
+                    foreach (ProductOrder productOrder in order.ProductOrders)
+                    {
+                        if (productOrder.Product.ProductName.Contains("ring"))
+                        {
+                            rings++;
+                        }
+                        else if (productOrder.Product.ProductName.Contains("pendant"))
+                        {
+                            pendant++;
+                        }
+                        else if (productOrder.Product.ProductName.Contains("earrings"))
+                        {
+                            earrings++;
+                        }
+                    }
                 }
             }
-            List<Product> filteredProducts = products.Where(p => p.ProductName.Contains("ring") || p.ProductName.Contains("earrings") || p.ProductName.Contains("pendant")).ToList();
-            List<Product> topProducts = filteredProducts.GroupBy(p => p.ProductId).Select(g => g.First()).ToList();
-            return Ok(topProducts);
+            var productRevenue = new
+            {
+                rings,
+                pendant,
+                earrings
+            };
+            return Ok(productRevenue);
         }
-
-
-
     }
 }

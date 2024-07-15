@@ -23,13 +23,13 @@ namespace Services.Admin
             var user = _userRepository.GetById(userId);
             if (user != null)
             {
-                switch (user.Status)
+                switch (user.Status.ToLower())
                 {
-                    case "Active":
+                    case "active":
                         user.Status = "Disabled";
                         _userRepository.Update(user);
                         return "Disabled";
-                    case "Disabled":
+                    case "disabled":
                         user.Status = "Active";
                         _userRepository.Update(user);
                         return "Active";
