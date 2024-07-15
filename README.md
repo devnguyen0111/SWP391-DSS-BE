@@ -21,6 +21,28 @@ _Phần mềm quản lý việc bán kim cương trực tuyến của công ty k
 - [SWP391-NET1817](https://docs.google.com/spreadsheets/d/1kO166hgUD31-DIYq5_fsoDtkX_Ifbo-Fclt_xM124Bg/edit?gid=0#gid=0)
 - [SWP391-Topic](https://docs.google.com/spreadsheets/d/1kO166hgUD31-DIYq5_fsoDtkX_Ifbo-Fclt_xM124Bg/edit?gid=2063864594#gid=2063864594)
 
+# Screen
+
+## Home
+
+https://github.com/user-attachments/assets/f42f4514-dcda-4058-b977-0d2c8276b749
+
+## Login
+
+https://github.com/user-attachments/assets/8e1c945b-b293-41c1-9b46-d50939162222
+
+## Product Menu
+### Pendants
+![pen-menu](https://github.com/user-attachments/assets/cc84050b-20f7-4307-888e-b9d113fbe715)
+### Rings
+![ring-menu](https://github.com/user-attachments/assets/dc6db33f-c509-4641-8ec3-49019a61ed33)
+### Earrings
+![ear-menu](https://github.com/user-attachments/assets/3f1ed7d1-bf0c-4880-a8cb-d54945e2e89e)
+### Diamonds
+![dia-menu](https://github.com/user-attachments/assets/e10f9490-d53c-4ef4-b103-737a47a01f92)
+### Necklaces
+![neck-menu](https://github.com/user-attachments/assets/acaed5c2-5d74-4a3e-9c90-9c28724624fa)
+
 # Testing
 <details>
 <summary>Use Case Description</summary>
