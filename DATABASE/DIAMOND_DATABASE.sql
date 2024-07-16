@@ -271,8 +271,21 @@ CREATE TABLE Wishlist (
     userId INT NOT NULL,
     productId INT NOT NULL,
     dateAdded DATETIME DEFAULT GETDATE(),
-    PRIMARY KEY (userId, productId),
     FOREIGN KEY (userId) REFERENCES [User](userId) ON DELETE CASCADE,
     FOREIGN KEY (productId) REFERENCES Product(productId) ON DELETE CASCADE
 );
 GO
+
+--Table: Request
+CREATE TABLE Request (
+    requestId INT IDENTITY PRIMARY KEY,
+    requestedDate DATETIME DEFAULT GETDATE(),
+    context VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    sStaffId INT NOT NULL,
+    manId INT NOT NULL,
+    orderId INT NOT NULL,
+    FOREIGN KEY (sStaffId) REFERENCES SaleStaff(sStaffId) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (manId) REFERENCES Manager(manId) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (orderId) REFERENCES [Order](orderId) ON DELETE NO ACTION ON UPDATE NO ACTION
+);

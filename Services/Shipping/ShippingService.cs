@@ -98,7 +98,7 @@ namespace Services.OrdersManagement
             await _shippingRepository.UpdateShippingAsync(shipping);
             return true;
         }
-        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        public async Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
         {
             return await _shippingRepository.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
         }

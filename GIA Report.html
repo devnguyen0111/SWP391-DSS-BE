@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://127.0.0.1:5500/GIA.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIA Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f8f8;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            background-color: white;
+        }
+        .column {
+            width: 33.33%;
+            vertical-align: top;
+            border-right: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .column:last-child {
+            border-right: none;
+        }
+        .h5 {
+            background-color: #d8b993;
+            color: white;
+            padding: 5px;
+            font-family: 'Mukta', Arial, sans-serif;
+            margin-top: 0;
+        }
+        p {
+            font-family: "Roboto", sans-serif;
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .list-inline {
+            list-style: none;
+            padding: 0;
+            text-align: center;
+        }
+        .list-inline-item {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+    <script src="./GIA Report_files/jspdf.umd.min.js.download"></script>
+</head>
+<body>
+
+<button onclick="generatePDF()">Generate PDF</button>
+
+<table class="container" cellpadding="0" cellspacing="0" border="0">
+    <tbody><tr>
+        <!-- First Column -->
+        <td class="column">
+            <div>
+                <img src="./GIA Report_files/GIA.png" alt="GIA banner">
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">GIA NATURAL DIAMOND GRADING REPORT</h3>
+                <p><strong>January 01, 2014</strong></p>
+                <p>GIA Report Number: <strong>214438167</strong></p>
+                <p>Shape and Cutting Style: <strong>Round Brilliant</strong></p>
+                <p>Measurements: <strong>6.41 - 6.43 x 3.97 mm</strong></p>
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">GRADING RESULTS</h3>
+                <p>Carat Weight: <strong>1.01 carat</strong></p>
+                <p>Color Grade: <strong>F</strong></p>
+                <p>Clarity Grade: <strong>SI1</strong></p>
+                <p>Cut Grade: <strong>Excellent</strong></p>
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">ADDITIONAL GRADING INFORMATION</h3>
+                <p>Polish: <strong>Excellent</strong></p>
+                <p>Symmetry: <strong>Excellent</strong></p>
+                <p>Fluorescence: <strong>None</strong></p>
+                <p>Inscription(s): <strong>GIA 2141438167, I Love You</strong></p>
+                <p>Comments: <strong>"SAMPLE"-"SAMPLE"-"SAMPLE"-"SAMPLE"</strong></p>
+            </div>
+        </td>
+        
+        <!-- Second Column -->
+        <td class="column">
+            <div class="text-center mb-2">
+                <h2 class="h4">GIA REPORT</h2>
+                <p class="font-weight-bold">214438167</p>
+                <p>Verify this report at <a href="https://www.gia.edu/">GIA.edu</a></p>
+            </div>
+            <div class="pt-3">
+                <h3 class="h5">GRADING SCALES</h3>
+                <div class="text-center">
+                    <h4 class="h6">GIA COLOR SCALE</h4>
+                    <p>D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="h6">GIA CLARITY SCALE</h4>
+                    <p>FLAWLESS<br>INTERNALLY FLAWLESS<br>VVS<sub>1</sub> VVS<sub>2</sub><br>VS<sub>1</sub> VS<sub>2</sub><br>SI<sub>1</sub> SI<sub>2</sub><br>I<sub>1</sub> I<sub>2</sub> I<sub>3</sub></p>
+                </div>
+                <div class="text-center">
+                    <h4 class="h6">GIA CUT SCALE</h4>
+                    <p>EXCELLENT<br>VERY GOOD<br>GOOD<br>FAIR<br>POOR</p>
+                </div>
+            </div>
+            <div class="border-top pt-3 text-center">
+                <h3 class="h5">CLARITY CHARACTERISTICS</h3>
+                <p><img src="./GIA Report_files/Bezel Set Solitaire Pendant Setting In 14k White Gold.jpg" alt="Clarity Characteristics" class="scaled-image"></p>
+                <p><strong>KEY TO SYMBOLS:</strong></p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">Crystal</li>
+                    <li class="list-inline-item">Cloud</li>
+                    <li class="list-inline-item">Feather</li>
+                    <li class="list-inline-item">Natural</li>
+                </ul>
+            </div>
+        </td>
+        
+        <!-- Third Column -->
+        <td class="column">
+            <div class="pt-3">
+                <p>The results documented in this report refer only to the diamond described, and were obtained using the techniques and equipment available to GIA at the time of examination. This report is not a guarantee or valuation. For additional information and important limitations and disclaimers, please see gia.edu/terms.</p>
+                <p>For additional information, contact us at <strong>800-421-7250</strong> or <strong>760-603-4500</strong>.</p>
+            </div>
+            <div class="pt-3 text-right">
+                <img src="./GIA Report_files/GIA-seal.png" alt="GIA Seal" style="max-width: 100px;">
+            </div>
+        </td>
+    </tr>
+</tbody></table>
+
+<script>
+    async function generatePDF() {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        const container = document.querySelector('.container');
+
+        await doc.html(container, {
+            callback: function (doc) {
+                doc.save('GIA_Report.pdf');
+            },
+            x: 10,
+            y: 10
+        });
+    }
+</script>
+
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+
+<div class="html2pdf__overlay" style="position: fixed; overflow: hidden; z-index: 1000; inset: 0px 0px 0px -100000px;"><div class="html2pdf__container" style="position: relative; display: inline-block; width: 600px; left: 0px; right: 0px; top: 0px; margin: auto; background-color: transparent; float: none;"><table class="container" cellpadding="0" cellspacing="0" border="0" style="position: relative;">
+    <tbody><tr>
+        <!-- First Column -->
+        <td class="column">
+            <div>
+                <img src="./GIA Report_files/GIA.png" alt="GIA banner">
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">GIA NATURAL DIAMOND GRADING REPORT</h3>
+                <p><strong>January 01, 2014</strong></p>
+                <p>GIA Report Number: <strong>214438167</strong></p>
+                <p>Shape and Cutting Style: <strong>Round Brilliant</strong></p>
+                <p>Measurements: <strong>6.41 - 6.43 x 3.97 mm</strong></p>
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">GRADING RESULTS</h3>
+                <p>Carat Weight: <strong>1.01 carat</strong></p>
+                <p>Color Grade: <strong>F</strong></p>
+                <p>Clarity Grade: <strong>SI1</strong></p>
+                <p>Cut Grade: <strong>Excellent</strong></p>
+            </div>
+            <div class="border-top pt-3">
+                <h3 class="h5">ADDITIONAL GRADING INFORMATION</h3>
+                <p>Polish: <strong>Excellent</strong></p>
+                <p>Symmetry: <strong>Excellent</strong></p>
+                <p>Fluorescence: <strong>None</strong></p>
+                <p>Inscription(s): <strong>GIA 2141438167, I Love You</strong></p>
+                <p>Comments: <strong>"SAMPLE"-"SAMPLE"-"SAMPLE"-"SAMPLE"</strong></p>
+            </div>
+        </td>
+        
+        <!-- Second Column -->
+        <td class="column">
+            <div class="text-center mb-2">
+                <h2 class="h4">GIA REPORT</h2>
+                <p class="font-weight-bold">214438167</p>
+                <p>Verify this report at <a href="https://www.gia.edu/">GIA.edu</a></p>
+            </div>
+            <div class="pt-3">
+                <h3 class="h5">GRADING SCALES</h3>
+                <div class="text-center">
+                    <h4 class="h6">GIA COLOR SCALE</h4>
+                    <p>D E F G H I J K L M N O P Q R S T U V W X Y Z</p>
+                </div>
+                <div class="text-center">
+                    <h4 class="h6">GIA CLARITY SCALE</h4>
+                    <p>FLAWLESS<br>INTERNALLY FLAWLESS<br>VVS<sub>1</sub> VVS<sub>2</sub><br>VS<sub>1</sub> VS<sub>2</sub><br>SI<sub>1</sub> SI<sub>2</sub><br>I<sub>1</sub> I<sub>2</sub> I<sub>3</sub></p>
+                </div>
+                <div class="text-center">
+                    <h4 class="h6">GIA CUT SCALE</h4>
+                    <p>EXCELLENT<br>VERY GOOD<br>GOOD<br>FAIR<br>POOR</p>
+                </div>
+            </div>
+            <div class="border-top pt-3 text-center">
+                <h3 class="h5">CLARITY CHARACTERISTICS</h3>
+                <p><img src="./GIA Report_files/Bezel Set Solitaire Pendant Setting In 14k White Gold.jpg" alt="Clarity Characteristics" class="scaled-image"></p>
+                <p><strong>KEY TO SYMBOLS:</strong></p>
+                <ul class="list-inline">
+                    <li class="list-inline-item">Crystal</li>
+                    <li class="list-inline-item">Cloud</li>
+                    <li class="list-inline-item">Feather</li>
+                    <li class="list-inline-item">Natural</li>
+                </ul>
+            </div>
+        </td>
+        
+        <!-- Third Column -->
+        <td class="column">
+            <div class="pt-3">
+                <p>The results documented in this report refer only to the diamond described, and were obtained using the techniques and equipment available to GIA at the time of examination. This report is not a guarantee or valuation. For additional information and important limitations and disclaimers, please see gia.edu/terms.</p>
+                <p>For additional information, contact us at <strong>800-421-7250</strong> or <strong>760-603-4500</strong>.</p>
+            </div>
+            <div class="pt-3 text-right">
+                <img src="./GIA Report_files/GIA-seal.png" alt="GIA Seal" style="max-width: 100px;">
+            </div>
+        </td>
+    </tr>
+</tbody><div style="clear: both; border: 0px none transparent; margin: 0px; padding: 0px; height: 0px;"></div></table></div></div></body></html>

@@ -273,7 +273,7 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var orders = await _shippingService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
-                if (orders == null || !orders.Any())
+                if (orders == null)
                 {
                     return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");
                 }

@@ -41,6 +41,16 @@ namespace Services.Users
             _saleStaffRepository.AssignOrderToStaff(staffId, orderId);
             _saleStaffRepository.Save();
         }
+        public class StaffRequest
+        {
+            public int? StaffId { get; set; }
+            public int? Count { get; set; }
+            public string? StaffStatus { get; set; }
+            public string? Name { get; set; }
+            public string? Phone { get; set; }
+            public string? Email { get; set; }
+            public int? ManagerId { get; set; }
+        }
     }
 
 }

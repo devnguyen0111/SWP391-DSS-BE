@@ -55,6 +55,18 @@ namespace Repository.Users
             await _context.SaveChangesAsync();
         }
 
-        
+        public async Task<bool> CancelOrderAsync(string orderId)
+        {
+            var order = await _context.Orders.FindAsync(orderId);
+            if (order == null)
+            {
+                return false;
+            }
+
+            order.Status = "Cancel";
+            _context.Orders.Update(order);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

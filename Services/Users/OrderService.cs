@@ -39,7 +39,7 @@ namespace Services.Users
         {
             return _orderRepository.getOrders();
         }
-        public Order createOrderFromCart(int uid, int sid,string address,string phonenum)
+        public Order createOrderFromCart(int uid, int sid, string address, string phonenum)
         {
             Cart cart = _cartRepository.getCartFromCustomer(uid);
             if (cart == null || !cart.CartProducts.Any())
@@ -51,12 +51,12 @@ namespace Services.Users
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "processing",
+                Status = "Processing",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
                 ContactNumber = phonenum,
-                
+
             };
             var cartItems = cart.CartProducts;
             var orderProducts = cartItems.Select(c =>
@@ -85,7 +85,7 @@ namespace Services.Users
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "processing",
+                Status = "Processing",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -105,14 +105,14 @@ namespace Services.Users
             return newo;
         }
 
-        public Order createOrderDirectly(int uid, int pid, int sid,string address,string phonenum)
+        public Order createOrderDirectly(int uid, int pid, int sid, string address, string phonenum)
         {
 
             Order newo = new Order
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = GetTotalPrice(_productRepository.GetProductById(pid)),
-                Status = "processing",
+                Status = "Processing",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -141,17 +141,18 @@ namespace Services.Users
         {
             _orderRepository.createOrder(order);
         }
-       public List<ShippingMethod> GetShippingMethods()
+        public List<ShippingMethod> GetShippingMethods()
         {
             return _orderRepository.GetShippingMethods();
         }
-
         public Order GetOrderByIdAndStatus(int orderId, string status)
         {
             return _orderRepository.GetOrderByIdAndStatus(orderId, status);
         }
-
-        
+        public Task<bool> CancelOrderAsync(string orderId)
+        {
+            return _orderRepository.CancelOrderAsync(orderId);
+        }
     }
     public class ProductQuantity1
     {

@@ -1,4 +1,5 @@
 ﻿using DAO;
+using MailKit.Search;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
@@ -143,24 +144,42 @@ namespace Repository.Orders
             return orders;
         }
 
-        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        public async Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
         {
-            return await _context.Shippings
+            var orderAssigned = await _context.Shippings
                 .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
                 .Include(s => s.Order)
                 .ThenInclude(o => o.ShippingMethod)
                 .Select(s => new OrderAssigned
                 {
                     OrderId = s.Order.OrderId,
-                    StaffId = s.SaleStaffId, 
-                    DeliveryId = s.DeliveryStaffId, 
+                    StaffId = s.SaleStaffId,
+                    DeliveryId = s.DeliveryStaffId,
                     OrderDate = s.Order.OrderDate,
-                    Status = s.Order.Status, 
+                    Status = s.Order.Status,
                     ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
-                    TotalAmount = s.Order.TotalAmount 
+                    TotalAmount = s.Order.TotalAmount
                 }).ToListAsync();
+
+            var OrderCount = orderAssigned.Count();
+
+            StaffOrder staffOrder = new StaffOrder();
+            staffOrder.Count = OrderCount;
+            if (OrderCount >= 10)
+            {
+                staffOrder.StaffStatus = "Busy";
+            }
+            else { staffOrder.StaffStatus = "Available"; }
+            staffOrder.OrdersAssigned = orderAssigned;
+            return staffOrder;
         }
 
+        public class StaffOrder
+        {
+            public int Count { get; set; }
+            public string? StaffStatus { get; set; }
+            public List<OrderAssigned> OrdersAssigned { get; set; }
+        }
 
         public class OrderAssigned
         {
