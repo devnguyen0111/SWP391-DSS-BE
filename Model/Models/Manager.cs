@@ -17,5 +17,7 @@ public partial class Manager
 
     public virtual User Man { get; set; }
 
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
     public virtual ICollection<SaleStaff> SaleStaffs { get; set; } = new List<SaleStaff>();
 }

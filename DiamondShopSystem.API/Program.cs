@@ -18,8 +18,8 @@ using Repository.Utility;
 using Services.EmailServices;
 using Services.OtherServices;
 using Serilog;
-using Repository.Orders;
-using Services.OrdersManagement;
+using Repository.Shippings;
+using Services.ShippingService;
 using Services.Admin;
 using Microsoft.AspNetCore.Authorization;
 var builder = WebApplication.CreateBuilder(args);
@@ -52,6 +52,7 @@ builder.Services.AddScoped<ISaleStaffRepository, SaleStaffRepository>();
 builder.Services.AddScoped<IDeliveryStaffRepository, DeliveryStaffRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
+builder.Services.AddScoped<IRequestRepository, RequestRepository>();
 //builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 
 builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
@@ -77,6 +78,7 @@ builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
 builder.Services.AddScoped<IAssignOrderService, AssignOrderService>();
 builder.Services.AddScoped<IShippingService, ShippingService>();
+builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 //builder.Services.AddScoped<IWishlistService, WishlistService>();
 

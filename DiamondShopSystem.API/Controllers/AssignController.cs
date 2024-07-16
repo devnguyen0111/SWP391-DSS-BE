@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.EmailServices;
-using Services.OrdersManagement;
+using Services.ShippingService;
 using Services.Users;
-using static Repository.Orders.ShippingRepository;
+using static Repository.Shippings.ShippingRepository;
 using iTextSharp.text;
 
 namespace DiamondShopSystem.API.Controllers
@@ -22,15 +22,13 @@ namespace DiamondShopSystem.API.Controllers
     public class AssignController : ControllerBase
     {
         private readonly IShippingService _shippingService;
-        private readonly IAssignOrderService _assignOrderService;
         private readonly IManagerService _managerService;
         private readonly IOrderService _orderService;
         private readonly IEmailService _emailService;
 
-        public AssignController(IShippingService shippingService, IAssignOrderService assignOrderService, IManagerService managerService, IOrderService orderService,IEmailService e)
+        public AssignController(IShippingService shippingService, IManagerService managerService, IOrderService orderService,IEmailService e)
         {
             _shippingService = shippingService;
-            _assignOrderService = assignOrderService;
             _managerService = managerService;
             _orderService = orderService;
             _emailService = e;
@@ -125,7 +123,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("saleStaffListByManagerId/{managerId}")]
         public IActionResult GetSaleStaffByManagerId(int managerId)
         {
-            var saleStaffs = _assignOrderService.GetSaleStaffByManagerId(managerId);
+            var saleStaffs = _shippingService.GetSaleStaffByManagerId(managerId);
 
             if (_managerService.GetManagerById(managerId) == null)
             {
@@ -152,7 +150,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("deliveryStaffListByManagerId/{managerId}")]
         public IActionResult GetDeliveryStaffBySaleStaffId(int managerId)
         {
-            var deliveryStaffs = _assignOrderService.GetDeliveryStaffByManagerId(managerId);
+            var deliveryStaffs = _shippingService.GetDeliveryStaffByManagerId(managerId);
 
             if (_managerService.GetManagerById(managerId) == null)
             {
@@ -166,11 +164,11 @@ namespace DiamondShopSystem.API.Controllers
 
             var deliveryStaffRequests = deliveryStaffs.Select(s => new StaffRequest
             {
-                StaffId = s.DStaffId,
-                Name = s.Name,
-                Phone = s.Phone,
+                StaffId = s.DeliveryStaff.DStaffId,
+                Name = s.DeliveryStaff.Name,
+                Phone = s.DeliveryStaff.Phone,
                 Email = "",
-                ManagerId = s.ManagerId
+                ManagerId = s.DeliveryStaff.ManagerId
             }).ToList();
 
             return Ok(deliveryStaffRequests);
@@ -179,7 +177,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("getAllSaleStaff")]
         public IActionResult GetAllSaleStaff()
         {
-            var saleStaffs = _assignOrderService.GetAllSaleStaff();
+            var saleStaffs = _shippingService.GetAllSaleStaff();
 
             if (saleStaffs == null || !saleStaffs.Any())
             {
@@ -201,7 +199,7 @@ namespace DiamondShopSystem.API.Controllers
         [HttpGet("getAllDeliveryStaff")]
         public IActionResult GetAllDeliveryStaff()
         {
-            var deliveryStaffs = _assignOrderService.GetAllDeliveryStaff();
+            var deliveryStaffs = _shippingService.GetAllDeliveryStaff();
 
             if (deliveryStaffs == null || !deliveryStaffs.Any())
             {
@@ -273,7 +271,7 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var orders = await _shippingService.GetOrdersByDeliveryStaffIdAsync(deliveryStaffId, status);
-                if (orders == null || !orders.Any())
+                if (orders == null)
                 {
                     return NotFound($"No orders found for delivery staff ID {deliveryStaffId}");
                 }

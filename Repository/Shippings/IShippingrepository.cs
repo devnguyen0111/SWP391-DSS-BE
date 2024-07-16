@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static Repository.Orders.ShippingRepository;
+using static Repository.Shippings.ShippingRepository;
 
-namespace Repository.Orders
+namespace Repository.Shippings
 {
     public interface IShippingRepository
     {
@@ -22,7 +22,7 @@ namespace Repository.Orders
         Task UpdateShippingAsync(Shipping shipping);                                                    // Update Shipping
         Task<Shipping> GetShippingByOrderIdAsync(int orderId);
         Task<List<OrderAssigned>> GetAllOrdersAsync();
-        Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
+        Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
         //Task UpdateAsync(Shipping shipping);
         //Task DeleteAsync(int shippingId);
         // Add more methods as needed

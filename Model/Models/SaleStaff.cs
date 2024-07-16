@@ -19,6 +19,8 @@ public partial class SaleStaff
 
     public virtual Manager Manager { get; set; }
 
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
     public virtual User SStaff { get; set; }
 
     public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();

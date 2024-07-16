@@ -87,6 +87,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Request]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Review]",
          "ObjectType": 0
       },

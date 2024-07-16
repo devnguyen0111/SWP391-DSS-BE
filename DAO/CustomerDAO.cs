@@ -40,6 +40,5 @@ namespace DAO
             return customer;
         }
         // Method to delete will add later :P
-
     }
 }

@@ -8,7 +8,7 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
-using static Repository.Orders.ShippingRepository;
+using static Repository.Shippings.ShippingRepository;
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers
@@ -36,13 +36,13 @@ namespace DiamondShopSystem.API.Controllers
             _reviewService = i;
         }
 
-        [HttpPost]
-        [Route("createOrderDirecly")]
-        public IActionResult CreateOrder([FromBody] OrderRequest request)
-        {
-            Order o = _orderService.createOrderDirectly((int)request.CusId, request.pid, (int)request.ShippingMethodId,request.deliveryAddress,request.contactNumber);
-            return Ok(o);
-        }
+        //[HttpPost]
+        //[Route("createOrderDirecly")]
+        //public IActionResult CreateOrder([FromBody] OrderRequest request)
+        //{
+        //    Order o = _orderService.createOrderDirectly((int)request.CusId, request.pid, (int)request.ShippingMethodId,request.deliveryAddress,request.contactNumber);
+        //    return Ok(o);
+        //}
         [HttpPost]
         [Route("createOrderFromCart")]
         public IActionResult CreateOrderFromCart([FromBody] OrderRequestCart request)
@@ -207,7 +207,7 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("Voucher not found.");
             }
         }
-
+        
         private Order CreateOrderFromProducts1(int uid, int sid, string address, string phonenum, List<DTO.ProductQuantity> products, string voucherName)
         {
             if (products == null || !products.Any())
@@ -250,7 +250,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "processing",
+                Status = "Paid",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -278,13 +278,19 @@ namespace DiamondShopSystem.API.Controllers
 
         [HttpGet]
         [Route("getAllOrders")]
-        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string? status = "Paid")
+        public ActionResult<List<OrderHistoryResponse1>> getAllOrders(string? status)
         {
             try
             {
                 var orders = new List<Order>();
-
-                orders = _orderService.getAllOrders();
+                if (status.IsNullOrEmpty())
+                {
+                    orders = _orderService.getAllOrders();
+                } else
+                {
+                    orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
+                }
+                
 
                 if (orders == null || !orders.Any())
                 {
@@ -293,19 +299,19 @@ namespace DiamondShopSystem.API.Controllers
 
                 var orderHistoryResponses = orders.Select(o => new OrderHistoryResponse1
                 {
-                    OrderId = o?.OrderId ?? 0, // Added null check
-                    OrderDate = o?.OrderDate ?? DateTime.MinValue, // Added null check
-                    Status = o?.Status ?? "Unknown", // Added null check
-                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", // Added null check
-                    TotalAmount = o?.TotalAmount ?? 0, // Added null check
-                     // Added null check
-                }).ToList() ?? new List<OrderHistoryResponse1>(); // Added null check
+                    OrderId = o?.OrderId ?? 0, 
+                    OrderDate = o?.OrderDate ?? DateTime.MinValue, 
+                    Status = o?.Status ?? "Unknown", 
+                    ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method", 
+                    TotalAmount = o?.TotalAmount ?? 0, 
+                     
+                }).ToList() ?? new List<OrderHistoryResponse1>(); 
 
                 return Ok(orderHistoryResponses);
             }
             catch (Exception ex)
             {
-                // Log the exception (you can use a logging framework for this)
+                
                 return StatusCode(500, new { Message = "An error occurred while processing your request.", Details = ex.Message });
             }
         }
@@ -382,6 +388,25 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
+        [HttpPost("cancelOrderByOrderId/{orderId}")]
+        public async Task<IActionResult> CancelOrderByOrderId(string orderId)
+        {
+            try
+            {
+                bool result = await _orderService.CancelOrderAsync(orderId);
+
+                if (!result)
+                {
+                    return NotFound(new { message = "Order not found" });
+                }
+
+                return Ok(new { message = "Order cancelled successfully" });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new { message = e.Message });
+            }
+        }
 
         //[HttpGet]
         //public IActionResult getCheckOutDetail([FromQuery] int uid, [FromQuery]int? cid, [FromQuery]int? pid)

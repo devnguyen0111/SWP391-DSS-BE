@@ -27,6 +27,8 @@ public partial class Order
 
     public virtual ICollection<ProductOrder> ProductOrders { get; set; } = new List<ProductOrder>();
 
+    public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
     public virtual ShippingMethod ShippingMethod { get; set; }
 
     public virtual ICollection<Shipping> Shippings { get; set; } = new List<Shipping>();
