@@ -1,4 +1,5 @@
 ﻿using DAO;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,43 @@ namespace Repository.Users
             
         }
 
+        public IEnumerable<DeliveryStaffStatus> GetDeliveryStaffStatus(int managerId)
+        {
+            var deliveryStaffStatusList = new List<DeliveryStaffStatus>();
+
+            // Fetch all delivery staff
+            var deliveryStaffList = _context.DeliveryStaffs.Where(d => d.ManagerId == managerId).ToList();
+
+            foreach (var staff in deliveryStaffList)
+            {
+                // Count the number of orders assigned to this delivery staff
+                var orderCount = _context.Shippings
+                    .Count(s => s.DeliveryStaffId == staff.DStaffId && s.Status == "Shipping");
+
+                // Determine status based on order count
+                var status = orderCount >= 10 ? "Busy" : "Available";
+
+                // Create DeliveryStaffStatus object
+                var deliveryStaffStatus = new DeliveryStaffStatus
+                {
+                    Count = orderCount,
+                    Status = status,
+                    DeliveryStaff = staff
+                };
+
+                deliveryStaffStatusList.Add(deliveryStaffStatus);
+            }
+
+            return deliveryStaffStatusList;
+        }
+
+
+        public class DeliveryStaffStatus
+        {
+            public int Count { get; set; }
+            public string? Status { get; set; }
+            public DeliveryStaff DeliveryStaff { get; set; }
+        }
 
     }
 }

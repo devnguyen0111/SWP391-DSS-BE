@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Repository.Users.DeliveryStaffRepository;
 
 namespace Repository.Users
 {
@@ -11,5 +12,6 @@ namespace Repository.Users
     {
         IEnumerable<DeliveryStaff> GetDeliveryStaffByManagerId(int saleStaffId);
         IEnumerable<DeliveryStaff> GetAllDeliveryStaff();
+        IEnumerable<DeliveryStaffStatus> GetDeliveryStaffStatus(int managerId);
     }
 }

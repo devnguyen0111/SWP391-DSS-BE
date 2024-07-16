@@ -804,28 +804,28 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasColumnName("topPrice");
         });
 
-        modelBuilder.Entity<Wishlist>(entity =>
-        {
-            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__46E2A1B0DB8586D8");
+        //modelBuilder.Entity<Wishlist>(entity =>
+        //{
+        //    entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__46E2A1B0DB8586D8");
 
-            entity.ToTable("Wishlist");
+        //    entity.ToTable("Wishlist");
 
-            entity.Property(e => e.WishlistId).HasColumnName("wishlistId");
-            entity.Property(e => e.DateAdded)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("dateAdded");
-            entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.UserId).HasColumnName("userId");
+        //    entity.Property(e => e.WishlistId).HasColumnName("wishlistId");
+        //    entity.Property(e => e.DateAdded)
+        //        .HasDefaultValueSql("(getdate())")
+        //        .HasColumnType("datetime")
+        //        .HasColumnName("dateAdded");
+        //    entity.Property(e => e.ProductId).HasColumnName("productId");
+        //    entity.Property(e => e.UserId).HasColumnName("userId");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.Wishlists)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Wishlist__produc__236943A5");
+        //    entity.HasOne(d => d.Product).WithMany(p => p.Wishlists)
+        //        .HasForeignKey(d => d.ProductId)
+        //        .HasConstraintName("FK__Wishlist__produc__236943A5");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Wishlist__userId__22751F6C");
-        });
+        //    entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
+        //        .HasForeignKey(d => d.UserId)
+        //        .HasConstraintName("FK__Wishlist__userId__22751F6C");
+        //});
 
         OnModelCreatingPartial(modelBuilder);
     }

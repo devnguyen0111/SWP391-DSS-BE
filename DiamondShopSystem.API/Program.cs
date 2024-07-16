@@ -53,7 +53,7 @@ builder.Services.AddScoped<IDeliveryStaffRepository, DeliveryStaffRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
-builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
+//builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 
 builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
 builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
