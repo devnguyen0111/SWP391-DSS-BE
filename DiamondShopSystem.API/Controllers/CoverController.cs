@@ -61,7 +61,8 @@ namespace DiamondShopSystem.API.Controllers
                     metalId = metal.MetaltypeId,
                     name = _metaltypeService.GetMetaltypeById(metal.MetaltypeId).MetaltypeName,
                     url = metal.ImgUrl,
-                    prize = (decimal)_metaltypeService.GetMetaltypeById(metal.MetaltypeId).MetaltypePrice
+                    prize = (decimal)_metaltypeService.GetMetaltypeById(metal.MetaltypeId).MetaltypePrice,
+                    status = metal.Status,
                 };
             }).ToList();
             List<CoverResponeSize> s = (List<CoverResponeSize>)sizes.Select(size =>
@@ -71,6 +72,7 @@ namespace DiamondShopSystem.API.Controllers
                     sizeId = size.SizeId,
                     name = _sizeService.GetSizeById(size.SizeId).SizeValue,
                     prices = (decimal)_sizeService.GetSizeById(size.SizeId).SizePrice,
+                    status = size.Status,
                 };
             }).ToList();
             CoverResponse cr = new CoverResponse()
@@ -91,61 +93,92 @@ namespace DiamondShopSystem.API.Controllers
         public ActionResult<CoverDTO> PostCover(CoverUpdateDTO coverUpdateDto)
         {
             var covers = _coverService.GetAllCovers();
-            if(covers.Any(c => StringUltis.AreEqualIgnoreCase(c.CoverName,coverUpdateDto.CoverName)) )
-            {
-                string name = coverUpdateDto.CoverName;
-                return BadRequest(name+" already exist!");
-            }
-            var cover = new Cover
-            {
-                CoverName = coverUpdateDto.CoverName,
-                Status = coverUpdateDto.Status,
-                UnitPrice = coverUpdateDto.UnitPrice,
-                CoverSizes = coverUpdateDto.CoverSizes.Select(cs => new CoverSize
-                {
-                    SizeId = cs.SizeId,
-                    Status = cs.Status
-                }).ToList(),
-                CoverMetaltypes = coverUpdateDto.CoverMetaltypes.Select(cm => new CoverMetaltype
-                {
-                    MetaltypeId = cm.MetaltypeId,
-                    Status = cm.Status,
-                    ImgUrl = cm.ImgUrl
-                }).ToList()
-            };
-            _coverService.AddCover(cover);
-            return Ok("Cover add successfully");
-        }
-
-        [HttpPut("UpdateCover")]
-        public IActionResult PutCover(int id,CoverUpdateDTO coverUpdateDto)
-        {
-            var cover = new Cover
-            {
-                CoverName = coverUpdateDto.CoverName,
-                Status = coverUpdateDto.Status,
-                UnitPrice = coverUpdateDto.UnitPrice,
-                CoverSizes = coverUpdateDto.CoverSizes.Select(cs => new CoverSize
-                {
-                    SizeId = cs.SizeId,
-                    Status = cs.Status
-                }).ToList(),
-                CoverMetaltypes = coverUpdateDto.CoverMetaltypes.Select(cm => new CoverMetaltype
-                {
-                    MetaltypeId = cm.MetaltypeId,
-                    Status = cm.Status,
-                    ImgUrl = cm.ImgUrl
-                }).ToList()
-            };
-            var covers = _coverService.GetAllCovers();
             if (covers.Any(c => StringUltis.AreEqualIgnoreCase(c.CoverName, coverUpdateDto.CoverName)))
             {
                 string name = coverUpdateDto.CoverName;
-                return BadRequest("The name "+name + " already exist!");
+                return BadRequest(name + " already exist!");
             }
+            var cover = new Cover
+            {
+                CoverName = coverUpdateDto.CoverName,
+                Status = coverUpdateDto.Status,
+                UnitPrice = coverUpdateDto.UnitPrice,
+                CategoryId = (int)coverUpdateDto.Category,
+                SubCategoryId = (int)coverUpdateDto.Category,
+            };
+            cover.CoverSizes = coverUpdateDto.CoverSizes.Select(cs => new CoverSize
+            {
+                SizeId = cs.SizeId,
+                Status = cs.Status,
+                CoverId = cover.CoverId,
+            }).ToList();
+            cover.CoverMetaltypes = coverUpdateDto.CoverMetaltypes.Select(cm => new CoverMetaltype
+            {
+                MetaltypeId = cm.MetaltypeId,
+                Status = cm.Status,
+                ImgUrl = cm.ImgUrl,
+                CoverId = cover.CoverId,
+            }).ToList();
+            _coverService.AddCover(cover);
+            return Ok(cover.CoverId);
+        }
+        [HttpPut("BeforeUpdateCover")]
+        public IActionResult PutCoverItems(int id)
+        {
+            _coverService.EmptyCover(id);
+            return Ok();
+        }
+        [HttpPut("UpdateCover")]
+        public IActionResult PutCover(int id, CoverUpdateDTO coverUpdateDto)
+        {
+            var cover = _coverService.GetCoverById(id);
+
+            if (cover == null)
+            {
+                return NotFound();
+            }
+            _coverService.EmptyCover(id);
+            // Update the cover properties
+            cover.CoverName = coverUpdateDto.CoverName;
+            cover.Status = coverUpdateDto.Status;
+            cover.UnitPrice = coverUpdateDto.UnitPrice;
+
+            // Update CoverSizes
+            cover.CoverSizes = new List<CoverSize>();
+            foreach (var cs in coverUpdateDto.CoverSizes)
+            {
+                cover.CoverSizes.Add(new CoverSize
+                {
+                    SizeId = cs.SizeId,
+                    CoverId = id,
+                    Status = cs.Status
+                }); ;
+            }
+
+            // Update CoverMetaltypes
+            cover.CoverMetaltypes = new List<CoverMetaltype>();
+            foreach (var cm in coverUpdateDto.CoverMetaltypes)
+            {
+                cover.CoverMetaltypes.Add(new CoverMetaltype
+                {
+                    MetaltypeId = cm.MetaltypeId,
+                    CoverId =id,
+                    Status = cm.Status,
+                    ImgUrl = cm.ImgUrl
+                });
+            }
+
+            // Check for duplicate cover names
+            var covers = _coverService.GetAllCovers().Where(d => d.CoverId != cover.CoverId);
+            if (covers.Any(c => StringUltis.AreEqualIgnoreCase(c.CoverName, coverUpdateDto.CoverName)))
+            {
+                string name = coverUpdateDto.CoverName;
+                return BadRequest("The name " + name + " already exists!");
+            }
+
             try
             {
-               string status1 = _coverService.DetermineCoverStatus1(cover);
+                string status1 = _coverService.DetermineCoverStatus1(cover);
                 cover.Status = status1;
                 _coverService.UpdateCover(cover);
             }
@@ -160,11 +193,53 @@ namespace DiamondShopSystem.API.Controllers
                     throw;
                 }
             }
+
             string status = _coverService.DetermineCoverStatus(cover.CoverId);
             return Ok("Cover updated successfully!");
         }
 
 
+        //[HttpPost("addCoverMetalType")]
+        //public IActionResult AddCoverMetalType([FromBody] CoverMetaltypeUpdateDTO dto)
+        //{
+        //    if(!ModelState.IsValid)
+        //    {
+        //        return BadRequest("Update Failed");
+        //    }
+        //    Cover c = _coverService.GetCoverById(dto.coverId);
+        //    if(c == null)
+        //    {
+        //        return BadRequest("CoverId not exist");
+        //    }
+        //    CoverMetaltype cmt = new CoverMetaltype
+        //    {
+        //        CoverId = dto.coverId,
+        //        MetaltypeId = dto.MetaltypeId,
+        //        ImgUrl = dto.ImgUrl,
+        //    };
+        //    _coverMetaltypeService.AddCoverMetalType(cmt);
+        //    return Ok("Added successfully");
+        //}
+        [HttpPost("deleteCoverMetalType")]
+        public IActionResult DeleteCoverMetalType([FromBody] CoverMetaltypeDeleteDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Delete Failed");
+            }
+            Cover c = _coverService.GetCoverById(dto.coverId);
+            if (c == null)
+            {
+                return BadRequest("CoverId not exist");
+            }
+            CoverMetaltype cmt = new CoverMetaltype
+            {
+                CoverId = dto.coverId,
+                MetaltypeId = dto.MetaltypeId,
+            };
+            _coverMetaltypeService.RemoveCoverMetalType(cmt);
+            return Ok("Deleted successfully");
+        }
         [HttpPut("SwitchCoverStatus")]
         public IActionResult SwitchCoverStatus(int id)
         {
@@ -185,8 +260,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 cover.Status = "Available";
             }
-            _coverService.UpdateCover(cover);
-            return NoContent();
+            return Ok(cover.Status);
         }
 
         [HttpGet]

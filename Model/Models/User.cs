@@ -28,6 +28,4 @@ public partial class User
     public virtual Manager Manager { get; set; }
 
     public virtual SaleStaff SaleStaff { get; set; }
-
-    public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }

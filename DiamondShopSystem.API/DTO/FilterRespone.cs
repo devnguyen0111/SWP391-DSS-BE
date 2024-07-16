@@ -10,11 +10,13 @@
     {
         public int id { get; set; }
         public string value { get; set; }
+        public string status { get; set; }
     }
     public class metaltypeFilter
     {
         public int id { get; set; }
         public string value { get; set; }
+        public string status { get; set; }
     }
     public class diamondShape
     {

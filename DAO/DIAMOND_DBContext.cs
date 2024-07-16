@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+
 using Model.Models;
 
 namespace DAO;
-
 public partial class DIAMOND_DBContext : DbContext
 {
     public DIAMOND_DBContext(DbContextOptions<DIAMOND_DBContext> options)
@@ -66,13 +66,11 @@ public partial class DIAMOND_DBContext : DbContext
 
     public virtual DbSet<Voucher> Vouchers { get; set; }
 
-    public virtual DbSet<Wishlist> Wishlists { get; set; }
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Address>(entity =>
         {
-            entity.HasKey(e => e.AddressId).HasName("PK__Address__26A111ADD8874537");
+            entity.HasKey(e => e.AddressId).HasName("PK__Address__26A111AD727F8FB7");
 
             entity.ToTable("Address");
 
@@ -107,7 +105,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Cart>(entity =>
         {
-            entity.HasKey(e => e.CartId).HasName("PK__Cart__415B03B880E241B2");
+            entity.HasKey(e => e.CartId).HasName("PK__Cart__415B03B87E729DFC");
 
             entity.ToTable("Cart");
 
@@ -123,7 +121,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<CartProduct>(entity =>
         {
-            entity.HasKey(e => new { e.CartId, e.ProductId }).HasName("PK__CartProd__F38A0EAEEBF7CDCD");
+            entity.HasKey(e => new { e.CartId, e.ProductId }).HasName("PK__CartProd__F38A0EAEA7EFAA21");
 
             entity.ToTable("CartProduct");
 
@@ -143,7 +141,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Category__23CAF1D8BE86BA9E");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Category__23CAF1D88A94DD50");
 
             entity.ToTable("Category");
 
@@ -157,7 +155,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Cover>(entity =>
         {
-            entity.HasKey(e => e.CoverId).HasName("PK__Cover__B192A2E0A73F2EA6");
+            entity.HasKey(e => e.CoverId).HasName("PK__Cover__B192A2E06DA76FE2");
 
             entity.ToTable("Cover");
 
@@ -190,7 +188,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<CoverMetaltype>(entity =>
         {
-            entity.HasKey(e => new { e.MetaltypeId, e.CoverId }).HasName("PK__CoverMet__F1356AB68E6B5A18");
+            entity.HasKey(e => new { e.MetaltypeId, e.CoverId }).HasName("PK__CoverMet__F1356AB6C2FA95F1");
 
             entity.ToTable("CoverMetaltype");
 
@@ -218,7 +216,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<CoverSize>(entity =>
         {
-            entity.HasKey(e => new { e.SizeId, e.CoverId }).HasName("PK__CoverSiz__4EA8CF79ADE1C098");
+            entity.HasKey(e => new { e.SizeId, e.CoverId }).HasName("PK__CoverSiz__4EA8CF79BF687517");
 
             entity.ToTable("CoverSize");
 
@@ -242,7 +240,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Customer>(entity =>
         {
-            entity.HasKey(e => e.CusId).HasName("PK__Customer__BA9897F36632533D");
+            entity.HasKey(e => e.CusId).HasName("PK__Customer__BA9897F3CFBB92F4");
 
             entity.ToTable("Customer");
 
@@ -271,7 +269,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<CustomerVoucher>(entity =>
         {
-            entity.HasKey(e => new { e.CusId, e.VoucherId }).HasName("PK__Customer__35CBAF6D560C0EC4");
+            entity.HasKey(e => new { e.CusId, e.VoucherId }).HasName("PK__Customer__35CBAF6D5FA2E484");
 
             entity.ToTable("CustomerVoucher");
 
@@ -289,10 +287,9 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasConstraintName("FK__CustomerV__vouch__07C12930");
         });
 
-
         modelBuilder.Entity<DeliveryStaff>(entity =>
         {
-            entity.HasKey(e => e.DStaffId).HasName("PK__Delivery__C4E2975CC7D599BE");
+            entity.HasKey(e => e.DStaffId).HasName("PK__Delivery__C4E2975C8F5A9C5E");
 
             entity.ToTable("DeliveryStaff");
 
@@ -322,7 +319,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Diamond>(entity =>
         {
-            entity.HasKey(e => e.DiamondId).HasName("PK__Diamond__F848E6C0C4A640CF");
+            entity.HasKey(e => e.DiamondId).HasName("PK__Diamond__F848E6C0F5FCBB13");
 
             entity.ToTable("Diamond");
 
@@ -358,12 +355,16 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false)
                 .HasColumnName("shape");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Available")
+                .HasColumnName("status");
         });
-
 
         modelBuilder.Entity<Favorite>(entity =>
         {
-            entity.HasKey(e => e.FavoriteId).HasName("PK__favorite__876A64D53CB710D0");
+            entity.HasKey(e => e.FavoriteId).HasName("PK__favorite__876A64D5A43EDEAE");
 
             entity.ToTable("favorite");
 
@@ -379,7 +380,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<FavoriteProduct>(entity =>
         {
-            entity.HasKey(e => new { e.FavoriteId, e.ProductId }).HasName("PK__favorite__35BB69C3181C4D83");
+            entity.HasKey(e => new { e.FavoriteId, e.ProductId }).HasName("PK__favorite__35BB69C3DF0F5C5C");
 
             entity.ToTable("favoriteProduct");
 
@@ -399,7 +400,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Manager>(entity =>
         {
-            entity.HasKey(e => e.ManId).HasName("PK__Manager__0A7A95EE8FE99B16");
+            entity.HasKey(e => e.ManId).HasName("PK__Manager__0A7A95EE023738B4");
 
             entity.ToTable("Manager");
 
@@ -423,7 +424,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Metaltype>(entity =>
         {
-            entity.HasKey(e => e.MetaltypeId).HasName("PK__Metaltyp__EA2C409861BC3645");
+            entity.HasKey(e => e.MetaltypeId).HasName("PK__Metaltyp__EA2C40989D77CFE8");
 
             entity.ToTable("Metaltype");
 
@@ -436,11 +437,16 @@ public partial class DIAMOND_DBContext : DbContext
             entity.Property(e => e.MetaltypePrice)
                 .HasColumnType("money")
                 .HasColumnName("metaltypePrice");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Available")
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335DB7F82EE2");
+            entity.HasKey(e => e.OrderId).HasName("PK__Order__0809335DF17B9358");
 
             entity.ToTable("Order");
 
@@ -477,7 +483,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Product__2D10D16A0E460296");
+            entity.HasKey(e => e.ProductId).HasName("PK__Product__2D10D16AAA10B89B");
 
             entity.ToTable("Product");
 
@@ -494,6 +500,11 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("productName");
             entity.Property(e => e.SizeId).HasColumnName("sizeId");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Available")
+                .HasColumnName("status");
             entity.Property(e => e.UnitPrice)
                 .HasColumnType("money")
                 .HasColumnName("unitPrice");
@@ -517,7 +528,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<ProductOrder>(entity =>
         {
-            entity.HasKey(e => new { e.ProductId, e.OrderId }).HasName("PK__ProductO__ED90425F33739429");
+            entity.HasKey(e => new { e.ProductId, e.OrderId }).HasName("PK__ProductO__ED90425F47AD7BA5");
 
             entity.ToTable("ProductOrder");
 
@@ -536,7 +547,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Review>(entity =>
         {
-            entity.HasKey(e => e.ReviewId).HasName("PK__Review__2ECD6E04F094BD87");
+            entity.HasKey(e => e.ReviewId).HasName("PK__Review__2ECD6E04D50516F5");
 
             entity.ToTable("Review");
 
@@ -562,7 +573,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<SaleStaff>(entity =>
         {
-            entity.HasKey(e => e.SStaffId).HasName("PK__SaleStaf__7D4E9B9528227A7E");
+            entity.HasKey(e => e.SStaffId).HasName("PK__SaleStaf__7D4E9B952EB433A3");
 
             entity.ToTable("SaleStaff");
 
@@ -595,7 +606,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Shipping>(entity =>
         {
-            entity.HasKey(e => e.ShippingId).HasName("PK__Shipping__EDF80BCA42960EFB");
+            entity.HasKey(e => e.ShippingId).HasName("PK__Shipping__EDF80BCA57749059");
 
             entity.ToTable("Shipping");
 
@@ -626,7 +637,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<ShippingMethod>(entity =>
         {
-            entity.HasKey(e => e.ShippingMethodId).HasName("PK__Shipping__E405E856C8337BF3");
+            entity.HasKey(e => e.ShippingMethodId).HasName("PK__Shipping__E405E85670259E3E");
 
             entity.ToTable("ShippingMethod");
 
@@ -647,7 +658,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Size>(entity =>
         {
-            entity.HasKey(e => e.SizeId).HasName("PK__Size__55B1E557F26B8DEA");
+            entity.HasKey(e => e.SizeId).HasName("PK__Size__55B1E557F962A4A0");
 
             entity.ToTable("Size");
 
@@ -665,11 +676,16 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("sizeValue");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Available")
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<SubCategory>(entity =>
         {
-            entity.HasKey(e => e.SubCategoryId).HasName("PK__SubCateg__F82064696BE765A1");
+            entity.HasKey(e => e.SubCategoryId).HasName("PK__SubCateg__F8206469A00C4B28");
 
             entity.ToTable("SubCategory");
 
@@ -688,7 +704,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__CB9A1CFF88B9D70F");
+            entity.HasKey(e => e.UserId).HasName("PK__User__CB9A1CFF9ADA9B55");
 
             entity.ToTable("User");
 
@@ -721,7 +737,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Voucher>(entity =>
         {
-            entity.HasKey(e => e.VoucherId).HasName("PK__Voucher__F53389E9230AD7A5");
+            entity.HasKey(e => e.VoucherId).HasName("PK__Voucher__F53389E91B2E3454");
 
             entity.ToTable("Voucher");
 
@@ -743,29 +759,6 @@ public partial class DIAMOND_DBContext : DbContext
             entity.Property(e => e.TopPrice)
                 .HasColumnType("money")
                 .HasColumnName("topPrice");
-        });
-
-        modelBuilder.Entity<Wishlist>(entity =>
-        {
-            entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__46E2A1B081A73B5C");
-
-            entity.ToTable("Wishlist");
-
-            entity.Property(e => e.WishlistId).HasColumnName("wishlistId");
-            entity.Property(e => e.DateAdded)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime")
-                .HasColumnName("dateAdded");
-            entity.Property(e => e.ProductId).HasColumnName("productId");
-            entity.Property(e => e.UserId).HasColumnName("userId");
-
-            entity.HasOne(d => d.Product).WithMany(p => p.Wishlists)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Wishlist__produc__2180FB33");
-
-            entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
-                .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Wishlist__userId__208CD6FA");
         });
 
         OnModelCreatingPartial(modelBuilder);

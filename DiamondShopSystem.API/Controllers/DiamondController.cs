@@ -18,12 +18,6 @@ namespace DiamondShopSystem.API.Controllers
             _diamondService = diamondService;
         }
 
-        [HttpGet("getAllDiamonds")]
-        public ActionResult<IEnumerable<Diamond>> GetDiamonds()
-        {
-            return _diamondService.GetAllDiamonds();
-        }
-
         [HttpGet("CountDiamond")]
         public IActionResult CountDiamond()
         {

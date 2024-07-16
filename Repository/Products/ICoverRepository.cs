@@ -1,4 +1,5 @@
-﻿using Model.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.Models;
 
 namespace Repository.Products
 {
@@ -10,5 +11,9 @@ namespace Repository.Products
         void UpdateCover(Cover cover);
         void DeleteCover(int coverId);
         void Save();
+        void DetachLocalCover(Cover t, string entryId);
+        void DetachLocalSize(CoverSize t, string entryId);
+        void DetachLocalMetalType(CoverMetaltype t, string entryId);
+        void EmptyCover(int id);
     }
 }

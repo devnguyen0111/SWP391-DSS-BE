@@ -39,7 +39,10 @@ namespace Services.Products
         {
             _coverRepository.UpdateCover(cover);
         }
-
+        public void EmptyCover(int id)
+        {
+            _coverRepository.EmptyCover(id);
+        }
         public void DeleteCover(int coverId)
         {
             _coverRepository.DeleteCover(coverId);

@@ -12,6 +12,7 @@ namespace Services.Products
         bool CombinationExists(int coverId, int sizeId, int metaltypeId);
         string DetermineCoverStatus(int coverId);
         string DetermineCoverStatus1(Cover cover);
+        void EmptyCover(int id);
     }
 
 }
