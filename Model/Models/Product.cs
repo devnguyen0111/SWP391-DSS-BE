@@ -23,6 +23,8 @@ public partial class Product
 
     public string Pp { get; set; }
 
+    public string Status { get; set; }
+
     public virtual ICollection<CartProduct> CartProducts { get; set; } = new List<CartProduct>();
 
     public virtual Cover Cover { get; set; }
@@ -38,6 +40,4 @@ public partial class Product
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
     public virtual Size Size { get; set; }
-
-    public virtual ICollection<Wishlist> Wishlists { get; set; } = new List<Wishlist>();
 }

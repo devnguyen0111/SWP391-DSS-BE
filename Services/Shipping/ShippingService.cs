@@ -39,7 +39,7 @@ namespace Services.OrdersManagement
 
         public async Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId)
         {
-            var order = _orderRepository.GetOrderByIdAndStatus(orderId, "processing");
+            var order = _orderRepository.GetOrderByIdAndStatus(orderId, "Paid");
 
             if (order == null)
             {

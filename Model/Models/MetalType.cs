@@ -13,6 +13,8 @@ public partial class Metaltype
 
     public decimal? MetaltypePrice { get; set; }
 
+    public string Status { get; set; }
+
     public virtual ICollection<CoverMetaltype> CoverMetaltypes { get; set; } = new List<CoverMetaltype>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
