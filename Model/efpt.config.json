@@ -11,7 +11,7 @@
    "ProjectRootNamespace": "Model",
    "Schemas": null,
    "SelectedHandlebarsLanguage": 2,
-   "SelectedToBeGenerated": 2,
+   "SelectedToBeGenerated": 0,
    "T4TemplatePath": null,
    "Tables": [
       {
@@ -87,6 +87,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[Request]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[Review]",
          "ObjectType": 0
       },
@@ -116,10 +120,6 @@
       },
       {
          "Name": "[dbo].[Voucher]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Wishlist]",
          "ObjectType": 0
       }
    ],

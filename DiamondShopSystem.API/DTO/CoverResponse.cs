@@ -16,6 +16,7 @@
     {
         public int metalId { get; set; }
         public string name { get; set; }
+        public string status { get; set; }
         public string url { get; set; }
         public decimal prize { get; set; }
         
@@ -25,6 +26,8 @@
         public int sizeId { get; set; }
         public string name {  set; get; }
         public decimal prices { get; set; }
+        public string status { get; set; }
+
 
     }
 }

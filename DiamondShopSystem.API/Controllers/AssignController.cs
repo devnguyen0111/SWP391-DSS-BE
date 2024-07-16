@@ -10,9 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.EmailServices;
-using Services.OrdersManagement;
+using Services.ShippingService;
 using Services.Users;
-using static Repository.Orders.ShippingRepository;
+using static Repository.Shippings.ShippingRepository;
 using iTextSharp.text;
 
 namespace DiamondShopSystem.API.Controllers

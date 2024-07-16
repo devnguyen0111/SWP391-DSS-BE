@@ -8,7 +8,7 @@ using Services.EmailServices;
 using Services.Products;
 using Services.Users;
 using Services.Utility;
-using static Repository.Orders.ShippingRepository;
+using static Repository.Shippings.ShippingRepository;
 using Order = Model.Models.Order;
 
 namespace DiamondShopSystem.API.Controllers

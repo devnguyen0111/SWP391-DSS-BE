@@ -178,6 +178,30 @@ namespace DiamondShopSystem.API.Controllers
             
             return Ok(new { Metal, Sizes, Shape });
         }
+        [HttpGet("getFilterOptionManager")]
+        public IActionResult getFilterOption2(int category)
+        {
+            var Metal = _metaltypeService.getMetalTypeByCate(category).Select(mt =>
+            {
+                return new metaltypeFilter
+                {
+                    id = mt,
+                    value = _metaltypeService.GetMetaltypeById(mt).MetaltypeName,
+                    status = "Available",
+                };
+            }).ToList();
+            var Sizes = _sizeService.getSizeByCate(category).Select(s =>
+            {
+                return new sizeFilter
+                {
+                    id = s,
+                    value = _sizeService.GetSizeById(s).SizeValue,
+                    status = "Available",
+                };
+            }).ToList();
+
+            return Ok(new { Metal, Sizes });
+        }
         //kiểm tra tồn tại chưa
         [HttpPost]
         [Route("addProduct")]
@@ -270,11 +294,11 @@ namespace DiamondShopSystem.API.Controllers
             product.MetaltypeId = request.MetaltypeId;
             product.SizeId = request.SizeId;
             product.Pp = request.Pp;
-            var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
-            if (producthaha != null)
-            {
-                return BadRequest("Product with these combinations already exist!");
-            }
+            //var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
+            //if (producthaha != null)
+            //{
+            //    return BadRequest("Product with these combinations already exist!");
+            //}
             _productService.UpdateProduct(product);
             return Ok(product);
         }

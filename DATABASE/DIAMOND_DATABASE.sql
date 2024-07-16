@@ -12,6 +12,8 @@ CREATE TABLE Size (
 	--status varchar(50)
 );
 GO
+ALTER TABLE Size
+ADD status VARCHAR(50) DEFAULT 'Available';
 -- Table: MetalType
 CREATE TABLE Metaltype (
     metaltypeId INT IDENTITY PRIMARY KEY,
@@ -20,6 +22,8 @@ CREATE TABLE Metaltype (
     --status varchar(50)
 );
 GO
+ALTER TABLE Metaltype
+ADD status VARCHAR(50) DEFAULT 'Available';
 -- Table: Category
 CREATE TABLE Category (
     categoryId INT IDENTITY PRIMARY KEY,
@@ -79,6 +83,8 @@ CREATE TABLE Diamond (
     price Money NOT NULL
 );
 GO
+ALTER TABLE Diamond
+ADD status VARCHAR(50) DEFAULT 'Available';
 -- Table: Product
 CREATE TABLE Product (
     productId INT IDENTITY PRIMARY KEY,
@@ -95,6 +101,8 @@ CREATE TABLE Product (
     FOREIGN KEY (sizeId) REFERENCES Size(sizeId)on delete cascade
 );
 GO
+ALTER TABLE Product
+ADD status VARCHAR(50) DEFAULT 'Available';
 -- Table: User
 CREATE TABLE [User] (
     userId INT IDENTITY PRIMARY KEY,
