@@ -15,7 +15,7 @@ namespace Services.ShippingService
         IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId);
         IEnumerable<SaleStaff> GetAllSaleStaff();
         IEnumerable<DeliveryStaffStatus> GetDeliveryStaffByManagerId(int managerId);
-        IEnumerable<DeliveryStaff> GetAllDeliveryStaff();
+        IEnumerable<DeliveryStaffStatus> GetAllDeliveryStaff();
         void AssignOrderToStaff(int staffId, int orderId);
         Task<List<Shipping>> GetAllShippingAsync();
         Task<List<Shipping>> GetShippingByStatusAsync(string status);
@@ -27,7 +27,7 @@ namespace Services.ShippingService
         Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);
         Task<bool> IsConfirmFinishShippingAsync(int shippingId);
         Task<List<OrderAssigned>> GetAllOrdersAsync();
-        Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
+        Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
         //Task UpdateShippingAsync(Shipping shipping);
         //Task DeleteShippingAsync(int shippingId);
     }

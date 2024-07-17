@@ -22,7 +22,7 @@ namespace Repository.Shippings
         Task UpdateShippingAsync(Shipping shipping);                                                    // Update Shipping
         Task<Shipping> GetShippingByOrderIdAsync(int orderId);
         Task<List<OrderAssigned>> GetAllOrdersAsync();
-        Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
+        Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);
         //Task UpdateAsync(Shipping shipping);
         //Task DeleteAsync(int shippingId);
         // Add more methods as needed

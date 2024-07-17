@@ -11,7 +11,7 @@ namespace Repository.Users
     public interface IDeliveryStaffRepository
     {
         IEnumerable<DeliveryStaff> GetDeliveryStaffByManagerId(int saleStaffId);
-        IEnumerable<DeliveryStaff> GetAllDeliveryStaff();
+        IEnumerable<DeliveryStaffStatus> GetAllDeliveryStaff();
         IEnumerable<DeliveryStaffStatus> GetDeliveryStaffStatus(int managerId);
     }
 }
