@@ -17,7 +17,7 @@ namespace Repository.Products
         {
             return _context.Products
                 .Include(p => p.Diamond)
-                .Include(p => p.Cover)
+                .Include(p => p.Cover).ThenInclude(p => p.CoverMetaltypes)
                 .Include(p => p.Metaltype)
                 .Include(p => p.Size)
                 .ToList();
@@ -38,7 +38,7 @@ namespace Repository.Products
 
         public Product AddProduct(Product product)
         {
-            _context.Products.Add(product);
+            _context.Products.Add(product); 
             _context.SaveChanges();
             return product;
         }
