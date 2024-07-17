@@ -19,13 +19,35 @@ namespace Repository.Users
         }
         public IEnumerable<DeliveryStaff> GetDeliveryStaffByManagerId(int managerId)
         {
-                return _context.DeliveryStaffs.Where(s => s.ManagerId == managerId).ToList();
-            
+            return _context.DeliveryStaffs.Where(s => s.ManagerId == managerId).ToList();
+
         }
-        public IEnumerable<DeliveryStaff> GetAllDeliveryStaff()
+        public IEnumerable<DeliveryStaffStatus> GetAllDeliveryStaff()
         {
-                return _context.DeliveryStaffs.ToList();
-            
+            var deliveryStaffStatusList = new List<DeliveryStaffStatus>();
+
+            var deliveryStaffList = _context.DeliveryStaffs.ToList();
+
+            foreach (var staff in deliveryStaffList)
+            {
+                // Count the number of orders assigned to this delivery staff
+                var orderCount = _context.Shippings
+                    .Count(s => s.DeliveryStaffId == staff.DStaffId && s.Order.Status == "Shipping");
+
+                // Determine status based on order count
+                var status = orderCount >= 10 ? "Busy" : "Available";
+
+                // Create DeliveryStaffStatus object
+                var deliveryStaffStatus = new DeliveryStaffStatus
+                {
+                    Count = orderCount,
+                    Status = status,
+                    DeliveryStaff = staff
+                };
+
+                deliveryStaffStatusList.Add(deliveryStaffStatus);
+            }
+            return deliveryStaffStatusList;
         }
 
         public IEnumerable<DeliveryStaffStatus> GetDeliveryStaffStatus(int managerId)
@@ -39,7 +61,7 @@ namespace Repository.Users
             {
                 // Count the number of orders assigned to this delivery staff
                 var orderCount = _context.Shippings
-                    .Count(s => s.DeliveryStaffId == staff.DStaffId && s.Status == "Shipping");
+                    .Count(s => s.DeliveryStaffId == staff.DStaffId && s.Order.Status == "Shipping");
 
                 // Determine status based on order count
                 var status = orderCount >= 10 ? "Busy" : "Available";

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Repository.Users.DeliveryStaffRepository;
 
 namespace Repository.Users
 {
@@ -21,9 +22,33 @@ namespace Repository.Users
         {
             return _context.SaleStaffs.Where(s => s.ManagerId == managerId).ToList();
         }
-        public IEnumerable<SaleStaff> GetAllSaleStaff()
+
+        public IEnumerable<SaleStaffStatus> GetAllSaleStaff()
         {
-            return _context.SaleStaffs.ToList();
+            var saleStaffStatusList = new List<SaleStaffStatus>();
+
+            var saleStaffList = _context.SaleStaffs.ToList();
+
+            foreach (var staff in saleStaffList)
+            {
+                // Count the number of orders assigned to this sale staff, one sale staff can onnly manage 10 "Pending" orders
+                var orderCount = _context.Shippings
+                    .Count(s => s.SaleStaffId == staff.SStaffId && s.Order.Status == "Pending");
+
+                // Determine status based on order count
+                var status = orderCount >= 10 ? "Busy" : "Available";
+
+                // Create SaleStaffStatus object
+                var saleStaffStatus = new SaleStaffStatus
+                {
+                    Count = orderCount,
+                    Status = status,
+                    SaleStaff = staff
+                };
+
+                saleStaffStatusList.Add(saleStaffStatus);
+            }
+            return saleStaffStatusList;
         }
 
         public SaleStaff GetSaleStaffById(int id)
@@ -44,6 +69,12 @@ namespace Repository.Users
         public void Save()
         {
             _context.SaveChanges();
+        }
+        public class SaleStaffStatus
+        {
+            public int Count { get; set; }
+            public string? Status { get; set; }
+            public SaleStaff SaleStaff { get; set; }
         }
     }
 

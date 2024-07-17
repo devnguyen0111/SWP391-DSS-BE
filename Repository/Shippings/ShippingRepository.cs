@@ -93,7 +93,7 @@ namespace Repository.Shippings
             return shipping?.Order; // Assuming Order is a navigation property in Shipping
         }
 
-        public async Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
+        public async Task<Order> AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
         {
             var shipping = await _context.Shippings
                 .Include(s => s.Order)
@@ -104,6 +104,7 @@ namespace Repository.Shippings
                 shipping.DeliveryStaffId = deliveryStaffId;
                 shipping.Order.Status = "Shipping";
                 await _context.SaveChangesAsync();
+                return shipping.Order;
             }
             else
             {
@@ -144,34 +145,50 @@ namespace Repository.Shippings
             return orders;
         }
 
-        public async Task<StaffOrder> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
+        public async Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status)
         {
-            var orderAssigned = await _context.Shippings
-                .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
-                .Include(s => s.Order)
-                .ThenInclude(o => o.ShippingMethod)
-                .Select(s => new OrderAssigned
-                {
-                    OrderId = s.Order.OrderId,
-                    StaffId = s.SaleStaffId,
-                    DeliveryId = s.DeliveryStaffId,
-                    OrderDate = s.Order.OrderDate,
-                    Status = s.Order.Status,
-                    ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
-                    TotalAmount = s.Order.TotalAmount
-                }).ToListAsync();
+            return await _context.Shippings
+        .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
+        .Include(s => s.Order)
+        .ThenInclude(o => o.ShippingMethod)
+        .Select(s => new OrderAssigned
+        {
+            OrderId = s.Order.OrderId,
+            StaffId = s.SaleStaffId, // Default value for nullable StaffId
+            DeliveryId = s.DeliveryStaffId, // Default value for nullable DeliveryId
+            OrderDate = s.Order.OrderDate,
+            Status = s.Order.Status ?? "Unknown", // Default value for nullable Status
+            ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown Shipping Method", // Handle nullable ShippingMethod
+            TotalAmount = s.Order.TotalAmount  // Default value for nullable TotalAmount
+        }).ToListAsync();
 
-            var OrderCount = orderAssigned.Count();
+            //--get count--
+            //var orderAssigned = await _context.Shippings
+            //    .Where(s => s.DeliveryStaffId == deliveryStaffId && s.Order.Status == status)
+            //    .Include(s => s.Order)
+            //    .ThenInclude(o => o.ShippingMethod)
+            //    .Select(s => new OrderAssigned
+            //    {
+            //        OrderId = s.Order.OrderId,
+            //        StaffId = s.SaleStaffId,
+            //        DeliveryId = s.DeliveryStaffId,
+            //        OrderDate = s.Order.OrderDate,
+            //        Status = s.Order.Status,
+            //        ShippingMethodName = s.Order.ShippingMethod != null ? s.Order.ShippingMethod.MethodName : "Unknown",
+            //        TotalAmount = s.Order.TotalAmount
+            //    }).ToListAsync();
 
-            StaffOrder staffOrder = new StaffOrder();
-            staffOrder.Count = OrderCount;
-            if (OrderCount >= 10)
-            {
-                staffOrder.StaffStatus = "Busy";
-            }
-            else { staffOrder.StaffStatus = "Available"; }
-            staffOrder.OrdersAssigned = orderAssigned;
-            return staffOrder;
+            //var OrderCount = orderAssigned.Count();
+
+            //StaffOrder staffOrder = new StaffOrder();
+            //staffOrder.Count = OrderCount;
+            //if (OrderCount >= 10)
+            //{
+            //    staffOrder.StaffStatus = "Busy";
+            //}
+            //else { staffOrder.StaffStatus = "Available"; }
+            //staffOrder.OrdersAssigned = orderAssigned;
+            //return staffOrder;
         }
 
         public class StaffOrder
