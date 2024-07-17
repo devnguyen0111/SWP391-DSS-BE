@@ -15,7 +15,7 @@ public partial class Shipping
 
     public int SaleStaffId { get; set; }
 
-    public int DeliveryStaffId { get; set; }
+    public int? DeliveryStaffId { get; set; }
 
     public virtual DeliveryStaff DeliveryStaff { get; set; }
 

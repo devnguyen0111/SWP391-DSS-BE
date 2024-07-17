@@ -33,36 +33,36 @@ namespace DiamondShopSystem.API.Controllers
             _orderService = orderService;
             _emailService = e;
         }
-        [HttpPost("SendPdf")]
-        public IActionResult GeneratePdf([FromBody] HtmlContentModel model)
-        {
-            byte[] pdfBytes;
-            using (var ms = new MemoryStream())
-            {
-                var document = new Document();
-                PdfWriter writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-                using (var strReader = new StringReader(model.HtmlContent))
-                {
-                    HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
-                    htmlContext.SetTagFactory(Tags.GetHtmlTagProcessorFactory());
+        //[HttpPost("SendPdf")]
+        //public IActionResult GeneratePdf([FromBody] HtmlContentModel model)
+        //{
+        //    byte[] pdfBytes;
+        //    using (var ms = new MemoryStream())
+        //    {
+        //        var document = new Document();
+        //        PdfWriter writer = PdfWriter.GetInstance(document, ms);
+        //        document.Open();
+        //        using (var strReader = new StringReader(model.HtmlContent))
+        //        {
+        //            HtmlPipelineContext htmlContext = new HtmlPipelineContext(null);
+        //            htmlContext.SetTagFactory(Tags.GetHtmlTagProcessorFactory());
 
-                    ICSSResolver cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(false);
-                    // Add CSS if necessary
-                    // cssResolver.AddCssFile("path_to_css_file", true);
+        //            ICSSResolver cssResolver = XMLWorkerHelper.GetInstance().GetDefaultCssResolver(false);
+        //            // Add CSS if necessary
+        //            // cssResolver.AddCssFile("path_to_css_file", true);
 
-                    IPipeline pipeline = new CssResolverPipeline(cssResolver, new HtmlPipeline(htmlContext, new PdfWriterPipeline(document, writer)));
-                    var worker = new XMLWorker(pipeline, true);
-                    var xmlParse = new XMLParser(true, worker);
-                    xmlParse.Parse(strReader);
-                    xmlParse.Flush();
-                }
-                document.Close();
-                pdfBytes = ms.ToArray();
-            }
-            return Ok(pdfBytes);
-            //return File(pdfBytes, "application/pdf", "generated.pdf");
-        }
+        //            IPipeline pipeline = new CssResolverPipeline(cssResolver, new HtmlPipeline(htmlContext, new PdfWriterPipeline(document, writer)));
+        //            var worker = new XMLWorker(pipeline, true);
+        //            var xmlParse = new XMLParser(true, worker);
+        //            xmlParse.Parse(strReader);
+        //            xmlParse.Flush();
+        //        }
+        //        document.Close();
+        //        pdfBytes = ms.ToArray();
+        //    }
+        //    return Ok(pdfBytes);
+        //    //return File(pdfBytes, "application/pdf", "generated.pdf");
+        //}
         [HttpGet("getAllOrdersFromShipping")]
         public async Task<ActionResult<List<OrderAssigned>>> GetAllOrdersFromShipping()
         {
@@ -185,13 +185,15 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("No sales staff found for the given manager ID.");
             }
 
-            var saleStaffStaffRequests = saleStaffs.Select(s => new StaffRequest
+            var saleStaffStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
             {
-                StaffId = s.SStaffId,
-                Name = s.Name,
-                Phone = s.Phone,
-                Email = s.Email,
-                ManagerId = s.ManagerId
+                Count = s.Count,
+                Status = s.Status,
+                SStaffId = s.SaleStaff.SStaffId,
+                Name = s.SaleStaff.Name,
+                Phone = s.SaleStaff.Phone,
+                Email = s.SaleStaff.Email,
+                ManagerId = s.SaleStaff.ManagerId
             }).ToList();
 
             return Ok(saleStaffStaffRequests);
@@ -234,7 +236,6 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return NotFound("There are no orders matching your given data.");
                 }
-
                 return Ok(orders);
             }
             catch (Exception ex)
@@ -297,11 +298,11 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var shipping = await _shippingService.AssignOrderAsync(status, orderId, saleStaffId);
-                return CreatedAtAction(nameof(GetShippingById), new { shippingId = shipping.ShippingId }, shipping);
+                return Ok("1");
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"An error occurred: {ex.Message}");
+                return StatusCode(500, $"An error occurred: ");
             }
         }
 
@@ -316,8 +317,8 @@ namespace DiamondShopSystem.API.Controllers
 
             try
             {
-                await _shippingService.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
-                return Ok($"Shipping with order ID {orderId} assigned to delivery successfully.");
+                var order = await _shippingService.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
+                return Ok(order.OrderId);
             }
             catch (ArgumentException ex)
             {

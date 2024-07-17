@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Repository.Shippings.ShippingRepository;
 using static Repository.Users.DeliveryStaffRepository;
+using static Repository.Users.SaleStaffRepository;
 using static Services.ShippingService.IShippingService;
 namespace Services.ShippingService
 {
@@ -43,7 +44,7 @@ namespace Services.ShippingService
 
         public async Task<Shipping> AssignOrderAsync(string status, int orderId, int saleStaffId)
         {
-            var order = _orderRepository.GetOrderByIdAndStatus(orderId, "Processing");
+            var order = _orderRepository.GetOrderByIdAndStatus(orderId, "Paid");
 
             if (order == null)
             {
@@ -81,9 +82,9 @@ namespace Services.ShippingService
             return await _shippingRepository.GetOrderByOrderIdAsync(orderId);
         }
 
-        public async Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
+        public async Task<Order> AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
         {
-            await _shippingRepository.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
+            return await _shippingRepository.AssignShippingToDeliveryAsync(orderId, deliveryStaffId);
         }
         public async Task<bool> IsConfirmFinishShippingAsync(int orderId)
         {
@@ -125,7 +126,7 @@ namespace Services.ShippingService
         {
             return _deliveryStaffRepository.GetAllDeliveryStaff();
         }
-        public IEnumerable<SaleStaff> GetAllSaleStaff()
+        public IEnumerable<SaleStaffStatus> GetAllSaleStaff()
         {
             return _saleStaffRepository.GetAllSaleStaff();
         }

@@ -179,6 +179,7 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
         [HttpPost("applyVoucher")]
         public IActionResult applyVoucher([FromBody] VoucherRequest1 vq)
         {
@@ -250,7 +251,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "Paid",
+                Status = "Processing",                            //note
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -283,14 +284,14 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var orders = new List<Order>();
-                if (status.IsNullOrEmpty())
+                if (status == null)
                 {
-                    orders = _orderService.getAllOrders();
+                    orders = _orderService.getAllOrders().Where(o =>  !StringUltis.AreEqualIgnoreCase(o.Status, "pRoCeSsInG")).ToList(); //hàm lower nè
                 } else
+
                 {
                     orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
                 }
-                
 
                 if (orders == null || !orders.Any())
                 {

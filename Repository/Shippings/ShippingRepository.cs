@@ -93,7 +93,7 @@ namespace Repository.Shippings
             return shipping?.Order; // Assuming Order is a navigation property in Shipping
         }
 
-        public async Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
+        public async Task<Order> AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId)
         {
             var shipping = await _context.Shippings
                 .Include(s => s.Order)
@@ -104,6 +104,7 @@ namespace Repository.Shippings
                 shipping.DeliveryStaffId = deliveryStaffId;
                 shipping.Order.Status = "Shipping";
                 await _context.SaveChangesAsync();
+                return shipping.Order;
             }
             else
             {

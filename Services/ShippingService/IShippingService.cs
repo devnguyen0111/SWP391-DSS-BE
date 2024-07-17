@@ -7,13 +7,14 @@ using System.Text;
 using System.Threading.Tasks;
 using static Repository.Shippings.ShippingRepository;
 using static Repository.Users.DeliveryStaffRepository;
+using static Repository.Users.SaleStaffRepository;
 
 namespace Services.ShippingService
 {
     public interface IShippingService
     {
         IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId);
-        IEnumerable<SaleStaff> GetAllSaleStaff();
+        IEnumerable<SaleStaffStatus> GetAllSaleStaff();
         IEnumerable<DeliveryStaffStatus> GetDeliveryStaffByManagerId(int managerId);
         IEnumerable<DeliveryStaffStatus> GetAllDeliveryStaff();
         void AssignOrderToStaff(int staffId, int orderId);
@@ -24,7 +25,7 @@ namespace Services.ShippingService
         Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);
         Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAsync(int saleStaffId);
         Task<Order> GetOrderByOrderIdAsync(int orderId);
-        Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);
+        Task<Order> AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);
         Task<bool> IsConfirmFinishShippingAsync(int shippingId);
         Task<List<OrderAssigned>> GetAllOrdersAsync();
         Task<List<OrderAssigned>> GetOrdersByDeliveryStaffIdAsync(int deliveryStaffId, string status);

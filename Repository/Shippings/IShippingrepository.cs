@@ -18,7 +18,7 @@ namespace Repository.Shippings
         Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAndStatusAsync(int saleStaffId, string status);        // Lấy list orders trong bảng Shipping ra cho staff và status
         Task<List<OrderAssigned>> GetOrdersBySaleStaffIdAsync(int saleStaffId);                              // Lấy list orders trong bảng Shipping ra cho staff
         Task<Order> GetOrderByOrderIdAsync(int orderId);                                               // Lấy Order Detail trong bảng Shipping
-        Task AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);                        // Staff assign cho delivery đồng thời đổi status thành "Shipping"
+        Task<Order> AssignShippingToDeliveryAsync(int orderId, int deliveryStaffId);                        // Staff assign cho delivery đồng thời đổi status thành "Shipping"
         Task UpdateShippingAsync(Shipping shipping);                                                    // Update Shipping
         Task<Shipping> GetShippingByOrderIdAsync(int orderId);
         Task<List<OrderAssigned>> GetAllOrdersAsync();
