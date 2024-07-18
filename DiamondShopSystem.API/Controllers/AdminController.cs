@@ -179,7 +179,7 @@ namespace DiamondShopSystem.API.Controllers
             int earrings = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Paid" || order.Status == "Pending" || order.Status == "Delivered")
+                if (order.Status == "Paid" || order.Status == "Pending" || order.Status == "Delivered" || order.Status == "Processing")
                 {
                     foreach (ProductOrder productOrder in order.ProductOrders)
                     {
