@@ -251,7 +251,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-                Status = "Processing",                            //note
+                Status = "Processing",
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -286,7 +286,7 @@ namespace DiamondShopSystem.API.Controllers
                 var orders = new List<Order>();
                 if (status == null)
                 {
-                    orders = _orderService.getAllOrders().Where(o =>  !StringUltis.AreEqualIgnoreCase(o.Status, "pRoCeSsInG")).ToList(); //hàm lower nè
+                    orders = _orderService.getAllOrders().Where(o =>  !StringUltis.AreEqualIgnoreCase(o.Status, "Processing")).ToList(); //hàm lower nè
                 } else
 
                 {
