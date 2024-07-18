@@ -34,9 +34,9 @@ namespace Repository.Shippings
         {
             return await _DBContext.Requests.FindAsync(requestId);
         }
-        public async Task<List<Request>> GetRequestByOrderIdAsync(int orderId)
+        public async Task<Request> GetRequestByOrderIdAsync(int orderId)
         {
-            return await _DBContext.Requests.Where(o => o.OrderId == orderId).ToListAsync();
+            return await _DBContext.Requests.Where(r => r.OrderId == orderId).FirstOrDefaultAsync();
         }
 
         public async Task UpdateRequestAsync(Request request)
@@ -47,6 +47,7 @@ namespace Repository.Shippings
 
         public class CreateRequestDto
         {
+            public string Title { get; set; }
             public string Context { get; set; }
             public int SStaffId { get; set; }
             public int ManId { get; set; }

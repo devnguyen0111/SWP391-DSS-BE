@@ -3,10 +3,10 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-
 using Model.Models;
 
 namespace DAO;
+
 public partial class DIAMOND_DBContext : DbContext
 {
     public DIAMOND_DBContext(DbContextOptions<DIAMOND_DBContext> options)
@@ -549,7 +549,7 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Request>(entity =>
         {
-            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE314EF073A7");
+            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE31773031DD");
 
             entity.ToTable("Request");
 
@@ -561,31 +561,41 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasColumnName("context");
             entity.Property(e => e.ManId).HasColumnName("manId");
             entity.Property(e => e.OrderId).HasColumnName("orderId");
+            entity.Property(e => e.ProcessStatus)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("processStatus");
+            entity.Property(e => e.RequestStatus)
+                .IsRequired()
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("requestStatus");
             entity.Property(e => e.RequestedDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime")
                 .HasColumnName("requestedDate");
             entity.Property(e => e.SStaffId).HasColumnName("sStaffId");
-            entity.Property(e => e.Status)
+            entity.Property(e => e.Title)
                 .IsRequired()
                 .HasMaxLength(255)
                 .IsUnicode(false)
-                .HasColumnName("status");
+                .HasColumnName("title");
 
             entity.HasOne(d => d.Man).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.ManId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Request__manId__1CBC4616");
+                .HasConstraintName("FK__Request__manId__2CF2ADDF");
 
             entity.HasOne(d => d.Order).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Request__orderId__1DB06A4F");
+                .HasConstraintName("FK__Request__orderId__2DE6D218");
 
             entity.HasOne(d => d.SStaff).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.SStaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Request__sStaffI__1BC821DD");
+                .HasConstraintName("FK__Request__sStaffI__2BFE89A6");
         });
 
         modelBuilder.Entity<Review>(entity =>
@@ -803,29 +813,6 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasColumnType("money")
                 .HasColumnName("topPrice");
         });
-
-        //modelBuilder.Entity<Wishlist>(entity =>
-        //{
-        //    entity.HasKey(e => e.WishlistId).HasName("PK__Wishlist__46E2A1B0DB8586D8");
-
-        //    entity.ToTable("Wishlist");
-
-        //    entity.Property(e => e.WishlistId).HasColumnName("wishlistId");
-        //    entity.Property(e => e.DateAdded)
-        //        .HasDefaultValueSql("(getdate())")
-        //        .HasColumnType("datetime")
-        //        .HasColumnName("dateAdded");
-        //    entity.Property(e => e.ProductId).HasColumnName("productId");
-        //    entity.Property(e => e.UserId).HasColumnName("userId");
-
-        //    entity.HasOne(d => d.Product).WithMany(p => p.Wishlists)
-        //        .HasForeignKey(d => d.ProductId)
-        //        .HasConstraintName("FK__Wishlist__produc__236943A5");
-
-        //    entity.HasOne(d => d.User).WithMany(p => p.Wishlists)
-        //        .HasForeignKey(d => d.UserId)
-        //        .HasConstraintName("FK__Wishlist__userId__22751F6C");
-        //});
 
         OnModelCreatingPartial(modelBuilder);
     }
