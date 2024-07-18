@@ -251,11 +251,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-<<<<<<< Updated upstream
-                Status = "Processing",                            //note
-=======
                 Status = "Processing",
->>>>>>> Stashed changes
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -290,16 +286,12 @@ namespace DiamondShopSystem.API.Controllers
                 var orders = new List<Order>();
                 if (status == null)
                 {
-                    orders = _orderService.getAllOrders().Where(o =>  !StringUltis.AreEqualIgnoreCase(o.Status, "pRoCeSsInG")).ToList(); //hàm lower nè
+                    orders = _orderService.getAllOrders().Where(o =>  !StringUltis.AreEqualIgnoreCase(o.Status, "Processing")).ToList(); //hàm lower nè
                 } else
 
                 {
                     orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
                 }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
                 if (orders == null || !orders.Any())
                 {
                     return NotFound(new { Message = "No orders found for the given status." });
