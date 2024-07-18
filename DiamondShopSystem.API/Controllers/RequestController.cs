@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiamondShopSystem.API.DTO;
+using Microsoft.AspNetCore.Mvc;
+using Model.Models;
 using Services.ShippingService;
 using static Repository.Shippings.RequestRepository;
 
@@ -20,7 +22,18 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
-                return Ok(requests);
+                return Ok( requests.Select(r => new RequestDetail
+                {
+                    RequestId = r.RequestId,
+                    Title = r.Title,
+                    ProcessStatus = r.ProcessStatus,
+                    RequestedDate = r.RequestedDate,
+                    RequestStatus = r.RequestStatus,
+                    Context = r.Context,
+                    ManId = r.ManId,
+                    OrderId = r.OrderId,
+                    SStaffId = r.SStaffId
+                }));
             }
             catch (Exception e)
             {
@@ -28,19 +41,55 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("detail/{requestId}")]
+        public async Task<IActionResult> GetRequestDetail(int requestId)
+        {
+            try
+            {
+                var r = await _requestService.GetRequestDetailAsync(requestId);
+                return Ok(new RequestDetail
+                {
+                    RequestId = r.RequestId,
+                    Title = r.Title,
+                    ProcessStatus = r.ProcessStatus,
+                    RequestedDate = r.RequestedDate,
+                    RequestStatus = r.RequestStatus,
+                    Context = r.Context,
+                    ManId = r.ManId,
+                    OrderId = r.OrderId,
+                    SStaffId = r.SStaffId
+                });
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+        }
+
+        [HttpPost("create")]
         public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto requestDto)
         {
             try
             {
-                if (await _requestService.IsExistedRequestAsync(requestDto.OrderId))
+                if (await _requestService.IsPendingRequestAsync(requestDto.OrderId))
                 {
-                    return BadRequest("This Order has already been submitted an approval request");
+                    return BadRequest("This Order has already got a request");
                 }
                 else
                 {
                     var request = await _requestService.CreateRequestAsync(requestDto);
-                    return Ok(new { message = "Request created successfully", request });
+                    return Ok(new
+                    {
+                        message = "Request created successfully",
+                        CreateRequestDto = new CreateRequestDto
+                        {
+                            Title = request.Title,
+                            Context = request.Context,
+                            ManId = request.ManId,
+                            OrderId = request.OrderId,
+                            SStaffId = request.SStaffId
+                        }
+                    });
                 }
             }
             catch (Exception e)

@@ -9,11 +9,15 @@ public partial class Request
 {
     public int RequestId { get; set; }
 
+    public string Title { get; set; }
+
+    public string ProcessStatus { get; set; }
+
     public DateTime? RequestedDate { get; set; }
 
     public string Context { get; set; }
 
-    public string Status { get; set; }
+    public string RequestStatus { get; set; }
 
     public int SStaffId { get; set; }
 

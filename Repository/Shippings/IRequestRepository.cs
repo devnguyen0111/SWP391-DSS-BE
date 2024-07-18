@@ -12,7 +12,7 @@ namespace Repository.Shippings
     {
         Task<IEnumerable<Request>> GetAllRequestsAsync();
         Task<Request> GetRequestByIdAsync(int requestId);
-        Task<List<Request>> GetRequestByOrderIdAsync(int orderId);
+        Task<Request> GetRequestByOrderIdAsync(int orderId);
         Task UpdateRequestAsync(Request request);
         Task<Request> AddRequestAsync(Request request);
     }

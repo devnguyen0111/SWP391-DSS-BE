@@ -287,9 +287,11 @@ GO
 --Table: Request
 CREATE TABLE Request (
     requestId INT IDENTITY PRIMARY KEY,
+	title VARCHAR(255) NOT NULL,
+	processStatus VARCHAR(255) NOT NULL,
     requestedDate DATETIME DEFAULT GETDATE(),
     context VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    requestStatus VARCHAR(255) NOT NULL,
     sStaffId INT NOT NULL,
     manId INT NOT NULL,
     orderId INT NOT NULL,
