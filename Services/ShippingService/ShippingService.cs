@@ -3,6 +3,7 @@ using Repository.Shippings;
 using Repository.Users;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -62,7 +63,7 @@ namespace Services.ShippingService
                 OrderId = orderId,
                 SaleStaffId = saleStaffId,
             };
-
+            Debug.WriteLine(123);
             await _shippingRepository.CreateAsync(shipping);
 
             return shipping;

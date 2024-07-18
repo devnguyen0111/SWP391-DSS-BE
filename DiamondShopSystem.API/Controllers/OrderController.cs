@@ -292,7 +292,6 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
                 }
-
                 if (orders == null || !orders.Any())
                 {
                     return NotFound(new { Message = "No orders found for the given status." });
