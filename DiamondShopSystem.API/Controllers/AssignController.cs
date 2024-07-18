@@ -135,13 +135,15 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("No sales staff found for the given manager ID.");
             }
 
-            var saleStaffRequests = saleStaffs.Select(s => new StaffRequest
+            var saleStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
             {
-                StaffId = s.SStaffId,
-                Name = s.Name,
-                Phone = s.Phone,
-                Email = s.Email,
-                ManagerId = s.ManagerId
+                Count = s.Count,
+                Status = s.Status,
+                SStaffId = s.SaleStaff.SStaffId,
+                Name = s.SaleStaff.Name,
+                Phone = s.SaleStaff.Phone,
+                Email = s.SaleStaff.Email,
+                ManagerId = s.SaleStaff.ManagerId
             }).ToList();
 
             return Ok(saleStaffRequests);
@@ -185,7 +187,7 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("No sales staff found for the given manager ID.");
             }
 
-            var saleStaffStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
+            var saleStaffRequests = saleStaffs.Select(s => new SaleStaffRequest
             {
                 Count = s.Count,
                 Status = s.Status,
@@ -196,7 +198,7 @@ namespace DiamondShopSystem.API.Controllers
                 ManagerId = s.SaleStaff.ManagerId
             }).ToList();
 
-            return Ok(saleStaffStaffRequests);
+            return Ok(saleStaffRequests);
         }
 
         [HttpGet("getAllDeliveryStaff")]

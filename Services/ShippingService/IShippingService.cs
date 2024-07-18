@@ -13,7 +13,7 @@ namespace Services.ShippingService
 {
     public interface IShippingService
     {
-        IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId);
+        IEnumerable<SaleStaffStatus> GetSaleStaffByManagerId(int managerId);
         IEnumerable<SaleStaffStatus> GetAllSaleStaff();
         IEnumerable<DeliveryStaffStatus> GetDeliveryStaffByManagerId(int managerId);
         IEnumerable<DeliveryStaffStatus> GetAllDeliveryStaff();

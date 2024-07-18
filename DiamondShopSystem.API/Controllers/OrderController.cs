@@ -251,11 +251,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
-<<<<<<< Updated upstream
                 Status = "Processing",                            //note
-=======
-                Status = "Processing",
->>>>>>> Stashed changes
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -296,10 +292,6 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
                 }
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
                 if (orders == null || !orders.Any())
                 {
                     return NotFound(new { Message = "No orders found for the given status." });
@@ -396,17 +388,35 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        [HttpPost("cancelOrderByOrderId/{orderId}")]
-        public async Task<IActionResult> CancelOrderByOrderId(string orderId)
+        [HttpPost("cancel/{userId}/{orderId}")]
+        public async Task<IActionResult> CancelOrderByOrderId(int userId, int orderId)
         {
             try
             {
-                bool result = await _orderService.CancelOrderAsync(orderId);
-                if (!result)
+                string result = await _orderService.CancelOrderAsync(orderId, userId);
+                // result is 1 if not found the order
+                // result is 2 if exceed the time limit for the order
+                // else success
+                if (result == "err1")
                 {
                     return NotFound(new { message = "Order not found" });
                 }
-                return Ok(new { message = "Order cancelled successfully" });
+                else if (result == "err2")
+                {
+                    return BadRequest("The Order can not be cancel because it exceed the limited time");
+                }
+                else 
+                {
+                    var o = _orderService.GetOrderByIdAndStatus(orderId, "Cancel");
+                    return Ok(new OrderHistoryResponse1
+                    {
+                        OrderId = o?.OrderId ?? 0,
+                        OrderDate = o?.OrderDate ?? DateTime.MinValue,
+                        Status = o?.Status ?? "Unknown",
+                        ShippingMethodName = o?.ShippingMethod?.MethodName ?? "Unknown Shipping Method",
+                        TotalAmount = o?.TotalAmount ?? 0,
+                    }); 
+                }
             }
             catch (Exception e)
             {

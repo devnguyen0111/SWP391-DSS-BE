@@ -10,7 +10,7 @@ namespace Repository.Users
 {
     public interface ISaleStaffRepository
     {
-        IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId);
+        IEnumerable<SaleStaffStatus> GetSaleStaffByManagerId(int managerId);
         IEnumerable<SaleStaffStatus> GetAllSaleStaff();
         SaleStaff GetSaleStaffById(int id);
         void AssignOrderToStaff(int staffId, int orderId);

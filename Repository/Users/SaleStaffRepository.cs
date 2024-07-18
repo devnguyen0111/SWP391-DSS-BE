@@ -18,9 +18,33 @@ namespace Repository.Users
             _context = context;
         }
 
-        public IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId)
+        public IEnumerable<SaleStaffStatus> GetSaleStaffByManagerId(int managerId)
         {
-            return _context.SaleStaffs.Where(s => s.ManagerId == managerId).ToList();
+
+            var saleStaffStatusList = new List<SaleStaffStatus>();
+
+            var saleStaffList = _context.SaleStaffs.Where(s => s.ManagerId == managerId).ToList();
+
+            foreach (var staff in saleStaffList)
+            {
+                // Count the number of orders assigned to this sale staff, one sale staff can onnly manage 10 "Pending" orders
+                var orderCount = _context.Shippings
+                    .Count(s => s.SaleStaffId == staff.SStaffId && s.Order.Status == "Pending");
+
+                // Determine status based on order count
+                var status = orderCount >= 10 ? "Busy" : "Available";
+
+                // Create SaleStaffStatus object
+                var saleStaffStatus = new SaleStaffStatus
+                {
+                    Count = orderCount,
+                    Status = status,
+                    SaleStaff = staff
+                };
+
+                saleStaffStatusList.Add(saleStaffStatus);
+            }
+            return saleStaffStatusList;
         }
 
         public IEnumerable<SaleStaffStatus> GetAllSaleStaff()

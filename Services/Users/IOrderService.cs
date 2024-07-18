@@ -13,7 +13,7 @@ namespace Services.Users
         void addOrder(Order order);
         List<ShippingMethod> GetShippingMethods();
         public Order GetOrderByIdAndStatus(int orderId, string status);
-        Task<bool> CancelOrderAsync(string orderId);
+        Task<string> CancelOrderAsync(int orderId, int userId);
 
 
     }
