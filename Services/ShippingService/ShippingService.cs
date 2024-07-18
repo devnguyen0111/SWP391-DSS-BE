@@ -48,7 +48,7 @@ namespace Services.ShippingService
 
             if (order == null)
             {
-                throw new Exception("Order not found");
+                throw new Exception("Order not found (mostly because it is already assigned)");
             }
 
             // Update the order status to "pending"
@@ -114,7 +114,7 @@ namespace Services.ShippingService
 
         
 
-        public IEnumerable<SaleStaff> GetSaleStaffByManagerId(int managerId)
+        public IEnumerable<SaleStaffStatus> GetSaleStaffByManagerId(int managerId)
         {
             return _saleStaffRepository.GetSaleStaffByManagerId(managerId);
         }

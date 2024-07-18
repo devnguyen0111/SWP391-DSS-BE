@@ -98,6 +98,12 @@ namespace Repository.Shippings
             var shipping = await _context.Shippings
                 .Include(s => s.Order)
                 .FirstOrDefaultAsync(s => s.OrderId == orderId && s.Status == "Approve");
+            //throw exception if the order status is not "Pending"
+            if (!shipping.Order.Status.Equals("Pending"))
+            {
+                throw new ArgumentException($"Order with id {orderId} has already been assigned");
+            }
+            //check null of the shipping
             if (shipping != null)
             {
                 // Update the shipping and order status
