@@ -149,9 +149,9 @@ namespace Services.Users
         {
             return _orderRepository.GetOrderByIdAndStatus(orderId, status);
         }
-        public Task<bool> CancelOrderAsync(string orderId)
+        public Task<string> CancelOrderAsync(int orderId, int userId)
         {
-            return _orderRepository.CancelOrderAsync(orderId);
+            return _orderRepository.CancelOrderAsync(orderId, userId);
         }
     }
     public class ProductQuantity1

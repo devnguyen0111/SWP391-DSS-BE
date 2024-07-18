@@ -55,18 +55,56 @@ namespace Repository.Users
             await _context.SaveChangesAsync();
         }
 
-        public async Task<bool> CancelOrderAsync(string orderId)
+        public async Task<string> CancelOrderAsync(int orderId, int userId)
         {
+            //check the order
             var order = await _context.Orders.FindAsync(orderId);
             if (order == null)
             {
-                return false;
+                return "err1";
             }
+            //check which user is canceling the order
+            var user =  _context.Users.FirstOrDefault(u => u.UserId == userId);
+            
+            //if customer, than base on the shipping method to count the time
+            if (user.Role.Equals("customer"))
+            {
+                // Get the current date and time
+                DateTime currentDate = DateTime.Now;
 
+                // Calculate the difference between the current date and the order date
+                TimeSpan timeDifference = currentDate - order.OrderDate;
+
+                switch (order.ShippingMethodId)
+                {
+                    //if Standard Shipping, no more than 12 hours
+                    case 1:
+                        if(timeDifference.TotalHours >= 12)
+                        {
+                            return "err2";
+                        }
+                        else { break; }
+                    //if Express Shipping, no more than 24 hours
+                    case 2:
+                        if (timeDifference.TotalHours >= 24)
+                        {
+                            return "err2";
+                        }
+                        else { break; }
+                    //if Free Shipping, no more than 6 hours
+                    case 3:
+                        if (timeDifference.TotalHours >= 6)
+                        {
+                            return "err2";
+                        }
+                        else { break; }
+                }
+            }        
+            //if Sale Staff / Manager, then just cancel
             order.Status = "Cancel";
             _context.Orders.Update(order);
             await _context.SaveChangesAsync();
-            return true;
+            return "";
         }
     }
 }

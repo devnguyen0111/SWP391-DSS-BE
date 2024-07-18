@@ -12,7 +12,7 @@ namespace Repository.Users
         List<ShippingMethod> GetShippingMethods();
         Order GetOrderByIdAndStatus(int orderId, string status);
         Task UpdateOrderAsync(Order order);
-        Task<bool> CancelOrderAsync(string orderId);
+        Task<string> CancelOrderAsync(int orderId, int id);
 
 
     }
