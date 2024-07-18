@@ -153,6 +153,46 @@ namespace DiamondShopSystem.API.Controllers
 
             return Ok(filteredProducts);
         }
+        [HttpGet("getFilteredProductAdManager")]
+        public IActionResult GetFilteredProducts123(
+    [FromQuery] int? categoryId,
+    [FromQuery] int? subCategoryId,
+    [FromQuery] int? metaltypeId,
+    [FromQuery] int? sizeId,
+    [FromQuery] decimal? minPrice,
+    [FromQuery] decimal? maxPrice,
+    [FromQuery] string? sortOrder,
+    [FromQuery] int? pageNumber,
+    [FromQuery] int? pageSize,
+    [FromQuery] List<int>? sizeIds,
+    [FromQuery] List<int>? metaltypeIds,
+    [FromQuery] List<string>? diamondShapes)
+        {
+            var filteredProducts = _productService.FilterProductsAd(
+                categoryId,
+                subCategoryId,
+                metaltypeId,
+                sizeId,
+                minPrice,
+                maxPrice,
+                sortOrder,
+                sizeIds,
+                metaltypeIds,
+                diamondShapes,
+                pageNumber,
+                pageSize).Select(c =>
+                {
+                    return new ProductRequest
+                    {
+                        ProductId = c.ProductId,
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId).ImgUrl,
+                        ProductName = c.ProductName,
+                        UnitPrice = _productService.GetProductTotal(c.ProductId),
+                    };
+                }).ToList();
+
+            return Ok(filteredProducts);
+        }
         //_coverMetaltypeService.GetCoverMetaltype(c.ProductId, c.MetaltypeId).ImgUrl
         //https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567
         [HttpGet("getFilterOption")]
@@ -247,7 +287,12 @@ namespace DiamondShopSystem.API.Controllers
                 SizeId = request.SizeId,
                 Pp = request.Pp
             };
-           
+            var producthaha = _productService.GetAllProducts().Where(c => c.ProductId != product.ProductId).FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
+            if (producthaha != null)
+            {
+                return BadRequest("Product with these combinations already exist!");
+            }
+
             _productService.AddProduct(product);
             return Ok(product);
         }
@@ -286,7 +331,6 @@ namespace DiamondShopSystem.API.Controllers
             }
             // Concatenate CoverName and DiamondName to form ProductName
             var productName = cover.CoverName +" "+ diamond.DiamondName;
-
             product.ProductName = productName;
             product.UnitPrice = request.UnitPrice;
             product.DiamondId = request.DiamondId;
@@ -294,11 +338,11 @@ namespace DiamondShopSystem.API.Controllers
             product.MetaltypeId = request.MetaltypeId;
             product.SizeId = request.SizeId;
             product.Pp = request.Pp;
-            //var producthaha = _productService.GetAllProducts().FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
-            //if (producthaha != null)
-            //{
-            //    return BadRequest("Product with these combinations already exist!");
-            //}
+            var producthaha = _productService.GetAllProducts().Where(c=>c.ProductId!=product.ProductId).FirstOrDefault(c => c.MetaltypeId == request.MetaltypeId && c.CoverId == request.CoverId && c.DiamondId == request.DiamondId && c.SizeId == request.SizeId);
+            if (producthaha != null)
+            {
+                return BadRequest("Product with these combinations already exist!");
+            }
             _productService.UpdateProduct(product);
             return Ok(product);
         }
@@ -308,14 +352,12 @@ namespace DiamondShopSystem.API.Controllers
             HttpContext.Session.Set("TempProductSelection", selection);
             return Ok("Product selection saved.");
         }
-
         [HttpGet("get-selection")]
         public IActionResult GetProductSelection()
         {
             TempProductSelection selection = HttpContext.Session.Get<TempProductSelection>("TempProductSelection");
             return Ok(selection);
         }
-
         [HttpPost("confirm")]
         public IActionResult ConfirmProduct([FromBody] TempProductSelection selection)
         {
@@ -324,19 +366,15 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest("Incomplete product selection.");
             }
-
             var size = _sizeService.GetSizeById(selection.SizeId.Value);
             var metaltype = _metaltypeService.GetMetaltypeById(selection.MetaltypeId.Value);
             var cover = _coverService.GetCoverById(selection.CoverId.Value);
             var diamond = _diamondService.GetDiamondById(selection.DiamondId.Value);
-
             if (size == null || metaltype == null || cover == null || diamond == null)
             {
                 return BadRequest("Invalid selection.");
             }
-            
             var productName = cover.CoverName + " " + diamond.DiamondName;
-
             var product = new Product
             {
                 ProductName = productName,
@@ -351,12 +389,11 @@ namespace DiamondShopSystem.API.Controllers
             if (producthaha != null)
             {
                 product.ProductId = producthaha.ProductId;
-                return Ok(product);
+                return Ok(product.ProductId);
             }
             _productService.AddProduct(product);
-            HttpContext.Session.Remove("TempProductSelection");
 
-            return Ok(product);
+            return Ok(product.ProductId);
         }
     }
 }

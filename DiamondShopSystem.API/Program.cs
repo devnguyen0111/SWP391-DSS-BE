@@ -76,6 +76,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
+
 builder.Services.AddScoped<IShippingService, ShippingService>();
 builder.Services.AddScoped<IRequestService, RequestService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
