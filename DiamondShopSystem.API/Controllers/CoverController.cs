@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using Services.Products;
 using Services.Utility;
+using ShimSkiaSharp;
 using System.Linq;
 
 namespace DiamondShopSystem.API.Controllers
@@ -119,6 +120,7 @@ namespace DiamondShopSystem.API.Controllers
                 ImgUrl = cm.ImgUrl,
                 CoverId = cover.CoverId,
             }).ToList();
+            
             _coverService.AddCover(cover);
             return Ok(cover.CoverId);
         }
