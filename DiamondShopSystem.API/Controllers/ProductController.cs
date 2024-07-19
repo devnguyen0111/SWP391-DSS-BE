@@ -66,7 +66,7 @@ namespace DiamondShopSystem.API.Controllers
             var productDetail = new ProductDetail
             {
                 ProductId = product.ProductId,
-                imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId).ImgUrl,
+                imgUrl = _coverMetaltypeService.GetCoverMetaltype(product.CoverId, product.MetaltypeId)?.ImgUrl ?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
                 categoryName = _productService.GetCategoryById(product.Cover.CategoryId).CategoryName,
                 diamondId = product.DiamondId,
                 realUnitPrice = (decimal)product.UnitPrice,
@@ -146,7 +146,7 @@ namespace DiamondShopSystem.API.Controllers
                     return new ProductRequest
                     {
                         ProductId = c.ProductId,
-                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId).ImgUrl,
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId)?.ImgUrl ?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
@@ -186,7 +186,7 @@ namespace DiamondShopSystem.API.Controllers
                     return new ProductRequest
                     {
                         ProductId = c.ProductId,
-                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId).ImgUrl,
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId)?.ImgUrl?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };

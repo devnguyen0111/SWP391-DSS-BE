@@ -6,6 +6,9 @@ using Services.Users;
 using Newtonsoft.Json;
 using static DiamondShopSystem.API.DTO.VnPay;
 using static Services.Charge.VnPay;
+using Services.Utility;
+using Repository.Products;
+using Services.Products;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -16,14 +19,15 @@ namespace DiamondShopSystem.API.Controllers
         // payment service VNPAY
         private readonly Ivnpay _vnPayService;
         private readonly IVnPayRepository _vnPayRepository;
-
+        private readonly IDisableService _disableService;
         private readonly IConfiguration _configuration;
-
+        private readonly ICoverInventoryService _coverInventoryService;
         // payment service Paypal
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
         private readonly IOrderService orderService;
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IPaypalRepository paypalRepository, IPaypalService paypalService, IConfiguration configuration, IOrderService o)
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IPaypalRepository paypalRepository, IPaypalService paypalService, IConfiguration configuration, IOrderService o
+            ,IDisableService e, ICoverInventoryService d)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
@@ -31,7 +35,8 @@ namespace DiamondShopSystem.API.Controllers
             _paypalService = paypalService;
             _paypalRepository = paypalRepository;
             orderService = o;
-
+            _disableService = e;
+            _coverInventoryService = d;
         }
 
         [HttpPost("CreatePayment-VNPAY")]
@@ -84,6 +89,12 @@ namespace DiamondShopSystem.API.Controllers
                         {
                             order.Status = "Paid";
                             _vnPayRepository.SaveOrder(order);
+                            foreach(var item in order.ProductOrders)
+                            {
+                                var p = item.Product;
+                                _coverInventoryService.ReduceInventoryByOne(p.CoverId, p.SizeId,p.MetaltypeId);
+                                _disableService.UpdateDiamondStatus(p.DiamondId,"Disabled");
+                            }
                             //return Redirect("https://www.google.com/"); // Redirect to success page
                             return Redirect("http://localhost:5173/order-successful");
                         }

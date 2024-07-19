@@ -21,7 +21,7 @@ namespace Repository.Charge
 
         public Order GetOrderById(int orderId)
         {
-            return _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
+            return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product).FirstOrDefault(o => o.OrderId == orderId);
         }
     }
 }

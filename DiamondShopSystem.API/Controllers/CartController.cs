@@ -85,6 +85,8 @@ namespace DiamondShopSystem.API.Controllers
                         diamond = _diamondService.GetDiamondById((int)c.Product.DiamondId).DiamondName,
                         diamondPrice = _diamondService.GetDiamondById((int)c.Product.DiamondId).Price,
                         labor = (decimal)c.Product.UnitPrice,
+                        coverId = c.Product.CoverId,
+                        diamondId = c.Product.DiamondId,
                     };
                 }).ToList();
             
