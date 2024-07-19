@@ -98,6 +98,12 @@ https://github.com/user-attachments/assets/8e1c945b-b293-41c1-9b46-d50939162222
 | UC-49  | Manage dashboard                           | Admin                | Admins can manage the dashboard of the system.                                       |
 | UC-50  | Disable a user                             | Admin                | Admins can disable a customer account.                                               |
 </details>
+
+<details>
+<summary>POSTMAN test link</summary>
+Hồng Phúc: https://documenter.getpostman.com/view/34783658/2sA3kUFMCi
+Minh Long: 
+</details>
  
 | Sprint | UC |
 | --- | --- |
