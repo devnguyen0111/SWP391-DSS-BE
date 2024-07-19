@@ -9,5 +9,6 @@
         public string? SizeValue { get; set; }
 
         public decimal? SizePrice { get; set; }
+        public string status { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,8 +64,9 @@ namespace Repository.Utility
 
         public (bool CanChange, string Reason) CanChangeCoverStatus(Cover cover)
         {
-            if (cover.CoverSizes.All(cs => cs.Status == "Available") &&
-                cover.CoverMetaltypes.All(cm => cm.Status == "Available"))
+            Cover checker = _context.Covers.Include(c => c.CoverMetaltypes).Include(c => c.CoverSizes).Where(c => c.CoverId==cover.CoverId).FirstOrDefault();
+            if (cover.CoverSizes.Any(cs => cs.Status == "Available") &&
+                cover.CoverMetaltypes.Any(cm => cm.Status == "Available"))
             {
                 return (true, "Cover can be set to Available.");
             }
@@ -73,6 +75,19 @@ namespace Repository.Utility
                 return (false, "Either some CoverSizes or CoverMetaltypes are Disabled.");
             }
         }
+        //public (bool CanChange, string Reason) CanChangeCoverStatus(Cover cover)
+        //{
+        //    if (cover.CoverSizes.All(cs => cs.Status == "Disabled") ||
+        //        cover.CoverMetaltypes.All(cm => cm.Status == "Disabled"))
+        //    {
+        //        return (false, "Either some CoverSizes or CoverMetaltypes are Disabled.");
+        //    }
+        //    else
+        //    {
+        //        return (true, "Cover can be set to Available.");
+
+        //    }
+        //}
         //check if ... can be set to available
         public (bool CanChange, string Reason) CanChangeCoverSizeStatus(int coverId, int sizeId)
         {
@@ -223,7 +238,7 @@ namespace Repository.Utility
             // If the cover is found, update its status
             if (cover != null)
             {
-                UpdateCoverStatus1(cover);
+                UpdateCoverStatus(cover);
             }
         }
         public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus)
@@ -249,7 +264,7 @@ namespace Repository.Utility
             // If the cover is found, update its status
             if (cover != null)
             {
-                UpdateCoverStatus1(cover);
+                UpdateCoverStatus(cover);
             }
         }
 
