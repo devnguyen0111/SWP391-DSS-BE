@@ -20,8 +20,8 @@ namespace DiamondShopSystem.API.Controllers
         private readonly ISizeService _sizeService;
         private readonly IDiamondService _diamondService;    
         private readonly IOrderService _orderService;
-        private IProductService _productService;
-        ICoverMetaltypeService _coverMetaltypeService;
+        private readonly IProductService _productService;
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
         public CartController(ICartService cartService, ICoverService coverService, IMetaltypeService metaltypeService, ISizeService sizeService,IDiamondService diamondService,IOrderService orderService,IProductService productService,
             ICoverMetaltypeService coverMetaltypeService)
         {

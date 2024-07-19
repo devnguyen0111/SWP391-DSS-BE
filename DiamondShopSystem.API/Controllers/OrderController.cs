@@ -251,7 +251,11 @@ namespace DiamondShopSystem.API.Controllers
             {
                 OrderDate = DateTime.Now,
                 TotalAmount = totalAmount,
+<<<<<<< Updated upstream
                 Status = "Processing",
+=======
+                Status = "Processing",                         
+>>>>>>> Stashed changes
                 CusId = uid,
                 ShippingMethodId = sid,
                 DeliveryAddress = address,
@@ -292,6 +296,10 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     orders = _orderService.getAllOrders().Where(o => o.Status == status).ToList();
                 }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
                 if (orders == null || !orders.Any())
                 {
                     return NotFound(new { Message = "No orders found for the given status." });

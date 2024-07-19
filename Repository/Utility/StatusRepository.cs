@@ -143,11 +143,11 @@ namespace Repository.Utility
         public void UpdateProductStatus(Product product)
         {
             var (canChange, reason) = CanChangeProductStatus(product);
-            if (canChange)
+            if (canChange && product.Status == "Disabled")
             {
                 product.Status = "Available";
             }
-            else
+            else if (!canChange || product.Status == "Available")
             {
                 product.Status = "Disabled";
             }
@@ -157,11 +157,13 @@ namespace Repository.Utility
         public void UpdateCoverStatus(Cover cover)
         {
             var (canChange, reason) = CanChangeCoverStatus(cover);
-            if (canChange)
+
+            // Set the status based on canChange and the current status
+            if (canChange && cover.Status == "Disabled")
             {
                 cover.Status = "Available";
             }
-            else
+            else if (!canChange || cover.Status == "Available")
             {
                 cover.Status = "Disabled";
             }
@@ -175,88 +177,92 @@ namespace Repository.Utility
             }
         }
 
-        public void UpdateCoverSizeStatus(int coverId, int sizeId)
+        public void UpdateCoverSizeStatus(int coverId, int sizeId, string newStatus)
         {
-            var (canChange, reason) = CanChangeCoverSizeStatus(coverId, sizeId);
+            // Validate the new status
+            if (newStatus != "Available" && newStatus != "Disabled")
+            {
+                throw new ArgumentException("Invalid status value. Only 'Available' or 'Disabled' are allowed.");
+            }
+
             var coverSize = _context.CoverSizes.FirstOrDefault(cs => cs.CoverId == coverId && cs.SizeId == sizeId);
             if (coverSize == null) return;
 
-            if (canChange)
-            {
-                coverSize.Status = "Available";
-            }
-            else
-            {
-                coverSize.Status = "Disabled";
-            }
-            _context.SaveChanges();
+            // Update the cover size's status
+            coverSize.Status = newStatus;
+            _context.SaveChanges(); // Save changes to the database
 
-            // Update status of the cover that uses this cover size
+            // Retrieve the cover that uses this cover size
             var cover = _context.Covers
                 .Include(c => c.CoverSizes)
+                .Include(c => c.CoverMetaltypes)
                 .FirstOrDefault(c => c.CoverId == coverId);
 
+            // If the cover is found, update its status
             if (cover != null)
             {
                 UpdateCoverStatus(cover);
             }
         }
-
-        public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId)
+        public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus)
         {
-            var (canChange, reason) = CanChangeCoverMetalTypeStatus(coverId, metalTypeId);
+            // Validate the new status
+            if (newStatus != "Available" && newStatus != "Disabled")
+            {
+                throw new ArgumentException("Invalid status value. Only 'Available' or 'Disabled' are allowed.");
+            }
+
             var coverMetalType = _context.CoverMetaltypes.FirstOrDefault(cm => cm.CoverId == coverId && cm.MetaltypeId == metalTypeId);
             if (coverMetalType == null) return;
 
-            if (canChange)
-            {
-                coverMetalType.Status = "Available";
-            }
-            else
-            {
-                coverMetalType.Status = "Disabled";
-            }
-            _context.SaveChanges();
+            // Update the cover metal type's status
+            coverMetalType.Status = newStatus;
+            _context.SaveChanges(); // Save changes to the database
 
-            // Update status of the cover that uses this cover metal type
+            // Retrieve the cover that uses this cover metal type
             var cover = _context.Covers
                 .Include(c => c.CoverMetaltypes)
                 .FirstOrDefault(c => c.CoverId == coverId);
 
+            // If the cover is found, update its status
             if (cover != null)
             {
                 UpdateCoverStatus(cover);
             }
         }
 
-        public void UpdateSizeStatus(int sizeId)
+
+        public void UpdateSizeStatus(int sizeId, string newStatus)
         {
-            var (canChange, reason) = CanChangeSizeStatus(sizeId);
+            // Validate the new status
+            if (newStatus != "Available" && newStatus != "Disabled")
+            {
+                throw new ArgumentException("Invalid status value. Only 'Available' or 'Disabled' are allowed.");
+            }
+
+            // Retrieve the size from the database
             var size = _context.Sizes.FirstOrDefault(s => s.SizeId == sizeId);
-            if (size == null) return;
+            if (size == null) return; // If the size is not found, return early
 
-            if (canChange)
-            {
-                size.Status = "Available";
-            }
-            else
-            {
-                size.Status = "Disabled";
-            }
-            _context.SaveChanges();
+            // Update the size's status
+            size.Status = newStatus;
+            _context.SaveChanges(); // Save changes to the database
 
-            // Update statuses of cover sizes associated with this size
+            // Retrieve all cover sizes associated with this size
             var coverSizes = _context.CoverSizes.Where(cs => cs.SizeId == sizeId).ToList();
+
+            // Update the status of each associated cover size
             foreach (var coverSize in coverSizes)
             {
-                coverSize.Status = size.Status;
-                _context.SaveChanges();
+                coverSize.Status = newStatus;
+                _context.SaveChanges(); // Save changes to the database
 
-                // Update status of the cover that uses this cover size
+                // Retrieve the cover that uses this cover size
                 var cover = _context.Covers
                     .Include(c => c.CoverSizes)
                     .FirstOrDefault(c => c.CoverId == coverSize.CoverId);
 
+                // If the cover is found, update its status
                 if (cover != null)
                 {
                     UpdateCoverStatus(cover);
@@ -264,34 +270,37 @@ namespace Repository.Utility
             }
         }
 
-        public void UpdateMetalTypeStatus(int metalTypeId)
+        public void UpdateMetalTypeStatus(int metalTypeId, string newStatus)
         {
-            var (canChange, reason) = CanChangeMetalTypeStatus(metalTypeId);
+            // Validate the new status
+            if (newStatus != "Available" && newStatus != "Disabled")
+            {
+                throw new ArgumentException("Invalid status value. Only 'Available' or 'Disabled' are allowed.");
+            }
+
+            // Retrieve the metal type from the database
             var metaltype = _context.Metaltypes.FirstOrDefault(mt => mt.MetaltypeId == metalTypeId);
-            if (metaltype == null) return;
+            if (metaltype == null) return; // If the metal type is not found, return early
 
-            if (canChange)
-            {
-                metaltype.Status = "Available";
-            }
-            else
-            {
-                metaltype.Status = "Disabled";
-            }
-            _context.SaveChanges();
+            // Update the metal type's status
+            metaltype.Status = newStatus;
+            _context.SaveChanges(); // Save changes to the database
 
-            // Update statuses of cover metal types associated with this metal type
+            // Retrieve all cover metal types associated with this metal type
             var coverMetalTypes = _context.CoverMetaltypes.Where(cm => cm.MetaltypeId == metalTypeId).ToList();
+
+            // Update the status of each associated cover metal type
             foreach (var coverMetalType in coverMetalTypes)
             {
-                coverMetalType.Status = metaltype.Status;
-                _context.SaveChanges();
+                coverMetalType.Status = newStatus;
+                _context.SaveChanges(); // Save changes to the database
 
-                // Update status of the cover that uses this cover metal type
+                // Retrieve the cover that uses this cover metal type
                 var cover = _context.Covers
                     .Include(c => c.CoverMetaltypes)
                     .FirstOrDefault(c => c.CoverId == coverMetalType.CoverId);
 
+                // If the cover is found, update its status
                 if (cover != null)
                 {
                     UpdateCoverStatus(cover);
@@ -365,21 +374,19 @@ namespace Repository.Utility
             }
             return "Available";
         }
-        public void UpdateDiamondStatus(int diamondId)
+        public void UpdateDiamondStatus(int diamondId, string newStatus)
         {
             var diamond = _context.Diamonds.FirstOrDefault(d => d.DiamondId == diamondId);
             if (diamond == null) return;
 
-            // Determine new status for the diamond
-            var (canChange, reason) = CanChangeDiamondStatus(diamond);
-            if (canChange)
+            // Validate the new status
+            if (newStatus != "Available" && newStatus != "Disabled")
             {
-                diamond.Status = "Available";
+                throw new ArgumentException("Invalid status value. Only 'Available' or 'Disabled' are allowed.");
             }
-            else
-            {
-                diamond.Status = "Disabled";
-            }
+
+            // Update the diamond's status
+            diamond.Status = newStatus;
             _context.SaveChanges();
 
             // Update statuses of products that use this diamond
@@ -390,17 +397,21 @@ namespace Repository.Utility
             }
         }
 
+
         // Check if the diamond status can be changed
         public (bool CanChange, string Reason) CanChangeDiamondStatus(Diamond diamond)
         {
-            if (diamond.Status == "Available" || diamond.Status == "Disabled")
+            bool huh = _context.ProductOrders
+                .Any(po => po.Product.DiamondId == diamond.DiamondId && po.Order.Status == "Delivered");
+            if (huh)
             {
-                return (true, "Diamond status can be changed.");
+                return (huh, "Diamond is already bought");
             }
             else
             {
-                return (false, "Diamond status cannot be changed.");
+                return (!huh, "You can change this fr");
             }
+            
         }
     }
 }

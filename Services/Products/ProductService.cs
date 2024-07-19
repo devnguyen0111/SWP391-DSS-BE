@@ -57,7 +57,7 @@ namespace Services.Products
 
             return coverPrice + sizePrice + metalPrice + diamondPrice + labor;
         }
-        public List<ProductQuantity> getMostSaleProduct(int count, string subcate)
+        public List<ProductQuantity> getMostSaleProduct(int count, int subcate)
         {
             return _productRepository.GetMostOrderedProductsBySubCategory(count, subcate);
         }

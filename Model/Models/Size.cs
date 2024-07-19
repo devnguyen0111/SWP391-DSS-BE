@@ -17,6 +17,8 @@ public partial class Size
 
     public string Status { get; set; }
 
+    public virtual ICollection<CoverInventory> CoverInventories { get; set; } = new List<CoverInventory>();
+
     public virtual ICollection<CoverSize> CoverSizes { get; set; } = new List<CoverSize>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();

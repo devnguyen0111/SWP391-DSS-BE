@@ -7,7 +7,7 @@ namespace Services.Products
     {
         List<Product> GetAllProducts();
         Product GetProductById(int productId);
-        List<ProductQuantity> getMostSaleProduct(int count, string subcate);
+        List<ProductQuantity> getMostSaleProduct(int count, int subcate);
          List<Product> FilterProducts(
         int? categoryId = null,
         int? subCategoryId = null,

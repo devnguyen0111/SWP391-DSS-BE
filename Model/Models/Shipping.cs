@@ -13,6 +13,8 @@ public partial class Shipping
 
     public int? OrderId { get; set; }
 
+    public DateOnly? ExpectedFinishDate { get; set; }
+
     public int SaleStaffId { get; set; }
 
     public int? DeliveryStaffId { get; set; }

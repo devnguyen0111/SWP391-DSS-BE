@@ -65,37 +65,37 @@ namespace Services.Utility
         {
             return _status.CanChangeSizeStatus(sizeId);
         }
-        public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId)
+        public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus)
         {
-            _status.UpdateCoverMetalTypeStatus(coverId, metalTypeId);
+            _status.UpdateCoverMetalTypeStatus(coverId, metalTypeId, newStatus);
         }
-        public void UpdateCoverSizeStatus(int coverId, int sizeId)
+        public void UpdateCoverSizeStatus(int coverId, int sizeId, string newStatus)
         {
-            _status.UpdateCoverSizeStatus(coverId, sizeId);
+            _status.UpdateCoverSizeStatus(coverId, sizeId, newStatus);
         }
         public void UpdateCoverStatus(Cover cover)
         {
             _status.UpdateCoverStatus(cover);
         }
-        public void UpdateMetalTypeStatus(int metalTypeId)
+        public void UpdateMetalTypeStatus(int metalTypeId, string newStatus)
         {
-            _status.UpdateMetalTypeStatus(metalTypeId);
+            _status.UpdateMetalTypeStatus(metalTypeId, newStatus);
         }
         public void UpdateProductStatus(Product product)
         {
             _status.UpdateProductStatus(product);
         }
-        public void UpdateSizeStatus(int sizeId)
+        public void UpdateSizeStatus(int sizeId, string newStatus)
         {
-            _status.UpdateSizeStatus(sizeId);
+            _status.UpdateSizeStatus(sizeId, newStatus);
         }
         public (bool CanChange, string Reason) CanChangeDiamondStatus(Diamond diamond)
         {
             return _status.CanChangeDiamondStatus(diamond);
         }
-        public void UpdateDiamondStatus(int diamondId)
+        public void UpdateDiamondStatus(int diamondId, string newStatus)
         {
-            _status.UpdateDiamondStatus(diamondId);
+            _status.UpdateDiamondStatus(diamondId, newStatus);
         }
     }
 }

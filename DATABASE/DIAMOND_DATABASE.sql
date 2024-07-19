@@ -298,4 +298,20 @@ CREATE TABLE Request (
     FOREIGN KEY (sStaffId) REFERENCES SaleStaff(sStaffId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (manId) REFERENCES Manager(manId) ON DELETE NO ACTION ON UPDATE NO ACTION,
     FOREIGN KEY (orderId) REFERENCES [Order](orderId) ON DELETE NO ACTION ON UPDATE NO ACTION
+<<<<<<< Updated upstream
 );
+=======
+);
+CREATE TABLE CoverInventory (
+    inventoryId INT IDENTITY PRIMARY KEY,
+    coverId INT NOT NULL,
+    sizeId INT NOT NULL,
+    metaltypeId INT NOT NULL,
+    quantity INT NOT NULL,
+    FOREIGN KEY (coverId) REFERENCES Cover(coverId),
+    FOREIGN KEY (sizeId) REFERENCES Size(sizeId),
+    FOREIGN KEY (metaltypeId) REFERENCES Metaltype(metaltypeId),
+    UNIQUE (coverId, sizeId, metaltypeId) -- Ensure unique combination of cover, size, and metal type
+);
+GO
+>>>>>>> Stashed changes

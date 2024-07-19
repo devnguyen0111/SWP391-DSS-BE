@@ -15,6 +15,8 @@ public partial class Metaltype
 
     public string Status { get; set; }
 
+    public virtual ICollection<CoverInventory> CoverInventories { get; set; } = new List<CoverInventory>();
+
     public virtual ICollection<CoverMetaltype> CoverMetaltypes { get; set; } = new List<CoverMetaltype>();
 
     public virtual ICollection<Product> Products { get; set; } = new List<Product>();
