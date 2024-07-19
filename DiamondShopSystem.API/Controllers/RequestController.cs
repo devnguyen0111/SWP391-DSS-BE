@@ -29,6 +29,11 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
+                if(requests == null)
+                {
+                    return BadRequest("There are not any Requests!!");
+                }
+
                 return Ok(requests.Select(r => new RequestDetail
                 {
                     RequestId = r.RequestId,
@@ -55,6 +60,10 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
+                if(requests == null)
+                {
+                    return BadRequest("There are not any requess for that specific user " + userId);
+                }
                 return Ok(requests
                     .Where(r => r.SStaffId == userId || r.ManId == userId)
                     .Select(r => new RequestDetail
