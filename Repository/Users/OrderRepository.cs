@@ -49,6 +49,12 @@ namespace Repository.Users
                 .FirstOrDefault(o => o.OrderId == orderId && o.Status == status);
         }
 
+        public Order GetOrderByOrderId(int orderId)
+        {
+            return _context.Orders
+                .FirstOrDefault(o => o.OrderId == orderId);
+        }
+
         public async Task UpdateOrderAsync(Order order)
         {
             _context.Orders.Update(order);

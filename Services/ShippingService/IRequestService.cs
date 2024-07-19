@@ -13,6 +13,7 @@ namespace Services.ShippingService
         Task<Request> CreateRequestAsync(CreateRequestDto requestDto);
         Task<IEnumerable<Request>> GetAllRequestsAsync();
         Task<Request> GetRequestDetailAsync(int requestId);
+        Task<Request> GetRequestDetailByOrderIdAsync(int orderId);
         Task<bool> IsCompletedRequestAsync(int requestId);
         Task<bool> IsPendingRequestAsync(int requestId);
         Task<bool> ApproveRequestAsync(int requestId);
