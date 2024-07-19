@@ -30,6 +30,8 @@
         public string cover { get; set; }
         public decimal coverPrice { get; set; }
         public decimal labor {  get; set; }
+        public int coverId { get; set; }
+        public int diamondId { get; set; }
         public CartItemRespone()
         {
         }

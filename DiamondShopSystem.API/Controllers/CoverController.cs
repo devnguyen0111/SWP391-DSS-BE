@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
+using Repository.Users;
 using Services.Products;
+using Services.Users;
 using Services.Utility;
 using ShimSkiaSharp;
 using System.Linq;
@@ -20,8 +22,9 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IMetaltypeService _metaltypeService;
         private readonly ISizeService _sizeService;
         private readonly ICoverInventoryService _coverInventoryService;
+        private readonly ICartService _cartService;
         public CoverController(ICoverService coverService, ICoverMetaltypeService coverMetaltypeService, ICoverSizeService coverSizeService, IMetaltypeService metaltypeService, ISizeService sizeService,ICoverInventoryService
-            c)
+            c,ICartService s)
         {
             _coverService = coverService;
             _coverMetaltypeService = coverMetaltypeService;
@@ -29,6 +32,7 @@ namespace DiamondShopSystem.API.Controllers
             _metaltypeService = metaltypeService;
             _sizeService = sizeService;
             _coverInventoryService = c;
+            _cartService = s;
         }
 
         [HttpGet("getAllCovers")]
@@ -373,6 +377,23 @@ namespace DiamondShopSystem.API.Controllers
         {
             _coverInventoryService.UpdateInventory(coverId, sizeId, metalTypeId, newQuantity);
             return Ok(newQuantity);
+        }
+        [HttpGet("GetCoverInventoryWithCombinations")]
+        public IActionResult getInventory1(int coverId,int sizeId,int metalTypeId)
+        {
+            return Ok(_coverInventoryService.GetInventory(coverId,sizeId,metalTypeId));
+        }
+        [HttpGet("CheckCartAdd")]
+        public IActionResult CheckCartAdd(int uid,int coverId, int sizeId, int metalTypeId)
+        {
+            var cart = _cartService.GetCartFromCus(uid);
+            var cartItemQuantity = cart.CartProducts.Where(c => c.Product.CoverId == coverId && c.Product.MetaltypeId == metalTypeId && c.Product.SizeId == sizeId).Count();
+            var inventory = _coverInventoryService.GetInventory(coverId, sizeId, metalTypeId).Quantity;
+            if(cartItemQuantity == inventory)
+            {
+                return Ok(false);
+            }
+            return Ok(true);
         }
     }
 }
