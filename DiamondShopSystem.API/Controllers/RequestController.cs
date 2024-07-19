@@ -16,13 +16,41 @@ namespace DiamondShopSystem.API.Controllers
         {
             _requestService = requestService;
         }
-        [HttpGet("all")]
+        
+        [HttpGet("requests")]
         public async Task<IActionResult> GetAllRequests()
         {
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
                 return Ok( requests.Select(r => new RequestDetail
+                {
+                    RequestId = r.RequestId,
+                    Title = r.Title,
+                    ProcessStatus = r.ProcessStatus,
+                    RequestedDate = r.RequestedDate,
+                    RequestStatus = r.RequestStatus,
+                    Context = r.Context,
+                    ManId = r.ManId,
+                    OrderId = r.OrderId,
+                    SStaffId = r.SStaffId
+                }));
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, new { message = e.Message });
+            }
+        }
+
+        [HttpGet("requests/{userId}")]
+        public async Task<IActionResult> GetRequestByUserId(int userId)
+        {
+            try
+            {
+                var requests = await _requestService.GetAllRequestsAsync();
+                return Ok(requests
+                    .Where(r => r.SStaffId == userId || r.ManId == userId)
+                    .Select(r => new RequestDetail
                 {
                     RequestId = r.RequestId,
                     Title = r.Title,

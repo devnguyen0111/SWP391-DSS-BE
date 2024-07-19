@@ -1,6 +1,11 @@
 ﻿using Model.Models;
 using Microsoft.Extensions.Configuration;
 using static System.Net.WebRequestMethods;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Services.Charge
 {
@@ -8,11 +13,13 @@ namespace Services.Charge
     {
         private readonly string vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         private readonly IConfiguration _configuration;
+        private readonly HttpClient _httpClient;
 
 
-        public VnPay(IConfiguration configuration)
+        public VnPay(IConfiguration configuration, HttpClient httpClient)
         {
             _configuration = configuration;
+            _httpClient = httpClient;   
              vnp_HashSecret = _configuration["VnPay:HashSecret"];
              vnp_TmnCode = _configuration["VnPay:TmnCode"];
         }
@@ -85,6 +92,53 @@ namespace Services.Charge
 
             // check signature
             return vnPay.ValidateSignature(queryString, vnp_HashSecret);
+        }
+
+        public async Task<HttpResponseMessage> SendRefundRequestAsync(VnpayRefundRequest request, string url)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                var content = new StringContent(JsonConvert.SerializeObject(request), Encoding.UTF8, "application/json");
+                return await client.PostAsync(url, content);
+            }
+        }
+
+
+        public string GenerateSecureHash(VnpayRefundRequest request, string secretKey)
+        {
+            string data = $"{request.vnp_RequestId}|{request.vnp_Version}|{request.vnp_Command}|{request.vnp_TmnCode}|{request.vnp_TransactionType}|{request.vnp_TxnRef}|{request.vnp_Amount}|{request.vnp_TransactionNo}|{request.vnp_TransactionDate}|{request.vnp_CreateBy}|{request.vnp_CreateDate}|{request.vnp_IpAddr}|{request.vnp_OrderInfo}";
+            using (var hmacsha256 = new HMACSHA256(Encoding.UTF8.GetBytes(secretKey)))
+            {
+                byte[] hashBytes = hmacsha256.ComputeHash(Encoding.UTF8.GetBytes(data));
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
+
+        private Dictionary<string, string> ParseResponse(string response)
+        {
+            return response.Split('&')
+                           .Select(part => part.Split('='))
+                           .ToDictionary(split => split[0], split => split[1]);
+        }
+
+        public class VnpayRefundRequest
+        {
+            public string vnp_RequestId { get; set; }
+            public string vnp_Version { get; set; } = "2.1.0";
+            public string vnp_Command { get; set; } = "refund";
+            public string vnp_TmnCode { get; set; }
+            public string vnp_TransactionType { get; set; }
+            public string vnp_TxnRef { get; set; }
+            public long vnp_Amount { get; set; }
+            public string vnp_OrderInfo { get; set; }
+            public string vnp_TransactionNo { get; set; }
+            public string vnp_TransactionDate { get; set; }
+            public string vnp_CreateBy { get; set; }
+            public string vnp_CreateDate { get; set; }
+            public string vnp_IpAddr { get; set; }
+            public string vnp_SecureHash { get; set; }
         }
     }
 }
