@@ -16,8 +16,16 @@
 
         public int SStaffId { get; set; }
 
-        public int ManId { get; set; }
+        public int? ManId { get; set; }
 
+        public int OrderId { get; set; }
+    }
+
+    public class CreateRequest
+    {
+        public string Title { get; set; }
+        public string Context { get; set; }
+        public int SStaffId { get; set; }
         public int OrderId { get; set; }
     }
 }
