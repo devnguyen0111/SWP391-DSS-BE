@@ -3,6 +3,9 @@ using Model.Models;
 using Services.Charge;
 using Repository.Charge;
 using Services.Users;
+using Newtonsoft.Json;
+using static DiamondShopSystem.API.DTO.VnPay;
+using static Services.Charge.VnPay;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -20,7 +23,7 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
         private readonly IOrderService orderService;
-        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository,IPaypalRepository paypalRepository, IPaypalService paypalService ,IConfiguration configuration,IOrderService o)
+        public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IPaypalRepository paypalRepository, IPaypalService paypalService, IConfiguration configuration, IOrderService o)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
@@ -148,5 +151,49 @@ namespace DiamondShopSystem.API.Controllers
             await _paypalRepository.UpdateOrderStatusAsync(orderId, "Cancelled");
             return Redirect("https://facebook.com");
         }
+
+        [HttpPost("refund")]
+        public async Task<IActionResult> RefundOrder([FromBody] RefundOrderDto refundOrderDto)
+        {
+            // Construct the refund request
+            var refundRequest = new VnpayRefundRequest
+            {
+                vnp_RequestId = Guid.NewGuid().ToString(),
+                vnp_TmnCode = _configuration["VNPay:TmnCode"],
+                vnp_TransactionType = "02", // or "03" for partial refund
+                vnp_TxnRef = refundOrderDto.TxnRef,
+                vnp_Amount = refundOrderDto.Amount,
+                vnp_OrderInfo = "Refund for order " + refundOrderDto.OrderId,
+                vnp_TransactionNo = refundOrderDto.TransactionNo,
+                vnp_TransactionDate = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                vnp_CreateBy = refundOrderDto.CreatedBy,
+                vnp_CreateDate = DateTime.Now.ToString("yyyyMMddHHmmss"),
+                vnp_IpAddr = HttpContext.Connection.RemoteIpAddress?.ToString()
+            };
+
+            // Generate secure hash
+            refundRequest.vnp_SecureHash = _vnPayService.GenerateSecureHash(refundRequest, _configuration["VNPay:HashSecret"]);
+
+            // Send the request
+            var response = await _vnPayService.SendRefundRequestAsync(refundRequest, "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                var refundResponse = JsonConvert.DeserializeObject<VnpayRefundResponse>(responseContent);
+
+                if (refundResponse.vnp_ResponseCode == "00")
+                {
+                    return Ok(refundResponse);
+                }
+
+                return BadRequest(refundResponse);
+            }
+
+            return StatusCode((int)response.StatusCode, response.ReasonPhrase);
+        }
+
     }
+
+
 }
