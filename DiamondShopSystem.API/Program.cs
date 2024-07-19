@@ -54,6 +54,7 @@ builder.Services.AddScoped<IDeliveryStaffRepository, DeliveryStaffRepository>();
 builder.Services.AddScoped<IManagerRepository, ManagerRepository>();
 builder.Services.AddScoped<IShippingRepository, ShippingRepository>();
 builder.Services.AddScoped<IRequestRepository, RequestRepository>();
+builder.Services.AddScoped<IStatusRepository, StatusRepository>();
 //builder.Services.AddScoped<IWishlistRepository, WishlistRepository>();
 
 builder.Services.AddScoped<ICoverMetaltypeService, CoverMetaltypeService>();
@@ -77,6 +78,7 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<IManagerService, ManagerService>();
+builder.Services.AddScoped<IDisableService, DisableService>();
 
 builder.Services.AddScoped<IShippingService, ShippingService>();
 builder.Services.AddScoped<IRequestService, RequestService>();

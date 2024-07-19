@@ -17,12 +17,12 @@ namespace Services.Utility
         string DetermineMetalTypeStatus(int metalTypeId);
         string DetermineProductStatus(Product product);
         string DetermineSizeStatus(int sizeId);
-        void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId);
-        void UpdateCoverSizeStatus(int coverId, int sizeId);
+        void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus);
+        void UpdateCoverSizeStatus(int coverId, int sizeId, string newStatus);
         void UpdateCoverStatus(Cover cover);
-        void UpdateDiamondStatus(int diamondId);
-        void UpdateMetalTypeStatus(int metalTypeId);
+        void UpdateDiamondStatus(int diamondId, string newStatus);
+        void UpdateMetalTypeStatus(int metalTypeId, string newStatus);
         void UpdateProductStatus(Product product);
-        void UpdateSizeStatus(int sizeId);
+        void UpdateSizeStatus(int sizeId,string newStatus);
     }
 }

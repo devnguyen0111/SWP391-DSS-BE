@@ -11,6 +11,10 @@ public partial class Voucher
 
     public string Name { get; set; }
 
+    public decimal? TopPrice { get; set; }
+
+    public decimal? BottomPrice { get; set; }
+
     public string Description { get; set; }
 
     public DateOnly ExpDate { get; set; }
@@ -18,10 +22,6 @@ public partial class Voucher
     public int? Quantity { get; set; }
 
     public int? Rate { get; set; }
-
-    public decimal? TopPrice { get; set; }
-
-    public decimal? BottomPrice { get; set; }
 
     public virtual ICollection<CustomerVoucher> CustomerVouchers { get; set; } = new List<CustomerVoucher>();
 }

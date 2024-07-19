@@ -35,6 +35,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "[dbo].[CoverInventory]",
+         "ObjectType": 0
+      },
+      {
          "Name": "[dbo].[CoverMetaltype]",
          "ObjectType": 0
       },

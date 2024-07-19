@@ -95,7 +95,7 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(productDetail);
         }
         [HttpGet("getMostSaleProduct")]
-        public IActionResult getMostSaleProducrByCate(int count,string cate)
+        public IActionResult getMostSaleProducrByCate(int count,int cate)
         {
             var products = _productService.getMostSaleProduct(count, cate);
             var productRequest = products.Select(c =>

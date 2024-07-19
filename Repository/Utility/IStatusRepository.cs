@@ -17,13 +17,13 @@ namespace Repository.Utility
         string DetermineSizeStatus(int sizeId);
         string DetermineCoverStatus(Cover cover);
         string DetermineProductStatus(Product product);
-        void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId);
-        void UpdateCoverSizeStatus(int coverId, int sizeId);
+        void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus);
+        void UpdateCoverSizeStatus(int coverId, int sizeId, string newStatus);
         void UpdateCoverStatus(Cover cover);
-        void UpdateMetalTypeStatus(int metalTypeId);
+        void UpdateMetalTypeStatus(int metalTypeId, string newStatus);
         void UpdateProductStatus(Product product);
-        void UpdateSizeStatus(int sizeId);
+        void UpdateSizeStatus(int sizeId,string newStatus);
         (bool CanChange, string Reason) CanChangeDiamondStatus(Diamond diamond);
-        void UpdateDiamondStatus(int diamondId);
+        void UpdateDiamondStatus(int diamondId,string newStatus);
     }
 }

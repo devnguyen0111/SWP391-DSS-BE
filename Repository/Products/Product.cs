@@ -59,10 +59,10 @@ namespace Repository.Products
             }
         }
 
-        public List<ProductQuantity> GetMostOrderedProductsBySubCategory(int count, string subcate)
+        public List<ProductQuantity> GetMostOrderedProductsBySubCategory(int count, int subcate)
         {
-            var result = _context.ProductOrders.Include(c => c.Product).ThenInclude(c => c.Cover).ThenInclude(c => c.SubCategory)
-                .Where(po => po.Product.Cover.SubCategory.SubCategoryName == subcate)
+            var result = _context.ProductOrders.Include(c => c.Product).ThenInclude(c => c.Cover).ThenInclude(c => c.Category)
+                .Where(po => po.Product.Cover.CategoryId == subcate)
                 .GroupBy(po => po.ProductId)
                 .Select(g => new ProductQuantity
                 {
