@@ -19,13 +19,16 @@ namespace DiamondShopSystem.API.Controllers
         private readonly ICoverSizeService _coverSizeService;
         private readonly IMetaltypeService _metaltypeService;
         private readonly ISizeService _sizeService;
-        public CoverController(ICoverService coverService, ICoverMetaltypeService coverMetaltypeService, ICoverSizeService coverSizeService, IMetaltypeService metaltypeService, ISizeService sizeService)
+        private readonly ICoverInventoryService _coverInventoryService;
+        public CoverController(ICoverService coverService, ICoverMetaltypeService coverMetaltypeService, ICoverSizeService coverSizeService, IMetaltypeService metaltypeService, ISizeService sizeService,ICoverInventoryService
+            c)
         {
             _coverService = coverService;
             _coverMetaltypeService = coverMetaltypeService;
             _coverSizeService = coverSizeService;
             _metaltypeService = metaltypeService;
             _sizeService = sizeService;
+            _coverInventoryService = c;
         }
 
         [HttpGet("getAllCovers")]
@@ -36,7 +39,7 @@ namespace DiamondShopSystem.API.Controllers
             {
                 CoverId = c.CoverId,
                 CoverName = c.CoverName,
-                Status = _coverService.DetermineCoverStatus(c.CoverId),
+                Status = c.Status,
                 UnitPrice = c.UnitPrice,
                 SubCategoryId = c.SubCategoryId,
                 CategoryId = c.CategoryId,
@@ -120,7 +123,6 @@ namespace DiamondShopSystem.API.Controllers
                 ImgUrl = cm.ImgUrl,
                 CoverId = cover.CoverId,
             }).ToList();
-            
             _coverService.AddCover(cover);
             return Ok(cover.CoverId);
         }
@@ -356,5 +358,11 @@ namespace DiamondShopSystem.API.Controllers
         {
             return Ok(_metaltypeService.getMetalTypeByCate(id));
         }
+        [HttpGet("CheckForInventory")]
+        public IActionResult checkInventory(int coverId,int metalTypeid,int sizeId)
+        {
+            return Ok(!_coverInventoryService.checkIfOutOfStock(coverId,sizeId,metalTypeid));
+        }
+
     }
 }

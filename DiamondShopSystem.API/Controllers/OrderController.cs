@@ -66,7 +66,6 @@ namespace DiamondShopSystem.API.Controllers
                      orders = _orderService.getOrderByStatus(customerId, status);
 
                 }
-
                 if (orders == null || !orders.Any())
                 {
                     return NotFound(new { Message = "No orders found for the given customer ID and status." });

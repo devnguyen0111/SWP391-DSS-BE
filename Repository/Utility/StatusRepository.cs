@@ -176,6 +176,28 @@ namespace Repository.Utility
                 UpdateProductStatus(product);
             }
         }
+        public void UpdateCoverStatus1(Cover cover)
+        {
+            var (canChange, reason) = CanChangeCoverStatus(cover);
+
+            // Set the status based on canChange and the current status
+            if (canChange )
+            {
+                cover.Status = "Available";
+            }
+            else if (!canChange)
+            {
+                cover.Status = "Disabled";
+            }
+            _context.SaveChanges();
+
+            // Update statuses of products that use this cover
+            var products = _context.Products.Where(p => p.CoverId == cover.CoverId).ToList();
+            foreach (var product in products)
+            {
+                UpdateProductStatus(product);
+            }
+        }
 
         public void UpdateCoverSizeStatus(int coverId, int sizeId, string newStatus)
         {
@@ -201,7 +223,7 @@ namespace Repository.Utility
             // If the cover is found, update its status
             if (cover != null)
             {
-                UpdateCoverStatus(cover);
+                UpdateCoverStatus1(cover);
             }
         }
         public void UpdateCoverMetalTypeStatus(int coverId, int metalTypeId, string newStatus)
@@ -227,7 +249,7 @@ namespace Repository.Utility
             // If the cover is found, update its status
             if (cover != null)
             {
-                UpdateCoverStatus(cover);
+                UpdateCoverStatus1(cover);
             }
         }
 
@@ -402,7 +424,7 @@ namespace Repository.Utility
         public (bool CanChange, string Reason) CanChangeDiamondStatus(Diamond diamond)
         {
             bool huh = _context.ProductOrders
-                .Any(po => po.Product.DiamondId == diamond.DiamondId && po.Order.Status == "Delivered");
+                .Any(po => po.Product.DiamondId == diamond.DiamondId && po.Order.Status != "Cancelled ");
             if (huh)
             {
                 return (huh, "Diamond is already bought");
@@ -411,7 +433,6 @@ namespace Repository.Utility
             {
                 return (!huh, "You can change this fr");
             }
-            
         }
     }
 }
