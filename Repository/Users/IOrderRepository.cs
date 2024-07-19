@@ -11,6 +11,7 @@ namespace Repository.Users
         List<Order> getOrders(int uid);
         List<ShippingMethod> GetShippingMethods();
         Order GetOrderByIdAndStatus(int orderId, string status);
+        Order GetOrderByOrderId(int orderId);
         Task UpdateOrderAsync(Order order);
         Task<string> CancelOrderAsync(int orderId, int id);
 

@@ -101,6 +101,11 @@ namespace Services.ShippingService
             await _requestRepository.UpdateRequestAsync(request);
             return true;
         }
+
+        public async Task<Request> GetRequestDetailByOrderIdAsync(int orderId)
+        {
+            return await _requestRepository.GetRequestByOrderIdAsync(orderId);
+        }
     }
 
 }

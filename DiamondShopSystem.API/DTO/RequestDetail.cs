@@ -19,6 +19,7 @@
         public int? ManId { get; set; }
 
         public int OrderId { get; set; }
+        public string OrderStatus { get; set; }
     }
 
     public class CreateRequest

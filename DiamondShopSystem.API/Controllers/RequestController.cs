@@ -14,11 +14,13 @@ namespace DiamondShopSystem.API.Controllers
     {
         private readonly IRequestService _requestService;
         private readonly ISaleStaffRepository _saleStaffRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public RequestsController(IRequestService requestService, ISaleStaffRepository saleStaffRepository)
+        public RequestsController(IRequestService requestService, ISaleStaffRepository saleStaffRepository, IOrderRepository orderRepository)
         {
             _requestService = requestService;
             _saleStaffRepository = saleStaffRepository;
+            _orderRepository = orderRepository;
         }
 
         [HttpGet("requests")]
@@ -37,6 +39,7 @@ namespace DiamondShopSystem.API.Controllers
                     Context = r.Context,
                     ManId = r.ManId,
                     OrderId = r.OrderId,
+                    OrderStatus = _orderRepository.GetOrderByOrderId(r.OrderId).Status,
                     SStaffId = r.SStaffId
                 }));
             }
@@ -64,6 +67,7 @@ namespace DiamondShopSystem.API.Controllers
                         Context = r.Context,
                         ManId = r.ManId,
                         OrderId = r.OrderId,
+                        OrderStatus =  _orderRepository.GetOrderByOrderId(r.OrderId).Status,
                         SStaffId = r.SStaffId
                     }));
             }
@@ -79,6 +83,11 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var r = await _requestService.GetRequestDetailAsync(requestId);
+
+                if (r == null)
+                {
+                    return BadRequest("No such Request existed");
+                }
                 return Ok(new RequestDetail
                 {
                     RequestId = r.RequestId,
@@ -89,6 +98,7 @@ namespace DiamondShopSystem.API.Controllers
                     Context = r.Context,
                     ManId = r.ManId,
                     OrderId = r.OrderId,
+                    OrderStatus = _orderRepository.GetOrderByOrderId(r.OrderId).Status,
                     SStaffId = r.SStaffId
                 });
             }
@@ -103,11 +113,18 @@ namespace DiamondShopSystem.API.Controllers
         {
             try
             {
-                if (await _requestService.IsPendingRequestAsync(requestDto.OrderId))
+                Request request = await _requestService.GetRequestDetailByOrderIdAsync(requestDto.OrderId);
+                if (request.ProcessStatus == "Pending")
                 {
-                    return BadRequest("This Order has already got a request");
+                    return BadRequest("This Order has already had a request, please wait for it to be completed");
                 }
-                else
+
+                if (request.ProcessStatus == "Completed" && request.RequestStatus == "Approved")
+                {
+                    return BadRequest("This Order has been Approved to be " + request.Title);
+                }
+
+                if (request == null || (request.ProcessStatus == "Completed" && request.RequestStatus == "Rejected"))
                 {
                     CreateRequestDto createRequestDto = new CreateRequestDto
                     {
@@ -120,12 +137,15 @@ namespace DiamondShopSystem.API.Controllers
                     };
 
 
-                    var request = await _requestService.CreateRequestAsync(createRequestDto);
+                    var tempRequest = await _requestService.CreateRequestAsync(createRequestDto);
                     return Ok(new
                     {
                         message = "Request created successfully",
                         createRequestDto
                     });
+                } else
+                {
+                    return BadRequest("There is something wrong");
                 }
             }
             catch (Exception e)
