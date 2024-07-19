@@ -144,7 +144,97 @@ namespace DiamondShopSystem.API.Controllers
             };
 
             // Filter diamonds based on the provided criteria
-            IEnumerable<Diamond> filteredDiamonds = _diamondService.GetAllDiamonds().Where(c => StringUltis.AreEqualIgnoreCase(c.Shape,sortBy));
+            IEnumerable<Diamond> filteredDiamonds = _diamondService.GetAllDiamonds().Where(c => StringUltis.AreEqualIgnoreCase(c.Shape,sortBy) && StringUltis.AreEqualIgnoreCase(c.Status,"Available"));
+
+            if (clarityRange != null && clarityRange.Any())
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => clarityRange.Contains(d.Clarity));
+            }
+
+            if (colorRange != null && colorRange.Any())
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => colorRange.Contains(d.Color));
+            }
+
+            if (cutRange != null && cutRange.Any())
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => cutRange.Contains(d.Cut));
+            }
+
+            if (minCaratWeight.HasValue)
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => d.CaratWeight >= minCaratWeight.Value);
+            }
+
+            if (maxCaratWeight.HasValue)
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => d.CaratWeight <= maxCaratWeight.Value);
+            }
+
+            if (minPrice.HasValue)
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => d.Price >= minPrice.Value);
+            }
+            if (maxPrice.HasValue)
+            {
+                filteredDiamonds = filteredDiamonds.Where(d => d.Price <= maxPrice.Value);
+            }
+            int totalDiamonds = filteredDiamonds.Count();
+            if (!string.IsNullOrEmpty(sortOrder))
+            {
+                if (sortOrder.ToLower() == "desc")
+                {
+                    filteredDiamonds = filteredDiamonds.OrderByDescending(d => d.Price);
+                }
+                else
+                {
+                    filteredDiamonds = filteredDiamonds.OrderBy(d => d.Price);
+                }
+            }
+            // Sort the list of diamonds
+            var sortedDiamonds = filteredDiamonds.Where(c => c.Shape == sortBy).ToList();
+            var paginatedDiamonds = sortedDiamonds
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .ToList();
+            var result = new
+            {
+                totalDiamond = totalDiamonds,
+                Diamonds = paginatedDiamonds
+            };
+            return Ok(result);
+        }
+        [HttpGet("ForManager")]
+        public IActionResult GetDiamonds1(
+    [FromQuery] string sortBy,
+    [FromQuery] List<string>? clarityRange,
+    [FromQuery] List<string>? colorRange,
+    [FromQuery] List<string>? cutRange,
+    [FromQuery] decimal? minCaratWeight,
+    [FromQuery] decimal? maxCaratWeight,
+    [FromQuery] decimal? minPrice,
+    [FromQuery] decimal? maxPrice,
+    [FromQuery] string? sortOrder,
+    [FromQuery] int pageNumber, [FromQuery] int pageSize)
+        {
+            // Define custom sorting orders
+            Dictionary<string, int> colorOrder = new Dictionary<string, int>
+            {
+                {"D", 1}, {"E", 2}, {"F", 3}, {"G", 4}, {"H", 5}, {"I", 6}, {"J", 7}, {"K", 8}
+            };
+
+            Dictionary<string, int> clarityOrder = new Dictionary<string, int>
+            {
+                {"FL", 1}, {"IF", 2}, {"VVS1", 3}, {"VVS2", 4}, {"VS1", 5}, {"VS2", 6}, {"SI1", 7}, {"SI2", 8}
+            };
+
+            Dictionary<string, int> cutOrder = new Dictionary<string, int>
+            {
+                {"Astor Ideal", 1}, {"Ideal", 2}, {"VeryGood", 3}, {"Good", 4}
+            };
+
+            // Filter diamonds based on the provided criteria
+            IEnumerable<Diamond> filteredDiamonds = _diamondService.GetAllDiamonds().Where(c => StringUltis.AreEqualIgnoreCase(c.Shape, sortBy));
 
             if (clarityRange != null && clarityRange.Any())
             {

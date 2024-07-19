@@ -27,6 +27,6 @@
         public string cut { get; set; }
         public decimal carat {  get; set; }
         public string Pp { get; set; }
-        
+        public string productStatus { get; set; }
     }
 }

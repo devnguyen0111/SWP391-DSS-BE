@@ -40,7 +40,7 @@ namespace Repository.Products
             return _context.CoverInventories
                 .FirstOrDefault(ci => ci.CoverId == coverId && ci.SizeId == sizeId && ci.MetaltypeId == metaltypeId);
         }
-        public IEnumerable<CoverInventory> GetAllById(int coverId, int sizeId, int metaltypeId)
+        public IEnumerable<CoverInventory> GetAllById(int coverId)
         {
             return _context.CoverInventories.Where(c => c.CoverId == coverId);
         }
