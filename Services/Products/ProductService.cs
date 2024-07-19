@@ -69,7 +69,7 @@ namespace Services.Products
       decimal? minPrice = null,
       decimal? maxPrice = null)
         {
-            var filteredProducts = _productRepository.GetAllProducts();
+            var filteredProducts = _productRepository.GetAllProducts().Where(c => c.Status == "Available");
 
             if (categoryId.HasValue)
             {
@@ -200,7 +200,7 @@ namespace Services.Products
         int? pageNumber = null,
         int? pageSize = null)
         {
-            var filteredProducts = _productRepository.GetAllProducts().AsQueryable();
+            var filteredProducts = _productRepository.GetAllProducts().AsQueryable().Where(c => c.Status=="Available");
 
             if (categoryId.HasValue)
             {

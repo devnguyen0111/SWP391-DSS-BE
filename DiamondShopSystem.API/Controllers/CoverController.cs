@@ -85,7 +85,7 @@ namespace DiamondShopSystem.API.Controllers
                 coverId = cover.CoverId,
                 categoryId =cover.CategoryId ,
                 name = cover.CoverName,
-                status = _coverService.DetermineCoverStatus(cover.CoverId), 
+                status = (cover.Status), 
                 prices = (decimal)cover.UnitPrice,
                 metals = (List<CoverReponseMetal>)c,
                 sizes = (List<CoverResponeSize>)s,
@@ -363,6 +363,16 @@ namespace DiamondShopSystem.API.Controllers
         {
             return Ok(!_coverInventoryService.checkIfOutOfStock(coverId,sizeId,metalTypeid));
         }
-
+        [HttpGet("GetCoverInventory")]
+        public IActionResult getInventory(int coverId)
+        {
+            return Ok(_coverInventoryService.GetInventoriesByCoverId(coverId));
+        }
+        [HttpPut("UpdateCoverInventory")]
+        public IActionResult putInventory(int coverId,int metalTypeId,int sizeId,int newQuantity)
+        {
+            _coverInventoryService.UpdateInventory(coverId, sizeId, metalTypeId, newQuantity);
+            return Ok(newQuantity);
+        }
     }
 }

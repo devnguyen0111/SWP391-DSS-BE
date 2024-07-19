@@ -75,7 +75,7 @@ namespace DiamondShopSystem.API.Controllers
                 metalTypeId = product.MetaltypeId,
                 categoryId = product.Cover.CategoryId,
                 CoverStatus = _coverService.DetermineCoverStatus(product.CoverId),
-                DiamondStatus = "Available",
+                DiamondStatus = product.Diamond.Status,
                 ProductName = product.ProductName,
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
