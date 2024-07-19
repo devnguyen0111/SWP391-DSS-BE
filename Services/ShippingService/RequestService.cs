@@ -1,5 +1,6 @@
 ﻿using Model.Models;
 using Repository.Shippings;
+using Repository.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,20 +14,30 @@ namespace Services.ShippingService
     public class RequestService : IRequestService
     {
         private readonly IRequestRepository _requestRepository;
+        private readonly ISaleStaffRepository _saleStaffRepository;
 
-        public RequestService(IRequestRepository requestRepository)
+        public RequestService(IRequestRepository requestRepository, ISaleStaffRepository saleStaffRepository)
         {
             _requestRepository = requestRepository;
+            _saleStaffRepository = saleStaffRepository;
         }
 
         public async Task<Request> CreateRequestAsync(CreateRequestDto requestDto)
         {
+            var saleStaff = _saleStaffRepository.GetSaleStaffById(requestDto.SStaffId);
+            if (saleStaff == null)
+            {
+                // Handle the case where the saleStaff is not found
+                throw new InvalidOperationException("Sale staff not found.");
+            }
+            var managerId = saleStaff.ManagerId;
+
             var request = new Request
             {
                 Title = requestDto.Title,
                 Context = requestDto.Context,
                 SStaffId = requestDto.SStaffId,
-                ManId = requestDto.ManId,
+                ManId = managerId ?? 3,            //manager 3
                 OrderId = requestDto.OrderId,
                 RequestedDate = DateTime.UtcNow,
                 RequestStatus = "Pending",

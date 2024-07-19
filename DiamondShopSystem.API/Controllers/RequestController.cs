@@ -1,7 +1,9 @@
 ﻿using DiamondShopSystem.API.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Model.Models;
+using Repository.Users;
 using Services.ShippingService;
+using Services.Users;
 using static Repository.Shippings.RequestRepository;
 
 namespace DiamondShopSystem.API.Controllers
@@ -11,19 +13,21 @@ namespace DiamondShopSystem.API.Controllers
     public class RequestsController : ControllerBase
     {
         private readonly IRequestService _requestService;
+        private readonly ISaleStaffRepository _saleStaffRepository;
 
-        public RequestsController(IRequestService requestService)
+        public RequestsController(IRequestService requestService, ISaleStaffRepository saleStaffRepository)
         {
             _requestService = requestService;
+            _saleStaffRepository = saleStaffRepository;
         }
-        
+
         [HttpGet("requests")]
         public async Task<IActionResult> GetAllRequests()
         {
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
-                return Ok( requests.Select(r => new RequestDetail
+                return Ok(requests.Select(r => new RequestDetail
                 {
                     RequestId = r.RequestId,
                     Title = r.Title,
@@ -51,17 +55,17 @@ namespace DiamondShopSystem.API.Controllers
                 return Ok(requests
                     .Where(r => r.SStaffId == userId || r.ManId == userId)
                     .Select(r => new RequestDetail
-                {
-                    RequestId = r.RequestId,
-                    Title = r.Title,
-                    ProcessStatus = r.ProcessStatus,
-                    RequestedDate = r.RequestedDate,
-                    RequestStatus = r.RequestStatus,
-                    Context = r.Context,
-                    ManId = r.ManId,
-                    OrderId = r.OrderId,
-                    SStaffId = r.SStaffId
-                }));
+                    {
+                        RequestId = r.RequestId,
+                        Title = r.Title,
+                        ProcessStatus = r.ProcessStatus,
+                        RequestedDate = r.RequestedDate,
+                        RequestStatus = r.RequestStatus,
+                        Context = r.Context,
+                        ManId = r.ManId,
+                        OrderId = r.OrderId,
+                        SStaffId = r.SStaffId
+                    }));
             }
             catch (Exception e)
             {
@@ -95,7 +99,7 @@ namespace DiamondShopSystem.API.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateRequest([FromBody] CreateRequestDto requestDto)
+        public async Task<IActionResult> CreateRequest([FromBody] CreateRequest requestDto)
         {
             try
             {
@@ -105,18 +109,22 @@ namespace DiamondShopSystem.API.Controllers
                 }
                 else
                 {
-                    var request = await _requestService.CreateRequestAsync(requestDto);
+                    CreateRequestDto createRequestDto = new CreateRequestDto
+                    {
+
+                        Context = requestDto.Context,
+                        ManId = _saleStaffRepository.GetSaleStaffById(requestDto.SStaffId).ManagerId,
+                        OrderId = requestDto.OrderId,
+                        SStaffId = requestDto.SStaffId,
+                        Title = requestDto.Title
+                    };
+
+
+                    var request = await _requestService.CreateRequestAsync(createRequestDto);
                     return Ok(new
                     {
                         message = "Request created successfully",
-                        CreateRequestDto = new CreateRequestDto
-                        {
-                            Title = request.Title,
-                            Context = request.Context,
-                            ManId = request.ManId,
-                            OrderId = request.OrderId,
-                            SStaffId = request.SStaffId
-                        }
+                        createRequestDto
                     });
                 }
             }
@@ -160,6 +168,6 @@ namespace DiamondShopSystem.API.Controllers
             }
         }
 
-        
+
     }
 }

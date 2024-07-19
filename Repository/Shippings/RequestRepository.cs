@@ -1,11 +1,6 @@
 ﻿using DAO;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repository.Shippings
 {
@@ -50,7 +45,7 @@ namespace Repository.Shippings
             public string Title { get; set; }
             public string Context { get; set; }
             public int SStaffId { get; set; }
-            public int ManId { get; set; }
+            public int? ManId { get; set; }
             public int OrderId { get; set; }
         }
     }
