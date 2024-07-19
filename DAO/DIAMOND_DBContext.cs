@@ -581,11 +581,8 @@ public partial class DIAMOND_DBContext : DbContext
 
         modelBuilder.Entity<Request>(entity =>
         {
-<<<<<<< Updated upstream
             entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE31773031DD");
-=======
-            entity.HasKey(e => e.RequestId).HasName("PK__Request__E3C5DE311E6E00A2");
->>>>>>> Stashed changes
+
 
             entity.ToTable("Request");
 
@@ -621,29 +618,20 @@ public partial class DIAMOND_DBContext : DbContext
             entity.HasOne(d => d.Man).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.ManId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-<<<<<<< Updated upstream
                 .HasConstraintName("FK__Request__manId__2CF2ADDF");
-=======
-                .HasConstraintName("FK__Request__manId__30C33EC3");
->>>>>>> Stashed changes
+
 
             entity.HasOne(d => d.Order).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-<<<<<<< Updated upstream
                 .HasConstraintName("FK__Request__orderId__2DE6D218");
-=======
-                .HasConstraintName("FK__Request__orderId__31B762FC");
->>>>>>> Stashed changes
+
 
             entity.HasOne(d => d.SStaff).WithMany(p => p.Requests)
                 .HasForeignKey(d => d.SStaffId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-<<<<<<< Updated upstream
                 .HasConstraintName("FK__Request__sStaffI__2BFE89A6");
-=======
-                .HasConstraintName("FK__Request__sStaffI__2FCF1A8A");
->>>>>>> Stashed changes
+
         });
 
         modelBuilder.Entity<Review>(entity =>
