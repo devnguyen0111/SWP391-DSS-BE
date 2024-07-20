@@ -85,14 +85,14 @@ namespace DiamondShopSystem.API.Controllers
                             order.Status = "Paid";
                             _vnPayRepository.SaveOrder(order);
                             //return Redirect("https://www.google.com/"); // Redirect to success page
-                            return Redirect("http://localhost:5173/order-successful");
+                            return Redirect("https://cosmodiamond.xyz/order-successful");
                         }
                         else
                         {
                             order.Status = "Failed";
                             _vnPayRepository.SaveOrder(order);
                             //return Redirect("https://www.youtube.com/"); // Redirect to failure page
-                            return Redirect("http://localhost:5173/order-fail");
+                            return Redirect("https://cosmodiamond.xyz/order-fail");
                         }
                     }
                 }
