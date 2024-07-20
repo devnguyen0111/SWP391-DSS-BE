@@ -296,7 +296,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             product.Status = "Available";
             _productService.AddProduct(product);
-            return Ok(product);
+            return Ok(product.ProductId);
         }
         //
         [HttpPut]
