@@ -95,6 +95,7 @@ namespace Services.Utility
         }
         public void UpdateDiamondStatus(int diamondId, string newStatus)
         {
+
             _status.UpdateDiamondStatus(diamondId, newStatus);
         }
     }

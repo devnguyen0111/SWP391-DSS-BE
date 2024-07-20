@@ -63,6 +63,7 @@ namespace DiamondShopSystem.API.Controllers
         {
             var diamond1 = new Diamond
             {
+                DiamondId = id,
                 DiamondName = diamond.DiamondName,
                 CaratWeight = diamond.CaratWeight,
                 Clarity = diamond.Clarity,
@@ -88,7 +89,7 @@ namespace DiamondShopSystem.API.Controllers
                 }
             }
 
-            return NoContent();
+            return Ok(id);
         }
 
         [HttpDelete("{id}")]
