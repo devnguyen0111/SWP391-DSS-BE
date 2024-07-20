@@ -29,7 +29,7 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
-                if(requests == null)
+                if (requests == null)
                 {
                     return BadRequest("There are not any Requests!!");
                 }
@@ -60,7 +60,7 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 var requests = await _requestService.GetAllRequestsAsync();
-                if(requests == null)
+                if (requests == null)
                 {
                     return BadRequest("There are not any requess for that specific user " + userId);
                 }
@@ -76,7 +76,7 @@ namespace DiamondShopSystem.API.Controllers
                         Context = r.Context,
                         ManId = r.ManId,
                         OrderId = r.OrderId,
-                        OrderStatus =  _orderRepository.GetOrderByOrderId(r.OrderId).Status,
+                        OrderStatus = _orderRepository.GetOrderByOrderId(r.OrderId).Status,
                         SStaffId = r.SStaffId
                     }));
             }
@@ -123,17 +123,8 @@ namespace DiamondShopSystem.API.Controllers
             try
             {
                 Request request = await _requestService.GetRequestDetailByOrderIdAsync(requestDto.OrderId);
-                if (request.ProcessStatus == "Pending")
-                {
-                    return BadRequest("This Order has already had a request, please wait for it to be completed");
-                }
 
-                if (request.ProcessStatus == "Completed" && request.RequestStatus == "Approved")
-                {
-                    return BadRequest("This Order has been Approved to be " + request.Title);
-                }
-
-                if (request == null || (request.ProcessStatus == "Completed" && request.RequestStatus == "Rejected"))
+                if (request == null)
                 {
                     CreateRequestDto createRequestDto = new CreateRequestDto
                     {
@@ -152,10 +143,42 @@ namespace DiamondShopSystem.API.Controllers
                         message = "Request created successfully",
                         createRequestDto
                     });
-                } else
-                {
-                    return BadRequest("There is something wrong");
                 }
+
+                if (request.ProcessStatus == "Pending")
+                {
+                    return BadRequest("This Order has already had a request, please wait for it to be completed");
+                }
+
+                if (request.ProcessStatus == "Completed" && request.RequestStatus == "Approved")
+                {
+                    return BadRequest("This Order has been Approved to be " + request.Title);
+                }
+
+                if (request.ProcessStatus == "Completed" && request.RequestStatus == "Rejected")
+                {
+                    CreateRequestDto createRequestDto = new CreateRequestDto
+                    {
+
+                        Context = requestDto.Context,
+                        ManId = _saleStaffRepository.GetSaleStaffById(requestDto.SStaffId).ManagerId,
+                        OrderId = requestDto.OrderId,
+                        SStaffId = requestDto.SStaffId,
+                        Title = requestDto.Title
+                    };
+
+
+                    var tempRequest = await _requestService.CreateRequestAsync(createRequestDto);
+                    return Ok(new
+                    {
+                        message = "Request created successfully",
+                        createRequestDto
+                    });
+
+                }
+
+                return BadRequest("Something went wrong");
+
             }
             catch (Exception e)
             {
