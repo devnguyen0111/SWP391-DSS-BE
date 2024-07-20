@@ -101,8 +101,8 @@ https://github.com/user-attachments/assets/8e1c945b-b293-41c1-9b46-d50939162222
 
 <details>
 <summary>POSTMAN test link</summary>
-Hồng Phúc: https://documenter.getpostman.com/view/34783658/2sA3kUFMCi
-Minh Long: 
+Hồng Phúc: https://documenter.getpostman.com/view/34783658/2sA3kUFMCi <br/>
+Minh Long: https://documenter.getpostman.com/view/32101451/2sA3kUGMiq
 </details>
  
 | Sprint | UC |
