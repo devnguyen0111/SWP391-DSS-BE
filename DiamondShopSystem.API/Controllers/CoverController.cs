@@ -395,5 +395,11 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(true);
         }
+        [HttpPost("createInventory")]
+        public IActionResult CreateInventory(int coverId,int quantity)
+        {
+            _coverInventoryService.CreateInventoryForCover(coverId,quantity);
+            return Ok(_coverInventoryService.GetInventoriesByCoverId(coverId));
+        }
     }
 }

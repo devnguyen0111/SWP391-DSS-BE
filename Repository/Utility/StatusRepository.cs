@@ -439,14 +439,14 @@ namespace Repository.Utility
         public (bool CanChange, string Reason) CanChangeDiamondStatus(Diamond diamond)
         {
             bool huh = _context.ProductOrders
-                .Any(po => po.Product.DiamondId == diamond.DiamondId && po.Order.Status != "Cancelled ");
+                .Any(po => po.Product.DiamondId == diamond.DiamondId);
             if (huh)
             {
-                return (huh, "Diamond is already bought");
+                return (!huh, "Diamond is already bought");
             }
             else
             {
-                return (!huh, "You can change this fr");
+                return (huh, "You can change this fr");
             }
         }
     }
