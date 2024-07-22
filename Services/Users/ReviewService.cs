@@ -34,5 +34,9 @@ namespace Services.Users
         {
             return _reviewRepository.DeleteReview(reviewId);
         }
+        public List<Review> getAll()
+        {
+            return _reviewRepository.getAll();
+        }
     }
 }
