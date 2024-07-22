@@ -352,7 +352,7 @@ namespace DiamondShopSystem.API.Controllers
                     url = firstCoverMetaltype?.ImgUrl
                 };
             });
-            int totalCover = _coverService.GetAllCovers().Count();
+            int totalCover = filteredCovers1.Count();
             if (!string.IsNullOrEmpty(sortOrder))
             {
                 filteredCovers1 = sortOrder.ToLower() == "desc" ?
