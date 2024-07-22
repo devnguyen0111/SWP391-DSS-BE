@@ -80,7 +80,7 @@ namespace DiamondShopSystem.API.Controllers
                 DiamondName = product.Diamond.DiamondName,
                 CoverName = product.Cover.CoverName,
                 MetaltypeName = product.Metaltype.MetaltypeName,
-                SizeName = _sizeService.GetSizeById(product.SizeId).SizeName,
+                SizeName = _sizeService.GetSizeById(product.SizeId).SizeValue,
                 coverPrice = product.Cover.UnitPrice+_metaltypeService.GetMetaltypeById(product.MetaltypeId).MetaltypePrice+_sizeService.GetSizeById(product.SizeId).SizePrice,
                 diamondPrice = product.Diamond.Price,
                 carat = product.Diamond.CaratWeight,
@@ -197,22 +197,24 @@ namespace DiamondShopSystem.API.Controllers
         //_coverMetaltypeService.GetCoverMetaltype(c.ProductId, c.MetaltypeId).ImgUrl
         //https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567
         [HttpGet("getFilterOption")]
-        public IActionResult getFilterOption(string category)
+        public IActionResult getFilterOption(int category)
         {
-            var Metal = _metaltypeService.GetAllMetaltypes().Select(mt =>
+            var Metal = _metaltypeService.getMetalTypeByCate(category).Select(mt =>
             {
                 return new metaltypeFilter
                 {
-                    id = mt.MetaltypeId,
-                    value = mt.MetaltypeName,
+                    id = mt,
+                    value = _metaltypeService.GetMetaltypeById(mt).MetaltypeName,
+                    status = "Available",
                 };
             }).ToList();
-            var Sizes = _sizeService.GetAllSizes().Where(c => c.SizeName.Contains(category)).Select(s =>
+            var Sizes = _sizeService.getSizeByCate(category).Select(s =>
             {
                 return new sizeFilter
                 {
-                    id = s.SizeId,
-                    value = s.SizeValue,
+                    id = s,
+                    value = _sizeService.GetSizeById(s).SizeValue,
+                    status = "Available",
                 };
             }).ToList();
             var Shape = new List<string> {"Round","Princess","Emerald","Asscher","Cushion","Marquise","Radiant","Oval","Pear","Heart"};

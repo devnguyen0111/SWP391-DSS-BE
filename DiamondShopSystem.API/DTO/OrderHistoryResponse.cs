@@ -1,4 +1,6 @@
-﻿namespace DiamondShopSystem.API.DTO
+﻿using Model.Models;
+
+namespace DiamondShopSystem.API.DTO
 {
     public class OrderHistoryResponse
     {
@@ -7,6 +9,9 @@
         public string Status { get; set; }
         public decimal TotalAmount { get; set; }
         public string ShippingMethodName { get; set; }
+        public string Name {  get; set; }
+        public string PhoneNumber { get; set; }
+        public string Address { get; set; }
         public List<OrderHistoryItem>? Items { get; set; }
 
         public OrderHistoryResponse()

@@ -87,6 +87,7 @@ namespace DiamondShopSystem.API.Controllers
                         labor = (decimal)c.Product.UnitPrice,
                         coverId = c.Product.CoverId,
                         diamondId = c.Product.DiamondId,
+                        status = c.Product.Status,
                     };
                 }).ToList();
             
