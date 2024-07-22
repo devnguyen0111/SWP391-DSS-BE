@@ -61,7 +61,7 @@ namespace Services.Products
         {
             return _productRepository.GetMostOrderedProductsBySubCategory(count, subcate);
         }
-        public List<Product> FilterProducts(
+        public IEnumerable<Product> FilterProducts(
       int? categoryId = null,
       int? subCategoryId = null,
       int? metaltypeId = null,
@@ -73,34 +73,34 @@ namespace Services.Products
 
             if (categoryId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value);
             }
 
             if (subCategoryId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value);
             }
 
             if (metaltypeId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value);
             }
 
             if (sizeId.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value);
             }
 
             if (minPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.UnitPrice >= minPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.UnitPrice >= minPrice.Value);
             }
 
             if (maxPrice.HasValue)
             {
-                filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value).ToList();
+                filteredProducts = filteredProducts.Where(p => p.UnitPrice <= maxPrice.Value);
             }
-            return filteredProducts.ToList();
+            return filteredProducts;
         }
         //    public List<Product> FilterProductsAd(
         //int? categoryId = null,
@@ -186,7 +186,7 @@ namespace Services.Products
 
         //        return filteredProducts;
         //    }
-        public List<Product> FilterProductsAd(
+        public IEnumerable<Product> FilterProductsAd(
         int? categoryId = null,
         int? subCategoryId = null,
         int? metaltypeId = null,
@@ -266,7 +266,7 @@ namespace Services.Products
                     .Take(pageSize.Value);
             }
 
-            return filteredProducts.Where(c => c.Pp != "custom").ToList();
+            return filteredProducts.Where(c => c.Pp != "custom");
         }
 
 

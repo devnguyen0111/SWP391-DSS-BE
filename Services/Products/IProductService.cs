@@ -8,7 +8,7 @@ namespace Services.Products
         List<Product> GetAllProducts();
         Product GetProductById(int productId);
         List<ProductQuantity> getMostSaleProduct(int count, int subcate);
-         List<Product> FilterProducts(
+        IEnumerable<Product> FilterProducts(
         int? categoryId = null,
         int? subCategoryId = null,
         int? metaltypeId = null,
@@ -16,7 +16,7 @@ namespace Services.Products
         decimal? minPrice = null,
         decimal? maxPrice = null
         );
-        List<Product> FilterProductsAd(
+        IEnumerable<Product> FilterProductsAd(
     int? categoryId = null,
     int? subCategoryId = null,
     int? metaltypeId = null,
