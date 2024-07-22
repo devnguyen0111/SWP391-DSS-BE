@@ -10,5 +10,6 @@ namespace Services.Users
         public Review UpdateReview(Review review);
 
         public Review DeleteReview(int reviewId);
+        List<Review> getAll();
     }
 }

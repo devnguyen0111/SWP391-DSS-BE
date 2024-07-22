@@ -22,6 +22,16 @@ namespace Repository.Users
             }
             return reviews;
         }
+        public List<Review> getAll()
+        {
+            //check if no review for the product return no review for this product
+            var reviews = _dbContext.Reviews.Include(c => c.Cus).Include(c => c.Product).ToList();
+            if (reviews.Count == 0)
+            {
+                return null;
+            }
+            return reviews;
+        }
         public bool HasReview(int productId, int customerId)
         {
             return _dbContext.Reviews.Any(r => r.ProductId == productId && r.CusId == customerId);
