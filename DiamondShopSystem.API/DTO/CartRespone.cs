@@ -32,6 +32,7 @@
         public decimal labor {  get; set; }
         public int coverId { get; set; }
         public int diamondId { get; set; }
+        public string? status {  get; set; }
         public CartItemRespone()
         {
         }
