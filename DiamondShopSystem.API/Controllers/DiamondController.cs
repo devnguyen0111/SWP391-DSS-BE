@@ -190,7 +190,7 @@ namespace DiamondShopSystem.API.Controllers
                 diamonds = diamonds.Where(d => d.Price <= maxPrice.Value);
             }
 
-            int totalDiamonds = diamonds.Count();
+            int totalDiamond = diamonds.Count();
 
             // Sort the filtered diamonds based on price and order
             if (!string.IsNullOrEmpty(sortOrder) && sortOrder.ToLower() == "desc")
@@ -210,7 +210,7 @@ namespace DiamondShopSystem.API.Controllers
 
             var result = new
             {
-                totalDiamonds,
+                totalDiamond,
                 Diamonds = paginatedDiamonds
             };
 
@@ -290,7 +290,7 @@ namespace DiamondShopSystem.API.Controllers
                 diamonds = diamonds.Where(d => d.Price <= maxPrice.Value);
             }
 
-            int totalDiamonds = diamonds.Count();
+            int totalDiamond = diamonds.Count();
 
             // Sort the filtered diamonds based on price and order
             if (!string.IsNullOrEmpty(sortOrder) && sortOrder.ToLower() == "desc")
@@ -310,7 +310,7 @@ namespace DiamondShopSystem.API.Controllers
 
             var result = new
             {
-                totalDiamonds,
+                totalDiamond,
                 Diamonds = paginatedDiamonds
             };
 

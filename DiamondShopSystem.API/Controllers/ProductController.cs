@@ -6,6 +6,7 @@ using Services.Diamonds;
 using Services.OtherServices;
 using Services.Products;
 using System.Linq;
+using System.Reflection;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -114,7 +115,7 @@ namespace DiamondShopSystem.API.Controllers
             }).ToList();
             return Ok(productRequest);
         }
-       
+
         [HttpGet("getFilteredProductAd")]
         public IActionResult GetFilteredProducts(
     [FromQuery] int? categoryId,
@@ -132,12 +133,17 @@ namespace DiamondShopSystem.API.Controllers
     [FromQuery] int? diamondCode
             )
         {
-
             int totalProduct;
-            IEnumerable<ProductRequest> filteredProducts;
-            if (diamondCode != null)
+            var filteredProducts = _productService.GetAllProducts().Where(c => c.Status == "Available" && c.Pp!="custom");
+            var filteredProducts1 = new List<ProductRequest>();
+            if (diamondCode.HasValue)
             {
-                filteredProducts = _productService.GetAllProducts().Where(c => c.Pp!="custom" && c.DiamondId==diamondCode).Select(c =>
+                filteredProducts = filteredProducts.Where(c => c.DiamondId == diamondCode);
+                if(filteredProducts.Count()==0)
+                {
+                    return Ok(new { filteredProducts1, totalProduct = 0 });
+                }
+                filteredProducts1 = filteredProducts.Select(c =>
                 {
                     return new ProductRequest
                     {
@@ -146,33 +152,83 @@ namespace DiamondShopSystem.API.Controllers
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
-                });
-                return Ok(new { filteredProducts, totalProduct=1});
+                }).ToList();
+                return Ok(new { filteredProducts1, totalProduct=1 });
             }
-            filteredProducts = _productService.FilterProductsAd(
-                categoryId,
-                subCategoryId,
-                metaltypeId,
-                sizeId,
-                minPrice,
-                maxPrice,
-                sortOrder,
-                sizeIds,
-                metaltypeIds,
-                diamondShapes,
-                pageNumber,
-                pageSize).Select(c =>
-                {
-                    return new ProductRequest
-                    {
-                        ProductId = c.ProductId,
-                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId)?.ImgUrl ?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
-                        ProductName = c.ProductName,
-                        UnitPrice = _productService.GetProductTotal(c.ProductId),
-                    };
-                });
+            if (categoryId.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(p => p.Cover.CategoryId == categoryId.Value);
+            }
 
-            return Ok(new { filteredProducts, totalProduct = filteredProducts.Count() });
+            if (subCategoryId.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(p => p.Cover.SubCategoryId == subCategoryId.Value);
+            }
+
+            if (metaltypeId.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(p => p.Metaltype.MetaltypeId == metaltypeId.Value);
+            }
+
+            if (sizeId.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(p => p.Size.SizeId == sizeId.Value);
+            }
+
+            if (sizeIds != null && sizeIds.Any())
+            {
+                filteredProducts = filteredProducts.Where(p => sizeIds.Contains(p.Size.SizeId));
+            }
+
+            if (metaltypeIds != null && metaltypeIds.Any())
+            {
+                filteredProducts = filteredProducts.Where(p => metaltypeIds.Contains(p.Metaltype.MetaltypeId));
+            }
+
+            if (diamondShapes != null && diamondShapes.Any())
+            {
+                filteredProducts = filteredProducts.Where(p => diamondShapes.Contains(p.Diamond.Shape));
+            }
+
+            if (minPrice.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                filteredProducts = filteredProducts.Where(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price <= maxPrice.Value);
+            }
+
+            if (sortOrder != null)
+            {
+                if (sortOrder.Equals("asc"))
+                {
+                    filteredProducts = filteredProducts.OrderBy(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price);
+                }
+                else
+                {
+                    filteredProducts = filteredProducts.OrderByDescending(c => c.Cover.UnitPrice + c.UnitPrice + c.Diamond.Price);
+                }
+            }
+             totalProduct = filteredProducts.Count();    
+            if (pageNumber.HasValue && pageSize.HasValue)
+            {
+                filteredProducts = filteredProducts
+                    .Skip((pageNumber.Value - 1) * pageSize.Value)
+                    .Take(pageSize.Value);
+            }
+             filteredProducts1 = filteredProducts.Select(c =>
+            {
+                return new ProductRequest
+                {
+                    ProductId = c.ProductId,
+                    imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId)?.ImgUrl ?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                    ProductName = c.ProductName,
+                    UnitPrice = _productService.GetProductTotal(c.ProductId),
+                };
+            }).ToList();
+            return Ok(new { filteredProducts1, totalProduct });
         }
         [HttpGet("getFilteredProductAdManager")]
         public IActionResult GetFilteredProducts123(
