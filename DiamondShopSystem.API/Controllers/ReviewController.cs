@@ -15,14 +15,29 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IReviewService _reviewService;
         private readonly IProductService _productService;
         private readonly ICustomerService _customerService;
-
-        public ReviewController(IReviewService reviewService, ICustomerService customerService, IProductService productService)
+        private readonly ICoverMetaltypeService _coverMetaltypeService;
+        public ReviewController(IReviewService reviewService, ICustomerService customerService, IProductService productService, ICoverMetaltypeService coverMetaltypeService)
         {
             _reviewService = reviewService;
             _customerService = customerService;
             _productService = productService;
+            _coverMetaltypeService = coverMetaltypeService;
         }
-
+        [HttpGet("GetAllFeedback")]
+        public IActionResult getall()
+        {
+            var all = _reviewService.getAll();
+            var feedback = all.Select(c => new FeebackDTO
+            {
+                cusName = c.Cus.CusLastName + c.Cus.CusFirstName,
+                productName = c.Product.ProductName,
+                imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.Product.CoverId, c.Product.MetaltypeId).ImgUrl,
+                datePost = (DateOnly)c.ReviewDate,
+                feedback = c.Review1,
+                ratings = (decimal)c.Rating
+            }) ;
+            return Ok(feedback);
+        }
         [HttpGet("getReviewByProduct")]
         public IActionResult GetReviewByProduct(int productId)
         {

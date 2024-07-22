@@ -10,5 +10,6 @@ namespace Repository.Users
         public Review UpdateReview(Review review);
         bool HasReview(int productId, int customerId);
         public Review DeleteReview(int reviewId);
+        List<Review> getAll();
     }
 }
