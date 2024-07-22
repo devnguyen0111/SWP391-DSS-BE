@@ -80,7 +80,7 @@ namespace DiamondShopSystem.API.Controllers
             decimal totalAmount = 0;
             foreach(Order order in orders)
             {
-                if(order.OrderDate.Day == DateTime.Now.Day)
+                if(order.OrderDate.Day == DateTime.Now.Day && order.Status == "Delivered" || order.Status == "Shipping" || order.Status == "Paid")
                 {
                     count++;
                     totalAmount += order.TotalAmount;
@@ -130,16 +130,16 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult OrderCheckStatus()
         {
             List<Order> orders = _orderService.getAllOrders();
-            int processing = 0;
+            int pending = 0;
             int shipping = 0;
             int delivered = 0;
             int cancelled = 0;
             int paid = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Processing")
+                if (order.Status == "Pending")
                 {
-                    processing++;
+                    pending++;
                 }
                 else if (order.Status == "Shipping")
                 {
@@ -161,7 +161,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(new
             {
-                Processing = processing,
+                Processing = pending,
                 Shipping = shipping,
                 Delivered = delivered,
                 Cancelled = cancelled,
@@ -179,7 +179,7 @@ namespace DiamondShopSystem.API.Controllers
             int earrings = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Paid" || order.Status == "Pending" || order.Status == "Delivered" || order.Status == "Processing")
+                if (order.Status == "Delivered")
                 {
                     foreach (ProductOrder productOrder in order.ProductOrders)
                     {
@@ -219,7 +219,7 @@ namespace DiamondShopSystem.API.Controllers
                 int pendant = 0;
                 int earrings = 0;
 
-                var filteredOrders = orders.Where(o => o.OrderDate.Month == month && (o.Status == "Paid" || o.Status == "Pending" || o.Status == "Delivered"));
+                var filteredOrders = orders.Where(o => o.OrderDate.Month == month && o.Status == "Paid");
 
                 foreach (var order in filteredOrders)
                 {
