@@ -43,6 +43,23 @@ https://github.com/user-attachments/assets/8e1c945b-b293-41c1-9b46-d50939162222
 ### Necklaces
 ![neck-menu](https://github.com/user-attachments/assets/acaed5c2-5d74-4a3e-9c90-9c28724624fa)
 
+# ERD and stuff
+## note: thes are still in updating
+
+<details>
+<summary>Click for detail</summary>
+ 
+| ERD | ERD Detail |
+| --- | --- |
+| ![diamond_shop_system-ERD drawio](https://github.com/user-attachments/assets/0a3e9f80-0544-4d57-89a2-cdfc88bc29c7) | ![diamond_shop_system-ERD ( Detail ) drawio (1)](https://github.com/user-attachments/assets/36f1499f-eb01-40c3-839d-93de5cbb7c20) | 
+
+| UC Diagram |
+| --- |
+| ![diamond_shop_system-Use case Diagram drawio](https://github.com/user-attachments/assets/d288cbc1-271a-4d20-80e3-91b11a0db46d) | 
+![diamond_shop_system-Context Diagram (Data flow) drawio](https://github.com/user-attachments/assets/05bfe91d-9925-4b77-8bc0-aa91fe4937ae)
+
+</details>
+
 # Testing
 <details>
 <summary>Use Case Description</summary>
@@ -97,12 +114,7 @@ https://github.com/user-attachments/assets/8e1c945b-b293-41c1-9b46-d50939162222
 | UC-48  | Print warranty card                        | Manager / Sale Staff | Managers and Sale Staff can generate and print a warranty card.                      |
 | UC-49  | Manage dashboard                           | Admin                | Admins can manage the dashboard of the system.                                       |
 | UC-50  | Disable a user                             | Admin                | Admins can disable a customer account.                                               |
-</details>
 
-<details>
-<summary>POSTMAN test link</summary>
-Hồng Phúc: https://documenter.getpostman.com/view/34783658/2sA3kUFMCi <br/>
-Minh Long: https://documenter.getpostman.com/view/32101451/2sA3kUGMiq
 </details>
  
 | Sprint | UC |
