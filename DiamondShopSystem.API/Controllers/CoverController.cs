@@ -291,7 +291,7 @@ namespace DiamondShopSystem.API.Controllers
             IEnumerable<CoverResponse> filteredCovers1;
             if (searchString != null)
             {
-                filteredCovers1 = filteredCovers.Where(c => c.CoverName.Contains(searchString)).Select(c =>
+                filteredCovers1 = filteredCovers.Where(c => c.CoverName.ToLower().Contains(searchString.ToLower())).Select(c =>
                 {
                     var firstCoverMetaltype = c.CoverMetaltypes.FirstOrDefault();
                     return new CoverResponse
@@ -352,7 +352,7 @@ namespace DiamondShopSystem.API.Controllers
                     url = firstCoverMetaltype?.ImgUrl
                 };
             });
-            int totalCover = filteredCovers.Count();
+            int totalCover = _coverService.GetAllCovers().Count();
             if (!string.IsNullOrEmpty(sortOrder))
             {
                 filteredCovers1 = sortOrder.ToLower() == "desc" ?
