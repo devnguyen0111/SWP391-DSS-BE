@@ -149,7 +149,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     delivered++;
                 }
-                else if (order.Status == "Cancelled")
+                else if (order.Status == "Cancel")
                 {
                     cancelled++;
                 }
