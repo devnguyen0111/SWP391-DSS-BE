@@ -405,7 +405,10 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     return BadRequest("The Order can not be cancel because it exceed the limited time");
                 }
-                else 
+                else if (result == "err3")
+                {
+                    return BadRequest("There is no such User!!");
+                }else
                 {
                     var o = _orderService.GetOrderByIdAndStatus(orderId, "Cancel");
                     return Ok(new OrderHistoryResponse1
