@@ -7,6 +7,7 @@ using Services.Diamonds;
 using Services.Products;
 using Repository.Users;
 using Services.Utility;
+using System.Globalization;
 namespace DiamondShopSystem.API.Controllers
 {
     [ApiController]
@@ -69,7 +70,17 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult TotalOrders()
         {
             List<Order> orders = _orderService.getAllOrders();
-            return Ok(orders.Count);
+            // get allTotalOrders and filter not count order status "Processing"
+            int ProcessingCountOrder = orders.Count(o => o.Status != "Processing");
+            int PendingCountOrder = orders.Count(o => o.Status == "Pending");
+            int PaidCountOrder = orders.Count(o => o.Status == "Paid");
+            int ShippingCountOrder = orders.Count(o => o.Status == "Shipping");
+            int DeliveredCountOrder = orders.Count(o => o.Status == "Delivered");
+            int CancelCountOrder = orders.Count(o => o.Status == "Cancel");
+
+            // get all total except processing
+            int finalCountOrder = ProcessingCountOrder + PendingCountOrder + PaidCountOrder + ShippingCountOrder + DeliveredCountOrder + CancelCountOrder;
+            return Ok(finalCountOrder);
         }
 
         [HttpGet("TodayOrders")]
@@ -80,7 +91,7 @@ namespace DiamondShopSystem.API.Controllers
             decimal totalAmount = 0;
             foreach(Order order in orders)
             {
-                if(order.OrderDate.Day == DateTime.Now.Day)
+                if(order.OrderDate.Day == DateTime.Now.Day && order.Status == "Delivered" || order.Status == "Shipping" || order.Status == "Paid")
                 {
                     count++;
                     totalAmount += order.TotalAmount;
@@ -118,6 +129,7 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult TotalOrder()
         {
             List<Order> orders = _orderService.getAllOrders();
+           
             decimal totalAmount = 0;
             foreach (Order order in orders)
             {
@@ -130,16 +142,16 @@ namespace DiamondShopSystem.API.Controllers
         public IActionResult OrderCheckStatus()
         {
             List<Order> orders = _orderService.getAllOrders();
-            int processing = 0;
+            int pending = 0;
             int shipping = 0;
             int delivered = 0;
             int cancelled = 0;
             int paid = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Processing")
+                if (order.Status == "Pending")
                 {
-                    processing++;
+                    pending++;
                 }
                 else if (order.Status == "Shipping")
                 {
@@ -149,7 +161,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     delivered++;
                 }
-                else if (order.Status == "Cancelled")
+                else if (order.Status == "Cancel")
                 {
                     cancelled++;
                 }
@@ -161,7 +173,7 @@ namespace DiamondShopSystem.API.Controllers
             }
             return Ok(new
             {
-                Processing = processing,
+                Processing = pending,
                 Shipping = shipping,
                 Delivered = delivered,
                 Cancelled = cancelled,
@@ -179,7 +191,7 @@ namespace DiamondShopSystem.API.Controllers
             int earrings = 0;
             foreach (Order order in orders)
             {
-                if (order.Status == "Paid" || order.Status == "Pending" || order.Status == "Delivered" || order.Status == "Processing")
+                if (order.Status == "Delivered")
                 {
                     foreach (ProductOrder productOrder in order.ProductOrders)
                     {
@@ -219,7 +231,7 @@ namespace DiamondShopSystem.API.Controllers
                 int pendant = 0;
                 int earrings = 0;
 
-                var filteredOrders = orders.Where(o => o.OrderDate.Month == month && (o.Status == "Paid" || o.Status == "Pending" || o.Status == "Delivered"));
+                var filteredOrders = orders.Where(o => o.OrderDate.Month == month && (o.Status == "Paid" || o.Status == "Shipping" || o.Status == "Delivered"));
 
                 foreach (var order in filteredOrders)
                 {
@@ -240,13 +252,23 @@ namespace DiamondShopSystem.API.Controllers
                     }
                 }
 
-                monthlyConversions.Add(new
+                /*monthlyConversions.Add(new
                 {
                     Quarter = $"Month {month}",
                     Rings = rings,
                     Pendant = pendant,
                     Earrings = earrings
+                });*/
+                string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
+                monthlyConversions.Add(new
+                {
+                    Quarter = $"{monthName}",
+                    Rings = rings,
+                    Pendant = pendant,
+                    Earrings = earrings
                 });
+
+
             }
 
             return Ok(monthlyConversions);
