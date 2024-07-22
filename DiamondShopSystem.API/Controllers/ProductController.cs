@@ -5,6 +5,7 @@ using Model.Models;
 using Services.Diamonds;
 using Services.OtherServices;
 using Services.Products;
+using System.Linq;
 
 namespace DiamondShopSystem.API.Controllers
 {
@@ -127,9 +128,28 @@ namespace DiamondShopSystem.API.Controllers
     [FromQuery] int? pageSize,
     [FromQuery] List<int>? sizeIds,
     [FromQuery] List<int>? metaltypeIds,
-    [FromQuery] List<string>? diamondShapes)
+    [FromQuery] List<string>? diamondShapes,
+    [FromQuery] int? diamondCode
+            )
         {
-            var filteredProducts = _productService.FilterProductsAd(
+
+            int totalProduct;
+            IEnumerable<ProductRequest> filteredProducts;
+            if (diamondCode != null)
+            {
+                filteredProducts = _productService.GetAllProducts().Where(c => c.Pp!="custom" && c.DiamondId==diamondCode).Select(c =>
+                {
+                    return new ProductRequest
+                    {
+                        ProductId = c.ProductId,
+                        imgUrl = _coverMetaltypeService.GetCoverMetaltype(c.CoverId, c.MetaltypeId)?.ImgUrl ?? "https://firebasestorage.googleapis.com/v0/b/idyllic-bloom-423215-e4.appspot.com/o/illustration-gallery-icon_53876-27002.avif?alt=media&token=037e0d50-90ce-4dd4-87fc-f54dd3dfd567",
+                        ProductName = c.ProductName,
+                        UnitPrice = _productService.GetProductTotal(c.ProductId),
+                    };
+                });
+                return Ok(new { filteredProducts, totalProduct=1});
+            }
+            filteredProducts = _productService.FilterProductsAd(
                 categoryId,
                 subCategoryId,
                 metaltypeId,
@@ -150,9 +170,9 @@ namespace DiamondShopSystem.API.Controllers
                         ProductName = c.ProductName,
                         UnitPrice = _productService.GetProductTotal(c.ProductId),
                     };
-                }).ToList();
+                });
 
-            return Ok(filteredProducts);
+            return Ok(new { filteredProducts, totalProduct = filteredProducts.Count() });
         }
         [HttpGet("getFilteredProductAdManager")]
         public IActionResult GetFilteredProducts123(

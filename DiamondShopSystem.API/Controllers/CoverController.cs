@@ -283,10 +283,27 @@ namespace DiamondShopSystem.API.Controllers
       [FromQuery] int? pageNumber,
       [FromQuery] int ?pageSize,
     [FromQuery] List<int>? sizeIds,
-    [FromQuery] List<int>? metaltypeIds)
+    [FromQuery] List<int>? metaltypeIds,
+    [FromQuery] string? searchString)
         {
             // Fetch all covers
-            IEnumerable<Cover> filteredCovers = _coverService.GetAllCovers();
+            IEnumerable<Cover> filteredCovers = _coverService.GetAllCovers().Where(c => !StringUltis.AreEqualIgnoreCase(c.Status,"Disabled"));
+            IEnumerable<CoverResponse> filteredCovers1;
+            if (searchString != null)
+            {
+                filteredCovers1 = filteredCovers.Where(c => c.CoverName.Contains(searchString)).Select(c =>
+                {
+                    var firstCoverMetaltype = c.CoverMetaltypes.FirstOrDefault();
+                    return new CoverResponse
+                    {
+                        coverId = c.CoverId,
+                        name = c.CoverName,
+                        prices = (decimal)(c.UnitPrice),
+                        url = firstCoverMetaltype?.ImgUrl
+                    };
+                });
+                return Ok(filteredCovers1);
+            }
 
             // Apply filters
             if (!string.IsNullOrEmpty(status))
@@ -324,9 +341,8 @@ namespace DiamondShopSystem.API.Controllers
                 filteredCovers = filteredCovers.Where(c => c.CoverSizes.Any(cs => sizeIds.Contains(cs.SizeId)));
             }
 
-            var filteredCovers1 = filteredCovers.Select(c =>
+             filteredCovers1 = filteredCovers.Select(c =>
             {
-                var firstCoverSize = c.CoverSizes.FirstOrDefault();
                 var firstCoverMetaltype = c.CoverMetaltypes.FirstOrDefault();
                 return new CoverResponse
                 {
@@ -336,7 +352,7 @@ namespace DiamondShopSystem.API.Controllers
                     url = firstCoverMetaltype?.ImgUrl
                 };
             });
-
+            int totalCover = filteredCovers.Count();
             if (!string.IsNullOrEmpty(sortOrder))
             {
                 filteredCovers1 = sortOrder.ToLower() == "desc" ?
@@ -350,8 +366,9 @@ namespace DiamondShopSystem.API.Controllers
                     .Take((int)pageSize);
             }
 
-            return Ok(filteredCovers1.ToList());
+            return Ok(new { filteredCovers1, totalCover });
         }
+        
         [HttpGet("testSize")]
         public IActionResult getAllSizeByCate(int id)
         {

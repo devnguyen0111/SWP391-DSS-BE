@@ -100,7 +100,7 @@ namespace DiamondShopSystem.API.Controllers
                         }
                         else
                         {
-                            order.Status = "Failed";
+                            order.Status = "Processing";
                             _vnPayRepository.SaveOrder(order);
                             //return Redirect("https://www.youtube.com/"); // Redirect to failure page
                             return Redirect("https://cosmodiamond.xyz/order-fail");

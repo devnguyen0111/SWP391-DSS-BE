@@ -60,7 +60,7 @@ namespace DiamondShopSystem.API.Controllers
                 var orders = new List<Order>();
                 if (string.IsNullOrEmpty(status))
                 {
-                    orders = _orderService.getOrders(customerId).Where(c => StringUltis.AreEqualIgnoreCase(c.Status, "processing")).ToList();
+                    orders = _orderService.getOrders(customerId).Where(c => !StringUltis.AreEqualIgnoreCase(c.Status, "processing")).ToList();
                 }
                 else
                 {
@@ -214,7 +214,7 @@ namespace DiamondShopSystem.API.Controllers
                     OrderId = o.OrderId,
                     OrderDate = o.OrderDate,
                     Status = o.Status,
-                    ShippingMethodName = o.ShippingMethod.MethodName,
+                    ShippingMethodName = _orderService.GetShippingMethods().FirstOrDefault( c=>c.ShippingMethodId==o.ShippingMethodId).MethodName,
                     TotalAmount = o.TotalAmount,
                     Address = o.DeliveryAddress,
                     PhoneNumber = o.ContactNumber,
