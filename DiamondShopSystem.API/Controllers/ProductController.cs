@@ -426,7 +426,7 @@ namespace DiamondShopSystem.API.Controllers
                 return BadRequest("Product with these combinations already exist!");
             }
             _productService.UpdateProduct(product);
-            return Ok(product);
+            return Ok(product.ProductId);
         }
         [HttpPost("select")]
         public IActionResult SelectProductOptions([FromBody] TempProductSelection selection)
