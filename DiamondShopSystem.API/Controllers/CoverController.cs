@@ -128,7 +128,6 @@ namespace DiamondShopSystem.API.Controllers
                 CoverId = cover.CoverId,
             }).ToList();
             _coverService.AddCover(cover);
-            _coverInventoryService.CreateInventoryForCover(cover.CoverId,20);
             return Ok(cover.CoverId);
         }
         [HttpPut("BeforeUpdateCover")]

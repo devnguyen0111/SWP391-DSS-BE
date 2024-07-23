@@ -306,6 +306,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     id = mt,
                     value = _metaltypeService.GetMetaltypeById(mt).MetaltypeName,
+                    price = (decimal)_metaltypeService.GetMetaltypeById(mt).MetaltypePrice,
                     status = "Available",
                 };
             }).ToList();
@@ -315,6 +316,7 @@ namespace DiamondShopSystem.API.Controllers
                 {
                     id = s,
                     value = _sizeService.GetSizeById(s).SizeValue,
+                    prices = (decimal)_sizeService.GetSizeById(s).SizePrice,
                     status = "Available",
                 };
             }).ToList();
