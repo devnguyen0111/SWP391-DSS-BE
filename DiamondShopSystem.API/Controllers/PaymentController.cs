@@ -26,8 +26,9 @@ namespace DiamondShopSystem.API.Controllers
         private readonly IPaypalService _paypalService;
         private readonly IPaypalRepository _paypalRepository;
         private readonly IOrderService orderService;
+        private readonly ICartService cartService;
         public PaymentController(Ivnpay vnPayService, IVnPayRepository vnPayRepository, IPaypalRepository paypalRepository, IPaypalService paypalService, IConfiguration configuration, IOrderService o
-            ,IDisableService e, ICoverInventoryService d)
+            ,IDisableService e, ICoverInventoryService d, ICartService cartService)
         {
             _vnPayService = vnPayService;
             _vnPayRepository = vnPayRepository;
@@ -37,6 +38,7 @@ namespace DiamondShopSystem.API.Controllers
             orderService = o;
             _disableService = e;
             _coverInventoryService = d;
+            this.cartService = cartService;
         }
 
         [HttpPost("CreatePayment-VNPAY")]
@@ -94,6 +96,11 @@ namespace DiamondShopSystem.API.Controllers
                                 var p = item.Product;
                                 _coverInventoryService.ReduceInventoryByOne(p.CoverId, p.SizeId,p.MetaltypeId);
                                 _disableService.UpdateDiamondStatus(p.DiamondId,"Disabled");
+                            }
+                            foreach (var item in order.ProductOrders)
+                            {
+                                var p = item.Product;
+                                cartService.RemoveFromCart(order.CusId,p.ProductId);
                             }
                             //return Redirect("https://www.google.com/"); // Redirect to success page
                             return Redirect("https://cosmodiamond.xyz/order-successful");
