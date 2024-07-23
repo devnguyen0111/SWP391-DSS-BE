@@ -11,12 +11,15 @@
         public int id { get; set; }
         public string value { get; set; }
         public string status { get; set; }
+        public decimal prices { get; set; }
+
     }
     public class metaltypeFilter
     {
         public int id { get; set; }
         public string value { get; set; }
         public string status { get; set; }
+        public decimal price {  get; set; }
     }
     public class diamondShape
     {

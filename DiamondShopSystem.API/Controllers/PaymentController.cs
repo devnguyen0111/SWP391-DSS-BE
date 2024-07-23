@@ -97,10 +97,13 @@ namespace DiamondShopSystem.API.Controllers
                                 _coverInventoryService.ReduceInventoryByOne(p.CoverId, p.SizeId,p.MetaltypeId);
                                 _disableService.UpdateDiamondStatus(p.DiamondId,"Disabled");
                             }
+                            var huh = cartService.GetCartFromCus(order.CusId);
+                            var cartItems = huh.CartProducts.Select(c => c.ProductId);
                             foreach (var item in order.ProductOrders)
                             {
                                 var p = item.Product;
-                                cartService.RemoveFromCart(order.CusId,p.ProductId);
+                                if (cartItems.Contains(p.ProductId)) { cartService.RemoveFromCart(order.CusId,p.ProductId);}
+                                
                             }
                             //return Redirect("https://www.google.com/"); // Redirect to success page
                             return Redirect("https://cosmodiamond.xyz/order-successful");

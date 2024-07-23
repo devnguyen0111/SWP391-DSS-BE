@@ -7,10 +7,12 @@ namespace Services.Products
     public class CoverService : ICoverService
     {
         private readonly ICoverRepository _coverRepository;
+        private readonly ICoverInventoryRepository _coverInventoryRepository;
 
-        public CoverService(ICoverRepository coverRepository)
+        public CoverService(ICoverRepository coverRepository, ICoverInventoryRepository coverInventoryRepository)
         {
             _coverRepository = coverRepository;
+            _coverInventoryRepository = coverInventoryRepository;
         }
 
         //for customer
@@ -33,6 +35,8 @@ namespace Services.Products
         public void AddCover(Cover cover)
         {
             _coverRepository.AddCover(cover);
+            _coverInventoryRepository.CreateInventoryForCover(cover.CoverId, 20);
+
         }
 
         public void UpdateCover(Cover cover)
