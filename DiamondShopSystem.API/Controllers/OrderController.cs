@@ -196,7 +196,7 @@ namespace DiamondShopSystem.API.Controllers
         //    }
         //}
 
-                [HttpGet("getOrderDetail")]
+        [HttpGet("getOrderDetail")]
         public ActionResult<List<OrderHistoryResponse>> getOrderDetail(int orderId)
         {
             try
@@ -214,10 +214,11 @@ namespace DiamondShopSystem.API.Controllers
                     OrderId = o.OrderId,
                     OrderDate = o.OrderDate,
                     Status = o.Status,
-                    ShippingMethodName = _orderService.GetShippingMethods().FirstOrDefault( c=>c.ShippingMethodId==o.ShippingMethodId).MethodName,
+                    ShippingMethodName = _orderService.GetShippingMethods().FirstOrDefault(c => c.ShippingMethodId == o.ShippingMethodId).MethodName,
                     TotalAmount = o.TotalAmount,
                     Address = o.DeliveryAddress,
                     PhoneNumber = o.ContactNumber,
+                    Email = _customerService.getmail(o.CusId),
                     Name = _customerService.GetCustomer(o.CusId).CusFirstName + _customerService.GetCustomer(o.CusId).CusLastName,
                     Items = o.ProductOrders.Select(po => new OrderHistoryItem
                     {
