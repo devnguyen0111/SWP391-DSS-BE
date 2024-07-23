@@ -189,6 +189,8 @@ namespace DiamondShopSystem.API.Controllers
                 string status1 = _coverService.DetermineCoverStatus1(cover);
                 cover.Status = status1;
                 _coverService.UpdateCover(cover);
+                _coverInventoryService.CreateInventoryForCover(cover.CoverId, 20);
+
             }
             catch (DbUpdateConcurrencyException)
             {
