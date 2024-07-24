@@ -15,6 +15,9 @@ namespace Repository.Users
         Task UpdateOrderAsync(Order order);
         Task<string> CancelOrderAsync(int orderId, int id);
 
+        RateOfChange RateOfChange();
+        void UpdateRate(RateOfChange rate);
+
 
     }
 }

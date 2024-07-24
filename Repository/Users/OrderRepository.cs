@@ -18,6 +18,10 @@ namespace Repository.Users
             return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product).ToList();
 
         }
+        public RateOfChange RateOfChange()
+        {
+            return _context.RateOfChanges.FirstOrDefault();
+        }
         public List<Order> getOrderby(int uid, string status)
         {
             return _context.Orders.Include(c => c.ProductOrders).ThenInclude(c => c.Product)
@@ -116,5 +120,13 @@ namespace Repository.Users
             await _context.SaveChangesAsync();
             return "";
         }
+
+        public void UpdateRate(RateOfChange rate)
+        {
+            _context.RateOfChanges.Update(rate);
+            _context.SaveChanges();
+        }
+
+        
     }
 }
