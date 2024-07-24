@@ -112,7 +112,7 @@ namespace DiamondShopSystem.API.Controllers
             decimal totalAmount = 0;
             foreach (Order order in orders)
             {
-                if (order.OrderDate.Month == DateTime.Now.Month)
+                if (order.OrderDate.Month == DateTime.Now.Month && (order.Status == "Delivered" || order.Status == "Shipping" || order.Status == "Paid")) ;
                 {
                     count++;
                     totalAmount += order.TotalAmount;
@@ -252,13 +252,6 @@ namespace DiamondShopSystem.API.Controllers
                     }
                 }
 
-                /*monthlyConversions.Add(new
-                {
-                    Quarter = $"Month {month}",
-                    Rings = rings,
-                    Pendant = pendant,
-                    Earrings = earrings
-                });*/
                 string monthName = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(month);
                 monthlyConversions.Add(new
                 {
