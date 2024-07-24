@@ -153,6 +153,14 @@ namespace Services.Users
         {
             return _orderRepository.CancelOrderAsync(orderId, userId);
         }
+        public RateOfChange getRate()
+        {
+            return _orderRepository.RateOfChange();
+        }
+        public void updateRate(RateOfChange rate)
+        {
+             _orderRepository.UpdateRate(rate);
+        }
     }
     public class ProductQuantity1
     {

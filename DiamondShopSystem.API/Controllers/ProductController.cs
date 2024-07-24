@@ -134,7 +134,7 @@ namespace DiamondShopSystem.API.Controllers
             )
         {
             int totalProduct;
-            var filteredProducts = _productService.GetAllProducts().Where(c => c.Status == "Available" && c.Pp!="custom");
+            var filteredProducts = _productService.GetAllProducts().Where(c => c.Status == "Available" && c.Pp!="custom" && c.Cover.CategoryId==categoryId);
             var filteredProducts1 = new List<ProductRequest>();
             if (diamondCode.HasValue)
             {
