@@ -69,6 +69,8 @@ public partial class DIAMOND_DBContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<Voucher> Vouchers { get; set; }
+    public virtual DbSet<RateOfChange> RateOfChanges { get; set; }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -849,7 +851,20 @@ public partial class DIAMOND_DBContext : DbContext
                 .HasColumnType("money")
                 .HasColumnName("topPrice");
         });
+        modelBuilder.Entity<RateOfChange>(entity =>
+        {
+            entity.HasKey(e => e.ChangeId).HasName("PK__RateOfChange__ChangeId");
 
+            entity.ToTable("RateOfChange");
+
+            entity.Property(e => e.ChangeId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("changeId");
+
+            entity.Property(e => e.Rate)
+                .HasColumnType("decimal(18, 2)")
+                .HasColumnName("rate");
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

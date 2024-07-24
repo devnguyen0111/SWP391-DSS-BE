@@ -326,7 +326,7 @@ namespace DiamondShopSystem.API.Controllers
             Order newOrder = new Order
             {
                 OrderDate = DateTime.Now,
-                TotalAmount = totalAmount,
+                TotalAmount = Math.Round(totalAmount*_orderService.getRate().Rate),
                 Status = "Processing",
 
                 CusId = uid,
@@ -457,6 +457,10 @@ namespace DiamondShopSystem.API.Controllers
                         Country = address.Country,
                     },
                 };
+                checkoutInfo.rateOfCharge = -checkoutInfo.total + checkoutInfo.total * _orderService.getRate().Rate;
+                checkoutInfo.rateOfCharge = Math.Round(checkoutInfo.rateOfCharge);
+                checkoutInfo.subTotal = Math.Round(totalAmount);
+                checkoutInfo.total = checkoutInfo.rateOfCharge + checkoutInfo.subTotal;
 
                 return Ok(checkoutInfo);
             }
@@ -503,6 +507,17 @@ namespace DiamondShopSystem.API.Controllers
             {
                 return BadRequest(new { message = e.Message });
             }
+        }
+        [HttpGet("huh")]
+        public IActionResult getRate()
+        {
+            return Ok(_orderService.getRate());
+        }
+        [HttpPost("updateRate")]
+        public IActionResult updateHuh(RateOfChange huh)
+        {
+            _orderService.updateRate(huh);
+            return Ok(_orderService.getRate());
         }
 
         //[HttpGet]

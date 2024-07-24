@@ -14,6 +14,8 @@ namespace Services.Users
         List<ShippingMethod> GetShippingMethods();
         public Order GetOrderByIdAndStatus(int orderId, string status);
         Task<string> CancelOrderAsync(int orderId, int userId);
+        void updateRate(RateOfChange rate);
+        RateOfChange getRate();
 
 
     }

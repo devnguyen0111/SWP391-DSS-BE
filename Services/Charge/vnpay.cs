@@ -67,8 +67,9 @@ namespace Services.Charge
             returnUrl = "https://dss-api.azurewebsites.net/api/Payment/PaymentReturn-VNPAY";
 
             var vnPay = new VnPayLibrary();
+            var amount = (long)Math.Round(order.TotalAmount * 2300000);
 
-            vnPay.AddRequestData("vnp_Amount", ((int)order.TotalAmount*250000).ToString());
+            vnPay.AddRequestData("vnp_Amount", (amount).ToString());
             vnPay.AddRequestData("vnp_Command", "pay");
             vnPay.AddRequestData("vnp_CreateDate", DateTime.Now.ToString("yyyyMMddHHmmss"));
             vnPay.AddRequestData("vnp_CurrCode", "VND");
