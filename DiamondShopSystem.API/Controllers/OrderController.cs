@@ -326,7 +326,7 @@ namespace DiamondShopSystem.API.Controllers
             Order newOrder = new Order
             {
                 OrderDate = DateTime.Now,
-                TotalAmount = totalAmount,
+                TotalAmount = Math.Round(totalAmount*_orderService.getRate().Rate),
                 Status = "Processing",
 
                 CusId = uid,
