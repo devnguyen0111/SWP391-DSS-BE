@@ -217,6 +217,106 @@ namespace DiamondShopSystem.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("ForManager1")]
+        public IActionResult GetDiamonds123(
+    [FromQuery] string? sortBy,
+    [FromQuery] List<string>? clarityRange,
+    [FromQuery] List<string>? colorRange,
+    [FromQuery] List<string>? cutRange,
+    [FromQuery] decimal? minCaratWeight,
+    [FromQuery] decimal? maxCaratWeight,
+    [FromQuery] decimal? minPrice,
+    [FromQuery] decimal? maxPrice,
+    [FromQuery] string? sortOrder,
+    [FromQuery] int? diamondCode,
+    [FromQuery] int pageNumber = 1,
+    [FromQuery] int pageSize = 10
+    )
+        {
+            var diamonds = _diamondService.GetAllDiamonds().AsEnumerable();
+
+            // Filter by diamond code if provided
+            if (diamondCode.HasValue)
+            {
+                var singleDiamond = diamonds.FirstOrDefault(d => d.DiamondId == diamondCode.Value);
+                if (singleDiamond == null)
+                {
+                    return NotFound(new { Message = "Diamond with the given code not found." });
+                }
+                return Ok(new
+                {
+                    totalDiamonds = 1,
+                    Diamonds = new List<Diamond> { singleDiamond }
+                });
+            }
+
+            // Apply filters based on the provided criteria
+            if (!string.IsNullOrEmpty(sortBy))
+            {
+                diamonds = diamonds.Where(d => StringUltis.AreEqualIgnoreCase(d.Shape, sortBy));
+            }
+
+            if (clarityRange != null && clarityRange.Any())
+            {
+                diamonds = diamonds.Where(d => clarityRange.Contains(d.Clarity));
+            }
+
+            if (colorRange != null && colorRange.Any())
+            {
+                diamonds = diamonds.Where(d => colorRange.Contains(d.Color));
+            }
+
+            if (cutRange != null && cutRange.Any())
+            {
+                diamonds = diamonds.Where(d => cutRange.Contains(d.Cut));
+            }
+
+            if (minCaratWeight.HasValue)
+            {
+                diamonds = diamonds.Where(d => d.CaratWeight >= minCaratWeight.Value);
+            }
+
+            if (maxCaratWeight.HasValue)
+            {
+                diamonds = diamonds.Where(d => d.CaratWeight <= maxCaratWeight.Value);
+            }
+
+            if (minPrice.HasValue)
+            {
+                diamonds = diamonds.Where(d => d.Price >= minPrice.Value);
+            }
+
+            if (maxPrice.HasValue)
+            {
+                diamonds = diamonds.Where(d => d.Price <= maxPrice.Value);
+            }
+
+            int totalDiamond = diamonds.Count();
+
+            // Sort the filtered diamonds based on price and order
+            if (!string.IsNullOrEmpty(sortOrder) && sortOrder.ToLower() == "desc")
+            {
+                diamonds = diamonds.OrderByDescending(d => d.Price);
+            }
+            else
+            {
+                diamonds = diamonds.OrderBy(d => d.Price);
+            }
+
+            // Pagination
+            var paginatedDiamonds = diamonds
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToList();
+
+            var result = new
+            {
+                totalDiamond,
+                Diamonds = paginatedDiamonds
+            };
+
+            return Ok(result);
+        }
         [HttpGet("ForManager")]
         public IActionResult GetDiamonds1(
     [FromQuery] string sortBy,

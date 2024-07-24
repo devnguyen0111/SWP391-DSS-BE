@@ -440,13 +440,15 @@ namespace Repository.Utility
         {
             bool huh = _context.ProductOrders
                 .Any(po => po.Product.DiamondId == diamond.DiamondId);
+            //po.Order.Status != "Cancel"
+            //
             if (huh)
             {
                 return (!huh, "Diamond is already bought");
             }
             else
             {
-                return (huh, "You can change this fr");
+                return (huh, "You can change this diamond");
             }
         }
     }
